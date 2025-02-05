@@ -40,7 +40,7 @@ function Main() {
                                                 }}
                                             >
                                                 <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 mr-2" />{" "}
-                                                Add New Merchant
+                                                Add Merchant
                                             </Button>
                                         </div>
 
@@ -54,7 +54,7 @@ function Main() {
                                             <Dialog.Panel>
                                                 <Dialog.Title>
                                                     <h2 className="mr-auto text-base font-medium">
-                                                        New Merchant
+                                                        Add Merchant
                                                     </h2>
                                                     <Lucide
                                                         icon="X"

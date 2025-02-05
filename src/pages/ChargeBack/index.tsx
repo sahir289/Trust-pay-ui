@@ -45,7 +45,7 @@ function ChargeBack() {
                         }}
                       >
                         <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 mr-2" />{" "}
-                        Add New ChargeBack
+                        Add ChargeBack
                       </Button>
                     </div>
 
@@ -59,7 +59,7 @@ function ChargeBack() {
                       <Dialog.Panel>
                         <Dialog.Title>
                           <h2 className="mr-auto text-base font-medium">
-                            New ChargeBack
+                            Add ChargeBack
                           </h2>
                           <Lucide
                             icon="X"
