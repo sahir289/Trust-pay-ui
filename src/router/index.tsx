@@ -59,7 +59,8 @@ import Chart from "../pages/Chart";
 import Slider from "../pages/Slider";
 import ImageZoom from "../pages/ImageZoom";
 import LandingPage from "../pages/LandingPage";
-import Settlement from "../pages/Settlement"
+import Settlement from "../pages/Settlement";
+import ChargeBack from "../pages/ChargeBack";
 
 import Layout from "../themes";
 
@@ -160,6 +161,10 @@ function Router() {
         {
           path: "settlement",
           element: <Settlement />,
+        },
+        {
+          path: "chargeback",
+          element: <ChargeBack />,
         },
         {
           path: "seller-list",

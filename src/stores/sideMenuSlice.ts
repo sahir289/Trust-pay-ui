@@ -37,7 +37,7 @@ const initialState: SideMenuState = {
     },
     {
       icon: "NotepadText",
-      pathname: "/layout/transaction-list",
+      pathname: "/layout/chargeback",
       title: "ChargeBacks",
     },
     "ADD DATA",

@@ -12,7 +12,7 @@ function Main() {
             <div className="col-span-12">
                 <div className="flex items-center h-10">
                     <div className="text-lg font-medium group-[.mode--light]:text-white">
-                        Transactions
+                        Settlements
                     </div>
                 </div>
                 <div className="relative flex flex-col col-span-12 lg:col-span-12 xl:col-span-12 gap-y-7">
