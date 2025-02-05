@@ -62,9 +62,8 @@ import ImageZoom from "../pages/ImageZoom";
 import LandingPage from "../pages/LandingPage";
 import Settlement from "../pages/Settlement";
 import ChargeBack from "../pages/ChargeBack";
-
 import Layout from "../themes";
-
+import Bankaccount from "../pages/BankAccount";
 function Router() {
   const routes = [
     {
@@ -230,6 +229,10 @@ function Router() {
         {
           path: "modal",
           element: <Modal />,
+        },
+        {
+          path: "bankaccounts",
+          element: <Bankaccount />,
         },
         {
           path: "slideover",

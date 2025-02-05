@@ -345,17 +345,13 @@ function Main() {
                       </Table.Td> */}
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div
-                          className={clsx([
-                            "flex",
-                            ["text-success", "text-danger"][_.random(0, 1)],
-                          ])}
-                        ><Lucide
-                            icon="Database"
-                            className="w-3.5 h-3.5 stroke-[1.7]"
-                          />
-                          <div className="ml-1.5 whitespace-nowrap">
-                            {_.random(0, 1) ? "Active" : "Inactive"}
-                          </div>
+                        >
+                          <FormSwitch.Input
+                                                    id="show-example-1"
+                                                    onClick={toggle}
+                                                    className="ml-3 mr-0"
+                                                    type="checkbox"
+                                                  />
                         </div>
                       </Table.Td>
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">

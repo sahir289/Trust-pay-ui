@@ -76,7 +76,7 @@ const initialState: SideMenuState = {
     "BANK ACCOUNTS",
     {
       icon: "Landmark",
-      pathname: "/layout/settings",
+      pathname: "/layout/bankaccounts",
       title: "Bank Account",
     },
     "ACCOUNT REPORTS",
