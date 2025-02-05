@@ -9,7 +9,7 @@ import Table from "@/components/Base/Table";
 import clsx from "clsx";
 import _ from "lodash";
 import { useRef, useState } from "react";
-import { CheckSquare, MoreVertical, Trash2 } from "lucide-react";
+import { CheckSquare, Cross, FileCheck, MessageSquareX, MoreVertical, ScissorsSquare, SidebarClose, Trash2, X } from "lucide-react";
 import { Highlight, Preview, PreviewComponent, Source } from "@/components/Base/PreviewComponent";
 
 function Main() {
@@ -57,11 +57,200 @@ function Main() {
                                             <Dialog.Panel>
                                                 <Dialog.Title>
                                                     <h2 className="mr-auto text-base font-medium">
-                                                       New Merchant
+                                                        New Merchant
                                                     </h2>
-                                                    
+                                                    <X className="hover:pointer" onClick={() => {
+                                                            setHeaderFooterModalPreview(false);
+                                                        }}
                                                    
-                                                        <Dialog.Footer>
+                                                    />
+                                                   <Menu className="sm:hidden">
+                                                        <Menu.Button
+                                                            as="a"
+                                                            className="block w-5 h-5"
+                                                            href="#"
+                                                        >
+                                                            <Lucide
+                                                                icon="MoreHorizontal"
+                                                                className="w-5 h-5 text-slate-500"
+                                                            />
+                                                        </Menu.Button>
+
+                                                    </Menu>
+                                                </Dialog.Title>
+                                                <div className="col-span-12 sm:col-span-6 mx-5 mt-2">
+                                                    <FormLabel htmlFor="modal-form-1">
+                                                        Code 
+                                                    </FormLabel>
+                                                    <FormInput
+                                                        id="modal-form-1"
+                                                        type="text"
+                                                        placeholder="Merchant Code"
+                                                    />
+                                                </div>
+                                                <div></div>
+                                                <fieldset className="border-2 rounded-lg border-gray-200 mx-5 my-2">
+                                                    <legend className="ml-4 pt-1 px-2">URLs</legend>
+                                                    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
+                                                        <div className="col-span-12 sm:col-span-6">
+                                                            <FormLabel htmlFor="modal-form-1">
+                                                                Site
+                                                            </FormLabel>
+                                                            <FormInput
+                                                                id="modal-form-1"
+                                                                type="text"
+                                                                placeholder="example@gmail.com"
+                                                            />
+                                                        </div>
+                                                        <div className="col-span-12 sm:col-span-6">
+                                                            <FormLabel htmlFor="modal-form-2">
+                                                                Return Site
+                                                            </FormLabel>
+                                                            <FormInput
+                                                                id="modal-form-2"
+                                                                type="text"
+                                                                placeholder="example@gmail.com"
+                                                            />
+                                                        </div>
+                                                        <div className="col-span-12 sm:col-span-6">
+                                                            <FormLabel htmlFor="modal-form-3">
+                                                                Callback
+                                                            </FormLabel>
+                                                            <FormInput
+                                                                id="modal-form-3"
+                                                                type="text"
+                                                                placeholder="example@gmail.com"
+                                                            />
+                                                        </div>
+                                                        <div className="col-span-12 sm:col-span-6">
+                                                            <FormLabel htmlFor="modal-form-4">
+                                                                Payout Callback
+                                                            </FormLabel>
+                                                            <FormInput
+                                                                id="modal-form-4"
+                                                                type="text"
+                                                                placeholder="example@gmail.com"
+                                                            />
+                                                        </div>                                                </Dialog.Description>
+
+                                                </fieldset>
+                                                <fieldset className="border-2 rounded-lg border-gray-200 mx-5 my-2 pb-4">
+                                                    <legend className="ml-5 pt-1 px-2">Pay In</legend>
+                                                    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
+
+                                                        <div className="col-span-12 sm:col-span-6">
+                                                            <FormLabel htmlFor="modal-form-3">
+                                                                Min PayIn
+                                                            </FormLabel>
+                                                            <FormInput
+                                                                id="modal-form-3"
+                                                                type="text"
+                                                                placeholder="example@gmail.com"
+                                                            />
+                                                        </div>
+                                                        <div className="col-span-12 sm:col-span-6">
+                                                            <FormLabel htmlFor="modal-form-3">
+                                                                Max PayIn
+                                                            </FormLabel>
+                                                            <FormInput
+                                                                id="modal-form-3"
+                                                                type="text"
+                                                                placeholder="example@gmail.com"
+                                                            />
+                                                        </div>
+
+                                                    </Dialog.Description>
+
+                                                    <div className="col-span-12 sm:col-span-6 mx-5">
+                                                        <FormLabel htmlFor="modal-form-3">
+                                                            PayIn Commission
+                                                        </FormLabel>
+                                                        <FormInput
+                                                            id="modal-form-3"
+                                                            type="text"
+                                                            placeholder="example@gmail.com"
+                                                        />
+                                                    </div>
+                                                </fieldset>
+                                                <fieldset className="border-2 rounded-lg border-gray-200 mx-5 my-2 pb-4">
+                                                    <legend className="ml-5 pt-1 px-2">Pay Out</legend>
+                                                    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
+                                                        <div className="col-span-12 sm:col-span-6">
+                                                            <FormLabel htmlFor="modal-form-4">
+                                                                Min PayOut
+                                                            </FormLabel>
+                                                            <FormInput
+                                                                id="modal-form-4"
+                                                                type="text"
+                                                                placeholder="example@gmail.com"
+                                                            />
+                                                        </div>
+
+                                                        <div className="col-span-12 sm:col-span-6">
+                                                            <FormLabel htmlFor="modal-form-4">
+                                                                Max PayOut
+                                                            </FormLabel>
+                                                            <FormInput
+                                                                id="modal-form-4"
+                                                                type="text"
+                                                                placeholder="example@gmail.com"
+                                                            />
+                                                        </div></Dialog.Description>
+
+                                                    <div className="col-span-12 sm:col-span-6 mx-5">
+                                                        <FormLabel htmlFor="modal-form-4">
+                                                            PayOut Commission
+                                                        </FormLabel>
+                                                        <FormInput
+                                                            id="modal-form-4"
+                                                            type="text"
+                                                            placeholder="example@gmail.com"
+                                                        />
+                                                    </div></fieldset>
+                                                <div className="flex flex-row justify-between mx-10">
+                                                    <div className="col-span-12 flex flex-row sm:col-span-6 px-4 pt-2 justify-center">
+                                                        <FormLabel htmlFor="modal-form-4 " className="px-3 pt-2">
+                                                            Test Mode :
+                                                        </FormLabel>
+                                                        <FormSwitch className=" dark:border-red-500 rounded-lg">
+                                                            <FormSwitch.Label
+                                                                htmlFor="show-example-1 "
+                                                                className="ml-0 "
+                                                            >
+
+                                                                <FormSwitch.Input
+                                                                    id="show-example-1"
+                                                                    //   onClick={}
+                                                                    className="ml-0 mr-0 border-2 border-slate-300  "
+                                                                    type="checkbox"
+                                                                />
+                                                            </FormSwitch.Label>
+                                                        </FormSwitch>
+                                                    </div>
+                                                    <div className="col-span-12 flex flex-row sm:col-span-6 px-4 pt-2 justify-center">
+                                                        <FormLabel htmlFor="modal-form-4" className="px-3 pt-2">
+                                                            Allow Intent :
+                                                        </FormLabel>
+                                                        <FormSwitch className=" dark:border-red-500 rounded-lg">
+                                                            <FormSwitch.Label
+                                                                htmlFor="show-example-1 "
+                                                                className="ml-0 "
+                                                            >
+
+                                                                <FormSwitch.Input
+                                                                    id="show-example-1"
+                                                                    //   onClick={}
+                                                                    className="ml-0 mr-0 border-2 border-slate-300  "
+                                                                    type="checkbox"
+                                                                />
+                                                            </FormSwitch.Label>
+                                                        </FormSwitch>
+
+                                                    </div>
+
+                                                </div>
+
+                                                <Dialog.Footer className="mt-4">
                                                     <Button
                                                         type="button"
                                                         variant="outline-secondary"
@@ -75,201 +264,19 @@ function Main() {
                                                     <Button
                                                         variant="primary"
                                                         type="button"
-                                                        className="w-20"
+                                                        className="w-20 ml-3"
                                                         ref={sendButtonRef}
                                                     >
                                                         Save
                                                     </Button>
                                                 </Dialog.Footer>
-                                                    <Menu className="sm:hidden">
-                                                        <Menu.Button
-                                                            as="a"
-                                                            className="block w-5 h-5"
-                                                            href="#"
-                                                        >
-                                                            <Lucide
-                                                                icon="MoreHorizontal"
-                                                                className="w-5 h-5 text-slate-500"
-                                                            />
-                                                        </Menu.Button>
-                                                        
-                                                    </Menu>
-                                                </Dialog.Title>
-                                                <div className="col-span-12 sm:col-span-6 mx-5 mt-2">
-                                                        <FormLabel htmlFor="modal-form-1">
-                                                            Code : 
-                                                        </FormLabel>
-                                                        <FormInput
-                                                            id="modal-form-1"
-                                                            type="text"
-                                                            placeholder="Merchant Code"
-                                                        />
-                                                    </div>
-                                                    <div></div>
-                                                    <fieldset className="border-2 rounded-lg border-gray-200 mx-5 my-2">
-                                                        <legend className="ml-4 pt-1 px-2">URLs</legend>
-                                                <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
-                                                    <div className="col-span-12 sm:col-span-6">
-                                                        <FormLabel htmlFor="modal-form-1">
-                                                            Site
-                                                        </FormLabel>
-                                                        <FormInput
-                                                            id="modal-form-1"
-                                                            type="text"
-                                                            placeholder="example@gmail.com"
-                                                        />
-                                                    </div>
-                                                    <div className="col-span-12 sm:col-span-6">
-                                                        <FormLabel htmlFor="modal-form-2">
-                                                            Return Site
-                                                        </FormLabel>
-                                                        <FormInput
-                                                            id="modal-form-2"
-                                                            type="text"
-                                                            placeholder="example@gmail.com"
-                                                        />
-                                                    </div>
-                                                    <div className="col-span-12 sm:col-span-6">
-                                                        <FormLabel htmlFor="modal-form-3">
-                                                            Callback
-                                                        </FormLabel>
-                                                        <FormInput
-                                                            id="modal-form-3"
-                                                            type="text"
-                                                            placeholder="example@gmail.com"
-                                                        />
-                                                    </div>
-                                                    <div className="col-span-12 sm:col-span-6">
-                                                        <FormLabel htmlFor="modal-form-4">
-                                                           Payout Callback
-                                                        </FormLabel>
-                                                        <FormInput
-                                                            id="modal-form-4"
-                                                            type="text"
-                                                            placeholder="example@gmail.com"
-                                                        />
-                                                    </div>                                                </Dialog.Description>
 
-                                                    </fieldset>
-                                                    <fieldset className="border-2 rounded-lg border-gray-200 mx-5 my-2 pb-4">
-                                                    <legend className="ml-5 pt-1 px-2">Pay In</legend>
-                                                    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
-
-                                                    <div className="col-span-12 sm:col-span-6">
-                                                        <FormLabel htmlFor="modal-form-3">
-                                                            Min PayIn
-                                                        </FormLabel>
-                                                        <FormInput
-                                                            id="modal-form-3"
-                                                            type="text"
-                                                            placeholder="example@gmail.com"
-                                                        />
-                                                    </div>
-                                                    <div className="col-span-12 sm:col-span-6">
-                                                        <FormLabel htmlFor="modal-form-3">
-                                                            Max PayIn
-                                                        </FormLabel>
-                                                        <FormInput
-                                                            id="modal-form-3"
-                                                            type="text"
-                                                            placeholder="example@gmail.com"
-                                                        />
-                                                    </div>
-                                                    
-                                                    </Dialog.Description>
-
-                                                    <div className="col-span-12 sm:col-span-6 mx-5">
-                                                        <FormLabel htmlFor="modal-form-3">
-                                                           PayIn Commission
-                                                        </FormLabel>
-                                                        <FormInput
-                                                            id="modal-form-3"
-                                                            type="text"
-                                                            placeholder="example@gmail.com"
-                                                        />
-                                                    </div>
-                                                    </fieldset>
-                                                    <fieldset className="border-2 rounded-lg border-gray-200 mx-5 my-2 pb-4">
-                                                    <legend className="ml-5 pt-1 px-2">Pay Out</legend>
-                                                    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
-                                                    <div className="col-span-12 sm:col-span-6">
-                                                        <FormLabel htmlFor="modal-form-4">
-                                                        Min PayOut
-                                                        </FormLabel>
-                                                        <FormInput
-                                                            id="modal-form-4"
-                                                            type="text"
-                                                            placeholder="example@gmail.com"
-                                                        />
-                                                    </div>
-                                                    
-                                                    <div className="col-span-12 sm:col-span-6">
-                                                        <FormLabel htmlFor="modal-form-4">
-                                                        Max PayOut
-                                                        </FormLabel>
-                                                        <FormInput
-                                                            id="modal-form-4"
-                                                            type="text"
-                                                            placeholder="example@gmail.com"
-                                                        />
-                                                    </div></Dialog.Description>
-                                                    
-                                                    <div className="col-span-12 sm:col-span-6 mx-5">
-                                                        <FormLabel htmlFor="modal-form-4">
-                                                        PayOut Commission
-                                                        </FormLabel>
-                                                        <FormInput
-                                                            id="modal-form-4"
-                                                            type="text"
-                                                            placeholder="example@gmail.com"
-                                                        />
-                                                    </div></fieldset>
-                                                    <div className="flex flex-row justify-between mx-10">
-                                                    <div className="col-span-12 flex flex-row sm:col-span-6 px-4 pt-2 justify-center">
-                                                    <FormLabel htmlFor="modal-form-4 " className="px-3 pt-2">
-                                                        Test Mode : 
-                                                        </FormLabel>
-                                                        <FormSwitch className=" dark:border-red-500 rounded-lg">
-                                                    <FormSwitch.Label
-                                                        htmlFor="show-example-1 "
-                                                        className="ml-0 "
-                                                    >
-                                                       
-                                                        <FormSwitch.Input
-                                                            id="show-example-1"
-                                                            //   onClick={}
-                                                            className="ml-0 mr-0 border-2 border-slate-300  "
-                                                            type="checkbox"
-                                                        />
-                                                    </FormSwitch.Label>
-                                                </FormSwitch>
-                                                    </div>
-                                                    <div className="col-span-12 flex flex-row sm:col-span-6 px-4 pt-2 justify-center">
-                                                    <FormLabel htmlFor="modal-form-4" className="px-3 pt-2">
-                                                        Allow Intent :
-                                                        </FormLabel>
-                                                        <FormSwitch className=" dark:border-red-500 rounded-lg">
-                                                    <FormSwitch.Label
-                                                        htmlFor="show-example-1 "
-                                                        className="ml-0 "
-                                                    >
-                                                       
-                                                        <FormSwitch.Input
-                                                            id="show-example-1"
-                                                            //   onClick={}
-                                                            className="ml-0 mr-0 border-2 border-slate-300  "
-                                                            type="checkbox"
-                                                        />
-                                                    </FormSwitch.Label>
-                                                </FormSwitch>
-                                                    </div></div>
-                                                
                                             </Dialog.Panel>
                                         </Dialog>
                                         {/* END: Modal Content */}
                                     </Preview>
                                     <Source>
-                                       
+
                                     </Source>
 
 
@@ -293,7 +300,7 @@ function Main() {
                     <div className="flex flex-col p-5 box box--stacked">
                         <div className="grid grid-cols-4 gap-5">
                             <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                                <div className="text-base text-slate-500">Registered Users</div>
+                                <div className="text-base text-slate-500">Registered Merchants</div>
                                 <div className="mt-1.5 text-2xl font-medium">457,204</div>
                                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                                     <div className="flex items-center border border-danger/10 bg-danger/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-danger">
@@ -306,7 +313,7 @@ function Main() {
                                 </div>
                             </div>
                             <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                                <div className="text-base text-slate-500">Active Users</div>
+                                <div className="text-base text-slate-500">Active Merchants</div>
                                 <div className="mt-1.5 text-2xl font-medium">122,721</div>
                                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                                     <div className="flex items-center border border-success/10 bg-success/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-success">
@@ -319,7 +326,7 @@ function Main() {
                                 </div>
                             </div>
                             <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                                <div className="text-base text-slate-500">New Users</div>
+                                <div className="text-base text-slate-500">New Merchants</div>
                                 <div className="mt-1.5 text-2xl font-mediumm">489,223</div>
                                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                                     <div className="flex items-center border border-danger/10 bg-danger/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-danger">
@@ -356,7 +363,7 @@ function Main() {
                                     />
                                     <FormInput
                                         type="text"
-                                        // placeholder="Search created_at: ""
+                                         placeholder="Search Merchant"
                                         className="pl-9 sm:w-64 rounded-[0.5rem]"
                                     />
                                 </div>
