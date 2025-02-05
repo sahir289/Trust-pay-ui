@@ -13,7 +13,6 @@ function Main() {
             Transactions
           </div>
         </div>
-        {/* <div className="mt-3.5 grid grid-cols-12 xl:grid-cols-10 gap-y-7 lg:gap-y-10 gap-x-6"> */}
         <div className="relative flex flex-col col-span-12 lg:col-span-12 xl:col-span-12 gap-y-7">
           <div className="flex flex-col p-5 box box--stacked">
             <Tab.Group>
@@ -42,7 +41,6 @@ function Main() {
             </Tab.Group>
           </div>
         </div>
-        {/* </div> */}
       </div>
     </div>
   );
