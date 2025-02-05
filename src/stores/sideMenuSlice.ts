@@ -32,12 +32,12 @@ const initialState: SideMenuState = {
     "SETTLEMENTS & CHARGEBACKS",
     {
       icon: "NotebookText",
-      pathname: "/layout/transaction-list",
+      pathname: "/layout/settlement",
       title: "Settltemets",
     },
     {
       icon: "NotepadText",
-      pathname: "/layout/transaction-list",
+      pathname: "/layout/chargeback",
       title: "ChargeBacks",
     },
     "ADD DATA",
