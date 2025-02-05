@@ -13,7 +13,6 @@ import { useRef, useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";
 import { Preview, PreviewComponent } from "@/components/Base/PreviewComponent";
-
 function ChargeBack() {
   const [newChargeBackModal, setNewChargeBackModal] = useState(false);
   const sendButtonRef = useRef(null);

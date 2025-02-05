@@ -19,7 +19,7 @@ function Main() {
   const [showPassword, setShowPassword] = useState(false);
 
        const sendButtonRef = useRef(null);
-       const bankAccounts = [
+const bankAccounts = [
         {
           accountName:  'HDFC Bank',
           bankDetails: ['HDFC Bank','123456789012','john@hdfc'], 
@@ -619,6 +619,19 @@ function Main() {
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Balance
                     </Table.Td>
+                  
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Bank Used For
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Vendors
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Created at(IST)
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                    Last Scheduled at (IST)
+                    </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Allow Intent?
                     </Table.Td>
@@ -633,18 +646,6 @@ function Main() {
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Action
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Bank Used For
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Vendors
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Created at(IST)
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                    Last Scheduled at (IST)
                     </Table.Td>
                   </Table.Tr>
                 </Table.Thead>
@@ -685,6 +686,20 @@ function Main() {
                            </Table.Td>
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
         <div className="text-xs text-slate-500">{account.balance}</div>
+      </Table.Td>
+    
+                    
+      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+        <div className="whitespace-nowrap">{account.bankUsedFor}</div>
+      </Table.Td>
+      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+        <div className="whitespace-nowrap">{account.vendors}</div>
+      </Table.Td>
+      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+        <div className="whitespace-nowrap">{account.createdAt}</div>
+      </Table.Td>
+      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+        <div className="whitespace-nowrap">{account.lastScheduledAt}</div>
       </Table.Td>
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -815,19 +830,6 @@ function Main() {
                         </div>
                       </Table.Td>
                            
-                    
-      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-        <div className="whitespace-nowrap">{account.bankUsedFor}</div>
-      </Table.Td>
-      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-        <div className="whitespace-nowrap">{account.vendors}</div>
-      </Table.Td>
-      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-        <div className="whitespace-nowrap">{account.createdAt}</div>
-      </Table.Td>
-      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-        <div className="whitespace-nowrap">{account.lastScheduledAt}</div>
-      </Table.Td>
     </Table.Tr>
   ))}
 </Table.Tbody>

@@ -293,10 +293,10 @@ function Main() {
                       Role
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Enabled
+                      Last Logged in
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Last Logged in
+                      Enabled
                     </Table.Td>
                   </Table.Tr>
                 </Table.Thead>
@@ -362,6 +362,12 @@ function Main() {
                           </div>
                         </div>
                       </Table.Td> */}
+                      
+                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                        <div className="whitespace-nowrap">
+                          {faker.joinedDate}
+                        </div>
+                      </Table.Td>
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                          <FormSwitch className=" dark:border-red-500 rounded-lg">
                                                                             <FormSwitch.Label
@@ -377,11 +383,6 @@ function Main() {
                                                                                 />
                                                                             </FormSwitch.Label>
                                                                         </FormSwitch>
-                      </Table.Td>
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="whitespace-nowrap">
-                          {faker.joinedDate}
-                        </div>
                       </Table.Td>
                       {/* <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                         <div className="flex items-center justify-center">
