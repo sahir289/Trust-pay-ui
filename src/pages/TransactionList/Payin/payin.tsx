@@ -3,8 +3,8 @@ import { Tab } from "@/components/Base/Headless";
 import AllPayin from "./allPayin";
 import CompletedPayin from "./completedPayin";
 import InProgressPayin from "./inProgressPayin";
-import { BadgeCheck, Globe, Trash2, TrendingUp } from "lucide-react";
 import DroppedPayin from "./droppedPayin";
+import Lucide from "@/components/Base/Lucide";
 
 function Payin() {
 
@@ -14,25 +14,37 @@ function Payin() {
         <Tab.List variant="tabs">
           <Tab>
             <Tab.Button className="w-full py-2 flex items-center justify-center" as="button">
-              <Globe className="w-5 h-5" />&nbsp;
+              <Lucide
+                icon="Globe"
+                className="w-5 h-5 ml-px stroke-[2.5]"
+              />&nbsp;
               All
             </Tab.Button>
           </Tab>
           <Tab>
             <Tab.Button className="w-full py-2 flex items-center justify-center" as="button">
-              <BadgeCheck className="w-5 h-5" />&nbsp;
+              <Lucide
+                icon="BadgeCheck"
+                className="w-5 h-5 ml-px stroke-[2.5]"
+              />&nbsp;
               Completed
             </Tab.Button>
           </Tab>
           <Tab>
             <Tab.Button className="w-full py-2 flex items-center justify-center" as="button">
-              <TrendingUp className="w-5 h-5" />&nbsp;
+              <Lucide
+                icon="TrendingUp"
+                className="w-5 h-5 ml-px stroke-[2.5]"
+              />&nbsp;
               Inprogress
             </Tab.Button>
           </Tab>
           <Tab>
             <Tab.Button className="w-full py-2 flex items-center justify-center" as="button">
-              <Trash2 className="w-5 h-5" />&nbsp;
+              <Lucide
+                icon="Trash2"
+                className="w-5 h-5 ml-px stroke-[2.5]"
+              />&nbsp;
               Dropped
             </Tab.Button>
           </Tab>

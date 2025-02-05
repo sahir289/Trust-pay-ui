@@ -1,8 +1,6 @@
 import _ from "lodash";
 import { Tab } from "@/components/Base/Headless";
-// import Payin from "./Payin/payin";
-// import Payout from "./Payout/payout";
-import { CreditCard, Store } from "lucide-react";
+import Lucide from "@/components/Base/Lucide";
 import MerchantSettlement from "./MerchantSettlement";
 import VendorSettlement from "./VendorSettlement";
 
@@ -21,13 +19,19 @@ function Main() {
                             <Tab.List variant="tabs">
                                 <Tab>
                                     <Tab.Button className="w-full py-2 flex items-center justify-center" as="button">
-                                        <CreditCard className="w-5 h-5" />&nbsp;
+                                        <Lucide
+                                            icon="CreditCard"
+                                            className="w-5 h-5 ml-px stroke-[2.5]"
+                                        />&nbsp;
                                         Merchant Settlement
                                     </Tab.Button>
                                 </Tab>
                                 <Tab>
                                     <Tab.Button className="w-full py-2 flex items-center justify-center" as="button">
-                                        <Store className="w-5 h-5" />&nbsp;
+                                        <Lucide
+                                            icon="Store"
+                                            className="w-5 h-5 ml-px stroke-[2.5]"
+                                        />&nbsp;
                                         Vendor Settlement
                                     </Tab.Button>
                                 </Tab>

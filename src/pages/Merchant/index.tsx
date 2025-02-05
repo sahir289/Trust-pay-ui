@@ -6,15 +6,12 @@ import Tippy from "@/components/Base/Tippy";
 import merchants from "@/fakers/merchants";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import clsx from "clsx";
 import _ from "lodash";
 import { useRef, useState } from "react";
-import { CheckSquare, Cross, FileCheck, MessageSquareX, MoreVertical, ScissorsSquare, SidebarClose, Trash2, X } from "lucide-react";
-import { Highlight, Preview, PreviewComponent, Source } from "@/components/Base/PreviewComponent";
+import { Preview, PreviewComponent, Source } from "@/components/Base/PreviewComponent";
 
 function Main() {
-    const [headerFooterModalPreview, setHeaderFooterModalPreview] =
-        useState(false);
+    const [newMerchantModal, setNewMerchantModal] = useState(false);
     const sendButtonRef = useRef(null);
 
     return (
@@ -39,7 +36,7 @@ function Main() {
 
                                                 onClick={(event: React.MouseEvent) => {
                                                     event.preventDefault();
-                                                    setHeaderFooterModalPreview(true);
+                                                    setNewMerchantModal(true);
                                                 }}
                                             >
                                                 <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 mr-2" />{" "}
@@ -48,9 +45,9 @@ function Main() {
                                         </div>
 
                                         <Dialog
-                                            open={headerFooterModalPreview}
+                                            open={newMerchantModal}
                                             onClose={() => {
-                                                setHeaderFooterModalPreview(false);
+                                                setNewMerchantModal(false);
                                             }}
                                             initialFocus={sendButtonRef}
                                         >
@@ -59,12 +56,12 @@ function Main() {
                                                     <h2 className="mr-auto text-base font-medium">
                                                         New Merchant
                                                     </h2>
-                                                    <X className="hover:pointer" onClick={() => {
-                                                            setHeaderFooterModalPreview(false);
-                                                        }}
-                                                   
+                                                    <Lucide
+                                                        icon="X"
+                                                        className="w-5 h-5 ml-px stroke-[3]"
+                                                        onClick={() => setNewMerchantModal(false)}
                                                     />
-                                                   <Menu className="sm:hidden">
+                                                    <Menu className="sm:hidden">
                                                         <Menu.Button
                                                             as="a"
                                                             className="block w-5 h-5"
@@ -80,7 +77,7 @@ function Main() {
                                                 </Dialog.Title>
                                                 <div className="col-span-12 sm:col-span-6 mx-5 mt-2">
                                                     <FormLabel htmlFor="modal-form-1">
-                                                        Code 
+                                                        Code
                                                     </FormLabel>
                                                     <FormInput
                                                         id="modal-form-1"
@@ -131,8 +128,8 @@ function Main() {
                                                                 type="text"
                                                                 placeholder="example@gmail.com"
                                                             />
-                                                        </div>                                                </Dialog.Description>
-
+                                                        </div>
+                                                    </Dialog.Description>
                                                 </fieldset>
                                                 <fieldset className="border-2 rounded-lg border-gray-200 mx-5 my-2 pb-4">
                                                     <legend className="ml-5 pt-1 px-2">Pay In</legend>
@@ -158,9 +155,7 @@ function Main() {
                                                                 placeholder="example@gmail.com"
                                                             />
                                                         </div>
-
                                                     </Dialog.Description>
-
                                                     <div className="col-span-12 sm:col-span-6 mx-5">
                                                         <FormLabel htmlFor="modal-form-3">
                                                             PayIn Commission
@@ -206,7 +201,8 @@ function Main() {
                                                             type="text"
                                                             placeholder="example@gmail.com"
                                                         />
-                                                    </div></fieldset>
+                                                    </div>
+                                                </fieldset>
                                                 <div className="flex flex-row justify-between mx-10">
                                                     <div className="col-span-12 flex flex-row sm:col-span-6 px-4 pt-2 justify-center">
                                                         <FormLabel htmlFor="modal-form-4 " className="px-3 pt-2">
@@ -217,7 +213,6 @@ function Main() {
                                                                 htmlFor="show-example-1 "
                                                                 className="ml-0 "
                                                             >
-
                                                                 <FormSwitch.Input
                                                                     id="show-example-1"
                                                                     //   onClick={}
@@ -245,9 +240,7 @@ function Main() {
                                                                 />
                                                             </FormSwitch.Label>
                                                         </FormSwitch>
-
                                                     </div>
-
                                                 </div>
 
                                                 <Dialog.Footer className="mt-4">
@@ -255,7 +248,7 @@ function Main() {
                                                         type="button"
                                                         variant="outline-secondary"
                                                         onClick={() => {
-                                                            setHeaderFooterModalPreview(false);
+                                                            setNewMerchantModal(false);
                                                         }}
                                                         className="w-20 mr-1"
                                                     >
@@ -275,26 +268,10 @@ function Main() {
                                         </Dialog>
                                         {/* END: Modal Content */}
                                     </Preview>
-                                    <Source>
-
-                                    </Source>
-
-
-
-
                                 </>
                             )}
                         </PreviewComponent>
                     </div>
-
-
-
-
-
-
-
-
-
                 </div>
                 <div className="flex flex-col gap-8 mt-3.5">
                     <div className="flex flex-col p-5 box box--stacked">
@@ -363,7 +340,7 @@ function Main() {
                                     />
                                     <FormInput
                                         type="text"
-                                         placeholder="Search Merchant"
+                                        placeholder="Search Merchants..."
                                         className="pl-9 sm:w-64 rounded-[0.5rem]"
                                     />
                                 </div>

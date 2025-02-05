@@ -1,283 +1,24 @@
 import Lucide from "@/components/Base/Lucide";
-import { Dialog, Menu, Popover } from "@/components/Base/Headless";
+import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
 import TomSelect from "@/components/Base/TomSelect";
-import { FormCheck, FormInput, FormLabel, FormSelect, FormSwitch } from "@/components/Base/Form";
+import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import transactions from "@/fakers/transactions";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";
-import { Preview, PreviewComponent } from "@/components/Base/PreviewComponent";
 
-function ChargeBack() {
-  const [newChargeBackModal, setNewChargeBackModal] = useState(false);
-  const sendButtonRef = useRef(null);
+function AddData() {
   const [selectedUser, setSelectedUser] = useState("1");
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
-        <div className="flex items-center h-10">
-          <div className="text-lg font-medium group-[.mode--light]:text-white">
-            ChargeBacks
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-            <PreviewComponent>
-              {({ toggle }) => (
-                <>
-                  <Preview>
-                    <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-                      <Button
-                        variant="primary"
-                        className="group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent dark:group-[.mode--light]:!bg-darkmode-900/30 dark:!box"
-                        as="a"
-                        href="#"
-
-                        onClick={(event: React.MouseEvent) => {
-                          event.preventDefault();
-                          setNewChargeBackModal(true);
-                        }}
-                      >
-                        <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 mr-2" />{" "}
-                        Add New ChargeBack
-                      </Button>
-                    </div>
-
-                    <Dialog
-                      open={newChargeBackModal}
-                      onClose={() => {
-                        setNewChargeBackModal(false);
-                      }}
-                      initialFocus={sendButtonRef}
-                    >
-                      <Dialog.Panel>
-                        <Dialog.Title>
-                          <h2 className="mr-auto text-base font-medium">
-                            New ChargeBack
-                          </h2>
-                          <Lucide
-                            icon="X"
-                            className="w-5 h-5 ml-px stroke-[3]"
-                            onClick={() => setNewChargeBackModal(false)}
-                          />
-                          <Menu className="sm:hidden">
-                            <Menu.Button
-                              as="a"
-                              className="block w-5 h-5"
-                              href="#"
-                            >
-                              <Lucide
-                                icon="MoreHorizontal"
-                                className="w-5 h-5 text-slate-500"
-                              />
-                            </Menu.Button>
-
-                          </Menu>
-                        </Dialog.Title>
-                        <div className="col-span-12 sm:col-span-6 mx-5 mt-2">
-                          <FormLabel htmlFor="modal-form-1">
-                            Code
-                          </FormLabel>
-                          <FormInput
-                            id="modal-form-1"
-                            type="text"
-                            placeholder="Merchant Code"
-                          />
-                        </div>
-                        <div></div>
-                        <fieldset className="border-2 rounded-lg border-gray-200 mx-5 my-2">
-                          <legend className="ml-4 pt-1 px-2">URLs</legend>
-                          <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
-                            <div className="col-span-12 sm:col-span-6">
-                              <FormLabel htmlFor="modal-form-1">
-                                Site
-                              </FormLabel>
-                              <FormInput
-                                id="modal-form-1"
-                                type="text"
-                                placeholder="example@gmail.com"
-                              />
-                            </div>
-                            <div className="col-span-12 sm:col-span-6">
-                              <FormLabel htmlFor="modal-form-2">
-                                Return Site
-                              </FormLabel>
-                              <FormInput
-                                id="modal-form-2"
-                                type="text"
-                                placeholder="example@gmail.com"
-                              />
-                            </div>
-                            <div className="col-span-12 sm:col-span-6">
-                              <FormLabel htmlFor="modal-form-3">
-                                Callback
-                              </FormLabel>
-                              <FormInput
-                                id="modal-form-3"
-                                type="text"
-                                placeholder="example@gmail.com"
-                              />
-                            </div>
-                            <div className="col-span-12 sm:col-span-6">
-                              <FormLabel htmlFor="modal-form-4">
-                                Payout Callback
-                              </FormLabel>
-                              <FormInput
-                                id="modal-form-4"
-                                type="text"
-                                placeholder="example@gmail.com"
-                              />
-                            </div>
-                          </Dialog.Description>
-                        </fieldset>
-                        <fieldset className="border-2 rounded-lg border-gray-200 mx-5 my-2 pb-4">
-                          <legend className="ml-5 pt-1 px-2">Pay In</legend>
-                          <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
-
-                            <div className="col-span-12 sm:col-span-6">
-                              <FormLabel htmlFor="modal-form-3">
-                                Min PayIn
-                              </FormLabel>
-                              <FormInput
-                                id="modal-form-3"
-                                type="text"
-                                placeholder="example@gmail.com"
-                              />
-                            </div>
-                            <div className="col-span-12 sm:col-span-6">
-                              <FormLabel htmlFor="modal-form-3">
-                                Max PayIn
-                              </FormLabel>
-                              <FormInput
-                                id="modal-form-3"
-                                type="text"
-                                placeholder="example@gmail.com"
-                              />
-                            </div>
-                          </Dialog.Description>
-                          <div className="col-span-12 sm:col-span-6 mx-5">
-                            <FormLabel htmlFor="modal-form-3">
-                              PayIn Commission
-                            </FormLabel>
-                            <FormInput
-                              id="modal-form-3"
-                              type="text"
-                              placeholder="example@gmail.com"
-                            />
-                          </div>
-                        </fieldset>
-                        <fieldset className="border-2 rounded-lg border-gray-200 mx-5 my-2 pb-4">
-                          <legend className="ml-5 pt-1 px-2">Pay Out</legend>
-                          <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
-                            <div className="col-span-12 sm:col-span-6">
-                              <FormLabel htmlFor="modal-form-4">
-                                Min PayOut
-                              </FormLabel>
-                              <FormInput
-                                id="modal-form-4"
-                                type="text"
-                                placeholder="example@gmail.com"
-                              />
-                            </div>
-
-                            <div className="col-span-12 sm:col-span-6">
-                              <FormLabel htmlFor="modal-form-4">
-                                Max PayOut
-                              </FormLabel>
-                              <FormInput
-                                id="modal-form-4"
-                                type="text"
-                                placeholder="example@gmail.com"
-                              />
-                            </div></Dialog.Description>
-
-                          <div className="col-span-12 sm:col-span-6 mx-5">
-                            <FormLabel htmlFor="modal-form-4">
-                              PayOut Commission
-                            </FormLabel>
-                            <FormInput
-                              id="modal-form-4"
-                              type="text"
-                              placeholder="example@gmail.com"
-                            />
-                          </div>
-                        </fieldset>
-                        <div className="flex flex-row justify-between mx-10">
-                          <div className="col-span-12 flex flex-row sm:col-span-6 px-4 pt-2 justify-center">
-                            <FormLabel htmlFor="modal-form-4 " className="px-3 pt-2">
-                              Test Mode :
-                            </FormLabel>
-                            <FormSwitch className=" dark:border-red-500 rounded-lg">
-                              <FormSwitch.Label
-                                htmlFor="show-example-1 "
-                                className="ml-0 "
-                              >
-                                <FormSwitch.Input
-                                  id="show-example-1"
-                                  //   onClick={}
-                                  className="ml-0 mr-0 border-2 border-slate-300  "
-                                  type="checkbox"
-                                />
-                              </FormSwitch.Label>
-                            </FormSwitch>
-                          </div>
-                          <div className="col-span-12 flex flex-row sm:col-span-6 px-4 pt-2 justify-center">
-                            <FormLabel htmlFor="modal-form-4" className="px-3 pt-2">
-                              Allow Intent :
-                            </FormLabel>
-                            <FormSwitch className=" dark:border-red-500 rounded-lg">
-                              <FormSwitch.Label
-                                htmlFor="show-example-1 "
-                                className="ml-0 "
-                              >
-
-                                <FormSwitch.Input
-                                  id="show-example-1"
-                                  //   onClick={}
-                                  className="ml-0 mr-0 border-2 border-slate-300  "
-                                  type="checkbox"
-                                />
-                              </FormSwitch.Label>
-                            </FormSwitch>
-                          </div>
-                        </div>
-
-                        <Dialog.Footer className="mt-4">
-                          <Button
-                            type="button"
-                            variant="outline-secondary"
-                            onClick={() => {
-                              setNewChargeBackModal(false);
-                            }}
-                            className="w-20 mr-1"
-                          >
-                            Cancel
-                          </Button>
-                          <Button
-                            variant="primary"
-                            type="button"
-                            className="w-20 ml-3"
-                            ref={sendButtonRef}
-                          >
-                            Save
-                          </Button>
-                        </Dialog.Footer>
-
-                      </Dialog.Panel>
-                    </Dialog>
-                    {/* END: Modal Content */}
-                  </Preview>
-                </>
-              )}
-            </PreviewComponent>
-          </div>
-        </div>
         <div className="mt-3.5">
           <div className="flex flex-col box box--stacked">
             <div className="flex flex-col p-5 sm:items-center sm:flex-row gap-y-2">
@@ -289,7 +30,7 @@ function ChargeBack() {
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search ChargeBacks..."
+                    placeholder="Search transactions..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>
@@ -564,4 +305,4 @@ function ChargeBack() {
   );
 }
 
-export default ChargeBack;
+export default AddData;

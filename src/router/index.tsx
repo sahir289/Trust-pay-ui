@@ -63,6 +63,7 @@ import ImageZoom from "../pages/ImageZoom";
 import LandingPage from "../pages/LandingPage";
 import Settlement from "../pages/Settlement";
 import ChargeBack from "../pages/ChargeBack";
+import AddData from "../pages/AddData";
 
 import Layout from "../themes";
 
@@ -171,6 +172,10 @@ function Router() {
         {
           path: "chargeback",
           element: <ChargeBack />,
+        },
+        {
+          path: "add-data",
+          element: <AddData />,
         },
         {
           path: "seller-list",
