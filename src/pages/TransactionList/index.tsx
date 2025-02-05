@@ -29,7 +29,7 @@ function Main() {
                 <Tab>
                   <Tab.Button className="w-full py-2 flex items-center justify-center" as="button">
                     <Lucide
-                      icon="Landmark"
+                      icon="ArrowRightCircle"
                       className="w-5 h-5 ml-px stroke-[2.5]"
                     />&nbsp;
                     Payouts
