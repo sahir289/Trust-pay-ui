@@ -7,14 +7,14 @@ import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import clsx from "clsx";
-import _ from "lodash";çç
+import _ from "lodash";
 function Main() {
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
         <div className="flex flex-col md:h-10 gap-y-3 md:items-center md:flex-row">
           <div className="text-base font-medium group-[.mode--light]:text-white">
-            Users
+            Vendors
           </div>
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
             <Button
@@ -22,7 +22,7 @@ function Main() {
               className="group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent dark:group-[.mode--light]:!bg-darkmode-900/30 dark:!box"
             >
               <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 mr-2" />{" "}
-              Add New User
+              Add Vendor
             </Button>
           </div>
         </div>
@@ -30,8 +30,8 @@ function Main() {
           <div className="flex flex-col p-5 box box--stacked">
             <div className="grid grid-cols-4 gap-5">
               <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                <div className="text-base text-slate-500">Registered Users</div>
-                <div className="mt-1.5 text-2xl font-medium">457,204</div>
+                <div className="text-base text-slate-500">Registered Vendors</div>
+                <div className="mt-1.5 text-2xl font-medium">204</div>
                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                   <div className="flex items-center border border-danger/10 bg-danger/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-danger">
                     3%
@@ -43,8 +43,8 @@ function Main() {
                 </div>
               </div>
               <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                <div className="text-base text-slate-500">Active Users</div>
-                <div className="mt-1.5 text-2xl font-medium">122,721</div>
+                <div className="text-base text-slate-500">Active Vendors</div>
+                <div className="mt-1.5 text-2xl font-medium">721</div>
                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                   <div className="flex items-center border border-success/10 bg-success/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-success">
                     2%
@@ -56,8 +56,8 @@ function Main() {
                 </div>
               </div>
               <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                <div className="text-base text-slate-500">New Users</div>
-                <div className="mt-1.5 text-2xl font-mediumm">489,223</div>
+                <div className="text-base text-slate-500">New Vendors</div>
+                <div className="mt-1.5 text-2xl font-mediumm">223</div>
                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                   <div className="flex items-center border border-danger/10 bg-danger/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-danger">
                     3%
@@ -70,7 +70,7 @@ function Main() {
               </div>
               <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
                 <div className="text-base text-slate-500">Login Activity</div>
-                <div className="mt-1.5 text-2xl font-mediumm">411,259</div>
+                <div className="mt-1.5 text-2xl font-mediumm">25</div>
                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                   <div className="flex items-center border border-success/10 bg-success/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-success">
                     8%
@@ -93,12 +93,12 @@ function Main() {
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search users..."
+                    placeholder="Search vendors..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 sm:ml-auto">
+              {/* <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 sm:ml-auto">
                 <Menu>
                   <Menu.Button
                     as={Button}
@@ -195,31 +195,37 @@ function Main() {
                     </>
                   )}
                 </Popover>
-              </div>
+              </div> */}
             </div>
             <div className="overflow-auto xl:overflow-visible">
               <Table className="border-b border-slate-200/60">
                 <Table.Thead>
                   <Table.Tr>
                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      <FormCheck.Input type="checkbox" />
+                      SNO
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Name
+                      Code
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Vendor Commission
+                    </Table.Td>
+                    {/* <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Position
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t w-52 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                    </Table.Td> */}
+                    {/* <Table.Td className="py-4 font-medium border-t w-52 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Profile Completeness
+                    </Table.Td> */}
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Created Date
                     </Table.Td>
-                    <Table.Td className="py-4 font-medium text-center border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Created By
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Status
                     </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Joined Date
-                    </Table.Td>
-                    <Table.Td className="w-20 py-4 font-medium text-center border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                    <Table.Td className="w-20 py-4 font-medium  border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Action
                     </Table.Td>
                   </Table.Tr>
@@ -228,7 +234,7 @@ function Main() {
                   {_.take(users.fakeUsers(), 10).map((faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <FormCheck.Input type="checkbox" />
+                        {fakerKey+1}
                       </Table.Td>
                       <Table.Td className="py-4 border-dashed w-80 dark:bg-darkmode-600">
                         <div className="flex items-center">
@@ -254,18 +260,18 @@ function Main() {
                           </div>
                         </div>
                       </Table.Td>
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      {/* <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <a href="" className="font-medium whitespace-nowrap">
                           {faker.position}
                         </a>
                         <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
                           {faker.department}
                         </div>
-                      </Table.Td>
+                      </Table.Td> */}
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div className="w-40">
                           <div className="text-xs text-slate-500">
-                            {_.random(50, 100)}%
+                            {_.random(1, 5)}%
                           </div>
                           <div className="flex h-1 border rounded-sm bg-slate-50 mt-1.5 dark:bg-darkmode-400">
                             <div
@@ -283,10 +289,21 @@ function Main() {
                           </div>
                         </div>
                       </Table.Td>
+                     
+                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                        <div className="whitespace-nowrap">
+                          {faker.joinedDate}
+                        </div>
+                      </Table.Td>
+                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                        <div className="whitespace-nowrap">
+                          {faker.manager}
+                        </div>
+                      </Table.Td>
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div
                           className={clsx([
-                            "flex items-center justify-center",
+                            "flex ",
                             ["text-success", "text-danger"][_.random(0, 1)],
                           ])}
                         >
@@ -297,11 +314,6 @@ function Main() {
                           <div className="ml-1.5 whitespace-nowrap">
                             {_.random(0, 1) ? "Active" : "Inactive"}
                           </div>
-                        </div>
-                      </Table.Td>
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="whitespace-nowrap">
-                          {faker.joinedDate}
                         </div>
                       </Table.Td>
                       <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">

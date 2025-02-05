@@ -59,7 +59,7 @@ const initialState: SideMenuState = {
     },
     {
       icon: "Store",
-      pathname: "/layout/users",
+      pathname: "/layout/vendors",
       title: "Vendors",
     },
     "ROLES & RESPONSIBILITIES",
