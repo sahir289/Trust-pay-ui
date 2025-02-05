@@ -136,7 +136,7 @@ function AllPayin() {
                 </Popover>
               </div>
             </div>
-            <div className="overflow-auto xl:overflow-visible">
+            <div className="overflow-auto">
               <Table className="border-b border-slate-200/60">
                 <Table.Thead>
                   <Table.Tr>
