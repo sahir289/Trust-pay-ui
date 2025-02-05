@@ -9,7 +9,7 @@ import Lucide from "@/components/Base/Lucide";
 function Payin() {
 
   return (
-    <div className="flex flex-col p-5 box box--stacked">
+    <div className="flex flex-col p-5 ">
       <Tab.Group>
         <Tab.List variant="tabs">
           <Tab>
@@ -50,16 +50,16 @@ function Payin() {
           </Tab>
         </Tab.List>
         <Tab.Panels className="border-b border-l border-r">
-          <Tab.Panel className="p-5 leading-relaxed">
+          <Tab.Panel className="py-5 leading-relaxed">
             <AllPayin />
           </Tab.Panel>
-          <Tab.Panel className="p-5 leading-relaxed">
+          <Tab.Panel className="py-5 leading-relaxed">
             <CompletedPayin />
           </Tab.Panel>
-          <Tab.Panel className="p-5 leading-relaxed">
+          <Tab.Panel className="py-5 leading-relaxed">
             <InProgressPayin />
           </Tab.Panel>
-          <Tab.Panel className="p-5 leading-relaxed">
+          <Tab.Panel className="py-5 leading-relaxed">
             <DroppedPayin />
           </Tab.Panel>
         </Tab.Panels>

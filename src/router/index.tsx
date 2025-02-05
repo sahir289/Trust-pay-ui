@@ -40,7 +40,7 @@ import Dynamic from "../pages/Dynamic";
 import Interactive from "../pages/Interactive";
 import RegularTable from "../pages/RegularTable";
 import Tabulator from "../pages/Tabulator";
-import Modal from "../pages/Modal";
+import Modal from "../pages/Modal/modal";
 import Slideover from "../pages/Slideover";
 import Notification from "../pages/Notification";
 import Tab from "../pages/Tab";

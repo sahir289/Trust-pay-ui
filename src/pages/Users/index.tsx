@@ -1,18 +1,24 @@
 import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover ,Dialog } from "@/components/Base/Headless";
+import { Menu, Popover, Dialog } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import { FormCheck, FormInput, FormSelect,FormLabel,FormSwitch } from "@/components/Base/Form";
+import { FormCheck, FormInput, FormSelect, FormLabel, FormSwitch } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import clsx from "clsx";
 import _ from "lodash";
-import { useState,useRef } from "react";
+import Modal from "../Modal/modal";
+import { useRef, useState } from "react";
+
 function Main() {
-  const [headerFooterModalPreview, setHeaderFooterModalPreview] =
-          useState(false);
-       const sendButtonRef = useRef(null);
+  const [newUserModal, setNewUserModal] = useState(false);
+  const [title, setTitle] = useState("Payins")
+  const userRef = useRef(null);
+  const userModal = () => {
+    setNewUserModal(!newUserModal)
+  }
+
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -20,88 +26,13 @@ function Main() {
           <div className="text-base font-medium group-[.mode--light]:text-white">
             Users
           </div>
+
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-            <Button
-              variant="primary"
-              className="group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent dark:group-[.mode--light]:!bg-darkmode-900/30 dark:!box"
-              onClick={(event: React.MouseEvent) => {
-                event.preventDefault();
-                setHeaderFooterModalPreview(true);
-              }}
-           >
-              <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 mr-2" />{" "}
-              Add New User
-            </Button>
+
+            <Modal handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title="Add User" />
           </div>
         </div>
-        <Dialog
-  open={headerFooterModalPreview}
-  onClose={() => setHeaderFooterModalPreview(false)}
-  initialFocus={sendButtonRef}
->
-  <Dialog.Panel>
-    <Dialog.Title>
-      <h2 className="mr-auto text-base font-medium">Add User</h2>
-      <Lucide
-                                                        icon="X"
-                                                        className="w-5 h-5 ml-px stroke-[3]"
-                                                        onClick={() => setHeaderFooterModalPreview(false)}
-                                                    />
-                                                    <Menu className="sm:hidden">
-                                                        <Menu.Button
-                                                            as="a"
-                                                            className="block w-5 h-5"
-                                                            href="#"
-                                                        >
-                                                            <Lucide
-                                                                icon="MoreHorizontal"
-                                                                className="w-5 h-5 text-slate-500"
-                                                            />
-                                                        </Menu.Button>
 
-                                                    </Menu>
-    </Dialog.Title>
-    <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
-    <legend className="ml-4 pt-1 px-2"></legend>
-    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
-      <div className="col-span-12 sm:col-span-12">
-        <FormLabel htmlFor="modal-form-1">Name</FormLabel>
-        <FormInput id="modal-form-1" type="text" />
-      </div>
-      <div className="col-span-12 sm:col-span-12">
-        <FormLabel htmlFor="modal-form-1">User Name</FormLabel>
-        <FormInput id="modal-form-1" type="text" />
-      </div>
-      <div className="col-span-12 sm:col-span-12">
-        <FormLabel htmlFor="modal-form-1">Password:</FormLabel>
-        <FormInput id="modal-form-1" placeholder="Password" type="text" />
-      </div>
-       <div className="col-span-12 sm:col-span-12">
-      <FormLabel htmlFor="modal-form-6">Role
-      </FormLabel>
-      <FormSelect id="modal-form-6">
-                                          <option>one</option>
-                                            <option>two</option>
-                                            <option>three</option>
-                                            <option>four</option>
-                                          </FormSelect>
-                                        </div>
-    </Dialog.Description></fieldset>
-    <Dialog.Footer>
-      <Button
-        type="button"
-        variant="outline-secondary"
-        onClick={() => setHeaderFooterModalPreview(false)}
-        className="w-20 mr-1"
-      >
-        Cancel
-      </Button>
-      <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
-        ok
-      </Button>
-    </Dialog.Footer>
-  </Dialog.Panel>
-</Dialog>
         <div className="flex flex-col gap-8 mt-3.5">
           <div className="flex flex-col p-5 box box--stacked">
             <div className="grid grid-cols-4 gap-5">
@@ -280,7 +211,7 @@ function Main() {
                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       <FormCheck.Input type="checkbox" />
                     </Table.Td>
-                     {/* <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                    {/* <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                                           SNO
                                         </Table.Td> */}
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
@@ -303,9 +234,9 @@ function Main() {
                 <Table.Tbody>
                   {_.take(users.fakeUsers(), 10).map((faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
-                       <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      <FormCheck.Input type="checkbox"/>
-                    </Table.Td>
+                      <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                        <FormCheck.Input type="checkbox" />
+                      </Table.Td>
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         {faker.manager}
                       </Table.Td>
@@ -369,20 +300,20 @@ function Main() {
                         </div>
                       </Table.Td>
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                         <FormSwitch className=" dark:border-red-500 rounded-lg">
-                                                                            <FormSwitch.Label
-                                                                                htmlFor="show-example-1 "
-                                                                                className="ml-0 "
-                                                                            >
-                                                                               
-                                                                                <FormSwitch.Input
-                                                                                    id="show-example-1"
-                                                                                    //   onClick={}
-                                                                                    className="ml-0 mr-0 border-2 border-slate-300  "
-                                                                                    type="checkbox"
-                                                                                />
-                                                                            </FormSwitch.Label>
-                                                                        </FormSwitch>
+                        <FormSwitch className=" dark:border-red-500 rounded-lg">
+                          <FormSwitch.Label
+                            htmlFor="show-example-1 "
+                            className="ml-0 "
+                          >
+
+                            <FormSwitch.Input
+                              id="show-example-1"
+                              //   onClick={}
+                              className="ml-0 mr-0 border-2 border-slate-300  "
+                              type="checkbox"
+                            />
+                          </FormSwitch.Label>
+                        </FormSwitch>
                       </Table.Td>
                       {/* <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                         <div className="flex items-center justify-center">

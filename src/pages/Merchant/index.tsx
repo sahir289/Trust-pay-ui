@@ -13,7 +13,9 @@ import { Preview, PreviewComponent, Source } from "@/components/Base/PreviewComp
 function Main() {
     const [newMerchantModal, setNewMerchantModal] = useState(false);
     const sendButtonRef = useRef(null);
-
+ const merchantModal =()=>{
+    setNewMerchantModal(!newMerchantModal)
+ }
     return (
         <div className="grid grid-cols-12 gap-y-10 gap-x-6">
             <div className="col-span-12">
