@@ -16,7 +16,36 @@ import fakersPayouts from "@/fakers/payouts";
 
 function RejectedPayout() {
   const [selectedUser, setSelectedUser] = useState("1");
+  interface StatusStyle {
+    color: string;
+    icon: JSX.Element;
+  }
+  const getStatusStyles = (status: string): StatusStyle => {
+  switch (status) {
 
+
+    case "Rejected":
+      return {
+        color: "text-red-500",
+        icon: <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
+      };
+
+      case "Initiated":
+        return {
+          color: "text-grey-500",
+          icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+
+    case "Success":
+      return {
+        color: "text-green-500",
+        icon: <Lucide icon="CheckCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
+      };
+
+    default:
+      return { color: "text-gray-500", icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" /> };
+  }}
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -190,10 +219,11 @@ function RejectedPayout() {
                         </a>
                       </Table.Td>
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="flex items-center">
-                          <Lucide icon="CheckCircle" className="w-3.5 h-3.5 stroke-[1.7]" />
-                          <span className="ml-1.5 whitespace-nowrap">{faker.status}</span>
+                      <div className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(faker.status).color}`}>
+                      {getStatusStyles(faker.status).icon}
+                            {faker.status}
                         </div>
+                        
                       </Table.Td>
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <span className="whitespace-nowrap">{faker.amount}</span>
