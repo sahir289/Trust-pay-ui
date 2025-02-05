@@ -7,7 +7,7 @@ import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import clsx from "clsx";
-import _ from "lodash";çç
+import _ from "lodash";
 function Main() {
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -31,7 +31,7 @@ function Main() {
             <div className="grid grid-cols-4 gap-5">
               <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
                 <div className="text-base text-slate-500">Registered Users</div>
-                <div className="mt-1.5 text-2xl font-medium">457,204</div>
+                <div className="mt-1.5 text-2xl font-medium">4,204</div>
                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                   <div className="flex items-center border border-danger/10 bg-danger/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-danger">
                     3%
@@ -44,7 +44,7 @@ function Main() {
               </div>
               <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
                 <div className="text-base text-slate-500">Active Users</div>
-                <div className="mt-1.5 text-2xl font-medium">122,721</div>
+                <div className="mt-1.5 text-2xl font-medium">1,721</div>
                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                   <div className="flex items-center border border-success/10 bg-success/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-success">
                     2%
@@ -57,7 +57,7 @@ function Main() {
               </div>
               <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
                 <div className="text-base text-slate-500">New Users</div>
-                <div className="mt-1.5 text-2xl font-mediumm">489,223</div>
+                <div className="mt-1.5 text-2xl font-mediumm">223</div>
                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                   <div className="flex items-center border border-danger/10 bg-danger/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-danger">
                     3%
@@ -70,7 +70,7 @@ function Main() {
               </div>
               <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
                 <div className="text-base text-slate-500">Login Activity</div>
-                <div className="mt-1.5 text-2xl font-mediumm">411,259</div>
+                <div className="mt-1.5 text-2xl font-mediumm">259</div>
                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                   <div className="flex items-center border border-success/10 bg-success/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-success">
                     8%
@@ -98,7 +98,7 @@ function Main() {
                   />
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 sm:ml-auto">
+              {/* <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 sm:ml-auto">
                 <Menu>
                   <Menu.Button
                     as={Button}
@@ -195,7 +195,7 @@ function Main() {
                     </>
                   )}
                 </Popover>
-              </div>
+              </div> */}
             </div>
             <div className="overflow-auto xl:overflow-visible">
               <Table className="border-b border-slate-200/60">
@@ -204,31 +204,34 @@ function Main() {
                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       <FormCheck.Input type="checkbox" />
                     </Table.Td>
+                     {/* <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                                          SNO
+                                        </Table.Td> */}
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Name
+                      Admin Name
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Position
+                      User Name
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t w-52 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Profile Completeness
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium text-center border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Status
+                      Role
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Joined Date
+                      Enabled
                     </Table.Td>
-                    <Table.Td className="w-20 py-4 font-medium text-center border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Action
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Last Logged in
                     </Table.Td>
                   </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>
                   {_.take(users.fakeUsers(), 10).map((faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
+                       <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      <FormCheck.Input type="checkbox"/>
+                    </Table.Td>
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <FormCheck.Input type="checkbox" />
+                        {faker.manager}
                       </Table.Td>
                       <Table.Td className="py-4 border-dashed w-80 dark:bg-darkmode-600">
                         <div className="flex items-center">
@@ -262,7 +265,7 @@ function Main() {
                           {faker.department}
                         </div>
                       </Table.Td>
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      {/* <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div className="w-40">
                           <div className="text-xs text-slate-500">
                             {_.random(50, 100)}%
@@ -282,15 +285,14 @@ function Main() {
                             ></div>
                           </div>
                         </div>
-                      </Table.Td>
+                      </Table.Td> */}
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div
                           className={clsx([
-                            "flex items-center justify-center",
+                            "flex",
                             ["text-success", "text-danger"][_.random(0, 1)],
                           ])}
-                        >
-                          <Lucide
+                        ><Lucide
                             icon="Database"
                             className="w-3.5 h-3.5 stroke-[1.7]"
                           />
@@ -304,7 +306,7 @@ function Main() {
                           {faker.joinedDate}
                         </div>
                       </Table.Td>
-                      <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
+                      {/* <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                         <div className="flex items-center justify-center">
                           <Menu className="h-5">
                             <Menu.Button className="w-5 h-5 text-slate-500">
@@ -331,7 +333,7 @@ function Main() {
                             </Menu.Items>
                           </Menu>
                         </div>
-                      </Table.Td>
+                      </Table.Td> */}
                     </Table.Tr>
                   ))}
                 </Table.Tbody>

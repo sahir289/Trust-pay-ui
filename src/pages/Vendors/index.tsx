@@ -22,7 +22,7 @@ function Main() {
               className="group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent dark:group-[.mode--light]:!bg-darkmode-900/30 dark:!box"
             >
               <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 mr-2" />{" "}
-              Add Vendor
+              Add New Vendor
             </Button>
           </div>
         </div>
@@ -231,7 +231,7 @@ function Main() {
                   </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>
-                  {_.take(users.fakeUsers(), 10).map((faker, fakerKey) => (
+                  {_.take(users.fakeUsers(), 20).map((faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         {fakerKey+1}
