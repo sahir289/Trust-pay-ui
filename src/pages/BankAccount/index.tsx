@@ -10,8 +10,14 @@ import clsx from "clsx";
 import _ from "lodash";
 import { useState,useRef } from "react";
 function Main() {
-  const [headerFooterModalPreview, setHeaderFooterModalPreview] =
-          useState(false);
+    const [selectedOption, setSelectedOption] = useState("PayIn");
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+  const [headerFooterModalPreview, setHeaderFooterModalPreview] =useState(false);
+  const [VerificationModal , setVerificationModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
        const sendButtonRef = useRef(null);
        const bankAccounts = [
         {
@@ -214,45 +220,99 @@ function Main() {
   <Dialog.Panel>
     <Dialog.Title>
       <h2 className="mr-auto text-base font-medium">Add Bank Account</h2>
+      <Lucide
+                                                        icon="X"
+                                                        className="w-5 h-5 ml-px stroke-[3]"
+                                                        onClick={() => setHeaderFooterModalPreview(false)}
+                                                    />
+                                                    <Menu className="sm:hidden">
+                                                        <Menu.Button
+                                                            as="a"
+                                                            className="block w-5 h-5"
+                                                            href="#"
+                                                        >
+                                                            <Lucide
+                                                                icon="MoreHorizontal"
+                                                                className="w-5 h-5 text-slate-500"
+                                                            />
+                                                        </Menu.Button>
+
+                                                    </Menu>
     </Dialog.Title>
+    <Dialog.Description className="grid grid-cols-12 gap-2 gap-y-7">
+    <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
+    <legend className="ml-4 pt-1 px-2">Details</legend>
     <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-7">
-      <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">Bank Account Nick Name:</FormLabel>
-        <FormInput id="modal-form-1" type="text" />
+      <div className="col-span-12 sm:col-span-12">
+        <FormLabel htmlFor="modal-form-1">Bank Account Nick Name</FormLabel>
+        <FormInput id="modal-form-1" placeholder="..." type="text" />
       </div>
       <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">Bank Name:</FormLabel>
-        <FormInput id="modal-form-1" type="text" />
+        <FormLabel htmlFor="modal-form-1">Bank Name</FormLabel>
+        <FormInput id="modal-form-1" placeholder="..." type="text" />
       </div>
-      <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">Bank Account Holder Name:</FormLabel>
-        <FormInput id="modal-form-1"  type="text" />
-      </div>
+      
        <div className="col-span-12 sm:col-span-6">
       <FormLabel htmlFor="modal-form-6">
-                                            PayIn/PayOut:
+                                            PayIn/PayOut
       </FormLabel>
-      <FormSelect id="modal-form-6">
-                                          <option>PayIn</option>
-                                            <option>PayOut</option>
-                                          </FormSelect>
+    
+      <FormSelect id="modal-form-6" onChange={handleOptionChange} value={selectedOption}>
+            <option value="PayIn">PayIn</option>
+            <option value="PayOut">PayOut</option>
+          </FormSelect>
                                         </div>
+                                        <div className="col-span-12 sm:col-span-12">
+        <FormLabel htmlFor="modal-form-1">Bank Account Holder Name</FormLabel>
+        <FormInput id="modal-form-1" placeholder="..." type="text" />
+      </div>
     <div className="col-span-12 sm:col-span-12">
-        <FormLabel htmlFor="modal-form-1">Account Number:</FormLabel>
-        <FormInput id="modal-form-1"  type="Number" />
+        <FormLabel htmlFor="modal-form-1">Account Number</FormLabel>
+        <FormInput id="modal-form-1"   type="Number" />
       </div>
       <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">IFSC Code:</FormLabel>
+        <FormLabel htmlFor="modal-form-1">IFSC Code</FormLabel>
         <FormInput id="modal-form-1"  type="text" />
       </div>
       <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">UPI ID:</FormLabel>
-        <FormInput id="modal-form-1"  type="text" />
-      </div>
-      <div className="col-span-12 sm:col-span-12 flex justify-between items-center">
+        <FormLabel htmlFor="modal-form-1">UPI ID</FormLabel>
+        <FormInput id="modal-form-1" placeholder="..." type="text" />
+      </div></Dialog.Description></fieldset>
+      {selectedOption === "PayIn" && (
+          <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
+            <legend className="ml-4 pt-1 px-2">Pay IN</legend>
+            <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-7">
+              <div className="col-span-12 sm:col-span-6">
+                <FormLabel htmlFor="modal-form-1">Min</FormLabel>
+                <FormInput id="modal-form-1" type="Number" />
+              </div>
+              <div className="col-span-12 sm:col-span-6">
+                <FormLabel htmlFor="modal-form-1">Max</FormLabel>
+                <FormInput id="modal-form-1" type="Number" />
+              </div>
+            </Dialog.Description>
+          </fieldset>
+        )}
 
+        {/* Conditional Rendering for PayOut Field */}
+        {selectedOption === "PayOut" && (
+          <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
+          <legend className="ml-4 pt-1 px-2">Pay Out</legend>
+          <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-7">
+            <div className="col-span-12 sm:col-span-6">
+              <FormLabel htmlFor="modal-form-1">Min</FormLabel>
+              <FormInput id="modal-form-1" type="Number" />
+            </div>
+            <div className="col-span-12 sm:col-span-6">
+              <FormLabel htmlFor="modal-form-1">Max</FormLabel>
+              <FormInput id="modal-form-1" type="Number" />
+            </div>
+          </Dialog.Description>
+        </fieldset>
+        )}
+      <div className="col-span-12 sm:col-span-12 flex flex-row justify-around items-center">
   <div className="col-span-12 sm:col-span-4 flex items-center justify-between">
-    <FormLabel htmlFor="modal-form-1" className="mr-2">Enabled:</FormLabel>
+    <FormLabel htmlFor="modal-form-1" className="mr-2 pt-2">Enabled</FormLabel>
     <FormSwitch className="dark:border-red-500 rounded-lg">
       <FormSwitch.Label htmlFor="show-example-1" className="ml-0">
         <FormSwitch.Input
@@ -264,7 +324,7 @@ function Main() {
     </FormSwitch>
   </div>
   <div className="col-span-12 sm:col-span-4 flex items-center justify-between">
-    <FormLabel htmlFor="modal-form-1" className="mr-2">QR?:</FormLabel>
+    <FormLabel htmlFor="modal-form-1" className="mr-2 pt-2">QR?</FormLabel>
     <FormSwitch className="dark:border-red-500 rounded-lg">
       <FormSwitch.Label htmlFor="show-example-1" className="ml-0">
         <FormSwitch.Input
@@ -275,10 +335,8 @@ function Main() {
       </FormSwitch.Label>
     </FormSwitch>
   </div>
-
-
   <div className="col-span-12 sm:col-span-4 flex items-center justify-between">
-    <FormLabel htmlFor="modal-form-1" className="mr-2">Bank?:</FormLabel>
+    <FormLabel htmlFor="modal-form-1" className="mr-2 pt-2">Bank?</FormLabel>
     <FormSwitch className="dark:border-red-500 rounded-lg">
       <FormSwitch.Label htmlFor="show-example-1" className="ml-0">
         <FormSwitch.Input
@@ -289,14 +347,8 @@ function Main() {
       </FormSwitch.Label>
     </FormSwitch>
   </div>
-</div>
-      <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">Min Payin:</FormLabel>
-        <FormInput id="modal-form-1"  type="Number" />
-      </div> <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">Max Payin:</FormLabel>
-        <FormInput id="modal-form-1"  type="Number" />
-      </div>
+  </div>
+  
     </Dialog.Description>
     <Dialog.Footer>
       <Button
@@ -309,6 +361,61 @@ function Main() {
       </Button>
       <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
         ok
+      </Button>
+    </Dialog.Footer>
+  </Dialog.Panel>
+</Dialog>
+<Dialog
+  open={VerificationModal}
+  onClose={() => setVerificationModal(false)}
+  initialFocus={sendButtonRef}
+>
+  <Dialog.Panel>
+    <Dialog.Title>
+      <h2 className="mr-auto text-base font-medium">Password Verification</h2>
+      <Lucide
+                                                        icon="X"
+                                                        className="w-5 h-5 ml-px stroke-[3]"
+                                                        onClick={() => setVerificationModal(false)}
+                                                    />
+                                                    <Menu className="sm:hidden">
+                                                        <Menu.Button
+                                                            as="a"
+                                                            className="block w-5 h-5"
+                                                            href="#"
+                                                        >
+                                                            <Lucide
+                                                                icon="MoreHorizontal"
+                                                                className="w-5 h-5 text-slate-500"
+                                                            />
+                                                        </Menu.Button>
+
+                                                    </Menu>
+    </Dialog.Title>
+    <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
+      <legend className="ml-4 pt-1 px-2">Password</legend>
+      <Dialog.Description>
+      <div className="relative col-span-12 sm:col-span-12">
+        <FormInput
+          id="modal-form-1"
+          placeholder="Type here..."
+          type={showPassword ? "text" : "password"} // Toggle password visibility
+          className="w-full pr-10" // Space for icon
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+        >
+          {showPassword ? <Lucide icon="EyeOff" /> : <Lucide icon="Eye" />}
+        </button>
+      </div>
+      </Dialog.Description>
+     
+    </fieldset>
+    <Dialog.Footer>
+      <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
+        Verify
       </Button>
     </Dialog.Footer>
   </Dialog.Panel>
@@ -356,7 +463,7 @@ function Main() {
                 </div>
               </div>
               <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                <div className="text-base text-slate-500">Login Activity</div>
+                <div className="text-base text-slate-500">Transactions Activity</div>
                 <div className="mt-1.5 text-2xl font-mediumm">259</div>
                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                   <div className="flex items-center border border-success/10 bg-success/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-success">
@@ -654,21 +761,49 @@ function Main() {
       <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                         <div className="flex items-center justify-center">
                           <Menu className="h-5">
-                            <Menu.Button className="w-5 h-5 text-slate-500">
+                            <Menu.Button className="w-5 h-5 text-slate-500" >
                               <Lucide
                                 icon="MoreVertical"
                                 className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
                               />
                             </Menu.Button>
-                            <Menu.Items className="w-40">
-                              <Menu.Item>
+                            <Menu.Items className="w-40" 
+              >
+                              <Menu.Item  onClick={(event: React.MouseEvent) => {
+                                    event.preventDefault();
+                                    setVerificationModal(true);
+                                  }}>
+                                <Lucide
+                                  icon="Eye"
+                                  className="w-4 h-4 mr-2"
+                                />{" "}
+                                List
+                              </Menu.Item>
+                              <Menu.Item  onClick={(event: React.MouseEvent) => {
+                                    event.preventDefault();
+                                    setVerificationModal(true);
+                                  }}>
+                                <Lucide
+                                  icon="Download"
+                                  className="w-4 h-4 mr-2"
+                                />{" "}
+                                Report
+                              </Menu.Item>
+                              <Menu.Item  onClick={(event: React.MouseEvent) => {
+                                    event.preventDefault();
+                                    setVerificationModal(true);
+                                  }}>
                                 <Lucide
                                   icon="CheckSquare"
                                   className="w-4 h-4 mr-2"
+                                 
                                 />{" "}
                                 Edit
                               </Menu.Item>
-                              <Menu.Item className="text-danger">
+                              <Menu.Item className="text-danger "  onClick={(event: React.MouseEvent) => {
+                                    event.preventDefault();
+                                    setVerificationModal(true);
+                                  }}>
                                 <Lucide
                                   icon="Trash2"
                                   className="w-4 h-4 mr-2"
@@ -680,7 +815,7 @@ function Main() {
                         </div>
                       </Table.Td>
                            
-      
+                    
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
         <div className="whitespace-nowrap">{account.bankUsedFor}</div>
       </Table.Td>

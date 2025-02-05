@@ -13,7 +13,7 @@ import { useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";
 
-function CompletedPayin() {
+function CheckUtrHistory() {
   const [selectedUser, setSelectedUser] = useState("1");
 
   return (
@@ -30,7 +30,7 @@ function CompletedPayin() {
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search Payins..."
+                    placeholder="Search transactions..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>
@@ -305,4 +305,4 @@ function CompletedPayin() {
   );
 }
 
-export default CompletedPayin;
+export default CheckUtrHistory;

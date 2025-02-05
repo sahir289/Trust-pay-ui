@@ -10,6 +10,7 @@ import DashboardOverview8 from "../pages/DashboardOverview8";
 import Users from "../pages/Users";
 import Vendors from "../pages/Vendors";
 import Merchant from "../pages/Merchant";
+import BankAccount from "../pages/BankAccount";
 
 import Departments from "../pages/Departments";
 import AddUser from "../pages/AddUser";
@@ -64,6 +65,8 @@ import ImageZoom from "../pages/ImageZoom";
 import LandingPage from "../pages/LandingPage";
 import Settlement from "../pages/Settlement";
 import ChargeBack from "../pages/ChargeBack";
+import AddData from "../pages/AddData";
+
 import Layout from "../themes";
 import Bankaccount from "../pages/BankAccount";
 function Router() {
@@ -110,7 +113,7 @@ function Router() {
         },
         {
           path: "vendors",
-          element: <Vendors />,
+          element: <Vendors/>,
         },
         {
           path: "users",
@@ -139,6 +142,10 @@ function Router() {
         {
           path: "billing",
           element: <Billing />,
+        },
+        {
+          path: "bankaccounts",
+          element: <BankAccount />,
         },
         {
           path: "invoice",
@@ -175,6 +182,10 @@ function Router() {
         {
           path: "chargeback",
           element: <ChargeBack />,
+        },
+        {
+          path: "add-data",
+          element: <AddData />,
         },
         {
           path: "seller-list",

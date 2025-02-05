@@ -30,7 +30,7 @@ function AllPayout() {
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search transactions..."
+                    placeholder="Search Payouts..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>

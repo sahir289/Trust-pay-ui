@@ -40,11 +40,11 @@ const initialState: SideMenuState = {
       pathname: "/layout/chargeback",
       title: "ChargeBacks",
     },
-    "ADD DATA",
+    "BANK ACCOUNTS",
     {
-      icon: "FileText",
-      pathname: "/layout/transaction-list",
-      title: "Add Data",
+      icon: "Landmark",
+      pathname: "/layout/bankaccounts",
+      title: "Bank Accounts",
     },
     "USERS",
     {
@@ -73,11 +73,11 @@ const initialState: SideMenuState = {
       pathname: "/layout/profile-overview",
       title: "Designation",
     },
-    "BANK ACCOUNTS",
+    "DATA ENTRIES",
     {
-      icon: "Landmark",
-      pathname: "/layout/bankaccounts",
-      title: "Bank Account",
+      icon: "FileText",
+      pathname: "/layout/add-data",
+      title: "Data Entries",
     },
     "ACCOUNT REPORTS",
     {

@@ -42,23 +42,42 @@ function Main() {
   <Dialog.Panel>
     <Dialog.Title>
       <h2 className="mr-auto text-base font-medium">Add User</h2>
+      <Lucide
+                                                        icon="X"
+                                                        className="w-5 h-5 ml-px stroke-[3]"
+                                                        onClick={() => setHeaderFooterModalPreview(false)}
+                                                    />
+                                                    <Menu className="sm:hidden">
+                                                        <Menu.Button
+                                                            as="a"
+                                                            className="block w-5 h-5"
+                                                            href="#"
+                                                        >
+                                                            <Lucide
+                                                                icon="MoreHorizontal"
+                                                                className="w-5 h-5 text-slate-500"
+                                                            />
+                                                        </Menu.Button>
+
+                                                    </Menu>
     </Dialog.Title>
+    <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
+    <legend className="ml-4 pt-1 px-2"></legend>
     <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
-      <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">Full Name:</FormLabel>
+      <div className="col-span-12 sm:col-span-12">
+        <FormLabel htmlFor="modal-form-1">Name</FormLabel>
         <FormInput id="modal-form-1" type="text" />
       </div>
-      <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">User Name:</FormLabel>
+      <div className="col-span-12 sm:col-span-12">
+        <FormLabel htmlFor="modal-form-1">User Name</FormLabel>
         <FormInput id="modal-form-1" type="text" />
       </div>
-      <div className="col-span-12 sm:col-span-6">
+      <div className="col-span-12 sm:col-span-12">
         <FormLabel htmlFor="modal-form-1">Password:</FormLabel>
         <FormInput id="modal-form-1" placeholder="Password" type="text" />
       </div>
-       <div className="col-span-12 sm:col-span-6">
-      <FormLabel htmlFor="modal-form-6">
-                                            Role:
+       <div className="col-span-12 sm:col-span-12">
+      <FormLabel htmlFor="modal-form-6">Role
       </FormLabel>
       <FormSelect id="modal-form-6">
                                           <option>one</option>
@@ -67,7 +86,7 @@ function Main() {
                                             <option>four</option>
                                           </FormSelect>
                                         </div>
-    </Dialog.Description>
+    </Dialog.Description></fieldset>
     <Dialog.Footer>
       <Button
         type="button"
