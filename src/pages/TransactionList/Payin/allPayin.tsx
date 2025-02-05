@@ -15,6 +15,51 @@ import _ from "lodash";
 
 function AllPayin() {
   const [selectedUser, setSelectedUser] = useState("1");
+  interface StatusStyle {
+    color: string;
+    icon: JSX.Element;
+  }
+
+  const getStatusStyles = (status: string): StatusStyle => {
+    switch (status) {
+      case "Image Pending":
+      case "Pending":
+        return {
+          color: "text-yellow-500",
+          icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+      case "Failed":
+      case "Dropped":
+        return {
+          color: "text-red-500",
+          icon: <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+      case "Bank Mismatch":
+      case "Duplicate":
+      case "Dispute":
+        return {
+          color: "text-orange-500",
+          icon: <Lucide icon="FileWarning" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+      case "Assigned":
+        return {
+          color: "text-blue-500",
+          icon: <Lucide icon="ListChecks" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+      case "Success":
+        return {
+          color: "text-green-500",
+          icon: <Lucide icon="CheckCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+      default:
+        return { color: "text-gray-500", icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" /> };
+    }
+  };
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -201,39 +246,41 @@ function AllPayin() {
                           <FormCheck.Input type="checkbox" />
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.sno}
-                            </a>
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.sno}
+                          </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.code}
-                            </a>
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.code}
+                          </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.confirmed}
-                            </a>
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.confirmed}
+                          </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.amount}
-                            </a>
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.amount}
+                          </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.status}
-                            </a>
+                          <div className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(faker.status).color}`}>
+                            {getStatusStyles(faker.status).icon}
+                            {faker.status}
+                          </div>
+                        </Table.Td>
+
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.merchant_order_id}
+                          </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.merchant_order_id}
-                            </a>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.merchant_code}
-                            </a>
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.merchant_code}
+                          </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
                           <div className="flex items-center">
@@ -257,29 +304,29 @@ function AllPayin() {
                           </div>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.user_submitted_utr}
-                            </a>
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.user_submitted_utr}
+                          </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.utr}
-                            </a>
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.utr}
+                          </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.method}
-                            </a>
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.method}
+                          </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.id}
-                            </a>
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.id}
+                          </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.updated_at}
-                            </a>
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.updated_at}
+                          </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
                           <div className="flex items-center">

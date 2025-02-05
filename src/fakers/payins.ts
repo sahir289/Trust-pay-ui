@@ -55,7 +55,7 @@ const fakersPayins = {
                 confirmed: "₹0",
                 commission: "₹0",
                 amount: "₹0",
-                status: "Success",
+                status: "Initiated",
                 merchant_order_id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
                 merchant_code: "Tom",
                 name: "Meryl Streep",
