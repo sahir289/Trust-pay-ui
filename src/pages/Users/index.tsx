@@ -1,7 +1,7 @@
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover ,Dialog } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import { FormCheck, FormInput, FormSelect,FormLabel } from "@/components/Base/Form";
+import { FormCheck, FormInput, FormSelect,FormLabel,FormSwitch } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
@@ -344,15 +344,20 @@ function Main() {
                         </div>
                       </Table.Td> */}
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div
-                        >
-                          <FormSwitch.Input
-                                                    id="show-example-1"
-                                                    onClick={toggle}
-                                                    className="ml-3 mr-0"
-                                                    type="checkbox"
-                                                  />
-                        </div>
+                         <FormSwitch className=" dark:border-red-500 rounded-lg">
+                                                                            <FormSwitch.Label
+                                                                                htmlFor="show-example-1 "
+                                                                                className="ml-0 "
+                                                                            >
+                                                                               
+                                                                                <FormSwitch.Input
+                                                                                    id="show-example-1"
+                                                                                    //   onClick={}
+                                                                                    className="ml-0 mr-0 border-2 border-slate-300  "
+                                                                                    type="checkbox"
+                                                                                />
+                                                                            </FormSwitch.Label>
+                                                                        </FormSwitch>
                       </Table.Td>
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div className="whitespace-nowrap">

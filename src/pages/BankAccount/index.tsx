@@ -1,7 +1,7 @@
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover ,Dialog } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import { FormCheck, FormInput, FormSelect,FormLabel } from "@/components/Base/Form";
+import { FormCheck, FormInput, FormSelect,FormLabel ,FormSwitch} from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
@@ -190,7 +190,7 @@ function Main() {
       <div className="col-span-12">
         <div className="flex flex-col md:h-10 gap-y-3 md:items-center md:flex-row">
           <div className="text-base font-medium group-[.mode--light]:text-white">
-            Users
+            Bank Accounts
           </div>
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
             <Button
@@ -213,32 +213,90 @@ function Main() {
 >
   <Dialog.Panel>
     <Dialog.Title>
-      <h2 className="mr-auto text-base font-medium">Add User</h2>
+      <h2 className="mr-auto text-base font-medium">Add Bank Account</h2>
     </Dialog.Title>
-    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
+    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-7">
       <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">Full Name:</FormLabel>
+        <FormLabel htmlFor="modal-form-1">Bank Account Nick Name:</FormLabel>
         <FormInput id="modal-form-1" type="text" />
       </div>
       <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">User Name:</FormLabel>
+        <FormLabel htmlFor="modal-form-1">Bank Name:</FormLabel>
         <FormInput id="modal-form-1" type="text" />
       </div>
       <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">Password:</FormLabel>
-        <FormInput id="modal-form-1" placeholder="Password" type="text" />
+        <FormLabel htmlFor="modal-form-1">Bank Account Holder Name:</FormLabel>
+        <FormInput id="modal-form-1"  type="text" />
       </div>
        <div className="col-span-12 sm:col-span-6">
       <FormLabel htmlFor="modal-form-6">
-                                            Role:
+                                            PayIn/PayOut:
       </FormLabel>
       <FormSelect id="modal-form-6">
-                                          <option>one</option>
-                                            <option>two</option>
-                                            <option>three</option>
-                                            <option>four</option>
+                                          <option>PayIn</option>
+                                            <option>PayOut</option>
                                           </FormSelect>
                                         </div>
+    <div className="col-span-12 sm:col-span-12">
+        <FormLabel htmlFor="modal-form-1">Account Number:</FormLabel>
+        <FormInput id="modal-form-1"  type="Number" />
+      </div>
+      <div className="col-span-12 sm:col-span-6">
+        <FormLabel htmlFor="modal-form-1">IFSC Code:</FormLabel>
+        <FormInput id="modal-form-1"  type="text" />
+      </div>
+      <div className="col-span-12 sm:col-span-6">
+        <FormLabel htmlFor="modal-form-1">UPI ID:</FormLabel>
+        <FormInput id="modal-form-1"  type="text" />
+      </div>
+      <div className="col-span-12 sm:col-span-12 flex justify-between items-center">
+
+  <div className="col-span-12 sm:col-span-4 flex items-center justify-between">
+    <FormLabel htmlFor="modal-form-1" className="mr-2">Enabled:</FormLabel>
+    <FormSwitch className="dark:border-red-500 rounded-lg">
+      <FormSwitch.Label htmlFor="show-example-1" className="ml-0">
+        <FormSwitch.Input
+          id="show-example-1"
+          className="ml-0 mr-0 border-2 border-slate-300"
+          type="checkbox"
+        />
+      </FormSwitch.Label>
+    </FormSwitch>
+  </div>
+  <div className="col-span-12 sm:col-span-4 flex items-center justify-between">
+    <FormLabel htmlFor="modal-form-1" className="mr-2">QR?:</FormLabel>
+    <FormSwitch className="dark:border-red-500 rounded-lg">
+      <FormSwitch.Label htmlFor="show-example-1" className="ml-0">
+        <FormSwitch.Input
+          id="show-example-1"
+          className="ml-0 mr-0 border-2 border-slate-300"
+          type="checkbox"
+        />
+      </FormSwitch.Label>
+    </FormSwitch>
+  </div>
+
+
+  <div className="col-span-12 sm:col-span-4 flex items-center justify-between">
+    <FormLabel htmlFor="modal-form-1" className="mr-2">Bank?:</FormLabel>
+    <FormSwitch className="dark:border-red-500 rounded-lg">
+      <FormSwitch.Label htmlFor="show-example-1" className="ml-0">
+        <FormSwitch.Input
+          id="show-example-1"
+          className="ml-0 mr-0 border-2 border-slate-300"
+          type="checkbox"
+        />
+      </FormSwitch.Label>
+    </FormSwitch>
+  </div>
+</div>
+      <div className="col-span-12 sm:col-span-6">
+        <FormLabel htmlFor="modal-form-1">Min Payin:</FormLabel>
+        <FormInput id="modal-form-1"  type="Number" />
+      </div> <div className="col-span-12 sm:col-span-6">
+        <FormLabel htmlFor="modal-form-1">Max Payin:</FormLabel>
+        <FormInput id="modal-form-1"  type="Number" />
+      </div>
     </Dialog.Description>
     <Dialog.Footer>
       <Button
@@ -426,7 +484,7 @@ function Main() {
                 </Popover>
               </div> */}
             </div>
-            <div className="overflow-auto xl:overflow-visible overflow-x-auto overflow-y-auto">
+            <div className="overflow-auto">
               <Table className="border-b border-slate-200/60 ">
                 <Table.Thead>
                   <Table.Tr>
@@ -497,34 +555,132 @@ function Main() {
       <Table.Td className="py-4 border-dashed w-80 dark:bg-darkmode-600">
         <div className="text-xs text-slate-500">{account.upiId}</div>
       </Table.Td>
+     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                             <div className="w-40">
+                               <div className="text-xs text-slate-500">
+                                 {_.random(50, 99)}K
+                               </div>
+                               <div className="flex h-1 border rounded-sm bg-slate-50 mt-1.5 dark:bg-darkmode-400">
+                                 <div
+                                   className={clsx([
+                                     "first:rounded-l-sm last:rounded-r-sm border border-primary/20 -m-px bg-primary/40",
+                                     [
+                                       "w-[35%]",
+                                       "w-[45%]",
+                                       "w-[55%]",
+                                       "w-[65%]",
+                                       "w-[75%]",
+                                     ][_.random(0, 4)],
+                                   ])}
+                                 ></div>
+                               </div>
+                             </div>
+                           </Table.Td>
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-        <div className="text-xs text-slate-500">Limits: {account.limits}</div>
-       
+        <div className="text-xs text-slate-500">{account.balance}</div>
       </Table.Td>
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-        <div className="text-xs text-slate-500">Balance: {account.balance}</div>
+      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+        <FormSwitch className=" dark:border-red-500 rounded-lg">
+                                                           <FormSwitch.Label
+                                                               htmlFor="show-example-1 "
+                                                               className="ml-0 "
+                                                           >
+                                                              
+                                                               <FormSwitch.Input
+                                                                   id="show-example-1"
+                                                                   //   onClick={}
+                                                                   className="ml-0 mr-0 border-2 border-slate-300  "
+                                                                   type="checkbox"
+                                                               />
+                                                           </FormSwitch.Label>
+                                                       </FormSwitch>
+      </Table.Td>
       </Table.Td>
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-        <div className="flex">
-          <Lucide icon={account.allowIntent ? "CheckCircle" : "XCircle"} className="w-3.5 h-3.5 stroke-[1.7]" />
-          <div className="ml-1.5 whitespace-nowrap">{account.allowIntent ? "Yes" : "No"}</div>
-        </div>
+      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+        <FormSwitch className=" dark:border-red-500 rounded-lg">
+                                                           <FormSwitch.Label
+                                                               htmlFor="show-example-1 "
+                                                               className="ml-0 "
+                                                           >
+                                                              
+                                                               <FormSwitch.Input
+                                                                   id="show-example-1"
+                                                                   //   onClick={}
+                                                                   className="ml-0 mr-0 border-2 border-slate-300  "
+                                                                   type="checkbox"
+                                                               />
+                                                           </FormSwitch.Label>
+                                                       </FormSwitch>
+      </Table.Td>
       </Table.Td>
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-        <div className="flex">
-          <Lucide icon={account.allowQR ? "CheckCircle" : "XCircle"} className="w-3.5 h-3.5 stroke-[1.7]" />
-          <div className="ml-1.5 whitespace-nowrap">{account.allowQR ? "Yes" : "No"}</div>
-        </div>
+      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+        <FormSwitch className=" dark:border-red-500 rounded-lg">
+                                                           <FormSwitch.Label
+                                                               htmlFor="show-example-1 "
+                                                               className="ml-0 "
+                                                           >
+                                                              
+                                                               <FormSwitch.Input
+                                                                   id="show-example-1"
+                                                                   //   onClick={}
+                                                                   className="ml-0 mr-0 border-2 border-slate-300  "
+                                                                   type="checkbox"
+                                                               />
+                                                           </FormSwitch.Label>
+                                                       </FormSwitch>
+      </Table.Td>
       </Table.Td>
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-        <div className="whitespace-nowrap">{account.showBank ? "Yes" : "No"}</div>
-      </Table.Td>
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-        <div className="whitespace-nowrap">{account.status}</div>
+        <FormSwitch className=" dark:border-red-500 rounded-lg">
+                                                           <FormSwitch.Label
+                                                               htmlFor="show-example-1 "
+                                                               className="ml-0 "
+                                                           >
+                                                              
+                                                               <FormSwitch.Input
+                                                                   id="show-example-1"
+                                                                   //   onClick={}
+                                                                   className="ml-0 mr-0 border-2 border-slate-300  "
+                                                                   type="checkbox"
+                                                               />
+                                                           </FormSwitch.Label>
+                                                       </FormSwitch>
       </Table.Td>
-      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-        <div className="whitespace-nowrap">{account.action}</div>
       </Table.Td>
+      <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
+                        <div className="flex items-center justify-center">
+                          <Menu className="h-5">
+                            <Menu.Button className="w-5 h-5 text-slate-500">
+                              <Lucide
+                                icon="MoreVertical"
+                                className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
+                              />
+                            </Menu.Button>
+                            <Menu.Items className="w-40">
+                              <Menu.Item>
+                                <Lucide
+                                  icon="CheckSquare"
+                                  className="w-4 h-4 mr-2"
+                                />{" "}
+                                Edit
+                              </Menu.Item>
+                              <Menu.Item className="text-danger">
+                                <Lucide
+                                  icon="Trash2"
+                                  className="w-4 h-4 mr-2"
+                                />
+                                Delete
+                              </Menu.Item>
+                            </Menu.Items>
+                          </Menu>
+                        </div>
+                      </Table.Td>
+                           
+      
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
         <div className="whitespace-nowrap">{account.bankUsedFor}</div>
       </Table.Td>

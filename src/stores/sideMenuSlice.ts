@@ -54,7 +54,7 @@ const initialState: SideMenuState = {
     },
     {
       icon: "CreditCard",
-      pathname: "/layout/users",
+      pathname: "/layout/merchants",
       title: "Merchants",
     },
     {

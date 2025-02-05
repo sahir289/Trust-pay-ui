@@ -357,7 +357,8 @@ function Main() {
             <div className="flex flex-col p-5 box box--stacked">
               <PreviewComponent>
                 {({ toggle }) => (
-                  <>
+              
+              <>
                     <div className="flex flex-col sm:items-center pb-5 mb-5 border-b border-dashed sm:flex-row border-slate-300/70">
                       <div className="text-[0.94rem] font-medium">
                         Pie Chart
