@@ -1,15 +1,17 @@
 import _ from "lodash";
 import { Tab } from "@/components/Base/Headless";
-import Payin from "./Payin/payin";
-import Payout from "./Payout/payout";
+import AllPayout from "./allPayout";
+import CompletedPayout from "./completedPayout";
+import InProgressPayout from "./inProgressPayout";
 
-function Main() {
+function Payin() {
+
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
-        <div className="flex items-center h-10">
-          <div className="text-lg font-medium group-[.mode--light]:text-white">
-            Transactions
+        <div className="flex flex-col md:h-10 gap-y-3 md:items-center md:flex-row">
+          <div className="text-base font-medium group-[.mode--light]:text-white">
+            Payouts
           </div>
         </div>
         <div className="mt-3.5 grid grid-cols-12 xl:grid-cols-10 gap-y-7 lg:gap-y-10 gap-x-6">
@@ -22,7 +24,7 @@ function Main() {
                       className="w-full py-2"
                       as="button"
                     >
-                      Payins
+                      All
                     </Tab.Button>
                   </Tab>
                   <Tab>
@@ -30,16 +32,27 @@ function Main() {
                       className="w-full py-2"
                       as="button"
                     >
-                      Payouts
+                      Completed
+                    </Tab.Button>
+                  </Tab>
+                  <Tab>
+                    <Tab.Button
+                      className="w-full py-2"
+                      as="button"
+                    >
+                      InProgress
                     </Tab.Button>
                   </Tab>
                 </Tab.List>
                 <Tab.Panels className="border-b border-l border-r">
                   <Tab.Panel className="p-5 leading-relaxed">
-                    <Payin />
+                    <AllPayout />
                   </Tab.Panel>
                   <Tab.Panel className="p-5 leading-relaxed">
-                    <Payout />
+                    <CompletedPayout />
+                  </Tab.Panel>
+                  <Tab.Panel className="p-5 leading-relaxed">
+                    <InProgressPayout />
                   </Tab.Panel>
                 </Tab.Panels>
               </Tab.Group>
@@ -51,4 +64,4 @@ function Main() {
   );
 }
 
-export default Main;
+export default Payin;
