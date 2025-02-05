@@ -196,7 +196,7 @@ module.exports = {
           "&.dark": {
             "--color-theme-1": toRGB(colors.sky["800"]),
             "--color-theme-2": toRGB(colors.emerald["800"]),
-            "--color-primary": toRGB(colors.sky["800"]),
+            "--color-primary": toRGB(colors.green["800"]),
           },
         },
         // Theme 6 colors

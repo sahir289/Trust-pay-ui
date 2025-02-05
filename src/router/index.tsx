@@ -8,6 +8,8 @@ import DashboardOverview6 from "../pages/DashboardOverview6";
 import DashboardOverview7 from "../pages/DashboardOverview7";
 import DashboardOverview8 from "../pages/DashboardOverview8";
 import Users from "../pages/Users";
+import Merchant from "../pages/Merchant";
+
 import Departments from "../pages/Departments";
 import AddUser from "../pages/AddUser";
 import ProfileOverview from "../pages/ProfileOverview";
@@ -109,6 +111,10 @@ function Router() {
         {
           path: "users",
           element: <Users />,
+        },
+        {
+          path: "merchants",
+          element: <Merchant />,
         },
         {
           path: "departments",
