@@ -26,24 +26,24 @@ const initialState: SideMenuState = {
     "TRANSACTIONS",
     {
       icon: "ArrowRightLeft",
-      pathname: "/layout/inbox",
+      pathname: "/layout/transaction-list",
       title: "Transactions",
     },
     "SETTLEMENTS & CHARGEBACKS",
     {
       icon: "NotebookText",
-      pathname: "/layout/creative",
+      pathname: "/layout/transaction-list",
       title: "Settltemets",
     },
     {
       icon: "NotepadText",
-      pathname: "/layout/dynamic",
+      pathname: "/layout/transaction-list",
       title: "ChargeBacks",
     },
     "ADD DATA",
     {
       icon: "FileText",
-      pathname: "/layout/dashboard-overview-1",
+      pathname: "/layout/transaction-list",
       title: "Add Data",
     },
     "USERS",
