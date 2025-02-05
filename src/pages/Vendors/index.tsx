@@ -1,14 +1,19 @@
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
+import { FormLabel, FormInput, FormSelect } from "@/components/Base/Form";
+import {  Dialog } from "@/components/Base/Headless";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import clsx from "clsx";
 import _ from "lodash";
+import { useState,useRef } from "react";
 function Main() {
+    const [headerFooterModalPreview, setHeaderFooterModalPreview] =
+        useState(false);
+     const sendButtonRef = useRef(null);
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -19,6 +24,10 @@ function Main() {
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
             <Button
               variant="primary"
+              onClick={(event: React.MouseEvent) => {
+                event.preventDefault();
+                setHeaderFooterModalPreview(true);
+              }}
               className="group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent dark:group-[.mode--light]:!bg-darkmode-900/30 dark:!box"
             >
               <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 mr-2" />{" "}
@@ -26,6 +35,41 @@ function Main() {
             </Button>
           </div>
         </div>
+        <Dialog
+  open={headerFooterModalPreview}
+  onClose={() => setHeaderFooterModalPreview(false)}
+  initialFocus={sendButtonRef}
+>
+  <Dialog.Panel>
+    <Dialog.Title>
+      <h2 className="mr-auto text-base font-medium">New Vendor</h2>
+    </Dialog.Title>
+    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
+      <div className="col-span-12 sm:col-span-6">
+        <FormLabel htmlFor="modal-form-1">Vendor Code:</FormLabel>
+        <FormInput id="modal-form-1" type="text" />
+      </div>
+      <div className="col-span-12 sm:col-span-6">
+        <FormLabel htmlFor="modal-form-1">Vendor Commision:</FormLabel>
+        <FormInput id="modal-form-1" type="text" />
+      </div>
+    </Dialog.Description>
+    <Dialog.Footer>
+      <Button
+        type="button"
+        variant="outline-secondary"
+        onClick={() => setHeaderFooterModalPreview(false)}
+        className="w-20 mr-1"
+      >
+        Cancel
+      </Button>
+      <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
+        ok
+      </Button>
+    </Dialog.Footer>
+  </Dialog.Panel>
+</Dialog>
+{/* END: Modal Content */}
         <div className="flex flex-col gap-8 mt-3.5">
           <div className="flex flex-col p-5 box box--stacked">
             <div className="grid grid-cols-4 gap-5">
