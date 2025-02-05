@@ -166,19 +166,13 @@ function Main() {
               <Breadcrumb light className="flex-1 hidden xl:block">
                 <Breadcrumb.Link
                   className="dark:before:bg-chevron-white"
-                  to="/"
+                  to="/layout/dashboard-overview-1"
                 >
-                  App
+                  Dashboard
                 </Breadcrumb.Link>
                 <Breadcrumb.Link
                   className="dark:before:bg-chevron-white"
-                  to="/"
-                >
-                  Dashboards
-                </Breadcrumb.Link>
-                <Breadcrumb.Link
-                  className="dark:before:bg-chevron-white"
-                  to="/"
+                  to="/layout/dashboard-overview-1"
                   active={true}
                 >
                   Analytics

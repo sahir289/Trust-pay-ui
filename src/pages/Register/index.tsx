@@ -5,8 +5,10 @@ import Button from "@/components/Base/Button";
 import clsx from "clsx";
 import _ from "lodash";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import { useNavigate } from "react-router-dom";
 
 function Main() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="container grid lg:h-screen grid-cols-12 lg:max-w-[1550px] 2xl:max-w-[1750px] py-10 px-5 sm:py-14 sm:px-10 md:px-36 lg:py-0 lg:pl-14 lg:pr-12 xl:px-24">
@@ -30,7 +32,7 @@ function Main() {
               <div className="text-2xl font-medium">Sign Up</div>
               <div className="mt-2.5 text-slate-600 dark:text-slate-400">
                 Already have an account?{" "}
-                <a className="font-medium text-primary" href="">
+                <a className="font-medium text-primary" href="/">
                   Sign In
                 </a>
               </div>

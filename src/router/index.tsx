@@ -307,7 +307,7 @@ function Router() {
       element: <LandingPage />,
     },
     {
-      path: "register",
+      path: "/register",
       element: <Register />,
     },
   ];

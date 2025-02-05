@@ -151,22 +151,16 @@ function Main() {
           <div className="absolute transition-[padding] duration-100 xl:pl-[275px] group-[.side-menu--collapsed]:xl:pl-[91px] h-full inset-x-0">
             <div className="flex items-center w-full h-full px-5">
               {/* BEGIN: Breadcrumb */}
-              <Breadcrumb className="flex-1 hidden xl:block">
+              <Breadcrumb light className="flex-1 hidden xl:block">
                 <Breadcrumb.Link
                   className="dark:before:bg-chevron-white"
-                  to="/"
+                  to="/layout/dashboard-overview-1"
                 >
-                  App
+                  Dashboard
                 </Breadcrumb.Link>
                 <Breadcrumb.Link
                   className="dark:before:bg-chevron-white"
-                  to="/"
-                >
-                  Dashboards
-                </Breadcrumb.Link>
-                <Breadcrumb.Link
-                  className="dark:before:bg-chevron-white"
-                  to="/"
+                  to="/layout/dashboard-overview-1"
                   active={true}
                 >
                   Analytics

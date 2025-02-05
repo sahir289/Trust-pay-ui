@@ -34,11 +34,11 @@ function Main() {
               <div className="text-2xl font-medium">Sign In</div>
               <div className="mt-2.5 text-slate-600 dark:text-slate-400">
                 Don't have an account?{" "}
-                <a className="font-medium text-primary" href="">
+                <a className="font-medium text-primary" href="/register">
                   Sign Up
                 </a>
               </div>
-              <Alert
+              {/* <Alert
                 variant="outline-primary"
                 className="flex items-center px-4 py-3 my-7 bg-primary/5 border-primary/20 rounded-[0.6rem] leading-[1.7]"
               >
@@ -66,7 +66,7 @@ function Main() {
                     </Alert.DismissButton>
                   </>
                 )}
-              </Alert>
+              </Alert> */}
               <div className="mt-6">
                 <FormLabel>Email*</FormLabel>
                 <FormInput
