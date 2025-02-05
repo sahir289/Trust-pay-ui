@@ -36,7 +36,7 @@ const initialState: SideMenuState = {
       title: "Settltemets",
     },
     {
-      icon: "NotepadText",
+      icon: "ArrowLeftCircle",
       pathname: "/layout/chargeback",
       title: "ChargeBacks",
     },

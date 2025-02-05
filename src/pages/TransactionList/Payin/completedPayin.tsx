@@ -4,7 +4,7 @@ import Pagination from "@/components/Base/Pagination";
 import TomSelect from "@/components/Base/TomSelect";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
-import transactions from "@/fakers/transactions";
+import payins from "@/fakers/payins";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
@@ -144,19 +144,46 @@ function CompletedPayin() {
                       <FormCheck.Input type="checkbox" />
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Customer Name
+                      SNO.
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Transaction ID
+                      Code
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Status
+                      Confirmed
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Amount
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Date
+                      Status
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Merchant Order ID
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Merchant
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      User
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      User Submitted UTR
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      UTR
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Method
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Payin ID
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Updated AT
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Image
                     </Table.Td>
                     <Table.Td className="py-4 font-medium text-center border-t w-36 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Action
@@ -164,7 +191,14 @@ function CompletedPayin() {
                   </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>
-                  {_.take(transactions.fakeTransactions(), 10).map(
+                  {_.take(
+                    _.orderBy(
+                      _.filter(payins.fakePayins(), { status: 'Success' }),
+                      ['sno'],
+                      ['desc']
+                    ),
+                    10
+                  ).map(
                     (faker, fakerKey) => (
                       <Table.Tr
                         key={fakerKey}
@@ -173,6 +207,41 @@ function CompletedPayin() {
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <FormCheck.Input type="checkbox" />
                         </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.sno}
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.code}
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.confirmed}
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.amount}
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.status}
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.merchant_order_id}
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.merchant_code}
+                          </a>
+                        </Table.Td>
                         <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
                           <div className="flex items-center">
                             <div className="w-9 h-9 image-fit zoom-in">
@@ -180,8 +249,8 @@ function CompletedPayin() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                src={faker.user.photo}
-                                content={faker.user.name}
+                                src={faker.photo}
+                                content={faker.name}
                               />
                             </div>
                             <div className="ml-3.5">
@@ -189,52 +258,47 @@ function CompletedPayin() {
                                 href=""
                                 className="font-medium whitespace-nowrap"
                               >
-                                {faker.user.name}
+                                {faker.name}
                               </a>
-                              <div className="flex text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                                Product:
-                                <a href="" className="block ml-1 truncate w-44">
-                                  Purchased: {_.random(2, 10)} Items
-                                </a>
-                              </div>
                             </div>
                           </div>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="flex items-center text-primary">
-                            <Lucide
-                              icon="ExternalLink"
-                              className="w-3.5 h-3.5 stroke-[1.7]"
-                            />
-                            <div className="ml-1.5 text-[13px] whitespace-nowrap underline decoration-dotted decoration-primary/30 underline-offset-[3px]">
-                              {faker.orderId}
-                            </div>
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.user_submitted_utr}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <div
-                            className={clsx([
-                              "flex items-center",
-                              faker.orderStatus.textColor,
-                            ])}
-                          >
-                            <Lucide
-                              icon={faker.orderStatus.icon}
-                              className="w-3.5 h-3.5 stroke-[1.7]"
-                            />
-                            <div className="ml-1.5 whitespace-nowrap">
-                              {faker.orderStatus.name}
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.utr}
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.method}
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.id}
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.updated_at}
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
+                          <div className="flex items-center">
+                            <div className="w-9 h-9 image-fit zoom-in">
+                              <Tippy
+                                as="img"
+                                alt="Tailwise - Admin Dashboard Template"
+                                className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
+                                src={faker.photo}
+                                content={faker.name}
+                              />
                             </div>
-                          </div>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <div className="whitespace-nowrap">
-                            ${faker.amount}
-                          </div>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <div className="whitespace-nowrap">
-                            {faker.orderDate}
                           </div>
                         </Table.Td>
                         <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
