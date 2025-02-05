@@ -73,16 +73,11 @@ const initialState: SideMenuState = {
       pathname: "/layout/profile-overview",
       title: "Designation",
     },
-    "REPORTS",
+    "BANK ACCOUNTS",
     {
-      icon: "Banknote",
+      icon: "Landmark",
       pathname: "/layout/settings",
-      title: "PayIn Report",
-    },
-    {
-      icon: "Banknote",
-      pathname: "/layout/settings?page=email-settings",
-      title: "PayOut Report",
+      title: "Bank Account",
     },
     "ACCOUNT REPORTS",
     {
