@@ -7,15 +7,10 @@ import InProgressPayin from "./inProgressPayin";
 function Payin() {
 
   return (
-    <div className="grid grid-cols-12 gap-y-10 gap-x-6">
-      <div className="col-span-12">
-        <div className="flex flex-col md:h-10 gap-y-3 md:items-center md:flex-row">
-          <div className="text-base font-medium group-[.mode--light]:text-white">
-            Payins
-          </div>
-        </div>
-        <div className="mt-3.5 grid grid-cols-12 xl:grid-cols-10 gap-y-7 lg:gap-y-10 gap-x-6">
-          <div className="relative flex flex-col col-span-12 lg:col-span-12 xl:col-span-12 gap-y-7">
+    // <div className="grid grid-cols-12 gap-y-10 gap-x-6">
+    //   <div className="col-span-12">
+    //     <div className="mt-3.5 grid grid-cols-12 xl:grid-cols-10 gap-y-7 lg:gap-y-10 gap-x-6">
+    //       <div className="relative flex flex-col col-span-12 lg:col-span-12 xl:col-span-12 gap-y-7">
             <div className="flex flex-col p-5 box box--stacked">
               <Tab.Group>
                 <Tab.List variant="tabs">
@@ -57,10 +52,10 @@ function Payin() {
                 </Tab.Panels>
               </Tab.Group>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
   );
 }
 
