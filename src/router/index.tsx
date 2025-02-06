@@ -16,8 +16,9 @@ import Departments from "../pages/Departments";
 import AddUser from "../pages/AddUser";
 import ProfileOverview from "../pages/ProfileOverview";
 import Settings from "../pages/Settings";
-import Billing from "../pages/Billing";
-import Invoice from "../pages/Invoice";
+
+import VendorAccountReports from "../pages/VendorAccountReports";
+
 import Categories from "../pages/Categories";
 import AddProduct from "../pages/AddProduct";
 import ProductList from "../pages/ProductList";
@@ -69,6 +70,7 @@ import AddData from "../pages/AddData";
 
 import Layout from "../themes";
 import Bankaccount from "../pages/BankAccount";
+import AccountReports from "@/pages/AccoutnReports";
 function Router() {
   const routes = [
     {
@@ -140,16 +142,12 @@ function Router() {
           element: <Settings />,
         },
         {
-          path: "billing",
-          element: <Billing />,
+          path: "vendor-account-reports",
+          element: <VendorAccountReports />,
         },
         {
-          path: "bankaccounts",
-          element: <BankAccount />,
-        },
-        {
-          path: "invoice",
-          element: <Invoice />,
+          path: "account-reports",
+          element: <AccountReports />,
         },
         {
           path: "categories",
@@ -243,10 +241,7 @@ function Router() {
           path: "tabulator",
           element: <Tabulator />,
         },
-        {
-          path: "modal",
-          element: <Modal />,
-        },
+       
         {
           path: "bankaccounts",
           element: <Bankaccount />,

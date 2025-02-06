@@ -82,12 +82,12 @@ const initialState: SideMenuState = {
     "ACCOUNT REPORTS",
     {
       icon: "SquareUser",
-      pathname: "/layout/billing",
+      pathname: "/layout/account-reports",
       title: "Account Report",
     },
     {
       icon: "SquareUser",
-      pathname: "/layout/invoice",
+      pathname: "/layout/vendor-account-reports",
       title: "Vendor Account Report",
     },
     "CHAT SUPPORT",

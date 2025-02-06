@@ -2,19 +2,37 @@ import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
 import TomSelect from "@/components/Base/TomSelect";
-import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import payins from "@/fakers/payins";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import clsx from "clsx";
+import {
+  FormLabel,
+  FormSwitch,
+  FormInput,
+  FormSelect,
+  FormCheck,
+} from "@/components/Base/Form";
 import _ from "lodash";
-
-function AllPayin() {
+import Modal from "@/pages/Modal/modal";
+import { Dialog } from "@headlessui/react";
+interface PayinProps {
+  resetModal: boolean; // Expecting a boolean prop to control modal reset
+  setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
+  setStatus: React.Dispatch<React.SetStateAction<string>>;
+  status: string;
+}
+const AllPayin: React.FC<PayinProps> = ({ resetModal, setResetModal, setStatus, status }) => {
   const [selectedUser, setSelectedUser] = useState("1");
+  const [editModal, setEditModal] = useState(false);
+  const resetRef = useRef(null);
+  const handleResetModal = () => {
+    setResetModal(!resetModal)
+  }
   interface StatusStyle {
     color: string;
     icon: JSX.Element;
@@ -68,6 +86,8 @@ function AllPayin() {
           <div className="flex flex-col">
             <div className="flex flex-col py-5 sm:items-center sm:flex-row gap-y-2 mx-3">
               <div className="">
+
+
                 <div className="relative">
                   <Lucide
                     icon="Search"
@@ -343,30 +363,38 @@ function AllPayin() {
                         </Table.Td>
                         <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                           <div className="flex items-center justify-center">
-                            <Menu className="h-5">
+                            {(faker.status === "Dispute" || faker.status === "Bank Mismatch" ) ? (
+                              <Menu className="h-5">
+                                <Menu.Button className="w-5 h-5 text-slate-500">
+                                  <Lucide
+                                    icon="MoreVertical"
+                                    className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
+                                  />
+                                </Menu.Button>
+
+                                <Menu.Items className="w-40">
+                                  <Menu.Item onClick={() => { setResetModal(!resetModal); setStatus(faker.status); }}>
+                                    <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Reset
+                                  </Menu.Item>
+
+                                  <Menu.Item className="text-danger">
+                                    <Lucide icon="Bell" className="w-4 h-4 mr-2" /> Notify
+                                  </Menu.Item>
+                                </Menu.Items>
+                              </Menu>
+                            ) : (
+
+                              <Menu className="h-5">
                               <Menu.Button className="w-5 h-5 text-slate-500">
                                 <Lucide
-                                  icon="MoreVertical"
-                                  className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
+                                  icon="Bell"
+                                  className="w-5 h-5 stroke-slate-400/70 fill-green-400/70"
                                 />
                               </Menu.Button>
-                              <Menu.Items className="w-40">
-                                <Menu.Item>
-                                  <Lucide
-                                    icon="CheckSquare"
-                                    className="w-4 h-4 mr-2"
-                                  />{" "}
-                                  Edit
-                                </Menu.Item>
-                                <Menu.Item className="text-danger">
-                                  <Lucide
-                                    icon="Trash2"
-                                    className="w-4 h-4 mr-2"
-                                  />
-                                  Delete
-                                </Menu.Item>
-                              </Menu.Items>
                             </Menu>
+
+                            )}
+
                           </div>
                         </Table.Td>
                       </Table.Tr>

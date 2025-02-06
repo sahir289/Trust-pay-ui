@@ -323,14 +323,14 @@ function Main() {
       active: false,
       pages: [
         {
-          name: "Billing",
-          pathname: "/billing",
-          image: "billing",
+          name: "AccountReports",
+          pathname: "/account-reports",
+          image: "account-reports",
         },
         {
-          name: "Invoice",
-          pathname: "/invoice",
-          image: "invoice",
+          name: "VendorAccountReports",
+          pathname: "/vendor-account-reports",
+          image: "vendor-account-reports",
         },
       ],
     },

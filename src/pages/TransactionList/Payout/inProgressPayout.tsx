@@ -11,8 +11,15 @@ import Table from "@/components/Base/Table";
 import { useState } from "react";
 import _ from "lodash";
 import payouts from "@/fakers/payouts";
+import fakersPayouts from "@/fakers/payouts";
+interface PayinProps {
+  reject: boolean; // Expecting a boolean prop to control modal reset
+  setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
+  approve: boolean; // Expecting a boolean prop to control modal reset
+  setApprove: React.Dispatch<React.SetStateAction<boolean>>
+}
+const InProgressPayout: React.FC<PayinProps>=({ reject, setReject, approve, setApprove  })=> {
 
-function InProgressPayout() {
   const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {
     color: string;
@@ -309,19 +316,21 @@ function InProgressPayout() {
                         </Table.Td>
                         <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                           <div className="flex items-center justify-center">
-                            <Menu className="h-5">
-                              <Menu.Button className="w-5 h-5 text-slate-500">
-                                <Lucide icon="MoreVertical" className="w-5 h-5" />
-                              </Menu.Button>
-                              <Menu.Items className="w-40">
-                                <Menu.Item>
-                                  <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
-                                </Menu.Item>
-                                <Menu.Item className="text-danger">
-                                  <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
-                                </Menu.Item>
-                              </Menu.Items>
-                            </Menu>
+                          <Menu className="h-5">
+                            <Menu.Button className="w-5 h-5 text-slate-500">
+                              <Lucide icon="MoreVertical" className="w-5 h-5" />
+                            </Menu.Button>
+                            <Menu.Items className="w-40">
+                              <Menu.Item 
+                             onClick={()=>setApprove(!approve)}
+                              >
+                                <Lucide icon="Check" className="w-4 h-4 mr-2" /> Approve
+                              </Menu.Item>
+                              <Menu.Item className="text-danger" onClick={()=>setReject(!reject)}>
+                                <Lucide icon="X" className="w-4 h-4 mr-2" /> Reject
+                              </Menu.Item>
+                            </Menu.Items>
+                          </Menu>
                           </div>
                         </Table.Td>
                       </Table.Tr>
