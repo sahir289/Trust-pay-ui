@@ -2,19 +2,19 @@ import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
 import { FormLabel, FormInput, FormSelect } from "@/components/Base/Form";
-import {  Dialog } from "@/components/Base/Headless";
+import { Dialog } from "@/components/Base/Headless";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import clsx from "clsx";
 import _ from "lodash";
-import { useState,useRef } from "react";
+import { useState, useRef } from "react";
 function Main() {
-const [headerFooterModalPreview, setHeaderFooterModalPreview] =useState(false);
-const sendButtonRef = useRef(null);
-const [VerificationModal , setVerificationModal] = useState(false);
-const [showPassword, setShowPassword] = useState(false);
+  const [headerFooterModalPreview, setHeaderFooterModalPreview] = useState(false);
+  const sendButtonRef = useRef(null);
+  const [VerificationModal, setVerificationModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -37,113 +37,112 @@ const [showPassword, setShowPassword] = useState(false);
           </div>
         </div>
         <Dialog
-  open={headerFooterModalPreview}
-  onClose={() => setHeaderFooterModalPreview(false)}
-  initialFocus={sendButtonRef}
->
-  <Dialog.Panel>
-    <Dialog.Title>
-      <h2 className="mr-auto text-base font-medium">New Vendor</h2>
-      <Lucide
-                                                        icon="X"
-                                                        className="w-5 h-5 ml-px stroke-[3]"
-                                                        onClick={() => setHeaderFooterModalPreview(false)}
-                                                    />
-                                                    <Menu className="sm:hidden">
-                                                        <Menu.Button
-                                                            as="a"
-                                                            className="block w-5 h-5"
-                                                            href="#"
-                                                        >
-                                                            <Lucide
-                                                                icon="MoreHorizontal"
-                                                                className="w-5 h-5 text-slate-500"
-                                                            />
-                                                        </Menu.Button>
-
-                                                    </Menu>
-    </Dialog.Title>
-    <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
-    <legend className="ml-4 pt-1 px-2">Vendor</legend>
-    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
-      <div className="col-span-12 sm:col-span-12">
-        <FormLabel htmlFor="modal-form-1">Code</FormLabel>
-        <FormInput id="modal-form-1" type="text" />
-      </div>
-      <div className="col-span-12 sm:col-span-12">
-        <FormLabel htmlFor="modal-form-1">Commision</FormLabel>
-        <FormInput id="modal-form-1" type="text" />
-      </div>
-    </Dialog.Description></fieldset>
-    <Dialog.Footer>
-      <Button
-        type="button"
-        variant="outline-secondary"
-        onClick={() => setHeaderFooterModalPreview(false)}
-        className="w-20 mr-1"
-      >
-        Cancel
-      </Button>
-      <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
-        ok
-      </Button>
-    </Dialog.Footer>
-  </Dialog.Panel>
-</Dialog>
-<Dialog  open={VerificationModal}
-  onClose={() => setVerificationModal(false)}
-  initialFocus={sendButtonRef}>
-<Dialog.Panel>
-    <Dialog.Title>
-      <h2 className="mr-auto text-base font-medium">Password Verification</h2>
-      <Lucide
-                                                        icon="X"
-                                                        className="w-5 h-5 ml-px stroke-[3]"
-                                                        onClick={() => setVerificationModal(false)}
-                                                    />
-                                                    <Menu className="sm:hidden">
-                                                        <Menu.Button
-                                                            as="a"
-                                                            className="block w-5 h-5"
-                                                            href="#"
-                                                        >
-                                                            <Lucide
-                                                                icon="MoreHorizontal"
-                                                                className="w-5 h-5 text-slate-500"
-                                                            />
-                                                        </Menu.Button>
-
-                                                    </Menu>
-    </Dialog.Title>
-    <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
-      <legend className="ml-4 pt-1 px-2">Password</legend>
-      <Dialog.Description>
-      <div className="relative col-span-12 sm:col-span-12">
-        <FormInput
-          id="modal-form-1"
-          placeholder="Type here..."
-          type={showPassword ? "text" : "password"} // Toggle password visibility
-          className="w-full pr-10" // Space for icon
-        />
-        <button
-          type="button"
-          onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+          open={headerFooterModalPreview}
+          onClose={() => setHeaderFooterModalPreview(false)}
+          initialFocus={sendButtonRef}
         >
-          {showPassword ? <Lucide icon="EyeOff" /> : <Lucide icon="Eye" />}
-        </button>
-      </div>
-      </Dialog.Description>
-     
-    </fieldset>
-    <Dialog.Footer>
-      <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
-        Verify
-      </Button>
-    </Dialog.Footer>
-  </Dialog.Panel>
-</Dialog>
-{/* END: Modal Content */}
+          <Dialog.Panel>
+            <Dialog.Title>
+              <h2 className="mr-auto text-base font-medium">New Vendor</h2>
+              <Lucide
+                icon="X"
+                className="w-5 h-5 ml-px stroke-[3]"
+                onClick={() => setHeaderFooterModalPreview(false)}
+              />
+              <Menu className="sm:hidden">
+                <Menu.Button
+                  as="a"
+                  className="block w-5 h-5"
+                  href="#"
+                >
+                  <Lucide
+                    icon="MoreHorizontal"
+                    className="w-5 h-5 text-slate-500"
+                  />
+                </Menu.Button>
+
+              </Menu>
+            </Dialog.Title>
+            <div className="col-span-12 sm:col-span-12 rounded-lg mx-5 my-2">
+              <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
+                <div className="col-span-12 sm:col-span-12">
+                  <FormLabel htmlFor="modal-form-1"  >Vendor Code</FormLabel>
+                  <FormInput id="modal-form-1" type="text" placeholder="Vendor Code" />
+                </div>
+                <div className="col-span-12 sm:col-span-12">
+                  <FormLabel htmlFor="modal-form-1">Commision</FormLabel>
+                  <FormInput id="modal-form-1" type="text" placeholder="Commission" />
+                </div>
+              </Dialog.Description></div>
+            <Dialog.Footer>
+              <Button
+                type="button"
+                variant="outline-secondary"
+                onClick={() => setHeaderFooterModalPreview(false)}
+                className="w-20 mr-1"
+              >
+                Cancel
+              </Button>
+              <Button variant="primary" type="button" className="w-30" ref={sendButtonRef}>
+                Add Vendor
+              </Button>
+            </Dialog.Footer>
+          </Dialog.Panel>
+        </Dialog>
+        <Dialog open={VerificationModal}
+          onClose={() => setVerificationModal(false)}
+          initialFocus={sendButtonRef}>
+          <Dialog.Panel>
+            <Dialog.Title>
+              <h2 className="mr-auto text-base font-medium">Password Verification</h2>
+              <Lucide
+                icon="X"
+                className="w-5 h-5 ml-px stroke-[3]"
+                onClick={() => setVerificationModal(false)}
+              />
+              <Menu className="sm:hidden">
+                <Menu.Button
+                  as="a"
+                  className="block w-5 h-5"
+                  href="#"
+                >
+                  <Lucide
+                    icon="MoreHorizontal"
+                    className="w-5 h-5 text-slate-500"
+                  />
+                </Menu.Button>
+
+              </Menu>
+            </Dialog.Title>
+            <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
+              <legend className="ml-4 pt-1 px-2">Password</legend>
+              <Dialog.Description>
+                <div className="relative col-span-12 sm:col-span-12">
+                  <FormInput
+                    id="modal-form-1"
+                    placeholder="Type here..."
+                    type={showPassword ? "text" : "password"} // Toggle password visibility
+                    className="w-full pr-10" // Space for icon
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
+                  >
+                    {showPassword ? <Lucide icon="EyeOff" /> : <Lucide icon="Eye" />}
+                  </button>
+                </div>
+              </Dialog.Description>
+
+            </fieldset>
+            <Dialog.Footer>
+              <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
+                Verify
+              </Button>
+            </Dialog.Footer>
+          </Dialog.Panel>
+        </Dialog>
+        {/* END: Modal Content */}
         <div className="flex flex-col gap-8 mt-3.5">
           <div className="flex flex-col p-5 box box--stacked">
             <div className="grid grid-cols-4 gap-5">
@@ -352,7 +351,7 @@ const [showPassword, setShowPassword] = useState(false);
                   {_.take(users.fakeUsers(), 20).map((faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        {fakerKey+1}
+                        {fakerKey + 1}
                       </Table.Td>
                       <Table.Td className="py-4 border-dashed w-80 dark:bg-darkmode-600">
                         <div className="flex items-center">
@@ -407,7 +406,7 @@ const [showPassword, setShowPassword] = useState(false);
                           </div>
                         </div>
                       </Table.Td>
-                     
+
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div className="whitespace-nowrap">
                           {faker.joinedDate}
@@ -444,20 +443,20 @@ const [showPassword, setShowPassword] = useState(false);
                               />
                             </Menu.Button>
                             <Menu.Items className="w-40">
-                              <Menu.Item  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                    setVerificationModal(true);
-                                  }}>
+                              <Menu.Item onClick={(event: React.MouseEvent) => {
+                                event.preventDefault();
+                                setVerificationModal(true);
+                              }}>
                                 <Lucide
                                   icon="CheckSquare"
                                   className="w-4 h-4 mr-2"
                                 />{" "}
                                 Edit
                               </Menu.Item>
-                              <Menu.Item className="text-danger"  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                    setVerificationModal(true);
-                                  }}>
+                              <Menu.Item className="text-danger" onClick={(event: React.MouseEvent) => {
+                                event.preventDefault();
+                                setVerificationModal(true);
+                              }}>
                                 <Lucide
                                   icon="Trash2"
                                   className="w-4 h-4 mr-2"

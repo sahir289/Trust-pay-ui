@@ -1,20 +1,44 @@
 import _ from "lodash";
-import { Tab } from "@/components/Base/Headless";
+import { Dialog, Tab } from "@/components/Base/Headless";
 import Payin from "./Payin/payin";
 import Payout from "./Payout/payout";
 import Modal from "@/pages/Modal/modal";
 
 import Lucide from "@/components/Base/Lucide";
 import { useRef, useState } from "react";
+import { FormInput, FormLabel } from "@/components/Base/Form";
+import Button from "@/components/Base/Button";
+import ModalPopUp from "../ModalPopUp";
 
 function Main() {
   const [newTransactionModal, setNewTransactionModal] = useState(false);
-  const [title, setTitle] =useState("Payins")
+  const [title, setTitle] = useState("Payins")
   const transactionRef = useRef(null);
   const transactionModal = () => {
     setNewTransactionModal(!newTransactionModal)
   }
+  const [resetModal, setResetModal] = useState(false);
+  const [approve, setApprove] = useState(false);
+  const [reject, setReject] = useState(false);
+  const [status, setStatus] = useState("");
 
+  const resetRef = useRef<HTMLButtonElement | null>(null)
+  const handleResetModal = () => {
+    setResetModal(!resetModal)
+
+  }
+  const handleReject = () => {
+    setReject(!reject)
+  }
+
+  const handleApprove = () => {
+    setApprove(false)
+  }
+  const handleClose = () => {
+    setStatus("")
+
+  }
+  console.log(status)
   return (
     <>
       <div className="flex flex-col h-10 w-full px-2">
@@ -23,6 +47,79 @@ function Main() {
             Transactions
           </div>
           <Modal handleModal={transactionModal} sendButtonRef={transactionRef} forOpen={newTransactionModal} title={title} />
+
+
+          {status === "Dispute" && (
+            <ModalPopUp
+              open={resetModal}
+              onClose={() => setResetModal(false)}
+              title="Update Transaction"
+              fields={[
+                { id: "amount", label: "Amount", type: "text", placeholder: "Amount" },
+                { id: "confirmAmount", label: "Confirm Amount", type: "text", placeholder: "Confirm Amount" },
+              ]}
+              singleField={[
+                { id: "merchantOrderId", label: "Merchant Order ID", type: "text", placeholder: "Merchant Order ID" }
+
+              ]}
+              buttonText="Success"
+              onSubmit={() => {/* Handle Success */ }}
+              onReset={() => setResetModal(false)}
+              resetRef={resetRef}
+            />
+          )}
+
+          {status === "Bank Mismatch" && (
+            <ModalPopUp
+              open={true}
+              onClose={handleClose}
+              title="Update Transaction"
+              fields={[]}
+              singleField={[
+                { id: "bankName", label: "Enter Bank Name", type: "text", placeholder: "Enter Bank Name" }
+              ]}
+              buttonText="Approve"
+              onSubmit={() => {/* Handle Approve */ }}
+              onReset={handleClose}
+              resetRef={resetRef}
+            />
+          )}
+
+          {approve && (
+            <ModalPopUp
+              open={approve}
+              onClose={() => setApprove(false)}
+              title="Update Transaction"
+              fields={[
+                { id: "method", label: "Method", type: "text", placeholder: "Method" },
+                { id: "selectBank", label: "Select Bank", type: "text", placeholder: "Select Bank" },
+              ]}
+              singleField={[
+                { id: "utrNumber", label: "UTR Number", type: "text", placeholder: "UTR Number" }
+              
+              ]}
+              buttonText="Approve"
+              onSubmit={() => {/* Handle Approve */ }}
+              onReset={handleApprove}
+              resetRef={resetRef}
+            />
+          )}
+
+          {reject && (
+            <ModalPopUp
+              open={reject}
+              onClose={() => setReject(false)}
+              title="Update Transaction"
+              fields={[]}
+              singleField={[
+                { id: "rejectReason", label: "Reject Reason", type: "text", placeholder: "Reject Reason" }
+              ]}
+              buttonText="Reject"
+              onSubmit={() => {/* Handle Reject */ }}
+              onReset={handleReject}
+              resetRef={resetRef}
+            />
+          )}
         </div>
       </div>
 
@@ -34,7 +131,7 @@ function Main() {
               <Tab.Group>
                 <Tab.List variant="tabs">
                   <Tab>
-                    <Tab.Button className="w-full py-2 flex items-center justify-center" as="button" onClick={()=>setTitle("Payins")}>
+                    <Tab.Button className="w-full py-2 flex items-center justify-center" as="button" onClick={() => setTitle("Payins")}>
                       <Lucide
                         icon="BadgeIndianRupee"
                         className="w-5 h-5 ml-px stroke-[2.5]"
@@ -43,7 +140,7 @@ function Main() {
                     </Tab.Button>
                   </Tab>
                   <Tab>
-                    <Tab.Button className="w-full py-2 flex items-center justify-center" as="button" onClick={()=>setTitle("Payouts")}>
+                    <Tab.Button className="w-full py-2 flex items-center justify-center" as="button" onClick={() => setTitle("Payouts")}>
                       <Lucide
                         icon="ArrowRightCircle"
                         className="w-5 h-5 ml-px stroke-[2.5]"
@@ -54,10 +151,10 @@ function Main() {
                 </Tab.List>
                 <Tab.Panels className="border-b border-l border-r">
                   <Tab.Panel className="p-5 leading-relaxed">
-                    <Payin />
+                    <Payin resetModal={resetModal} setResetModal={setResetModal} status={status} setStatus={setStatus} approve={approve} setApprove={setApprove} />
                   </Tab.Panel>
                   <Tab.Panel className="p-5 leading-relaxed">
-                    <Payout />
+                    <Payout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove} />
                   </Tab.Panel>
                 </Tab.Panels>
               </Tab.Group>

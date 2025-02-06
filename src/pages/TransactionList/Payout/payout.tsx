@@ -5,8 +5,14 @@ import CompletedPayout from "./completedPayout";
 import InProgressPayout from "./inProgressPayout";
 import RejectedPayout from "./rejectedPayout";
 import Lucide from "@/components/Base/Lucide";
+interface PayinProps {
+  reject: boolean; // Expecting a boolean prop to control modal reset
+  setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
+  approve: boolean; // Expecting a boolean prop to control modal reset
+  setApprove: React.Dispatch<React.SetStateAction<boolean>>
+}
+const Payin: React.FC<PayinProps> =({ reject, setReject, approve, setApprove  })=> {
 
-function Payin() {
   return (
     <div className="flex flex-col p-5"><Tab.Group>
       <Tab.List variant="tabs">
@@ -49,16 +55,16 @@ function Payin() {
       </Tab.List>
       <Tab.Panels className="border-b border-l border-r">
         <Tab.Panel className="py-5 leading-relaxed">
-          <AllPayout />
+          <AllPayout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove}/>
         </Tab.Panel>
         <Tab.Panel className="py-5 leading-relaxed">
-          <CompletedPayout />
+          <CompletedPayout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove}/>
         </Tab.Panel>
         <Tab.Panel className="py-5 leading-relaxed">
-          <InProgressPayout />
+          <InProgressPayout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove}/>
         </Tab.Panel>
         <Tab.Panel className="py-5 leading-relaxed">
-          <RejectedPayout />
+          <RejectedPayout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove}/>
         </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>

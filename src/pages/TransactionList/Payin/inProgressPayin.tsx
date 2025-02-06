@@ -9,11 +9,19 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";
+interface PayinProps {
+  resetModal: boolean; // Expecting a boolean prop to control modal reset
+  setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
+  approve: boolean; // Expecting a boolean prop to control modal reset
+  setApprove: React.Dispatch<React.SetStateAction<boolean>>
+  setStatus : React.Dispatch<React.SetStateAction<string>>
+  status: string
+}
+const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal,setStatus,status, approve, setApprove })=> {
 
-function InProgressPayin() {
   const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {
     color: string;
@@ -276,6 +284,7 @@ function InProgressPayin() {
                           <div className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(faker.status).color}`}>
                             {getStatusStyles(faker.status).icon}
                             {faker.status}
+                           
                           </div>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -357,19 +366,19 @@ function InProgressPayin() {
                                 />
                               </Menu.Button>
                               <Menu.Items className="w-40">
-                                <Menu.Item>
+                                <Menu.Item onClick={()=>{setResetModal(!resetModal); setStatus(faker.status)}}>
                                   <Lucide
                                     icon="CheckSquare"
                                     className="w-4 h-4 mr-2"
                                   />{" "}
-                                  Edit
+                                  Reset
                                 </Menu.Item>
                                 <Menu.Item className="text-danger">
                                   <Lucide
-                                    icon="Trash2"
+                                    icon="Bell"
                                     className="w-4 h-4 mr-2"
                                   />
-                                  Delete
+                                  Notify
                                 </Menu.Item>
                               </Menu.Items>
                             </Menu>
