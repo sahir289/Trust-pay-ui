@@ -47,9 +47,9 @@ function Main({ width = "auto", height = "auto", inputData = [], className = "" 
     getColor("danger", 0.9),
     getColor("pending", 0.9),
     getColor("warning", 0.9),
-    getColor("primary", 0.9),
     getColor("info", 0.9),
     getColor("success", 0.9),
+    getColor("primary", 0.9),
   ];
 
   const data: ChartData = useMemo(() => {
