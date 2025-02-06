@@ -238,7 +238,7 @@ function InProgressPayin() {
                 <Table.Tbody>
                   {_.take(
                     _.orderBy(
-                      _.filter(payins.fakePayins(), (o) => _.includes(['Pending', 'Duplicate', 'Dispute', 'Bank Mismatch', 'Image Pending'], o.status)),
+                      _.filter(payins.fakePayins(), (o) => _.includes(['Pending', 'Duplicate', 'Dispute', 'Bank Mismatch', 'Image Pending', 'Assigned', 'Initiated'], o.status)),
                       ['sno'],
                       ['desc']
                     ),

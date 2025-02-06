@@ -2,19 +2,21 @@ import _ from "lodash";
 
 export interface Payouts {
   id: string;
-  action: string;
-  merchantOrderId: string;
-  merchant: string;
+  sno: number;
+  merchant_order_id: string;
+  merchant_code: string;
   bankDetails: string;
   amount: string;
   status: string;
-  utrId: string;
-  user: string;
+  utr: string;
+  name: string;
+  photo: string;
   method: string;
   vendor: string;
   fromBank: string;
   payoutUuid: string;
-  lastUpdated: string;
+  updated_at: string;
+  action: "";
 }
 
 const imageAssets = import.meta.glob<{
@@ -26,51 +28,57 @@ const fakersPayouts = {
     const payouts: Payouts[] = [
       {
         id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
-        action: "Processed",
-        merchantOrderId: "MO123456",
-        merchant: "ABC Pvt Ltd",
+        sno: 1,
+        merchant_order_id: "MO123456",
+        merchant_code: "Tom",
         bankDetails: "HDFC Bank - 1234567890",
         amount: "₹5,000",
         status: "Success",
-        utrId: "UTR121212121212",
-        user: "John Doe",
+        utr: "UTR121212121212",
+        name: "Tom Hanks",
+        photo: imageAssets["/src/assets/images/users/user1-50x50.jpg"].default,
         method: "Bank Transfer",
         vendor: "Razorpay",
         fromBank: "ICICI Bank",
         payoutUuid: "PUUID123456",
-        lastUpdated: "28/01/2025 at 05:01:23 PM",
+        updated_at: "28/01/2025 at 05:01:23 PM",
+        action: "",
       },
       {
         id: "2a34b5c6-1234-4bcd-9876-abcdef123456",
-        action: "Pending",
-        merchantOrderId: "MO987654",
-        merchant: "XYZ Corp",
+        sno: 2,
+        merchant_order_id: "MO987654",
+        merchant_code: "Tom",
         bankDetails: "SBI - 9876543210",
         amount: "₹10,000",
         status: "Initiated",
-        utrId: "UTR987654321012",
-        user: "Alice Brown",
-        method: "UPI",
+        utr: "UTR987654321012",
+        name: "Meryl Streep",
+        photo: imageAssets["/src/assets/images/users/user2-50x50.jpg"].default,
+        method: "Cash",
         vendor: "PayU",
         fromBank: "HDFC Bank",
         payoutUuid: "PUUID987654",
-        lastUpdated: "28/01/2025 at 06:15:00 PM",
+        updated_at: "28/01/2025 at 06:15:00 PM",
+        action: "",
       },
       {
         id: "3f45g6h7-5678-4efg-5432-bca987654321",
-        action: "Failed",
-        merchantOrderId: "MO654321",
-        merchant: "LMN Industries",
+        sno: 3,
+        merchant_order_id: "MO654321",
+        merchant_code: "Tom",
         bankDetails: "Axis Bank - 1122334455",
         amount: "₹3,500",
         status: "Rejected",
-        utrId: "UTR543212345678",
-        user: "Robert Smith",
-        method: "NEFT",
+        utr: "UTR543212345678",
+        name: "Leonardo DiCaprio",
+        photo: imageAssets["/src/assets/images/users/user3-50x50.jpg"].default,
+        method: "AED",
         vendor: "Paytm",
         fromBank: "Kotak Bank",
         payoutUuid: "PUUID654321",
-        lastUpdated: "28/01/2025 at 07:20:45 PM",
+        updated_at: "28/01/2025 at 07:20:45 PM",
+        action: "",
       },
     ];
 

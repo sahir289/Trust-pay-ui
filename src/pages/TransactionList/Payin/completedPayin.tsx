@@ -198,6 +198,9 @@ function CompletedPayin() {
                       Confirmed
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Commission
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Amount
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
@@ -265,6 +268,11 @@ function CompletedPayin() {
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <a href="" className="font-medium whitespace-nowrap">
                             {faker.confirmed}
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.commission}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">

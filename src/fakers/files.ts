@@ -25,10 +25,6 @@ const filteredImages = Object.keys(imageAssets).filter(
   (file) => file.search("100x100") !== -1
 );
 
-console.log(
-  imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]].default
-);
-
 const fakers = {
   fakeFiles() {
     const files: Array<File> = [
