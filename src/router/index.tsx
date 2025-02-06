@@ -10,15 +10,11 @@ import DashboardOverview8 from "../pages/DashboardOverview8";
 import Users from "../pages/Users";
 import Vendors from "../pages/Vendors";
 import Merchant from "../pages/Merchant";
-// import BankAccount from "../pages/BankAccount";
-
 import Departments from "../pages/Departments";
 import AddUser from "../pages/AddUser";
 import ProfileOverview from "../pages/ProfileOverview";
 import Settings from "../pages/Settings";
-
 import VendorAccountReports from "../pages/VendorAccountReports";
-
 import Categories from "../pages/Categories";
 import AddProduct from "../pages/AddProduct";
 import ProductList from "../pages/ProductList";
@@ -41,7 +37,6 @@ import Dynamic from "../pages/Dynamic";
 import Interactive from "../pages/Interactive";
 import RegularTable from "../pages/RegularTable";
 import Tabulator from "../pages/Tabulator";
-// import Modal from "../pages/Modal/modal";
 import Slideover from "../pages/Slideover";
 import Notification from "../pages/Notification";
 import Tab from "../pages/Tab";
@@ -67,7 +62,6 @@ import LandingPage from "../pages/LandingPage";
 import Settlement from "../pages/Settlement";
 import ChargeBack from "../pages/ChargeBack";
 import AddData from "../pages/AddData";
-
 import Layout from "../themes";
 import Bankaccount from "../pages/BankAccount";
 import AccountReports from "@/pages/AccountReports";

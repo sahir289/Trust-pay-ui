@@ -1,15 +1,11 @@
-import _ from "lodash";
-import { Dialog, Tab } from "@/components/Base/Headless";
+import { Tab } from "@/components/Base/Headless";
 import Payin from "./Payin/payin";
 import Payout from "./Payout/payout";
 import Modal from "@/pages/Modal/modal";
 
 import Lucide from "@/components/Base/Lucide";
 import { useRef, useState } from "react";
-import { FormInput, FormLabel } from "@/components/Base/Form";
-import Button from "@/components/Base/Button";
 import ModalPopUp from "../ModalPopUp";
-
 function Main() {
   const [newTransactionModal, setNewTransactionModal] = useState(false);
   const [title, setTitle] = useState("Payins")
@@ -22,11 +18,7 @@ function Main() {
   const [reject, setReject] = useState(false);
   const [status, setStatus] = useState("");
 
-  const resetRef = useRef<HTMLButtonElement | null>(null)
-  const handleResetModal = () => {
-    setResetModal(!resetModal)
-
-  }
+  const resetRef = useRef< | null>(null)
   const handleReject = () => {
     setReject(!reject)
   }
@@ -38,7 +30,6 @@ function Main() {
     setStatus("")
 
   }
-  console.log(status)
   return (
     <>
       <div className="flex flex-col h-10 w-full px-2">
@@ -96,7 +87,7 @@ function Main() {
               ]}
               singleField={[
                 { id: "utrNumber", label: "UTR Number", type: "text", placeholder: "UTR Number" }
-              
+
               ]}
               buttonText="Approve"
               onSubmit={() => {/* Handle Approve */ }}

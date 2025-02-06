@@ -9,10 +9,9 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import React, { useState } from "react";
+import React, { useState, JSX } from "react";
 import _ from "lodash";
 import payouts from "@/fakers/payouts";
-// import fakersPayouts from "@/fakers/payouts";
 interface PayinProps {
   reject: boolean; // Expecting a boolean prop to control modal reset
   setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject

@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
+import React, { JSX, useState } from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
@@ -12,17 +13,15 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import React, { useState } from "react";
 import _ from "lodash";
 import payouts from "@/fakers/payouts";
-// import fakersPayouts from "@/fakers/payouts";
 interface PayinProps {
   reject: boolean; // Expecting a boolean prop to control modal reset
   setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
   approve: boolean; // Expecting a boolean prop to control modal reset
   setApprove: React.Dispatch<React.SetStateAction<boolean>>
 }
-const RejectedPayout: React.FC<PayinProps>=({   })=> {
+const RejectedPayout: React.FC<PayinProps>=()=> {
 
   const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {
@@ -235,7 +234,7 @@ const RejectedPayout: React.FC<PayinProps>=({   })=> {
                     ),
                     10
                   ).map(
-                    (faker, fakerKey) => (
+                    (faker) => (
                       <Table.Tr key={faker.id} className="[&_td]:last:border-b-0">
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <FormCheck.Input type="checkbox" />

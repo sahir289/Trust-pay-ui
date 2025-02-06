@@ -240,10 +240,10 @@ function Main() {
               </div>
               <div className="text-center sm:text-left sm:ml-4">
                 <div className="text-base font-medium">
-                  {users.fakeUsers()[0].name}
+                  {users.fakeUsers()[0]?.name}
                 </div>
                 <div className="text-slate-500 mt-0.5">
-                  {users.fakeUsers()[0].position}
+                  {users.fakeUsers()[0]?.position}
                 </div>
               </div>
               <div className="flex items-center px-3 py-1 font-medium border rounded-full sm:ml-auto border-success/10 bg-success/10 text-success">
@@ -383,13 +383,13 @@ function Main() {
               <div className="flex items-center w-full px-3 py-3 mt-3 border rounded-lg bg-success/10 border-success/10 text-success">
                 <Lucide icon="Clock" className="w-5 h-5 mr-2" />
                 Project kick-off date:
-                <div className="ml-2">{projects.fakeProjects()[0].dueDate}</div>
+                <div className="ml-2">{projects.fakeProjects()[0]?.dueDate}</div>
               </div>
               <div className="flex flex-col gap-4 mt-5">
                 <div className="flex flex-col items-center sm:flex-row gap-y-2">
                   <div className="sm:w-36 text-slate-500">Project Name</div>
                   <div className="flex items-center font-medium sm:ml-5 sm:h-7">
-                    {projects.fakeProjects()[0].projectName}
+                    {projects.fakeProjects()[0]?.projectName}
                   </div>
                 </div>
                 <div className="flex flex-col items-center sm:flex-row gap-y-2">
@@ -398,11 +398,11 @@ function Main() {
                     <div className="w-6 h-6 overflow-hidden border-2 rounded-full image-fit zoom-in border-slate-200/70 box">
                       <img
                         alt="Tailwise - Admin Dashboard Template"
-                        src={projects.fakeProjects()[0].projectManager.photo}
+                        src={projects.fakeProjects()[0]?.projectManager.photo}
                       />
                     </div>
                     <div className="ml-2.5 underline decoration-dotted decoration-primary/30 underline-offset-[3px]">
-                      {projects.fakeProjects()[0].projectManager.name}
+                      {projects.fakeProjects()[0]?.projectManager.name}
                     </div>
                   </div>
                 </div>
@@ -414,11 +414,11 @@ function Main() {
                     <div className="w-6 h-6 overflow-hidden border-2 rounded-full image-fit zoom-in border-slate-200/70 box">
                       <img
                         alt="Tailwise - Admin Dashboard Template"
-                        src={projects.fakeProjects()[1].projectManager.photo}
+                        src={projects.fakeProjects()[1]?.projectManager.photo}
                       />
                     </div>
                     <div className="ml-2.5 underline decoration-dotted decoration-primary/30 underline-offset-[3px]">
-                      {projects.fakeProjects()[1].projectManager.name}
+                      {projects.fakeProjects()[1]?.projectManager.name}
                     </div>
                   </div>
                 </div>
@@ -499,8 +499,8 @@ function Main() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                src={faker.contributors[0].photo}
-                                content={faker.contributors[0].name}
+                                src={faker.contributors[0]?.photo}
+                                content={faker.contributors[0]?.name || ""}
                               />
                             </div>
                             <div className="w-6 h-6 -ml-2.5 image-fit zoom-in">
@@ -508,8 +508,8 @@ function Main() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                src={faker.contributors[1].photo}
-                                content={faker.contributors[1].name}
+                                src={faker.contributors[1]?.photo}
+                                content={faker.contributors[1]?.name || ""}
                               />
                             </div>
                             <div className="w-6 h-6 -ml-2.5 image-fit zoom-in">
@@ -517,8 +517,8 @@ function Main() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                src={faker.contributors[2].photo}
-                                content={faker.contributors[2].name}
+                                src={faker.contributors[2]?.photo}
+                                content={faker.contributors[2]?.name || ""}
                               />
                             </div>
                           </div>

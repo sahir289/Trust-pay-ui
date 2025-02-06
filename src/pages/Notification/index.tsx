@@ -605,7 +605,7 @@ function Main() {
                                 </div>
                                 <div className="ml-4 sm:mr-28">
                                   <div className="font-medium">
-                                    {users.fakeUsers()[0].name}
+                                    {users.fakeUsers()[0]?.name}
                                   </div>
                                   <div className="mt-1 text-slate-500">
                                     See you later! 😃😃😃
@@ -914,7 +914,7 @@ function Main() {
                                 <Lucide icon="FileText" />
                                 <div className="ml-4 mr-5 sm:mr-20">
                                   <div className="font-medium">
-                                    {users.fakeUsers()[0].name}
+                                    {users.fakeUsers()[0]?.name}
                                   </div>
                                   <div className="mt-1 text-slate-500">
                                     Sent you new documents.

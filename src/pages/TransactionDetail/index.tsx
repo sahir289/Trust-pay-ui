@@ -20,7 +20,7 @@ function Main() {
               className="stroke-[1.3] w-3.5 h-3.5 sm:w-5 sm:h-5 mx-1 sm:mx-2"
             />
             <div className="text-sm sm:text-lg">
-              #{transactions.fakeTransactions()[0].orderId}
+              #{transactions.fakeTransactions()[0]?.orderId}
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 lg:ml-auto">
@@ -63,7 +63,7 @@ function Main() {
                       />
                       <div className="flex flex-col flex-wrap w-full sm:items-center sm:flex-row gap-y-1">
                         <div className="sm:mr-auto w-54">Purchase Date:</div>
-                        {transactions.fakeTransactions()[0].orderDate}
+                        {transactions.fakeTransactions()[0]?.orderDate}
                       </div>
                     </div>
                     <div className="flex items-center">
@@ -78,7 +78,7 @@ function Main() {
                         <div className="flex items-center text-xs font-medium rounded-md text-success bg-success/10 border border-success/10 px-1.5 py-px mr-auto sm:mr-0">
                           <span className="-mt-px">
                             {
-                              transactions.fakeTransactions()[0].orderStatus
+                              transactions.fakeTransactions()[0]?.orderStatus
                                 .name
                             }
                           </span>
@@ -120,7 +120,7 @@ function Main() {
                         <div className="sm:mr-auto w-54">
                           Total Price ({_.random(2, 20)} items):
                         </div>
-                        ${transactions.fakeTransactions()[0].amount}
+                        ${transactions.fakeTransactions()[0]?.amount}
                       </div>
                     </div>
                     <div className="flex items-center">
@@ -154,7 +154,7 @@ function Main() {
                       />
                       <div className="flex flex-col flex-wrap w-full sm:items-center sm:flex-row gap-y-1">
                         <div className="sm:mr-auto w-54">Grand Total:</div>$
-                        {transactions.fakeTransactions()[0].amount}
+                        {transactions.fakeTransactions()[0]?.amount}
                       </div>
                     </div>
                   </div>
@@ -175,7 +175,7 @@ function Main() {
                           href=""
                           className="underline decoration-dotted decoration-primary/30 underline-offset-[3px]"
                         >
-                          {transactions.fakeTransactions()[0].user.name}
+                          {transactions.fakeTransactions()[0]?.user.name}
                         </a>
                       </div>
                     </div>
@@ -186,7 +186,7 @@ function Main() {
                       />
                       <div className="flex flex-col flex-wrap w-full sm:items-center sm:flex-row gap-y-1">
                         <div className="sm:mr-auto w-54">Phone Number:</div>
-                        {transactions.fakeTransactions()[0].user.phone}
+                        {transactions.fakeTransactions()[0]?.user.phone}
                       </div>
                     </div>
                     <div className="flex items-center">
@@ -294,7 +294,7 @@ function Main() {
                       </Table.Thead>
                       <Table.Tbody>
                         {_.take(
-                          transactions.fakeTransactions()[0].products,
+                          transactions.fakeTransactions()[0]?.products,
                           5
                         ).map((faker, fakerKey) => (
                           <Table.Tr
@@ -308,8 +308,8 @@ function Main() {
                                     as="img"
                                     alt="Tailwise - Admin Dashboard Template"
                                     className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                    src={faker.images[0].path}
-                                    content={faker.images[0].uploadDate}
+                                    src={faker.images[0]?.path}
+                                    content={faker.images[0]?.uploadDate || ""}
                                   />
                                 </div>
                                 <div className="ml-5">
@@ -354,13 +354,13 @@ function Main() {
                     <div className="flex items-center justify-end">
                       <div className="text-slate-500">Subtotal:</div>
                       <div className="w-20 font-medium sm:w-48 text-slate-600 dark:text-slate-400">
-                        ${transactions.fakeTransactions()[0].amount}
+                        ${transactions.fakeTransactions()[0]?.amount}
                       </div>
                     </div>
                     <div className="flex items-center justify-end">
                       <div className="text-slate-500">Total:</div>
                       <div className="w-20 font-medium sm:w-48 text-slate-600 dark:text-slate-400">
-                        ${transactions.fakeTransactions()[0].amount}
+                        ${transactions.fakeTransactions()[0]?.amount}
                       </div>
                     </div>
                     <div className="flex items-center justify-end">
@@ -372,7 +372,7 @@ function Main() {
                     <div className="flex items-center justify-end">
                       <div className="text-slate-500">Amount paid:</div>
                       <div className="w-20 font-medium sm:w-48 text-slate-600 dark:text-slate-400">
-                        ${transactions.fakeTransactions()[0].amount}
+                        ${transactions.fakeTransactions()[0]?.amount}
                       </div>
                     </div>
                     <div className="flex items-center justify-end">
@@ -418,8 +418,8 @@ function Main() {
                               <ImageZoom
                                 alt="Tailwise - Admin Dashboard Template"
                                 src={
-                                  transactions.fakeTransactions()[0].products[0]
-                                    .images[0].path
+                                  transactions.fakeTransactions()?.[0]?.products?.[0]
+                                    ?.images?.[0]?.path
                                 }
                               />
                             </div>
@@ -427,8 +427,8 @@ function Main() {
                               <ImageZoom
                                 alt="Tailwise - Admin Dashboard Template"
                                 src={
-                                  transactions.fakeTransactions()[0].products[0]
-                                    .images[1].path
+                                  transactions.fakeTransactions()?.[0]?.products?.[0]
+                                    ?.images?.[1]?.path
                                 }
                               />
                             </div>
@@ -436,8 +436,8 @@ function Main() {
                               <ImageZoom
                                 alt="Tailwise - Admin Dashboard Template"
                                 src={
-                                  transactions.fakeTransactions()[0].products[0]
-                                    .images[2].path
+                                  transactions.fakeTransactions()?.[0]?.products?.[0]
+                                    ?.images?.[2]?.path
                                 }
                               />
                             </div>

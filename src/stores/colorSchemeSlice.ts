@@ -31,11 +31,9 @@ interface ColorSchemeState {
   value: ColorSchemes | undefined;
 }
 
-const getColorScheme = () => {
+const getColorScheme = (): ColorSchemes => {
   const colorScheme = localStorage.getItem("colorScheme");
-  return colorSchemes.filter((item) => {
-    return item === colorScheme;
-  })[0];
+  return colorSchemes.find((item) => item === colorScheme) || "default";
 };
 
 const initialState: ColorSchemeState = {

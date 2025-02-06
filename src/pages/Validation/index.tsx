@@ -3,7 +3,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-undef */
 import clsx from "clsx";
-import _ from "lodash";
 import {
   FormSwitch,
   FormLabel,
@@ -50,7 +49,7 @@ function Main() {
     mode: "onChange",
     resolver: yupResolver(schema),
   });
-  const onSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const result = await trigger();
     if (!result) {

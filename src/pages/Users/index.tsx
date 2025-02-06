@@ -2,21 +2,17 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import Lucide from "@/components/Base/Lucide";
-// import { Menu, Popover, Dialog } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
 import { FormCheck, FormInput, FormSelect, FormSwitch } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
-// import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-// import clsx from "clsx";
 import _ from "lodash";
 import Modal from "../Modal/modal";
 import { useRef, useState } from "react";
 
 function Main() {
   const [newUserModal, setNewUserModal] = useState(false);
-  // const [title, setTitle] = useState("Payins")
   const userRef = useRef(null);
   const userModal = () => {
     setNewUserModal(!newUserModal)
@@ -108,104 +104,6 @@ function Main() {
                   />
                 </div>
               </div>
-              {/* <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 sm:ml-auto">
-                <Menu>
-                  <Menu.Button
-                    as={Button}
-                    variant="outline-secondary"
-                    className="w-full sm:w-auto"
-                  >
-                    <Lucide
-                      icon="Download"
-                      className="stroke-[1.3] w-4 h-4 mr-2"
-                    />
-                    Export
-                    <Lucide
-                      icon="ChevronDown"
-                      className="stroke-[1.3] w-4 h-4 ml-2"
-                    />
-                  </Menu.Button>
-                  <Menu.Items className="w-40">
-                    <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{" "}
-                      PDF
-                    </Menu.Item>
-                    <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />
-                      CSV
-                    </Menu.Item>
-                  </Menu.Items>
-                </Menu>
-                <Popover className="inline-block">
-                  {({ close }) => (
-                    <>
-                      <Popover.Button
-                        as={Button}
-                        variant="outline-secondary"
-                        className="w-full sm:w-auto"
-                      >
-                        <Lucide
-                          icon="ArrowDownWideNarrow"
-                          className="stroke-[1.3] w-4 h-4 mr-2"
-                        />
-                        Filter
-                        <div className="flex items-center justify-center h-5 px-1.5 ml-2 text-xs font-medium border rounded-full bg-slate-100 dark:bg-darkmode-400">
-                          3
-                        </div>
-                      </Popover.Button>
-                      <Popover.Panel placement="bottom-end">
-                        <div className="p-2">
-                          <div>
-                            <div className="text-left text-slate-500">
-                              Position
-                            </div>
-                            <FormSelect className="flex-1 mt-2">
-                              {_.take(users.fakeUsers(), 5).map(
-                                (faker, fakerKey) => (
-                                  <option key={fakerKey} value={faker.position}>
-                                    {faker.position}
-                                  </option>
-                                )
-                              )}
-                            </FormSelect>
-                          </div>
-                          <div className="mt-3">
-                            <div className="text-left text-slate-500">
-                              Department
-                            </div>
-                            <FormSelect className="flex-1 mt-2">
-                              {_.take(users.fakeUsers(), 5).map(
-                                (faker, fakerKey) => (
-                                  <option
-                                    key={fakerKey}
-                                    value={faker.department}
-                                  >
-                                    {faker.department}
-                                  </option>
-                                )
-                              )}
-                            </FormSelect>
-                          </div>
-                          <div className="flex items-center mt-4">
-                            <Button
-                              variant="secondary"
-                              onClick={() => {
-                                close();
-                              }}
-                              className="w-32 ml-auto"
-                            >
-                              Close
-                            </Button>
-                            <Button variant="primary" className="w-32 ml-2">
-                              Apply
-                            </Button>
-                          </div>
-                        </div>
-                      </Popover.Panel>
-                    </>
-                  )}
-                </Popover>
-              </div> */}
             </div>
             <div className="overflow-auto xl:overflow-visible">
               <Table className="border-b border-slate-200/60">
@@ -214,9 +112,6 @@ function Main() {
                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       <FormCheck.Input type="checkbox" />
                     </Table.Td>
-                    {/* <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                          SNO
-                                        </Table.Td> */}
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Admin Name
                     </Table.Td>
@@ -275,28 +170,6 @@ function Main() {
                           {faker.department}
                         </div>
                       </Table.Td>
-                      {/* <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="w-40">
-                          <div className="text-xs text-slate-500">
-                            {_.random(50, 100)}%
-                          </div>
-                          <div className="flex h-1 border rounded-sm bg-slate-50 mt-1.5 dark:bg-darkmode-400">
-                            <div
-                              className={clsx([
-                                "first:rounded-l-sm last:rounded-r-sm border border-primary/20 -m-px bg-primary/40",
-                                [
-                                  "w-[35%]",
-                                  "w-[45%]",
-                                  "w-[55%]",
-                                  "w-[65%]",
-                                  "w-[75%]",
-                                ][_.random(0, 4)],
-                              ])}
-                            ></div>
-                          </div>
-                        </div>
-                      </Table.Td> */}
-                      
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div className="whitespace-nowrap">
                           {faker.joinedDate}
@@ -318,34 +191,6 @@ function Main() {
                           </FormSwitch.Label>
                         </FormSwitch>
                       </Table.Td>
-                      {/* <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="flex items-center justify-center">
-                          <Menu className="h-5">
-                            <Menu.Button className="w-5 h-5 text-slate-500">
-                              <Lucide
-                                icon="MoreVertical"
-                                className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
-                              />
-                            </Menu.Button>
-                            <Menu.Items className="w-40">
-                              <Menu.Item>
-                                <Lucide
-                                  icon="CheckSquare"
-                                  className="w-4 h-4 mr-2"
-                                />{" "}
-                                Edit
-                              </Menu.Item>
-                              <Menu.Item className="text-danger">
-                                <Lucide
-                                  icon="Trash2"
-                                  className="w-4 h-4 mr-2"
-                                />
-                                Delete
-                              </Menu.Item>
-                            </Menu.Items>
-                          </Menu>
-                        </div>
-                      </Table.Td> */}
                     </Table.Tr>
                   ))}
                 </Table.Tbody>

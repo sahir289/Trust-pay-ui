@@ -20,6 +20,7 @@ import Button from "@/components/Base/Button";
 import Litepicker from "@/components/Base/Litepicker";
 import Table from "@/components/Base/Table";
 import { useState } from "react";
+import { URLSearchParams } from "url";
 import clsx from "clsx";
 import _ from "lodash";
 
@@ -282,12 +283,12 @@ function Main() {
                         <FormInput
                           type="text"
                           className="first:rounded-b-none first:md:rounded-bl-md first:md:rounded-r-none [&:not(:first-child):not(:last-child)]:-mt-px [&:not(:first-child):not(:last-child)]:md:mt-0 [&:not(:first-child):not(:last-child)]:md:-ml-px [&:not(:first-child):not(:last-child)]:rounded-none last:rounded-t-none last:md:rounded-l-none last:md:rounded-tr-md last:-mt-px last:md:mt-0 last:md:-ml-px focus:z-10"
-                          placeholder={users.fakeUsers()[0].name.split(" ")[0]}
+                          placeholder={users.fakeUsers()[0]?.name.split(" ")[0]}
                         />
                         <FormInput
                           type="text"
                           className="first:rounded-b-none first:md:rounded-bl-md first:md:rounded-r-none [&:not(:first-child):not(:last-child)]:-mt-px [&:not(:first-child):not(:last-child)]:md:mt-0 [&:not(:first-child):not(:last-child)]:md:-ml-px [&:not(:first-child):not(:last-child)]:rounded-none last:rounded-t-none last:md:rounded-l-none last:md:rounded-tr-md last:-mt-px last:md:mt-0 last:md:-ml-px focus:z-10"
-                          placeholder={users.fakeUsers()[0].name.split(" ")[1]}
+                          placeholder={users.fakeUsers()[0]?.name.split(" ")[1]}
                         />
                       </div>
                     </div>
@@ -395,7 +396,7 @@ function Main() {
                     <div className="flex-1 w-full mt-3 xl:mt-0">
                       <FormInput
                         type="text"
-                        placeholder={users.fakeUsers()[0].email}
+                        placeholder={users.fakeUsers()[0]?.email}
                       />
                     </div>
                   </div>
@@ -419,7 +420,7 @@ function Main() {
                         <FormInput
                           type="text"
                           className="first:rounded-b-none first:md:rounded-bl-md first:md:rounded-r-none [&:not(:first-child):not(:last-child)]:-mt-px [&:not(:first-child):not(:last-child)]:md:mt-0 [&:not(:first-child):not(:last-child)]:md:-ml-px [&:not(:first-child):not(:last-child)]:rounded-none last:rounded-t-none last:md:rounded-l-none last:md:rounded-tr-md last:-mt-px last:md:mt-0 last:md:-ml-px focus:z-10"
-                          placeholder={users.fakeUsers()[0].phone}
+                          placeholder={users.fakeUsers()[0]?.phone}
                         />
                         <FormSelect className="md:w-36 first:rounded-b-none first:md:rounded-bl-md first:md:rounded-r-none [&:not(:first-child):not(:last-child)]:-mt-px [&:not(:first-child):not(:last-child)]:md:mt-0 [&:not(:first-child):not(:last-child)]:md:-ml-px [&:not(:first-child):not(:last-child)]:rounded-none last:rounded-t-none last:md:rounded-l-none last:md:rounded-tr-md last:-mt-px last:md:mt-0 last:md:-ml-px focus:z-10">
                           <option value="office">Office</option>
@@ -554,7 +555,7 @@ function Main() {
                     <div className="flex-1 w-full mt-3 xl:mt-0">
                       <FormInput
                         type="text"
-                        placeholder={users.fakeUsers()[0].location}
+                        placeholder={users.fakeUsers()[0]?.location}
                       />
                     </div>
                   </div>
@@ -574,7 +575,7 @@ function Main() {
                     <div className="flex-1 w-full mt-3 xl:mt-0">
                       <FormInput
                         type="text"
-                        placeholder={users.fakeUsers()[0].location}
+                        placeholder={users.fakeUsers()[0]?.location}
                       />
                     </div>
                   </div>
@@ -596,7 +597,7 @@ function Main() {
                     <div className="flex-1 w-full mt-3 xl:mt-0">
                       <FormInput
                         type="text"
-                        placeholder={users.fakeUsers()[0].location}
+                        placeholder={users.fakeUsers()[0]?.location}
                       />
                     </div>
                   </div>
@@ -618,7 +619,7 @@ function Main() {
                     <div className="flex-1 w-full mt-3 xl:mt-0">
                       <FormInput
                         type="text"
-                        placeholder={users.fakeUsers()[0].location}
+                        placeholder={users.fakeUsers()[0]?.location}
                       />
                     </div>
                   </div>
@@ -694,7 +695,7 @@ function Main() {
                   <div className="text-slate-500">
                     Your current email address is{" "}
                     <span className="font-medium">
-                      {users.fakeUsers()[1].email}
+                      {users.fakeUsers()[1]?.email}
                     </span>
                     .
                   </div>
@@ -716,7 +717,7 @@ function Main() {
                     <div className="flex-1 w-full mt-3 xl:mt-0">
                       <FormInput
                         type="text"
-                        placeholder={users.fakeUsers()[0].email}
+                        placeholder={users.fakeUsers()[0]?.email}
                       />
                     </div>
                   </div>
@@ -1628,7 +1629,7 @@ function Main() {
                             www.facebook.com/
                             {users
                               .fakeUsers()[0]
-                              .name.toLowerCase()
+                              ?.name.toLowerCase()
                               .replace(" ", "")}
                           </a>
                         </div>
@@ -1701,7 +1702,7 @@ function Main() {
                             www.twitter.com/
                             {users
                               .fakeUsers()[0]
-                              .name.toLowerCase()
+                              ?.name.toLowerCase()
                               .replace(" ", "")}
                           </a>
                         </div>

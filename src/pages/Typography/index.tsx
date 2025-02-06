@@ -2,8 +2,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import clsx from "clsx";
-import _ from "lodash";
-// import Table from "@/components/Base/Table";
 import {
   PreviewComponent,
   Preview,

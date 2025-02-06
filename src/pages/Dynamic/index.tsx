@@ -34,7 +34,7 @@ function Main() {
                 />
               </div>
               <div className="mt-5 text-base font-medium">
-                {events.fakeEvents()[0].title}
+                {events.fakeEvents()[0]?.title}
               </div>
               <div className="flex items-center gap-1 mt-1.5">
                 <div className="flex gap-1.5 items-center">
@@ -43,7 +43,7 @@ function Main() {
                     className="text-primary fill-primary/10 stroke-[1.3] w-4 h-4"
                   />
                   <div className="max-w-[7rem] md:max-w-[9rem] truncate text-slate-500">
-                    {events.fakeEvents()[0].location}
+                    {events.fakeEvents()[0]?.location}
                   </div>
                 </div>
                 <div className="w-1 h-1 mx-1.5 rounded-full bg-slate-300"></div>
@@ -53,7 +53,7 @@ function Main() {
                     className="text-primary fill-primary/10 stroke-[1.3] w-4 h-4"
                   />
                   <div className="max-w-[7rem] md:max-w-[9rem] truncate text-slate-500">
-                    By {events.fakeEvents()[0].organizer}
+                    By {events.fakeEvents()[0]?.organizer}
                   </div>
                 </div>
               </div>
@@ -81,8 +81,8 @@ function Main() {
                 <Tippy
                   as="a"
                   className="flex items-center justify-center border rounded-full w-9 h-9 border-primary/[0.35]"
-                  content={`${events.fakeEvents()[0].date}, ${
-                    events.fakeEvents()[0].time
+                  content={`${events.fakeEvents()[0]?.date}, ${
+                    events.fakeEvents()[0]?.time
                   }`}
                 >
                   <Lucide
@@ -153,7 +153,7 @@ function Main() {
                 </div>
                 <div className="mt-3.5 text-slate-500">Welcome Back</div>
                 <div className="text-base font-medium mt-0.5">
-                  {users.fakeUsers()[0].name}
+                  {users.fakeUsers()[0]?.name}
                 </div>
                 <Button
                   type="button"
@@ -178,10 +178,10 @@ function Main() {
                 </div>
                 <div>
                   <div className="text-base font-medium">
-                    {messages.fakeMessages()[0].sender.name}
+                    {messages.fakeMessages()[0]?.sender.name}
                   </div>
                   <div className="text-slate-500 mt-0.5">
-                    {messages.fakeMessages()[0].content}
+                    {messages.fakeMessages()[0]?.content}
                   </div>
                 </div>
                 <a href="" className="ml-auto">
@@ -206,7 +206,7 @@ function Main() {
                   <div>
                     Event by{" "}
                     <a href="" className="text-primary">
-                      {events.fakeEvents()[0].organizer}
+                      {events.fakeEvents()[0]?.organizer}
                     </a>
                   </div>
                 </div>
@@ -281,7 +281,7 @@ function Main() {
                 </div>
                 <div>
                   <div className="text-base font-medium">
-                    {messages.fakeMessages()[0].sender.name}
+                    {messages.fakeMessages()[0]?.sender.name}
                   </div>
                   <div className="flex items-center gap-2 mt-1 leading-relaxed text-slate-500">
                     Are you open for a project?
@@ -290,7 +290,7 @@ function Main() {
                   </div>
                 </div>
                 <div className="ml-auto text-xs truncate text-slate-500/90">
-                  {messages.fakeMessages()[0].time}
+                  {messages.fakeMessages()[0]?.time}
                 </div>
               </div>
               <div className="flex items-center justify-end gap-3 pt-3 mt-3 border-t border-dashed">
@@ -527,15 +527,15 @@ function Main() {
               </div>
               <div className="p-5">
                 <div className="text-base font-medium">
-                  {events.fakeEvents()[0].title}
+                  {events.fakeEvents()[0]?.title}
                 </div>
                 <div className="flex items-center gap-2 mt-2 text-slate-500">
                   <Lucide icon="Clock" className="stroke-[1.3] w-4 h-4" />{" "}
-                  {events.fakeEvents()[0].date}, {events.fakeEvents()[0].time}
+                  {events.fakeEvents()[0]?.date}, {events.fakeEvents()[0]?.time}
                 </div>
                 <div className="flex items-center gap-2 text-slate-500 mt-1.5">
                   <Lucide icon="MapPin" className="stroke-[1.3] w-4 h-4" />{" "}
-                  {events.fakeEvents()[0].location}
+                  {events.fakeEvents()[0]?.location}
                 </div>
                 <Button
                   type="button"
@@ -568,16 +568,16 @@ function Main() {
                   </div>
                 </div>
                 <div className="mt-3.5 text-base font-medium">
-                  {users.fakeUsers()[0].name}
+                  {users.fakeUsers()[0]?.name}
                 </div>
                 <div className="text-slate-500 mt-0.5">
-                  {users.fakeUsers()[0].position}
+                  {users.fakeUsers()[0]?.position}
                 </div>
                 <div className="flex gap-3.5 mt-5">
                   <Tippy
                     as="a"
                     className="flex items-center justify-center border rounded-full w-11 h-11 border-primary/[0.25] bg-primary/[0.03]"
-                    content={users.fakeUsers()[0].email}
+                    content={users.fakeUsers()[0]?.email || ""}
                   >
                     <Lucide
                       icon="Mail"
@@ -587,7 +587,7 @@ function Main() {
                   <Tippy
                     as="a"
                     className="flex items-center justify-center border rounded-full w-11 h-11 border-primary/[0.25] bg-primary/[0.03]"
-                    content={users.fakeUsers()[0].name}
+                    content={users.fakeUsers()[0]?.name || ""}
                   >
                     <Lucide
                       icon="MessageSquare"
@@ -597,7 +597,7 @@ function Main() {
                   <Tippy
                     as="a"
                     className="flex items-center justify-center border rounded-full w-11 h-11 border-primary/[0.25] bg-primary/[0.03]"
-                    content={users.fakeUsers()[0].phone}
+                    content={users.fakeUsers()[0]?.phone || ""}
                   >
                     <Lucide
                       icon="Phone"
@@ -627,10 +627,10 @@ function Main() {
                     />
                   </div>
                   <div className="mt-3.5 text-base font-medium">
-                    {users.fakeUsers()[0].name}
+                    {users.fakeUsers()[0]?.name}
                   </div>
                   <div className="mt-0.5 text-slate-500">
-                    {users.fakeUsers()[0].department}
+                    {users.fakeUsers()[0]?.department}
                   </div>
                 </div>
                 <Tippy
@@ -782,32 +782,32 @@ function Main() {
                 <div className="flex flex-col w-[66%] gap-1">
                   <div className="flex gap-1">
                     <div className="relative flex w-1/2 h-24 overflow-hidden rounded-md cursor-pointer bg-slate-100 image-fit before:block before:absolute before:w-full before:h-full before:top-0 before:left-0 before:z-10 before:bg-gradient-to-t before:from-theme-1/30 before:via-theme-2/30 before:to-transparent">
-                      <img src={projectDetails.fakeProjectDetails()[0].image} />
+                      <img src={projectDetails.fakeProjectDetails()[0]?.image} />
                     </div>
                     <div className="relative flex w-1/2 h-24 overflow-hidden rounded-md cursor-pointer bg-slate-100 image-fit before:block before:absolute before:w-full before:h-full before:top-0 before:left-0 before:z-10 before:bg-gradient-to-t before:from-theme-1/30 before:via-theme-2/30 before:to-transparent">
-                      <img src={projectDetails.fakeProjectDetails()[0].image} />
+                      <img src={projectDetails.fakeProjectDetails()[0]?.image} />
                     </div>
                   </div>
                   <div className="flex gap-1">
                     <div className="relative flex w-1/2 overflow-hidden rounded-md cursor-pointer bg-slate-100 image-fit before:block before:absolute before:w-full before:h-full before:top-0 before:left-0 before:z-10 before:bg-gradient-to-t before:from-theme-1/30 before:via-theme-2/30 before:to-transparent">
-                      <img src={projectDetails.fakeProjectDetails()[0].image} />
+                      <img src={projectDetails.fakeProjectDetails()[0]?.image} />
                     </div>
                     <div className="flex flex-col w-1/2 gap-1">
                       <div className="relative flex w-full h-24 overflow-hidden rounded-md cursor-pointer bg-slate-100 image-fit before:block before:absolute before:w-full before:h-full before:top-0 before:left-0 before:z-10 before:bg-gradient-to-t before:from-theme-1/30 before:via-theme-2/30 before:to-transparent">
                         <img
-                          src={projectDetails.fakeProjectDetails()[0].image}
+                          src={projectDetails.fakeProjectDetails()[0]?.image}
                         />
                       </div>
                       <div className="relative flex w-full h-24 overflow-hidden rounded-md cursor-pointer bg-slate-100 image-fit before:block before:absolute before:w-full before:h-full before:top-0 before:left-0 before:z-10 before:bg-gradient-to-t before:from-theme-1/30 before:via-theme-2/30 before:to-transparent">
                         <img
-                          src={projectDetails.fakeProjectDetails()[0].image}
+                          src={projectDetails.fakeProjectDetails()[0]?.image}
                         />
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="cursor-pointer relative flex w-[33%] bg-slate-100 image-fit overflow-hidden rounded-md before:block before:absolute before:w-full before:h-full before:top-0 before:left-0 before:z-10 before:bg-gradient-to-t before:from-theme-1/30 before:via-theme-2/30 before:to-transparent">
-                  <img src={projectDetails.fakeProjectDetails()[0].image} />
+                  <img src={projectDetails.fakeProjectDetails()[0]?.image} />
                 </div>
               </div>
             </div>
@@ -826,7 +826,7 @@ function Main() {
                     Welcome!
                   </div>
                   <div className="text-slate-500 mt-0.5 truncate max-w-[9rem] md:max-w-none">
-                    {users.fakeUsers()[0].name.split(" ")[0]}
+                    {users.fakeUsers()[0]?.name.split(" ")[0]}
                   </div>
                 </div>
                 <a
@@ -879,7 +879,7 @@ function Main() {
                 </div>
                 <div>
                   <div className="text-base font-medium truncate max-w-[8rem] md:max-w-none">
-                    {users.fakeUsers()[0].name}
+                    {users.fakeUsers()[0]?.name}
                   </div>
                   <div className="text-slate-500 mt-0.5">Available</div>
                 </div>

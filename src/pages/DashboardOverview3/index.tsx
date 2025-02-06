@@ -288,7 +288,7 @@ function Main() {
                                 className={clsx({
                                   "rounded w-full pt-[84%] mb-[0.4rem] cursor-pointer zoom-in bg-primary border border-primary/20":
                                     true,
-                                  [salesPerformance()]: true,
+                                  [`${salesPerformance()}`]: true,
                                 })}
                               />
                             ))}

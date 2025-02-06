@@ -1,3 +1,4 @@
+import React, { JSX } from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
@@ -9,8 +10,7 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useEffect, useState } from "react";
-import clsx from "clsx";
+import { useState } from "react";
 import _ from "lodash";
 interface PayinProps {
   resetModal: boolean; // Expecting a boolean prop to control modal reset
@@ -20,7 +20,7 @@ interface PayinProps {
   setStatus : React.Dispatch<React.SetStateAction<string>>
   status: string
 }
-const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal,setStatus,status, approve, setApprove })=> {
+const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal, setStatus })=> {
 
   const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {

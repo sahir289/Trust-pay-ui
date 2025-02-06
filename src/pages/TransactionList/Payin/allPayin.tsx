@@ -1,3 +1,4 @@
+import React, { JSX, useState } from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
@@ -8,31 +9,20 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useRef, useState } from "react";
-import clsx from "clsx";
 import {
-  FormLabel,
-  FormSwitch,
   FormInput,
   FormSelect,
   FormCheck,
 } from "@/components/Base/Form";
 import _ from "lodash";
-import Modal from "@/pages/Modal/modal";
-import { Dialog } from "@headlessui/react";
 interface PayinProps {
   resetModal: boolean; // Expecting a boolean prop to control modal reset
   setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   status: string;
 }
-const AllPayin: React.FC<PayinProps> = ({ resetModal, setResetModal, setStatus, status }) => {
+const AllPayin: React.FC<PayinProps> = ({ resetModal, setResetModal, setStatus }) => {
   const [selectedUser, setSelectedUser] = useState("1");
-  const [editModal, setEditModal] = useState(false);
-  const resetRef = useRef(null);
-  const handleResetModal = () => {
-    setResetModal(!resetModal)
-  }
   interface StatusStyle {
     color: string;
     icon: JSX.Element;

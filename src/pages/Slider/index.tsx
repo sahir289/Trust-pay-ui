@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import _ from "lodash";
 import Table from "@/components/Base/Table";
 import TinySlider from "@/components/Base/TinySlider";
 import {
@@ -970,8 +969,7 @@ function Main() {
                                     <img
                                       alt="Tailwise - Admin Dashboard Template"
                                       src={
-                                        products.fakeProducts()[0].images[0]
-                                          .path
+                                        products.fakeProducts()[0]?.images[0]?.path
                                       }
                                     />
                                   </div>
@@ -981,8 +979,7 @@ function Main() {
                                     <img
                                       alt="Tailwise - Admin Dashboard Template"
                                       src={
-                                        products.fakeProducts()[1].images[0]
-                                          .path
+                                        products.fakeProducts()[1]?.images[0]?.path
                                       }
                                     />
                                   </div>
@@ -992,8 +989,7 @@ function Main() {
                                     <img
                                       alt="Tailwise - Admin Dashboard Template"
                                       src={
-                                        products.fakeProducts()[2].images[0]
-                                          .path
+                                        products.fakeProducts()[2]?.images[0]?.path
                                       }
                                     />
                                   </div>

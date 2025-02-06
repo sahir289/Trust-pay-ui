@@ -12,7 +12,7 @@ import { Dialog } from "@/components/Base/Headless";
 import Button from "@/components/Base/Button";
 import Lucide from "@/components/Base/Lucide";
 import Litepicker from "@/components/Base/Litepicker";
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 interface ModalProps {
     handleModal: () => void; // Function that takes no arguments and returns nothing
     sendButtonRef: React.RefObject<HTMLButtonElement>;
@@ -20,22 +20,6 @@ interface ModalProps {
     forOpen: boolean;
 }
 const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpen }) => {
-    const [basicModalPreview, setBasicModalPreview] = useState(false);
-    const [smallModalSizePreview, setSmallModalSizePreview] = useState(false);
-    const [mediumModalSizePreview, setMediumModalSizePreview] = useState(false);
-    const [largeModalSizePreview, setLargeModalSizePreview] = useState(false);
-    const [superlargeModalSizePreview, setSuperlargeModalSizePreview] = useState(false);
-    const [programmaticallyModal, setProgrammaticallyModal] = useState(false);
-    const [warningModalPreview, setWarningModalPreview] = useState(false);
-    const [buttonModalPreview, setButtonModalPreview] = useState(false);
-    const [staticBackdropModalPreview, setStaticBackdropModalPreview] = useState(false);
-    const [overlappingModalPreview, setOverlappingModalPreview] = useState(false);
-    const [nextOverlappingModalPreview, setNextOverlappingModalPreview] = useState(false);
-    const [headerFooterModalPreview, setHeaderFooterModalPreview] = useState(false);
-    const [deleteModalPreview, setDeleteModalPreview] = useState(false);
-    const [successModalPreview, setSuccessModalPreview] = useState(false);
-    const [tinySliderModalPreview, setTinySliderModalPreview] = useState(false);
-    const deleteButtonRef = useRef(null);
     const [generalReportFilter, setGeneralReportFilter] = useState<string>();
 
 
@@ -43,7 +27,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
         <div className="">
             <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
                 <PreviewComponent>
-                    {({ toggle }) => (
+                    {() => (
                         <>
                             <Preview>
                                 <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">

@@ -1,3 +1,4 @@
+import React, { JSX } from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
@@ -10,12 +11,11 @@ import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import { useState } from "react";
-import clsx from "clsx";
 import _ from "lodash";
 interface PayinProps {
  
 }
-const DroppedPayin: React.FC<PayinProps>=({  })=> {
+const DroppedPayin: React.FC<PayinProps>=()=> {
   const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {
     color: string;

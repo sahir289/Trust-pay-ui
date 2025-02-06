@@ -3,12 +3,9 @@ import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
 import clsx from "clsx";
-import _ from "lodash";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-import { useNavigate } from "react-router-dom";
 
 function Main() {
-  const navigate = useNavigate();
   return (
     <>
       <div className="container grid lg:h-screen grid-cols-12 lg:max-w-[1550px] 2xl:max-w-[1750px] py-10 px-5 sm:py-14 sm:px-10 md:px-36 lg:py-0 lg:pl-14 lg:pr-12 xl:px-24">
@@ -41,19 +38,19 @@ function Main() {
                 <FormInput
                   type="text"
                   className="block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80"
-                  placeholder={users.fakeUsers()[0].name.split(" ")[0]}
+                  placeholder={users.fakeUsers()[0]?.name.split(" ")[0]}
                 />
                 <FormLabel className="mt-5">Last Name*</FormLabel>
                 <FormInput
                   type="text"
                   className="block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80"
-                  placeholder={users.fakeUsers()[0].name.split(" ")[1]}
+                  placeholder={users.fakeUsers()[0]?.name.split(" ")[1]}
                 />
                 <FormLabel className="mt-5">Email*</FormLabel>
                 <FormInput
                   type="text"
                   className="block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80"
-                  placeholder={users.fakeUsers()[0].email}
+                  placeholder={users.fakeUsers()[0]?.email}
                 />
                 <FormLabel className="mt-5">Password*</FormLabel>
                 <FormInput
@@ -150,7 +147,7 @@ function Main() {
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
                     src={users.fakeUsers()[0]?.photo}
-                    content={users.fakeUsers()[0].name}
+                    content={users.fakeUsers()[0]?.name || ""}
                   />
                 </div>
                 <div className="-ml-3 w-9 h-9 2xl:w-11 2xl:h-11 image-fit zoom-in">
@@ -159,7 +156,7 @@ function Main() {
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
                     src={users.fakeUsers()[0]?.photo}
-                    content={users.fakeUsers()[0].name}
+                    content={users.fakeUsers()[0]?.name || ""}
                   />
                 </div>
                 <div className="-ml-3 w-9 h-9 2xl:w-11 2xl:h-11 image-fit zoom-in">
@@ -168,7 +165,7 @@ function Main() {
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
                     src={users.fakeUsers()[0]?.photo}
-                    content={users.fakeUsers()[0].name}
+                    content={users.fakeUsers()[0]?.name || ""}
                   />
                 </div>
                 <div className="-ml-3 w-9 h-9 2xl:w-11 2xl:h-11 image-fit zoom-in">
@@ -177,7 +174,7 @@ function Main() {
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
                     src={users.fakeUsers()[0]?.photo}
-                    content={users.fakeUsers()[0].name}
+                    content={users.fakeUsers()[0]?.name || ""}
                   />
                 </div>
               </div>

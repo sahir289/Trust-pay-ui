@@ -24,7 +24,7 @@ function Main() {
               className="stroke-[1.3] w-3.5 h-3.5 sm:w-5 sm:h-5 mx-1 sm:mx-2"
             />
             <div className="text-sm sm:text-lg">
-              {users.fakeUsers()[0].name} - #{_.random(1000000000, 9000000000)}
+              {users.fakeUsers()[0]?.name} - #{_.random(1000000000, 9000000000)}
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 lg:ml-auto">
@@ -67,7 +67,7 @@ function Main() {
                           href=""
                           className="underline decoration-dotted decoration-primary/30 underline-offset-[3px]"
                         >
-                          {users.fakeUsers()[0].name}
+                          {users.fakeUsers()[0]?.name}
                         </a>
                       </div>
                     </div>
@@ -78,7 +78,7 @@ function Main() {
                       />
                       <div className="flex flex-col flex-wrap w-full sm:items-center sm:flex-row gap-y-1">
                         <div className="sm:mr-auto w-54">Phone Number:</div>
-                        {users.fakeUsers()[0].phone}
+                        {users.fakeUsers()[0]?.phone}
                       </div>
                     </div>
                     <div className="flex items-center">
@@ -89,7 +89,7 @@ function Main() {
                       <div className="flex flex-col flex-wrap w-full sm:items-center sm:flex-row gap-y-1">
                         <div className="sm:mr-auto w-54">Email:</div>
                         <div className="text-right truncate w-52">
-                          {users.fakeUsers()[0].email}
+                          {users.fakeUsers()[0]?.email}
                         </div>
                       </div>
                     </div>
@@ -100,7 +100,7 @@ function Main() {
                       />
                       <div className="flex flex-col flex-wrap w-full sm:items-center sm:flex-row gap-y-1">
                         <div className="sm:mr-auto w-54">Location:</div>
-                        {users.fakeUsers()[0].location}
+                        {users.fakeUsers()[0]?.location}
                       </div>
                     </div>
                     <div className="flex items-center">
@@ -165,7 +165,7 @@ function Main() {
                       />
                       <div className="flex flex-col flex-wrap w-full sm:items-center sm:flex-row gap-y-1">
                         <div className="sm:mr-auto w-54">Phone Number:</div>
-                        {users.fakeUsers()[0].phone}
+                        {users.fakeUsers()[0]?.phone}
                       </div>
                     </div>
                     <div className="flex items-center">
@@ -435,8 +435,8 @@ function Main() {
                                       as="img"
                                       alt="Tailwise - Admin Dashboard Template"
                                       className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                      src={faker.images[0].path}
-                                      content={`Uploaded at ${faker.images[0].uploadDate}`}
+                                      src={faker.images[0]?.path}
+                                      content={`Uploaded at ${faker.images[0]?.uploadDate}`}
                                     />
                                   </div>
                                   <div className="ml-5">

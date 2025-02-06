@@ -1,4 +1,4 @@
-import _ from "lodash";
+import React from "react";
 import { Tab } from "@/components/Base/Headless";
 import AllPayout from "./allPayout";
 import CompletedPayout from "./completedPayout";

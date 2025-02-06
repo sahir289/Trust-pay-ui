@@ -61,10 +61,10 @@ function Main() {
                   </div>
                 </div>
                 <div className="mt-3.5 text-base font-medium">
-                  {users.fakeUsers()[0].name}
+                  {users.fakeUsers()[0]?.name}
                 </div>
                 <div className="text-slate-500 mt-0.5">
-                  {users.fakeUsers()[0].department}
+                  {users.fakeUsers()[0]?.department}
                 </div>
                 <div className="flex items-center gap-3 mt-5">
                   <div className="flex items-center text-xs font-medium rounded-md text-primary bg-primary/10 border border-primary/10 px-2 py-0.5">
@@ -90,10 +90,10 @@ function Main() {
             <div className="p-5 box box--stacked">
               <div className="relative">
                 <div className="max-w-[16rem] md:max-w-[17rem] text-base font-medium truncate">
-                  {projects.fakeProjects()[0].projectName}
+                  {projects.fakeProjects()[0]?.projectName}
                 </div>
                 <div className="text-slate-500 mt-0.5">
-                  By {projects.fakeProjects()[0].creativeDirector.name}
+                  By {projects.fakeProjects()[0]?.creativeDirector.name}
                 </div>
                 <Menu className="absolute top-0 right-0 mr-1">
                   <Menu.Button className="w-5 h-5 text-slate-500">
@@ -171,7 +171,7 @@ function Main() {
                     <Tippy
                       as="a"
                       className="flex relative items-center justify-center border rounded-full w-11 h-11 border-primary/[0.25] bg-primary/[0.03]"
-                      content={users.fakeUsers()[0].email}
+                      content={users.fakeUsers()[0]?.email || ""}
                     >
                       <Lucide
                         icon="Mail"
@@ -181,7 +181,7 @@ function Main() {
                     <Tippy
                       as="a"
                       className="flex relative items-center justify-center border rounded-full w-11 h-11 border-primary/[0.25] bg-primary/[0.03]"
-                      content={users.fakeUsers()[0].name}
+                      content={users.fakeUsers()[0]?.name || ""}
                     >
                       <Lucide
                         icon="MessageSquare"
@@ -191,7 +191,7 @@ function Main() {
                     <Tippy
                       as="a"
                       className="flex relative items-center justify-center border rounded-full w-11 h-11 border-primary/[0.25] bg-primary/[0.03]"
-                      content={users.fakeUsers()[0].phone}
+                      content={users.fakeUsers()[0]?.phone || ""}
                     >
                       <Lucide
                         icon="Bell"
@@ -310,7 +310,7 @@ function Main() {
                   </div>
                 </div>
                 <div className="mt-3.5 text-base font-medium">
-                  {users.fakeUsers()[0].name}
+                  {users.fakeUsers()[0]?.name}
                 </div>
                 <div className="text-slate-500 mt-0.5">Incoming Call</div>
                 <div className="flex gap-5 mt-6">
@@ -399,7 +399,7 @@ function Main() {
                   <Tippy
                     as="a"
                     className="flex relative items-center justify-center border rounded-full w-11 h-11 border-primary/[0.25] bg-primary/[0.03]"
-                    content={users.fakeUsers()[0].email}
+                    content={users.fakeUsers()[0]?.email || ""}
                   >
                     <Lucide
                       icon="SkipBack"
@@ -415,7 +415,7 @@ function Main() {
                   <Tippy
                     as="a"
                     className="flex relative items-center justify-center border rounded-full w-11 h-11 border-primary/[0.25] bg-primary/[0.03]"
-                    content={users.fakeUsers()[0].name}
+                    content={users.fakeUsers()[0]?.name || ""}
                   >
                     <Lucide
                       icon="SkipForward"
@@ -496,10 +496,10 @@ function Main() {
                 </div>
                 <div>
                   <div className="text-base font-medium truncate max-w-[9rem] md:max-w-none">
-                    {users.fakeUsers()[0].name}
+                    {users.fakeUsers()[0]?.name}
                   </div>
                   <div className="text-slate-500 mt-0.5">
-                    {users.fakeUsers()[0].position}
+                    {users.fakeUsers()[0]?.position}
                   </div>
                 </div>
               </div>
@@ -535,25 +535,25 @@ function Main() {
                   <div className="overflow-hidden rounded-md h-28 image-fit">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={projectDetails.fakeProjectDetails()[0].image}
+                      src={projectDetails.fakeProjectDetails()[0]?.image}
                     />
                   </div>
                   <div className="overflow-hidden rounded-md h-28 image-fit">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={projectDetails.fakeProjectDetails()[0].image}
+                      src={projectDetails.fakeProjectDetails()[0]?.image}
                     />
                   </div>
                   <div className="overflow-hidden rounded-md h-28 image-fit">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={projectDetails.fakeProjectDetails()[0].image}
+                      src={projectDetails.fakeProjectDetails()[0]?.image}
                     />
                   </div>
                   <div className="overflow-hidden rounded-md h-28 image-fit">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={projectDetails.fakeProjectDetails()[0].image}
+                      src={projectDetails.fakeProjectDetails()[0]?.image}
                     />
                   </div>
                 </div>
@@ -601,7 +601,7 @@ function Main() {
             <div className="p-5 box box--stacked">
               <div className="flex flex-col items-center pb-8 mb-5 border-b border-dashed">
                 <div className="max-w-[17rem] text-base font-medium truncate">
-                  Hi, {users.fakeUsers()[0].name}
+                  Hi, {users.fakeUsers()[0]?.name}
                 </div>
                 <div className="text-slate-500 mt-0.5">
                   Your food is getting ready in
@@ -660,7 +660,7 @@ function Main() {
                   </div>
                   <div>
                     <div className="font-medium truncate max-w-[15rem]">
-                      {users.fakeUsers()[0].name}
+                      {users.fakeUsers()[0]?.name}
                     </div>
                     <div className="mt-1 text-xs text-slate-500">Driver</div>
                   </div>
@@ -786,10 +786,10 @@ function Main() {
               </div>
               <div className="pt-4 mt-5 border-t border-dashed">
                 <div className="max-w-[17rem] text-base font-medium truncate">
-                  {events.fakeEvents()[0].title}
+                  {events.fakeEvents()[0]?.title}
                 </div>
                 <div className="text-slate-500 mt-0.5">
-                  {events.fakeEvents()[0].description}
+                  {events.fakeEvents()[0]?.description}
                 </div>
               </div>
               <div className="flex items-center gap-3 mt-7">
@@ -828,10 +828,10 @@ function Main() {
                   />
                 </div>
                 <div className="mt-3.5 text-base font-medium">
-                  {users.fakeUsers()[0].name}
+                  {users.fakeUsers()[0]?.name}
                 </div>
                 <div className="text-slate-500 mt-0.5">
-                  {users.fakeUsers()[0].department}
+                  {users.fakeUsers()[0]?.department}
                 </div>
                 <div className="flex items-center px-2 mt-6">
                   <div className="w-full text-center">

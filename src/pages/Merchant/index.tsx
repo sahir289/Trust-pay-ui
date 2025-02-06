@@ -7,15 +7,12 @@ import merchants from "@/fakers/merchants";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
-import { useRef, useState } from "react";
-import { Preview, PreviewComponent, Source } from "@/components/Base/PreviewComponent";
+import React, { useRef, useState } from "react";
+import { Preview, PreviewComponent } from "@/components/Base/PreviewComponent";
 
 function Main() {
     const [newMerchantModal, setNewMerchantModal] = useState(false);
     const sendButtonRef = useRef(null);
- const merchantModal =()=>{
-    setNewMerchantModal(!newMerchantModal)
- }
     return (
         <div className="grid grid-cols-12 gap-y-10 gap-x-6">
             <div className="col-span-12">
@@ -26,7 +23,7 @@ function Main() {
 
                     <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
                         <PreviewComponent>
-                            {({ toggle }) => (
+                            {() => (
                                 <>
                                     <Preview>
                                         <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
