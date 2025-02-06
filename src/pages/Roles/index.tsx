@@ -1,7 +1,7 @@
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import { FormLabel, FormInput, FormSelect } from "@/components/Base/Form";
+import { FormLabel, FormInput, FormSelect,FormCheck } from "@/components/Base/Form";
 import {  Dialog } from "@/components/Base/Headless";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
@@ -12,83 +12,38 @@ import _ from "lodash";
 import Modal from "../Modal/modal";
 import { useState,useRef } from "react";
 function Main() {
-  const [newUserModal, setNewUserModal] = useState(false);
-  const [title, setTitle] = useState("Add Vendors")
-  const userRef = useRef(null);
-  const userModal = () => {
-    setNewUserModal(!newUserModal)
-  }
-const sendButtonRef = useRef(null);
+    const [newUserModal, setNewUserModal] = useState(false);
+    const [title, setTitle] = useState("Add Roles")
+    const userRef = useRef(null);
+    const userModal = () => {
+      setNewUserModal(!newUserModal)
+    }
 const [VerificationModal , setVerificationModal] = useState(false);
 const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
-        <div className="flex flex-col md:h-10 gap-y-3 md:items-center md:flex-row">
-          <div className="text-base font-medium group-[.mode--light]:text-white">
-            Vendors
-          </div>
+        <div className="flex flex-col md:h-10 mt-4 gap-y-3 md:items-center md:flex-row">
+        <div className="text-base font-medium group-[.mode--light]:text-white">
+  <h1 className="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-4xl">
+    <span
+      className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-blue-400 
+                 drop-shadow-lg shadow-blue-600 dark:shadow-blue-300"
+    >
+      Roles
+    </span>
+  </h1>
+</div>
+
+
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-          <Modal handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title="Add Vendors" />
+          <Modal handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title={title} />
           </div>
         </div>
-        {/* <Dialog
-  open={headerFooterModalPreview}
-  onClose={() => setHeaderFooterModalPreview(false)}
-  initialFocus={sendButtonRef}
->
-  <Dialog.Panel>
-    <Dialog.Title>
-      <h2 className="mr-auto text-base font-medium">New Vendor</h2>
-      <Lucide
-                                                        icon="X"
-                                                        className="w-5 h-5 ml-px stroke-[3]"
-                                                        onClick={() => setHeaderFooterModalPreview(false)}
-                                                    />
-                                                    <Menu className="sm:hidden">
-                                                        <Menu.Button
-                                                            as="a"
-                                                            className="block w-5 h-5"
-                                                            href="#"
-                                                        >
-                                                            <Lucide
-                                                                icon="MoreHorizontal"
-                                                                className="w-5 h-5 text-slate-500"
-                                                            />
-                                                        </Menu.Button>
-
-                                                    </Menu>
-    </Dialog.Title>
-    <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
-    <legend className="ml-4 pt-1 px-2">Vendor</legend>
-    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
-      <div className="col-span-12 sm:col-span-12">
-        <FormLabel htmlFor="modal-form-1">Code</FormLabel>
-        <FormInput id="modal-form-1" type="text" />
-      </div>
-      <div className="col-span-12 sm:col-span-12">
-        <FormLabel htmlFor="modal-form-1">Commision</FormLabel>
-        <FormInput id="modal-form-1" type="text" />
-      </div>
-    </Dialog.Description></fieldset>
-    <Dialog.Footer>
-      <Button
-        type="button"
-        variant="outline-secondary"
-        onClick={() => setHeaderFooterModalPreview(false)}
-        className="w-20 mr-1"
-      >
-        Cancel
-      </Button>
-      <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
-        ok
-      </Button>
-    </Dialog.Footer>
-  </Dialog.Panel>
-</Dialog> */}
+       
 <Dialog  open={VerificationModal}
   onClose={() => setVerificationModal(false)}
-  initialFocus={sendButtonRef}>
+  initialFocus={userRef}>
 <Dialog.Panel>
     <Dialog.Title>
       <h2 className="mr-auto text-base font-medium">Password Verification</h2>
@@ -133,7 +88,7 @@ const [showPassword, setShowPassword] = useState(false);
      
     </fieldset>
     <Dialog.Footer>
-      <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
+      <Button variant="primary" type="button" className="w-20" ref={useRef}>
         Verify
       </Button>
     </Dialog.Footer>
@@ -141,7 +96,7 @@ const [showPassword, setShowPassword] = useState(false);
 </Dialog>
 {/* END: Modal Content */}
         <div className="flex flex-col gap-8 mt-3.5">
-          <div className="flex flex-col p-5 box box--stacked">
+          {/* <div className="flex flex-col p-5 box box--stacked">
             <div className="grid grid-cols-4 gap-5">
               <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
                 <div className="text-base text-slate-500">Registered Vendors</div>
@@ -196,7 +151,7 @@ const [showPassword, setShowPassword] = useState(false);
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="flex flex-col box box--stacked">
             <div className="flex flex-col p-5 sm:items-center sm:flex-row gap-y-2">
               <div>
@@ -207,7 +162,7 @@ const [showPassword, setShowPassword] = useState(false);
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search vendors..."
+                    placeholder="Search..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>
@@ -315,14 +270,17 @@ const [showPassword, setShowPassword] = useState(false);
               <Table className="border-b border-slate-200/60">
                 <Table.Thead>
                   <Table.Tr>
+                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                                          <FormCheck.Input type="checkbox" />
+                                        </Table.Td>
                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       SNO
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Code
+                      Role
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Vendor Commission
+                      Created_By
                     </Table.Td>
                     {/* <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Position
@@ -331,13 +289,10 @@ const [showPassword, setShowPassword] = useState(false);
                       Profile Completeness
                     </Table.Td> */}
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Created Date
+                      Created_At
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Created By
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Status
+                      Updated_at
                     </Table.Td>
                     <Table.Td className="w-20 py-4 font-medium  border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Action
@@ -347,33 +302,22 @@ const [showPassword, setShowPassword] = useState(false);
                 <Table.Tbody>
                   {_.take(users.fakeUsers(), 20).map((faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        {fakerKey+1}
-                      </Table.Td>
+                         <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                                                <FormCheck.Input type="checkbox" />
+                                              </Table.Td>
                       <Table.Td className="py-4 border-dashed w-80 dark:bg-darkmode-600">
-                        <div className="flex items-center">
-                          <div className="w-9 h-9 image-fit zoom-in">
-                            <Tippy
-                              as="img"
-                              alt="Tailwise - Admin Dashboard Template"
-                              className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                              src={faker.photo}
-                              content={faker.name}
-                            />
-                          </div>
-                          <div className="ml-3.5">
-                            <a
-                              href=""
-                              className="font-medium whitespace-nowrap"
-                            >
-                              {faker.name}
+                       <a>
+                              {fakerKey+1}
                             </a>
-                            <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                              {faker.email}
-                            </div>
-                          </div>
-                        </div>
                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                                              <a href="" className="font-medium whitespace-nowrap">
+                                              {faker.position} 
+                                              </a>
+                                              <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
+                                              {faker.name}
+                                              </div>
+                                            </Table.Td>
                       {/* <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <a href="" className="font-medium whitespace-nowrap">
                           {faker.position}
@@ -382,28 +326,12 @@ const [showPassword, setShowPassword] = useState(false);
                           {faker.department}
                         </div>
                       </Table.Td> */}
+                      
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="w-40">
-                          <div className="text-xs text-slate-500">
-                            {_.random(1, 5)}%
-                          </div>
-                          <div className="flex h-1 border rounded-sm bg-slate-50 mt-1.5 dark:bg-darkmode-400">
-                            <div
-                              className={clsx([
-                                "first:rounded-l-sm last:rounded-r-sm border border-primary/20 -m-px bg-primary/40",
-                                [
-                                  "w-[35%]",
-                                  "w-[45%]",
-                                  "w-[55%]",
-                                  "w-[65%]",
-                                  "w-[75%]",
-                                ][_.random(0, 4)],
-                              ])}
-                            ></div>
-                          </div>
+                        <div className="whitespace-nowrap">
+                          {faker.manager}
                         </div>
                       </Table.Td>
-                     
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div className="whitespace-nowrap">
                           {faker.joinedDate}
@@ -411,23 +339,7 @@ const [showPassword, setShowPassword] = useState(false);
                       </Table.Td>
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div className="whitespace-nowrap">
-                          {faker.manager}
-                        </div>
-                      </Table.Td>
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div
-                          className={clsx([
-                            "flex ",
-                            ["text-success", "text-danger"][_.random(0, 1)],
-                          ])}
-                        >
-                          <Lucide
-                            icon="Database"
-                            className="w-3.5 h-3.5 stroke-[1.7]"
-                          />
-                          <div className="ml-1.5 whitespace-nowrap">
-                            {_.random(0, 1) ? "Active" : "Inactive"}
-                          </div>
+                          {faker.joinedDate}
                         </div>
                       </Table.Td>
                       <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">

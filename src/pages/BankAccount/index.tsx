@@ -8,16 +8,17 @@ import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import clsx from "clsx";
 import _ from "lodash";
+import Modal from "../Modal/modal";
 import { useState,useRef } from "react";
 function Main() {
-    const [selectedOption, setSelectedOption] = useState("PayIn");
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-  const [headerFooterModalPreview, setHeaderFooterModalPreview] =useState(false);
-  const [VerificationModal , setVerificationModal] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-
+  const [newUserModal, setNewUserModal] = useState(false);
+    const [title, setTitle] = useState("Add Bank Account")
+    const userRef = useRef(null);
+    const userModal = () => {
+      setNewUserModal(!newUserModal)
+    }
+    const [VerificationModal , setVerificationModal] = useState(false);
+const [showPassword, setShowPassword] = useState(false);
        const sendButtonRef = useRef(null);
 const bankAccounts = [
         {
@@ -199,172 +200,10 @@ const bankAccounts = [
             Bank Accounts
           </div>
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-            <Button
-              variant="primary"
-              className="group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent dark:group-[.mode--light]:!bg-darkmode-900/30 dark:!box"
-              onClick={(event: React.MouseEvent) => {
-                event.preventDefault();
-                setHeaderFooterModalPreview(true);
-              }}
-           >
-              <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 mr-2" />{" "}
-              Add Bank Account
-            </Button>
+          <Modal handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title={title} />
           </div>
         </div>
-        <Dialog
-  open={headerFooterModalPreview}
-  onClose={() => setHeaderFooterModalPreview(false)}
-  initialFocus={sendButtonRef}
->
-  <Dialog.Panel>
-    <Dialog.Title>
-      <h2 className="mr-auto text-base font-medium">Add Bank Account</h2>
-      <Lucide
-                                                        icon="X"
-                                                        className="w-5 h-5 ml-px stroke-[3]"
-                                                        onClick={() => setHeaderFooterModalPreview(false)}
-                                                    />
-                                                    <Menu className="sm:hidden">
-                                                        <Menu.Button
-                                                            as="a"
-                                                            className="block w-5 h-5"
-                                                            href="#"
-                                                        >
-                                                            <Lucide
-                                                                icon="MoreHorizontal"
-                                                                className="w-5 h-5 text-slate-500"
-                                                            />
-                                                        </Menu.Button>
-
-                                                    </Menu>
-    </Dialog.Title>
-    <Dialog.Description className="grid grid-cols-12 gap-2 gap-y-7">
-    <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
-    <legend className="ml-4 pt-1 px-2">Details</legend>
-    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-7">
-      <div className="col-span-12 sm:col-span-12">
-        <FormLabel htmlFor="modal-form-1">Bank Account Nick Name</FormLabel>
-        <FormInput id="modal-form-1" placeholder="..." type="text" />
-      </div>
-      <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">Bank Name</FormLabel>
-        <FormInput id="modal-form-1" placeholder="..." type="text" />
-      </div>
-      
-       <div className="col-span-12 sm:col-span-6">
-      <FormLabel htmlFor="modal-form-6">
-                                            PayIn/PayOut
-      </FormLabel>
-    
-      <FormSelect id="modal-form-6" onChange={handleOptionChange} value={selectedOption}>
-            <option value="PayIn">PayIn</option>
-            <option value="PayOut">PayOut</option>
-          </FormSelect>
-                                        </div>
-                                        <div className="col-span-12 sm:col-span-12">
-        <FormLabel htmlFor="modal-form-1">Bank Account Holder Name</FormLabel>
-        <FormInput id="modal-form-1" placeholder="..." type="text" />
-      </div>
-    <div className="col-span-12 sm:col-span-12">
-        <FormLabel htmlFor="modal-form-1">Account Number</FormLabel>
-        <FormInput id="modal-form-1"   type="Number" />
-      </div>
-      <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">IFSC Code</FormLabel>
-        <FormInput id="modal-form-1"  type="text" />
-      </div>
-      <div className="col-span-12 sm:col-span-6">
-        <FormLabel htmlFor="modal-form-1">UPI ID</FormLabel>
-        <FormInput id="modal-form-1" placeholder="..." type="text" />
-      </div></Dialog.Description></fieldset>
-      {selectedOption === "PayIn" && (
-          <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
-            <legend className="ml-4 pt-1 px-2">Pay IN</legend>
-            <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-7">
-              <div className="col-span-12 sm:col-span-6">
-                <FormLabel htmlFor="modal-form-1">Min</FormLabel>
-                <FormInput id="modal-form-1" type="Number" />
-              </div>
-              <div className="col-span-12 sm:col-span-6">
-                <FormLabel htmlFor="modal-form-1">Max</FormLabel>
-                <FormInput id="modal-form-1" type="Number" />
-              </div>
-            </Dialog.Description>
-          </fieldset>
-        )}
-
-        {/* Conditional Rendering for PayOut Field */}
-        {selectedOption === "PayOut" && (
-          <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
-          <legend className="ml-4 pt-1 px-2">Pay Out</legend>
-          <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-7">
-            <div className="col-span-12 sm:col-span-6">
-              <FormLabel htmlFor="modal-form-1">Min</FormLabel>
-              <FormInput id="modal-form-1" type="Number" />
-            </div>
-            <div className="col-span-12 sm:col-span-6">
-              <FormLabel htmlFor="modal-form-1">Max</FormLabel>
-              <FormInput id="modal-form-1" type="Number" />
-            </div>
-          </Dialog.Description>
-        </fieldset>
-        )}
-      <div className="col-span-12 sm:col-span-12 flex flex-row justify-around items-center">
-  <div className="col-span-12 sm:col-span-4 flex items-center justify-between">
-    <FormLabel htmlFor="modal-form-1" className="mr-2 pt-2">Enabled</FormLabel>
-    <FormSwitch className="dark:border-red-500 rounded-lg">
-      <FormSwitch.Label htmlFor="show-example-1" className="ml-0">
-        <FormSwitch.Input
-          id="show-example-1"
-          className="ml-0 mr-0 border-2 border-slate-300"
-          type="checkbox"
-        />
-      </FormSwitch.Label>
-    </FormSwitch>
-  </div>
-  <div className="col-span-12 sm:col-span-4 flex items-center justify-between">
-    <FormLabel htmlFor="modal-form-1" className="mr-2 pt-2">QR?</FormLabel>
-    <FormSwitch className="dark:border-red-500 rounded-lg">
-      <FormSwitch.Label htmlFor="show-example-1" className="ml-0">
-        <FormSwitch.Input
-          id="show-example-1"
-          className="ml-0 mr-0 border-2 border-slate-300"
-          type="checkbox"
-        />
-      </FormSwitch.Label>
-    </FormSwitch>
-  </div>
-  <div className="col-span-12 sm:col-span-4 flex items-center justify-between">
-    <FormLabel htmlFor="modal-form-1" className="mr-2 pt-2">Bank?</FormLabel>
-    <FormSwitch className="dark:border-red-500 rounded-lg">
-      <FormSwitch.Label htmlFor="show-example-1" className="ml-0">
-        <FormSwitch.Input
-          id="show-example-1"
-          className="ml-0 mr-0 border-2 border-slate-300"
-          type="checkbox"
-        />
-      </FormSwitch.Label>
-    </FormSwitch>
-  </div>
-  </div>
-  
-    </Dialog.Description>
-    <Dialog.Footer>
-      <Button
-        type="button"
-        variant="outline-secondary"
-        onClick={() => setHeaderFooterModalPreview(false)}
-        className="w-20 mr-1"
-      >
-        Cancel
-      </Button>
-      <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
-        ok
-      </Button>
-    </Dialog.Footer>
-  </Dialog.Panel>
-</Dialog>
+     
 <Dialog
   open={VerificationModal}
   onClose={() => setVerificationModal(false)}
@@ -701,7 +540,7 @@ const bankAccounts = [
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
         <div className="whitespace-nowrap">{account.lastScheduledAt}</div>
       </Table.Td>
-      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
         <FormSwitch className=" dark:border-red-500 rounded-lg">
                                                            <FormSwitch.Label

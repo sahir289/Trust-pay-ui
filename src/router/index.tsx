@@ -11,7 +11,7 @@ import Users from "../pages/Users";
 import Vendors from "../pages/Vendors";
 import Merchant from "../pages/Merchant";
 import BankAccount from "../pages/BankAccount";
-
+import Roles from "../pages/Roles";
 import Departments from "../pages/Departments";
 import AddUser from "../pages/AddUser";
 import ProfileOverview from "../pages/ProfileOverview";
@@ -66,7 +66,7 @@ import LandingPage from "../pages/LandingPage";
 import Settlement from "../pages/Settlement";
 import ChargeBack from "../pages/ChargeBack";
 import AddData from "../pages/AddData";
-
+import Designation from "../pages/Designation"
 import Layout from "../themes";
 import Bankaccount from "../pages/BankAccount";
 function Router() {
@@ -91,6 +91,7 @@ function Router() {
           path: "dashboard-overview-3",
           element: <DashboardOverview3 />,
         },
+       
         {
           path: "dashboard-overview-4",
           element: <DashboardOverview4 />,
@@ -324,12 +325,21 @@ function Router() {
           element: <Validation />,
         },
         {
+          path: "designation",
+          element: <Designation />,
+        },
+        {
           path: "chart",
           element: <Chart />,
         },
         {
           path: "slider",
           element: <Slider />,
+        },
+
+        {
+          path: "roles",
+          element: <Roles />,
         },
         {
           path: "image-zoom",
