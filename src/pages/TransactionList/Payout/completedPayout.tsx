@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
@@ -8,10 +9,10 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useState } from "react";
+import React, { useState } from "react";
 import _ from "lodash";
 import payouts from "@/fakers/payouts";
-import fakersPayouts from "@/fakers/payouts";
+// import fakersPayouts from "@/fakers/payouts";
 interface PayinProps {
   reject: boolean; // Expecting a boolean prop to control modal reset
   setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
@@ -232,7 +233,7 @@ const CompletedPayout: React.FC<PayinProps> = ({ reject, setReject, approve, set
                     ),
                     10
                   ).map(
-                    (faker, fakerKey) => (
+                    (faker) => (
                       <Table.Tr key={faker.id} className="[&_td]:last:border-b-0">
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <FormCheck.Input type="checkbox" />

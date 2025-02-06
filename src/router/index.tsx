@@ -10,7 +10,7 @@ import DashboardOverview8 from "../pages/DashboardOverview8";
 import Users from "../pages/Users";
 import Vendors from "../pages/Vendors";
 import Merchant from "../pages/Merchant";
-import BankAccount from "../pages/BankAccount";
+// import BankAccount from "../pages/BankAccount";
 
 import Departments from "../pages/Departments";
 import AddUser from "../pages/AddUser";
@@ -41,7 +41,7 @@ import Dynamic from "../pages/Dynamic";
 import Interactive from "../pages/Interactive";
 import RegularTable from "../pages/RegularTable";
 import Tabulator from "../pages/Tabulator";
-import Modal from "../pages/Modal/modal";
+// import Modal from "../pages/Modal/modal";
 import Slideover from "../pages/Slideover";
 import Notification from "../pages/Notification";
 import Tab from "../pages/Tab";

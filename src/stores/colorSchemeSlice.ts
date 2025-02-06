@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
@@ -26,12 +28,12 @@ export const colorSchemes = [
 export type ColorSchemes = (typeof colorSchemes)[number];
 
 interface ColorSchemeState {
-  value: ColorSchemes;
+  value: ColorSchemes | undefined;
 }
 
 const getColorScheme = () => {
   const colorScheme = localStorage.getItem("colorScheme");
-  return colorSchemes.filter((item, key) => {
+  return colorSchemes.filter((item) => {
     return item === colorScheme;
   })[0];
 };

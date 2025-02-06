@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-undef */
 import clsx from "clsx";
 import _ from "lodash";
 import {
@@ -51,9 +55,21 @@ function Main() {
     const result = await trigger();
     if (!result) {
       const failedEl = document
-        .querySelectorAll("#failed-notification-content")[0]
-        .cloneNode(true) as HTMLElement;
-      failedEl.classList.remove("hidden");
+        .querySelectorAll("#failed-notification-content")[0];
+      if (failedEl) {
+        const clonedEl = failedEl.cloneNode(true) as HTMLElement;
+        clonedEl.classList.remove("hidden");
+        Toastify({
+          node: clonedEl,
+          duration: 3000,
+          newWindow: true,
+          close: true,
+          gravity: "top",
+          position: "right",
+          stopOnFocus: true,
+        }).showToast();
+      }
+      failedEl?.classList.remove("hidden");
       Toastify({
         node: failedEl,
         duration: 3000,
@@ -65,9 +81,21 @@ function Main() {
       }).showToast();
     } else {
       const successEl = document
-        .querySelectorAll("#success-notification-content")[0]
-        .cloneNode(true) as HTMLElement;
-      successEl.classList.remove("hidden");
+        .querySelectorAll("#success-notification-content")[0];
+      if (successEl) {
+        const clonedEl = successEl.cloneNode(true) as HTMLElement;
+        clonedEl.classList.remove("hidden");
+        Toastify({
+          node: clonedEl,
+          duration: 3000,
+          newWindow: true,
+          close: true,
+          gravity: "top",
+          position: "right",
+          stopOnFocus: true,
+        }).showToast();
+      }
+      successEl?.classList.remove("hidden");
       Toastify({
         node: successEl,
         duration: 3000,

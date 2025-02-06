@@ -4,6 +4,7 @@ import tailwindColors from "tailwindcss/colors";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "tailwind-config";
 import { flatten } from "flat";
+import { DotNestedKeys } from "@/types/utils";
 
 const twConfig = resolveConfig(tailwindConfig);
 const colors = twConfig.theme?.colors;

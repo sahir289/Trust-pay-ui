@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-console */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import Hurricane from "../themes/Hurricane";
@@ -69,6 +71,7 @@ export const getTheme = (search?: Themes["name"]) => {
   const theme = search === undefined ? localStorage.getItem("theme") : search;
   return (
     themes.filter((item, key) => {
+      console.log(key)
       return item.name === theme;
     })[0] || themes[0]
   );

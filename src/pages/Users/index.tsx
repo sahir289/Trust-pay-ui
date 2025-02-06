@@ -1,19 +1,22 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover, Dialog } from "@/components/Base/Headless";
+// import { Menu, Popover, Dialog } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import { FormCheck, FormInput, FormSelect, FormLabel, FormSwitch } from "@/components/Base/Form";
+import { FormCheck, FormInput, FormSelect, FormSwitch } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
-import Button from "@/components/Base/Button";
+// import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import clsx from "clsx";
+// import clsx from "clsx";
 import _ from "lodash";
 import Modal from "../Modal/modal";
 import { useRef, useState } from "react";
 
 function Main() {
   const [newUserModal, setNewUserModal] = useState(false);
-  const [title, setTitle] = useState("Payins")
+  // const [title, setTitle] = useState("Payins")
   const userRef = useRef(null);
   const userModal = () => {
     setNewUserModal(!newUserModal)

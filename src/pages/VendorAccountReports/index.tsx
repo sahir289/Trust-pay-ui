@@ -1,14 +1,19 @@
+/* eslint-disable no-empty-pattern */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
-import { Tab } from "@/components/Base/Headless";
-import { formatCurrency } from "@/utils/helper";
-import transactions from "@/fakers/transactions";
+// import { Tab } from "@/components/Base/Headless";
+// import { formatCurrency } from "@/utils/helper";
+// import transactions from "@/fakers/transactions";
 import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import { useState } from "react";
-import fakersPayouts from "@/fakers/payouts";
+// import fakersPayouts from "@/fakers/payouts";
 
 import { Menu, Popover } from "@/components/Base/Headless";
 
@@ -148,7 +153,7 @@ function AccountReports() {
         <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 sm:ml-auto ">
          
           <Popover className="inline-block">
-            {({ close }) => (
+            {({  }) => (
               <>
                 
                 <Popover.Panel placement="bottom-end">

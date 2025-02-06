@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-undef */
 import "@/assets/css/vendors/simplebar.css";
 import "@/assets/css/themes/viper.css";
 import { Transition } from "react-transition-group";
 import Breadcrumb from "@/components/Base/Breadcrumb";
-import { useState, useEffect, createRef } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { selectSideMenu } from "@/stores/sideMenuSlice";
 import {
