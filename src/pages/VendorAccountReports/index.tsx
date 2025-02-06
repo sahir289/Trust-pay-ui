@@ -8,8 +8,6 @@ import Table from "@/components/Base/Table";
 import _ from "lodash";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import { useState } from "react";
-import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
 import fakersPayouts from "@/fakers/payouts";
 
 import { Menu, Popover } from "@/components/Base/Headless";

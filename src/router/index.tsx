@@ -70,7 +70,7 @@ import AddData from "../pages/AddData";
 
 import Layout from "../themes";
 import Bankaccount from "../pages/BankAccount";
-import AccountReports from "@/pages/AccoutnReports";
+import AccountReports from "@/pages/AccountReports";
 function Router() {
   const routes = [
     {
