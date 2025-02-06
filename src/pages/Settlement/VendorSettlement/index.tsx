@@ -22,7 +22,7 @@ const sendButtonRef = useRef(null);
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
         <div className="mt-3.5">
-          <div className="flex flex-col box box--stacked">
+          <div className="flex flex-col ">
             <div className="flex flex-col p-5 sm:items-center sm:flex-row gap-y-2">
               <div>
                 <div className="relative">

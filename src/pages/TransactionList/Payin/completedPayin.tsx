@@ -15,12 +15,57 @@ import _ from "lodash";
 
 function CompletedPayin() {
   const [selectedUser, setSelectedUser] = useState("1");
+  interface StatusStyle {
+    color: string;
+    icon: JSX.Element;
+  }
+
+  const getStatusStyles = (status: string): StatusStyle => {
+    switch (status) {
+      case "Image Pending":
+      case "Pending":
+        return {
+          color: "text-yellow-500",
+          icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+      case "Failed":
+      case "Dropped":
+        return {
+          color: "text-red-500",
+          icon: <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+      case "Bank Mismatch":
+      case "Duplicate":
+      case "Dispute":
+        return {
+          color: "text-orange-500",
+          icon: <Lucide icon="FileWarning" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+      case "Assigned":
+        return {
+          color: "text-blue-500",
+          icon: <Lucide icon="ListChecks" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+      case "Success":
+        return {
+          color: "text-green-500",
+          icon: <Lucide icon="CheckCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+      default:
+        return { color: "text-gray-500", icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" /> };
+    }
+  };
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
         <div className="mt-3.5">
-          <div className="flex flex-col box box--stacked">
+          <div className="flex flex-col">
             <div className="flex flex-col p-5 sm:items-center sm:flex-row gap-y-2">
               <div>
                 <div className="relative">
@@ -153,6 +198,9 @@ function CompletedPayin() {
                       Confirmed
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Commission
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Amount
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
@@ -224,13 +272,19 @@ function CompletedPayin() {
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <a href="" className="font-medium whitespace-nowrap">
-                            {faker.amount}
+                            {faker.commission}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <a href="" className="font-medium whitespace-nowrap">
-                            {faker.status}
+                            {faker.amount}
                           </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <div className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(faker.status).color}`}>
+                            {getStatusStyles(faker.status).icon}
+                            {faker.status}
+                          </div>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <a href="" className="font-medium whitespace-nowrap">

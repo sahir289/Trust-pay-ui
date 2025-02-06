@@ -13,7 +13,9 @@ import { Preview, PreviewComponent, Source } from "@/components/Base/PreviewComp
 function Main() {
     const [newMerchantModal, setNewMerchantModal] = useState(false);
     const sendButtonRef = useRef(null);
-
+ const merchantModal =()=>{
+    setNewMerchantModal(!newMerchantModal)
+ }
     return (
         <div className="grid grid-cols-12 gap-y-10 gap-x-6">
             <div className="col-span-12">
@@ -85,7 +87,9 @@ function Main() {
                                                         placeholder="Merchant Code"
                                                     />
                                                 </div>
-                                                <div></div>
+                                                <div>
+                                                    
+                                                </div>
                                                 <fieldset className="border-2 rounded-lg border-gray-200 mx-5 my-2">
                                                     <legend className="ml-4 pt-1 px-2">URLs</legend>
                                                     <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">

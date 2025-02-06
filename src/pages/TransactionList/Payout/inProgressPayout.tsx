@@ -4,23 +4,52 @@ import Pagination from "@/components/Base/Pagination";
 import TomSelect from "@/components/Base/TomSelect";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
-import transactions from "@/fakers/transactions";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import { useState } from "react";
-import clsx from "clsx";
 import _ from "lodash";
+import payouts from "@/fakers/payouts";
 
 function InProgressPayout() {
   const [selectedUser, setSelectedUser] = useState("1");
+  interface StatusStyle {
+    color: string;
+    icon: JSX.Element;
+  }
+  const getStatusStyles = (status: string): StatusStyle => {
+    switch (status) {
 
+
+      case "Rejected":
+        return {
+          color: "text-red-500",
+          icon: <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+      case "Initiated":
+        return {
+          color: "text-gray-500",
+          icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+
+      case "Success":
+        return {
+          color: "text-green-500",
+          icon: <Lucide icon="CheckCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
+        };
+
+      default:
+        return { color: "text-gray-500", icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" /> };
+    }
+  }
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
         <div className="mt-3.5">
-          <div className="flex flex-col box box--stacked">
+          <div className="flex flex-col ">
             <div className="flex flex-col p-5 sm:items-center sm:flex-row gap-y-2">
               <div>
                 <div className="relative">
@@ -144,19 +173,43 @@ function InProgressPayout() {
                       <FormCheck.Input type="checkbox" />
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Customer Name
+                      SNO.
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Transaction ID
+                      Merchant Order ID
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Status
+                      Merchant
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Bank Details
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Amount
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Date
+                      Status
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      UTR
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      User
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Method
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Vendor
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      From Bank
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Payout ID
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Last Updated
                     </Table.Td>
                     <Table.Td className="py-4 font-medium text-center border-t w-36 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Action
@@ -164,14 +217,59 @@ function InProgressPayout() {
                   </Table.Tr>
                 </Table.Thead>
                 <Table.Tbody>
-                  {_.take(transactions.fakeTransactions(), 10).map(
+                  {_.take(
+                    _.orderBy(
+                      _.filter(payouts.fakePayouts(), { status: 'Initiated' }),
+                      ['sno'],
+                      ['desc']
+                    ),
+                    10
+                  ).map(
                     (faker, fakerKey) => (
-                      <Table.Tr
-                        key={fakerKey}
-                        className="[&_td]:last:border-b-0"
-                      >
+                      <Table.Tr key={faker.id} className="[&_td]:last:border-b-0">
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <FormCheck.Input type="checkbox" />
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
+                          <div className="flex items-center">
+                            <div className="ml-3.5">
+                              <a href="#" className="font-medium whitespace-nowrap">
+                                {faker.sno}
+                              </a>
+                              <div className="text-slate-500 text-xs mt-0.5">
+                                Product: Purchased Items
+                              </div>
+                            </div>
+                          </div>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="#" className="flex items-center text-primary">
+                            <span className="ml-1.5 text-[13px] underline">{faker.merchant_order_id}</span>
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="#" className="flex items-center text-primary">
+                            <span className="ml-1.5 text-[13px] underline">{faker.merchant_code}</span>
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="#" className="flex items-center text-primary">
+                            <span className="ml-1.5 text-[13px] underline">{faker.bankDetails}</span>
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="#" className="flex items-center text-primary">
+                            <span className="ml-1.5 text-[13px] underline">{faker.amount}</span>
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <div className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(faker.status).color}`}>
+                            {getStatusStyles(faker.status).icon}
+                            {faker.status}
+                          </div>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{faker.utr}</span>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
                           <div className="flex items-center">
@@ -180,8 +278,8 @@ function InProgressPayout() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                src={faker.user.photo}
-                                content={faker.user.name}
+                                src={faker.photo}
+                                content={faker.name}
                               />
                             </div>
                             <div className="ml-3.5">
@@ -189,77 +287,38 @@ function InProgressPayout() {
                                 href=""
                                 className="font-medium whitespace-nowrap"
                               >
-                                {faker.user.name}
+                                {faker.name}
                               </a>
-                              <div className="flex text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                                Product:
-                                <a href="" className="block ml-1 truncate w-44">
-                                  Purchased: {_.random(2, 10)} Items
-                                </a>
-                              </div>
                             </div>
                           </div>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="flex items-center text-primary">
-                            <Lucide
-                              icon="ExternalLink"
-                              className="w-3.5 h-3.5 stroke-[1.7]"
-                            />
-                            <div className="ml-1.5 text-[13px] whitespace-nowrap underline decoration-dotted decoration-primary/30 underline-offset-[3px]">
-                              {faker.orderId}
-                            </div>
-                          </a>
+                          <span className="whitespace-nowrap">{faker.method}</span>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <div
-                            className={clsx([
-                              "flex items-center",
-                              faker.orderStatus.textColor,
-                            ])}
-                          >
-                            <Lucide
-                              icon={faker.orderStatus.icon}
-                              className="w-3.5 h-3.5 stroke-[1.7]"
-                            />
-                            <div className="ml-1.5 whitespace-nowrap">
-                              {faker.orderStatus.name}
-                            </div>
-                          </div>
+                          <span className="whitespace-nowrap">{faker.vendor}</span>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <div className="whitespace-nowrap">
-                            ${faker.amount}
-                          </div>
+                          <span className="whitespace-nowrap">{faker.fromBank}</span>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <div className="whitespace-nowrap">
-                            {faker.orderDate}
-                          </div>
+                          <span className="whitespace-nowrap">{faker.id}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{faker.updated_at}</span>
                         </Table.Td>
                         <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                           <div className="flex items-center justify-center">
                             <Menu className="h-5">
                               <Menu.Button className="w-5 h-5 text-slate-500">
-                                <Lucide
-                                  icon="MoreVertical"
-                                  className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
-                                />
+                                <Lucide icon="MoreVertical" className="w-5 h-5" />
                               </Menu.Button>
                               <Menu.Items className="w-40">
                                 <Menu.Item>
-                                  <Lucide
-                                    icon="CheckSquare"
-                                    className="w-4 h-4 mr-2"
-                                  />{" "}
-                                  Edit
+                                  <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
                                 </Menu.Item>
                                 <Menu.Item className="text-danger">
-                                  <Lucide
-                                    icon="Trash2"
-                                    className="w-4 h-4 mr-2"
-                                  />
-                                  Delete
+                                  <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
                                 </Menu.Item>
                               </Menu.Items>
                             </Menu>
