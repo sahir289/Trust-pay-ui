@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { toRGB } from "./helper";
 import tailwindColors from "tailwindcss/colors";
 import resolveConfig from "tailwindcss/resolveConfig";
@@ -47,11 +48,11 @@ const getColor = (colorKey: DotNestedKeys<Colors>, opacity: number = 1) => {
     }
   >(colors);
 
-  if (flattenColors[colorKey].search("var") === -1) {
+  if (flattenColors[colorKey]?.search("var") === -1) {
     return `rgb(${toRGB(flattenColors[colorKey])} / ${opacity})`;
   } else {
     const cssVariableName = `--color-${
-      flattenColors[colorKey].split("--color-")[1].split(")")[0]
+      flattenColors[colorKey]?.split("--color-")[1]?.split(")")[0]
     }`;
     return `rgb(${getComputedStyle(document.body).getPropertyValue(
       cssVariableName

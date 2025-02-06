@@ -150,7 +150,7 @@ function Main() {
                     as="img"
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
-                    src={users.fakeUsers()[0].photo}
+                    src={users.fakeUsers()[0]?.photo}
                     content={users.fakeUsers()[0].name}
                   />
                 </div>
@@ -159,7 +159,7 @@ function Main() {
                     as="img"
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
-                    src={users.fakeUsers()[0].photo}
+                    src={users.fakeUsers()[0]?.photo}
                     content={users.fakeUsers()[0].name}
                   />
                 </div>
@@ -168,7 +168,7 @@ function Main() {
                     as="img"
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
-                    src={users.fakeUsers()[0].photo}
+                    src={users.fakeUsers()[0]?.photo}
                     content={users.fakeUsers()[0].name}
                   />
                 </div>
@@ -177,7 +177,7 @@ function Main() {
                     as="img"
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
-                    src={users.fakeUsers()[0].photo}
+                    src={users.fakeUsers()[0]?.photo}
                     content={users.fakeUsers()[0].name}
                   />
                 </div>

@@ -56,7 +56,7 @@ function Main() {
                   <div className="w-28 h-28 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                 </div>
@@ -119,28 +119,28 @@ function Main() {
                     <img
                       alt="Tailwise - Admin Dashboard Template"
                       className="border-[3px] border-slate-50 rounded-full cursor-pointer"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                   <div className="w-11 h-11 -ml-3.5 first:ml-0 image-fit zoom-in">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
                       className="border-[3px] border-slate-50 rounded-full cursor-pointer"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                   <div className="w-11 h-11 -ml-3.5 first:ml-0 image-fit zoom-in">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
                       className="border-[3px] border-slate-50 rounded-full cursor-pointer"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                   <div className="w-11 h-11 -ml-3.5 first:ml-0 image-fit zoom-in">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
                       className="border-[3px] border-slate-50 rounded-full cursor-pointer"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                   <div className="inset-y-0 z-10 font-medium flex items-center h-[22px] px-2.5 my-auto -ml-3 text-xs bg-white border border-slate-200/80 rounded-full shadow text-primary dark:bg-darkmode-400">
@@ -302,7 +302,7 @@ function Main() {
                         <div className="w-24 h-24 overflow-hidden rounded-full image-fit">
                           <img
                             alt="Tailwise - Admin Dashboard Template"
-                            src={users.fakeUsers()[0].photo}
+                            src={users.fakeUsers()[0]?.photo}
                           />
                         </div>
                       </div>
@@ -409,7 +409,7 @@ function Main() {
                   <div className="w-28 h-28 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                   <Tippy
@@ -490,7 +490,7 @@ function Main() {
                   <div className="w-14 h-14 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                 </div>
@@ -654,7 +654,7 @@ function Main() {
                     <div className="w-10 h-10 overflow-hidden border-2 rounded-full image-fit border-slate-200/70">
                       <img
                         alt="Tailwise - Admin Dashboard Template"
-                        src={users.fakeUsers()[0].photo}
+                        src={users.fakeUsers()[0]?.photo}
                       />
                     </div>
                   </div>
@@ -748,28 +748,28 @@ function Main() {
                   <img
                     alt="Tailwise - Admin Dashboard Template"
                     className="border-[3px] border-slate-50 rounded-full cursor-pointer"
-                    src={users.fakeUsers()[0].photo}
+                    src={users.fakeUsers()[0]?.photo}
                   />
                 </div>
                 <div className="w-11 h-11 -ml-3.5 first:ml-0 image-fit zoom-in">
                   <img
                     alt="Tailwise - Admin Dashboard Template"
                     className="border-[3px] border-slate-50 rounded-full cursor-pointer"
-                    src={users.fakeUsers()[0].photo}
+                    src={users.fakeUsers()[0]?.photo}
                   />
                 </div>
                 <div className="w-11 h-11 -ml-3.5 first:ml-0 image-fit zoom-in">
                   <img
                     alt="Tailwise - Admin Dashboard Template"
                     className="border-[3px] border-slate-50 rounded-full cursor-pointer"
-                    src={users.fakeUsers()[0].photo}
+                    src={users.fakeUsers()[0]?.photo}
                   />
                 </div>
                 <div className="w-11 h-11 -ml-3.5 first:ml-0 image-fit zoom-in">
                   <img
                     alt="Tailwise - Admin Dashboard Template"
                     className="border-[3px] border-slate-50 rounded-full cursor-pointer"
-                    src={users.fakeUsers()[0].photo}
+                    src={users.fakeUsers()[0]?.photo}
                   />
                 </div>
                 <div className="inset-y-0 z-10 font-medium flex items-center h-[22px] px-2.5 my-auto -ml-3 text-xs bg-white border border-slate-200/80 rounded-full shadow text-primary">
@@ -819,7 +819,7 @@ function Main() {
                   <div className="w-28 h-28 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                   <Lucide

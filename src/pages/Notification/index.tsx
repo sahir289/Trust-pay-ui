@@ -600,7 +600,7 @@ function Main() {
                                 <div className="flex-none w-10 h-10 overflow-hidden rounded-full image-fit">
                                   <img
                                     alt="Tailwise - Admin Dashboard Template"
-                                    src={users.fakeUsers()[0].photo}
+                                    src={users.fakeUsers()[0]?.photo}
                                   />
                                 </div>
                                 <div className="ml-4 sm:mr-28">
@@ -647,7 +647,7 @@ function Main() {
                   <div className="flex-none w-10 h-10 overflow-hidden rounded-full image-fit">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                   <div className="ml-4 sm:mr-28">

@@ -139,7 +139,7 @@ function Main() {
                   <div className="w-40 h-40 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                   <Lucide
@@ -172,7 +172,7 @@ function Main() {
                   <div className="overflow-hidden border-2 rounded-full w-14 h-14 image-fit border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                 </div>
@@ -199,7 +199,7 @@ function Main() {
                     <div className="overflow-hidden border-2 rounded-full w-9 h-9 image-fit border-slate-200/70">
                       <img
                         alt="Tailwise - Admin Dashboard Template"
-                        src={users.fakeUsers()[0].photo}
+                        src={users.fakeUsers()[0]?.photo}
                       />
                     </div>
                   </div>
@@ -275,7 +275,7 @@ function Main() {
                   <div className="overflow-hidden border-2 rounded-full w-14 h-14 image-fit border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                 </div>
@@ -415,7 +415,7 @@ function Main() {
                   <div className="w-28 h-28 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                 </div>
@@ -496,7 +496,7 @@ function Main() {
                   <div className="overflow-hidden border-2 rounded-full w-14 h-14 image-fit border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                 </div>
@@ -560,7 +560,7 @@ function Main() {
                         <div className="w-24 h-24 overflow-hidden rounded-full image-fit">
                           <img
                             alt="Tailwise - Admin Dashboard Template"
-                            src={users.fakeUsers()[0].photo}
+                            src={users.fakeUsers()[0]?.photo}
                           />
                         </div>
                       </div>
@@ -623,7 +623,7 @@ function Main() {
                   <div className="w-32 h-32 overflow-hidden border-2 rounded-full image-fit border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                   <div className="mt-3.5 text-base font-medium">
@@ -663,7 +663,7 @@ function Main() {
                         <div className="w-10 h-10 overflow-hidden border-2 rounded-full image-fit border-slate-200/70">
                           <img
                             alt="Tailwise - Admin Dashboard Template"
-                            src={users.fakeUsers()[0].photo}
+                            src={users.fakeUsers()[0]?.photo}
                           />
                         </div>
                       </div>
@@ -715,20 +715,20 @@ function Main() {
                       <div className="w-32 h-32 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70 -mt-1 -mr-1">
                         <img
                           alt="Tailwise - Admin Dashboard Template"
-                          src={users.fakeUsers()[0].photo}
+                          src={users.fakeUsers()[0]?.photo}
                         />
                       </div>
                     </div>
                     <div className="absolute left-0 w-6 h-6 overflow-hidden border rounded-full image-fit border-slate-200/70 -ml-2.5">
                       <img
                         alt="Tailwise - Admin Dashboard Template"
-                        src={users.fakeUsers()[0].photo}
+                        src={users.fakeUsers()[0]?.photo}
                       />
                     </div>
                     <div className="absolute bottom-0 left-0 w-8 h-8 mb-2.5 ml-2.5 overflow-hidden border rounded-full image-fit border-slate-200/70">
                       <img
                         alt="Tailwise - Admin Dashboard Template"
-                        src={users.fakeUsers()[0].photo}
+                        src={users.fakeUsers()[0]?.photo}
                       />
                     </div>
                     <Tippy
@@ -817,7 +817,7 @@ function Main() {
                   <div className="overflow-hidden border-2 rounded-full w-14 h-14 image-fit border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                 </div>
@@ -873,7 +873,7 @@ function Main() {
                   <div className="overflow-hidden border-2 rounded-full w-14 h-14 image-fit border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                 </div>
