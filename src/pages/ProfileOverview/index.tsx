@@ -53,7 +53,7 @@ function Main() {
               <div className="w-full h-full overflow-hidden border-[6px] box border-white rounded-full image-fit">
                 <img
                   alt="Tailwise - Admin Dashboard Template"
-                  src={users.fakeUsers()[0].photo}
+                  src={users.fakeUsers()[0]?.photo}
                 />
               </div>
               <div className="absolute bottom-0 right-0 w-5 h-5 mb-2.5 mr-2.5 border-2 border-white rounded-full bg-success box dark:bg-success"></div>

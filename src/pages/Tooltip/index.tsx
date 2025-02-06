@@ -333,7 +333,7 @@ function Main() {
                                     <img
                                       alt="Tailwise - Admin Dashboard Template"
                                       className="rounded-full"
-                                      src={users.fakeUsers()[0].photo}
+                                      src={users.fakeUsers()[0]?.photo}
                                     />
                                   </div>
                                   <div className="ml-4 mr-auto">
@@ -370,7 +370,7 @@ function Main() {
                       <img
                         alt="Tailwise - Admin Dashboard Template"
                         className="rounded-full"
-                        src={users.fakeUsers()[0].photo}
+                        src={users.fakeUsers()[0]?.photo}
                       />
                     </div>
                     <div className="ml-4 mr-auto">

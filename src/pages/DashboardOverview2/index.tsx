@@ -235,7 +235,7 @@ function Main() {
               <div className="overflow-hidden rounded-full w-14 h-14 image-fit border-[3px] border-slate-200/70">
                 <img
                   alt="Tailwise - Admin Dashboard Template"
-                  src={users.fakeUsers()[0].photo}
+                  src={users.fakeUsers()[0]?.photo}
                 />
               </div>
               <div className="text-center sm:text-left sm:ml-4">
