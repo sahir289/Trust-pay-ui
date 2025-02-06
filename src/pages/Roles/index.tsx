@@ -25,14 +25,9 @@ const [showPassword, setShowPassword] = useState(false);
       <div className="col-span-12">
         <div className="flex flex-col md:h-10 mt-4 gap-y-3 md:items-center md:flex-row">
         <div className="text-base font-medium group-[.mode--light]:text-white">
-  <h1 className="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-4xl">
-    <span
-      className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-blue-400 
-                 drop-shadow-lg shadow-blue-600 dark:shadow-blue-300"
-    >
-      Roles
-    </span>
-  </h1>
+        <div className="text-base font-medium group-[.mode--light]:text-white">
+         Roles
+          </div>
 </div>
 
 

@@ -12,14 +12,31 @@ import Table from "@/components/Base/Table";
 import { useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";
-
+import CustomTable from "../../../components/TableComponent";
 function CompletedPayin() {
   const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {
     color: string;
     icon: JSX.Element;
   }
-
+  const theadData = [
+    "SNO", 
+    "Code", 
+    "Confirmed",
+    "Commission", 
+    "Amount",
+    "Status", 
+    "Merchant Order ID", 
+    "Merchant", 
+    "User", 
+    "User Submitted UTR", 
+    "UTR", 
+    "Method", 
+    "Payin ID", 
+    "Updated AT", 
+    "Image", 
+    "Action"
+  ];
   const getStatusStyles = (status: string): StatusStyle => {
     switch (status) {
       case "Image Pending":
@@ -182,7 +199,7 @@ function CompletedPayin() {
               </div>
             </div>
             <div className="overflow-auto">
-              <Table className="border-b border-slate-200/60">
+              {/* <Table className="border-b border-slate-200/60">
                 <Table.Thead>
                   <Table.Tr>
                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
@@ -196,6 +213,9 @@ function CompletedPayin() {
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Confirmed
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Commission
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Amount
@@ -265,6 +285,11 @@ function CompletedPayin() {
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <a href="" className="font-medium whitespace-nowrap">
                             {faker.confirmed}
+                          </a>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a href="" className="font-medium whitespace-nowrap">
+                            {faker.commission}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -379,9 +404,10 @@ function CompletedPayin() {
                     )
                   )}
                 </Table.Tbody>
-              </Table>
+              </Table> */}
+            <CustomTable columns={theadData} data={payins} title={"Payins"} status={["Success"]}/>
             </div>
-            <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
+            {/* <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
               <Pagination className="flex-1 w-full mr-auto sm:w-auto">
                 <Pagination.Link>
                   <Lucide icon="ChevronsLeft" className="w-4 h-4" />
@@ -407,7 +433,7 @@ function CompletedPayin() {
                 <option>35</option>
                 <option>50</option>
               </FormSelect>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

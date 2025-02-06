@@ -12,54 +12,73 @@ import Table from "@/components/Base/Table";
 import { useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";
-
+import CustomTable from "../../../components/TableComponent";
+import { Columns } from "lucide-react";
 function AllPayin() {
   const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {
     color: string;
     icon: JSX.Element;
   }
+  const theadData = [
+    "SNO", 
+    "Code", 
+    "Confirmed", 
+    "Amount", 
+    "Status", 
+    "Merchant Order ID", 
+    "Merchant", 
+    "User", 
+    "User Submitted UTR", 
+    "UTR", 
+    "Method", 
+    "Payin ID", 
+    "Updated AT", 
+    "Image", 
+    "Action"
+  ];
+ 
+    
+  // const getStatusStyles = (status: string): StatusStyle => {
+  //   switch (status) {
+  //     case "Image Pending":
+  //     case "Pending":
+  //       return {
+  //         color: "text-yellow-500",
+  //         icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" />
+  //       };
 
-  const getStatusStyles = (status: string): StatusStyle => {
-    switch (status) {
-      case "Image Pending":
-      case "Pending":
-        return {
-          color: "text-yellow-500",
-          icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" />
-        };
+  //     case "Failed":
+  //     case "Dropped":
+  //       return {
+  //         color: "text-red-500",
+  //         icon: <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
+  //       };
 
-      case "Failed":
-      case "Dropped":
-        return {
-          color: "text-red-500",
-          icon: <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
-        };
+  //     case "Bank Mismatch":
+  //     case "Duplicate":
+  //     case "Dispute":
+  //       return {
+  //         color: "text-orange-500",
+  //         icon: <Lucide icon="FileWarning" className="w-5 h-5 ml-px stroke-[2.5]" />
+  //       };
 
-      case "Bank Mismatch":
-      case "Duplicate":
-      case "Dispute":
-        return {
-          color: "text-orange-500",
-          icon: <Lucide icon="FileWarning" className="w-5 h-5 ml-px stroke-[2.5]" />
-        };
+  //     case "Assigned":
+  //       return {
+  //         color: "text-blue-500",
+  //         icon: <Lucide icon="ListChecks" className="w-5 h-5 ml-px stroke-[2.5]" />
+  //       };
 
-      case "Assigned":
-        return {
-          color: "text-blue-500",
-          icon: <Lucide icon="ListChecks" className="w-5 h-5 ml-px stroke-[2.5]" />
-        };
+  //     case "Success":
+  //       return {
+  //         color: "text-green-500",
+  //         icon: <Lucide icon="CheckCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
+  //       };
 
-      case "Success":
-        return {
-          color: "text-green-500",
-          icon: <Lucide icon="CheckCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
-        };
-
-      default:
-        return { color: "text-gray-500", icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" /> };
-    }
-  };
+  //     default:
+  //       return { color: "text-gray-500", icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" /> };
+  //   }
+  // };
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -182,7 +201,8 @@ function AllPayin() {
               </div>
             </div>
             <div className="overflow-auto">
-              <Table className="border-b border-slate-200/60">
+            <CustomTable columns={theadData} data={payins} title={"Payins"} status={['Pending', 'Duplicate', 'Dispute', 'Bank Mismatch', 'Image Pending', 'Assigned', 'Initiated','Success','Dropped','Failled']}/>
+              {/* <Table className="border-b border-slate-200/60">
                 <Table.Thead>
                   <Table.Tr>
                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
@@ -373,9 +393,9 @@ function AllPayin() {
                     )
                   )}
                 </Table.Tbody>
-              </Table>
+              </Table> */}
             </div>
-            <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
+            {/* <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
               <Pagination className="flex-1 w-full mr-auto sm:w-auto">
                 <Pagination.Link>
                   <Lucide icon="ChevronsLeft" className="w-4 h-4" />
@@ -401,7 +421,7 @@ function AllPayin() {
                 <option>35</option>
                 <option>50</option>
               </FormSelect>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

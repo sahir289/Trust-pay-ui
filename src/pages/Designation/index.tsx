@@ -24,18 +24,11 @@ const [showPassword, setShowPassword] = useState(false);
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12 ">
         <div className="flex flex-col mt-4 md:h-10 gap-y-3 md:items-center md:flex-row">
-          {/* <div className="text-base font-medium group-[.mode--light]:text-white">
+          <div className="text-base font-medium group-[.mode--light]:text-white">
             Designation
-            <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Designation</span>
-          </div> */}
-<h1 className="mb-4 text-2xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-4xl">
-    <span
-      className="text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-blue-400 
-                 drop-shadow-lg shadow-blue-600 dark:shadow-blue-300"
-    >
-      Designation
-    </span>
-  </h1>          <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
+            {/* <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">Designation</span> */}
+          </div>
+ <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
   <Modal handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title={title} />
 
           </div>
