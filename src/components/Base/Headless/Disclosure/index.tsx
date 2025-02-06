@@ -3,7 +3,7 @@ import {
   Disclosure as HeadlessDisclosure,
   Transition,
 } from "@headlessui/react";
-import {
+import React, {
   Fragment,
   createContext,
   useContext,
@@ -38,7 +38,7 @@ function Disclosure({
   className,
   key = 0,
   ...props
-}: ExtractProps<typeof HeadlessDisclosure> & {
+}: React.ComponentProps<typeof HeadlessDisclosure> & {
   key?: number;
 }) {
   const group = useContext(groupContext);
@@ -125,7 +125,7 @@ Disclosure.Button = ({
   children,
   className,
   ...props
-}: ExtractProps<typeof HeadlessDisclosure.Button>) => {
+}: React.ComponentProps<typeof HeadlessDisclosure.Button>) => {
   const disclosure = useContext(disclosureContext);
   const group = useContext(groupContext);
 
@@ -155,7 +155,7 @@ Disclosure.Panel = ({
   children,
   className,
   ...props
-}: ExtractProps<typeof HeadlessDisclosure.Panel>) => {
+}: React.ComponentProps<typeof HeadlessDisclosure.Panel>) => {
   return (
     <Transition
       as={Fragment}

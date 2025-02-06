@@ -30,7 +30,7 @@ const fakers = {
         contributors: users.fakeUsers(),
         image:
           imageAssets["/src/assets/images/projects/project1-400x400.jpg"]
-            .default,
+            ?.default || "/src/assets/images/default.jpg",
       },
       {
         title: "Social Media Graphics",
@@ -38,7 +38,7 @@ const fakers = {
         contributors: users.fakeUsers(),
         image:
           imageAssets["/src/assets/images/projects/project2-400x400.jpg"]
-            .default,
+            ?.default || "/src/assets/images/default.jpg",
       },
       {
         title: "Website Redesign Mockup",
@@ -46,7 +46,7 @@ const fakers = {
         contributors: users.fakeUsers(),
         image:
           imageAssets["/src/assets/images/projects/project3-400x400.jpg"]
-            .default,
+            ?.default || "/src/assets/images/default.jpg",
       },
       {
         title: "Content Calendar",
@@ -54,7 +54,7 @@ const fakers = {
         contributors: users.fakeUsers(),
         image:
           imageAssets["/src/assets/images/projects/project4-400x400.jpg"]
-            .default,
+            ?.default || "/src/assets/images/default.jpg",
       },
       {
         title: "Email Campaign Templates",
@@ -62,7 +62,7 @@ const fakers = {
         contributors: users.fakeUsers(),
         image:
           imageAssets["/src/assets/images/projects/project5-400x400.jpg"]
-            .default,
+            ?.default || "/src/assets/images/default.jpg",
       },
       {
         title: "Market Research Report",
@@ -70,7 +70,7 @@ const fakers = {
         contributors: users.fakeUsers(),
         image:
           imageAssets["/src/assets/images/projects/project6-400x400.jpg"]
-            .default,
+            ?.default || "/src/assets/images/default.jpg",
       },
       {
         title: "Video Advertisements",
@@ -78,7 +78,7 @@ const fakers = {
         contributors: users.fakeUsers(),
         image:
           imageAssets["/src/assets/images/projects/project7-400x400.jpg"]
-            .default,
+            ?.default || "/src/assets/images/default.jpg",
       },
       {
         title: "Product Brochures",
@@ -86,7 +86,7 @@ const fakers = {
         contributors: users.fakeUsers(),
         image:
           imageAssets["/src/assets/images/projects/project8-400x400.jpg"]
-            .default,
+            ?.default || "/src/assets/images/default.jpg",
       },
       {
         title: "Social Media Analytics",
@@ -94,7 +94,7 @@ const fakers = {
         contributors: users.fakeUsers(),
         image:
           imageAssets["/src/assets/images/projects/project9-400x400.jpg"]
-            .default,
+            ?.default || "/src/assets/images/default.jpg",
       },
       {
         title: "Sales Presentation Deck",
@@ -102,7 +102,7 @@ const fakers = {
         contributors: users.fakeUsers(),
         image:
           imageAssets["/src/assets/images/projects/project10-400x400.jpg"]
-            .default,
+            ?.default || "/src/assets/images/default.jpg",
       },
     ];
 

@@ -100,7 +100,7 @@ const InProgressPayout: React.FC<PayinProps>=({ reject, setReject, approve, setA
                   </Menu.Items>
                 </Menu>
                 <Popover className="inline-block">
-                  {({ close }) => (
+                  {({ close }: { close: () => void }) => (
                     <>
                       <Popover.Button
                         as={Button}

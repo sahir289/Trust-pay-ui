@@ -411,7 +411,7 @@ function Main() {
                           <Preview>
                             <div className="text-center">
                               <Popover className="inline-block">
-                                {({ close }) => (
+                                {({ close }: { close: () => void }) => (
                                   <>
                                     <Popover.Button
                                       as={Button}
@@ -474,7 +474,7 @@ function Main() {
                               {`
               <div className="text-center">
                 <Popover className="inline-block">
-                  {({ close }) => (
+                  {({ close }: { close: () => void }) => (
                     <>
                       <Popover.Button
                         as={Button}

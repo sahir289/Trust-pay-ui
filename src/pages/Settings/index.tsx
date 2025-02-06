@@ -1084,7 +1084,7 @@ function Main() {
                     variant="outline-primary"
                     className="flex items-center px-4 mb-2 bg-primary/5 border-primary/20"
                   >
-                    {({ dismiss }) => (
+                    {({ dismiss }: { dismiss: () => void }) => (
                       <>
                         <div>
                           <Lucide

@@ -1,9 +1,6 @@
 import Lucide from "@/components/Base/Lucide";
 import { Menu } from "@/components/Base/Headless";
-import { TinySliderElement } from "@/components/Base/TinySlider";
 import ReportDonutChart2 from "@/components/ReportDonutChart2";
-import { useState, useRef } from "react";
-import _ from "lodash";
 import payins from "@/fakers/payins";
 import payouts from "@/fakers/payouts";
 

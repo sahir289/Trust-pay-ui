@@ -42,8 +42,7 @@ const fakers = {
         registrationLink: "https://left4code.com/tech-conference",
         maxAttendees: 500,
         image:
-          imageAssets["/src/assets/images/projects/project1-400x400.jpg"]
-            .default,
+          imageAssets["/src/assets/images/projects/project1-400x400.jpg"]?.default || "/path/to/default/image.jpg",
       },
       {
         id: "2",
@@ -61,8 +60,7 @@ const fakers = {
         registrationLink: "https://left4code.com/product-launch",
         maxAttendees: 200,
         image:
-          imageAssets["/src/assets/images/projects/project2-400x400.jpg"]
-            .default,
+          imageAssets["/src/assets/images/projects/project2-400x400.jpg"]?.default || "/path/to/default/image.jpg",
       },
       {
         id: "3",
@@ -80,8 +78,7 @@ const fakers = {
         registrationLink: "https://left4code.com/team-building",
         maxAttendees: 100,
         image:
-          imageAssets["/src/assets/images/projects/project3-400x400.jpg"]
-            .default,
+          imageAssets["/src/assets/images/projects/project3-400x400.jpg"]?.default || "/path/to/default/image.jpg",
       },
       {
         id: "4",
@@ -99,8 +96,7 @@ const fakers = {
         registrationLink: "https://left4code.com/marketing-workshop",
         maxAttendees: 150,
         image:
-          imageAssets["/src/assets/images/projects/project4-400x400.jpg"]
-            .default,
+          imageAssets["/src/assets/images/projects/project4-400x400.jpg"]?.default || "/path/to/default/image.jpg",
       },
       {
         id: "5",
@@ -118,8 +114,7 @@ const fakers = {
         registrationLink: "https://left4code.com/community-cleanup",
         maxAttendees: 50,
         image:
-          imageAssets["/src/assets/images/projects/project5-400x400.jpg"]
-            .default,
+          imageAssets["/src/assets/images/projects/project5-400x400.jpg"]?.default || "/path/to/default/image.jpg",
       },
       {
         id: "6",
@@ -137,8 +132,7 @@ const fakers = {
         registrationLink: "https://left4code.com/ai-webinar",
         maxAttendees: 300,
         image:
-          imageAssets["/src/assets/images/projects/project6-400x400.jpg"]
-            .default,
+          imageAssets["/src/assets/images/projects/project6-400x400.jpg"]?.default || "/path/to/default/image.jpg",
       },
       {
         id: "7",
@@ -156,8 +150,7 @@ const fakers = {
         registrationLink: "https://left4code.com/networking-mixer",
         maxAttendees: 80,
         image:
-          imageAssets["/src/assets/images/projects/project7-400x400.jpg"]
-            .default,
+          imageAssets["/src/assets/images/projects/project7-400x400.jpg"]?.default || "/path/to/default/image.jpg",
       },
       {
         id: "8",
@@ -175,8 +168,7 @@ const fakers = {
         registrationLink: "https://left4code.com/customer-workshop",
         maxAttendees: 120,
         image:
-          imageAssets["/src/assets/images/projects/project8-400x400.jpg"]
-            .default,
+          imageAssets["/src/assets/images/projects/project8-400x400.jpg"]?.default || "/path/to/default/image.jpg",
       },
       {
         id: "9",
@@ -194,8 +186,7 @@ const fakers = {
         registrationLink: "https://left4code.com/holiday-party",
         maxAttendees: 250,
         image:
-          imageAssets["/src/assets/images/projects/project9-400x400.jpg"]
-            .default,
+          imageAssets["/src/assets/images/projects/project9-400x400.jpg"]?.default || "/path/to/default/image.jpg",
       },
       {
         id: "10",
@@ -213,8 +204,7 @@ const fakers = {
         registrationLink: "https://left4code.com/company-retreat",
         maxAttendees: 60,
         image:
-          imageAssets["/src/assets/images/projects/project10-400x400.jpg"]
-            .default,
+          imageAssets["/src/assets/images/projects/project10-400x400.jpg"]?.default || "/path/to/default/image.jpg",
       },
     ];
 

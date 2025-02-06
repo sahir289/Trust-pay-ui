@@ -44,14 +44,14 @@ function Main() {
               <div className="flex items-center mb-7">
                 <div className="mr-auto">
                   <div className="max-w-[15rem] text-base font-medium truncate">
-                    {products.fakeProducts()[0].name}
+                    {products.fakeProducts()[0]?.name}
                   </div>
                   <div className="text-slate-500 mt-0.5 truncate max-w-[9rem] md:max-w-none">
-                    {products.fakeProducts()[0].category.tags.join(", ")}
+                    {products.fakeProducts()[0]?.category.tags.join(", ")}
                   </div>
                 </div>
                 <div className="text-base font-medium text-primary">
-                  ${formatCurrency(products.fakeProducts()[0].price)}
+                  ${formatCurrency(products.fakeProducts()[0]?.price ?? 0)}
                 </div>
               </div>
               <Button
@@ -75,13 +75,13 @@ function Main() {
                 </div>
                 <div>
                   <div className="text-base font-medium text-white">
-                    {users.fakeUsers()[0].name}
+                    {users.fakeUsers()[0]?.name}
                   </div>
                   <div className="text-slate-500 mt-0.5 text-white/80">
-                    {activities.fakeActivities()[0].activity}
+                    {activities.fakeActivities()[0]?.activity}
                   </div>
                   <div className="mt-1 text-white/80">
-                    {activities.fakeActivities()[0].date}
+                    {activities.fakeActivities()[0]?.date}
                   </div>
                 </div>
                 <div className="flex gap-2 ml-auto">
@@ -110,10 +110,10 @@ function Main() {
                 </div>
                 <div>
                   <div className="text-base font-medium truncate max-w-[9rem] md:max-w-none">
-                    {users.fakeUsers()[0].name}
+                    {users.fakeUsers()[0]?.name}
                   </div>
                   <div className="text-slate-500 mt-0.5 truncate max-w-[9rem] md:max-w-none">
-                    {users.fakeUsers()[0].position}
+                    {users.fakeUsers()[0]?.position}
                   </div>
                 </div>
                 <div className="flex gap-2 ml-auto">
@@ -372,15 +372,15 @@ function Main() {
                 </div>
                 <div className="w-full">
                   <div className="text-base font-medium truncate max-w-[12rem] md:max-w-none">
-                    {events.fakeEvents()[0].title}
+                    {events.fakeEvents()[0]?.title}
                   </div>
                   <div className="flex items-center gap-1.5 text-slate-500 mt-1 truncate max-w-[12rem] md:max-w-none">
                     <Lucide icon="MapPin" className="stroke-[1.3] w-4 h-4" />{" "}
-                    {events.fakeEvents()[0].location}
+                    {events.fakeEvents()[0]?.location}
                   </div>
                   <div className="flex items-center gap-1.5 text-slate-500 mt-1 truncate max-w-[12rem] md:max-w-none">
                     <Lucide icon="Building" className="stroke-[1.3] w-4 h-4" />{" "}
-                    {events.fakeEvents()[0].organizer}
+                    {events.fakeEvents()[0]?.organizer}
                   </div>
                 </div>
               </div>
@@ -407,7 +407,7 @@ function Main() {
                   <div className="w-20 h-20 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={products.fakeProducts()[0].images[0].path}
+                      src={products.fakeProducts()[0]?.images[0]?.path}
                     />
                   </div>
                 </div>
@@ -416,11 +416,11 @@ function Main() {
                     Celestial Shopping Extravaganza
                   </div>
                   <div className="text-slate-500 mt-0.5 truncate max-w-[11rem] md:max-w-none">
-                    {products.fakeProducts()[0].name}
+                    {products.fakeProducts()[0]?.name}
                   </div>
                   <div className="flex items-center mt-1.5">
                     <div className="text-base font-medium text-primary">
-                      ${formatCurrency(products.fakeProducts()[0].price)}
+                      ${formatCurrency(products.fakeProducts()[0]?.price ?? 0)}
                     </div>
                     <a href="" className="ml-auto">
                       <Lucide
@@ -443,10 +443,10 @@ function Main() {
                   </div>
                 </div>
                 <div className="mt-3 text-base font-medium">
-                  {users.fakeUsers()[0].name}
+                  {users.fakeUsers()[0]?.name}
                 </div>
                 <div className="text-slate-500 mt-0.5">
-                  {users.fakeUsers()[0].position}
+                  {users.fakeUsers()[0]?.position}
                 </div>
                 <div className="flex items-center gap-2 mt-5">
                   <div className="flex items-center gap-1.5">
@@ -455,7 +455,7 @@ function Main() {
                       className="text-primary fill-primary/10 stroke-[1.3] w-4 h-4"
                     />
                     <div className="truncate max-w-[6rem] md:max-w-none">
-                      {users.fakeUsers()[0].location}
+                      {users.fakeUsers()[0]?.location}
                     </div>
                   </div>
                   <div className="w-1.5 h-1.5 mx-1.5 rounded-full bg-slate-300"></div>
@@ -465,7 +465,7 @@ function Main() {
                       className="text-primary fill-primary/10 stroke-[1.3] w-4 h-4"
                     />
                     <div className="truncate max-w-[6rem] md:max-w-none">
-                      {users.fakeUsers()[0].phone}
+                      {users.fakeUsers()[0]?.phone}
                     </div>
                   </div>
                 </div>
@@ -489,13 +489,13 @@ function Main() {
                 />
               </div>
               <div className="mt-5 text-slate-500">
-                {posts.fakePosts()[0].date}
+                {posts.fakePosts()[0]?.date}
               </div>
               <div className="mt-2 text-base font-medium">
-                {posts.fakePosts()[0].title}
+                {posts.fakePosts()[0]?.title}
               </div>
               <div className="mt-2 leading-relaxed">
-                {_.take(posts.fakePosts()[0].content.split(" "), 30).join(" ")}
+                {_.take(posts.fakePosts()[0]?.content.split(" "), 30).join(" ")}
                 ...
               </div>
             </div>
@@ -531,10 +531,10 @@ function Main() {
                 </div>
                 <div>
                   <div className="font-medium truncate max-w-[9rem] md:max-w-none">
-                    {events.fakeEvents()[0].title}
+                    {events.fakeEvents()[0]?.title}
                   </div>
                   <div className="text-xs text-slate-500 mt-0.5">
-                    {events.fakeEvents()[0].location}
+                    {events.fakeEvents()[0]?.location}
                   </div>
                 </div>
                 <div className="flex gap-2 ml-auto">
@@ -572,7 +572,7 @@ function Main() {
             <div className="p-5 box box--stacked">
               <div className="text-xs text-slate-500">UPCOMING</div>
               <div className="mt-1 text-base font-medium">
-                {posts.fakePosts()[0].title}
+                {posts.fakePosts()[0]?.title}
               </div>
               <a
                 href=""
@@ -584,10 +584,10 @@ function Main() {
                 />
                 <div className="ml-3.5">
                   <div className="font-medium">
-                    {events.fakeEvents()[0].location}
+                    {events.fakeEvents()[0]?.location}
                   </div>
                   <div className="mt-1 text-slate-500">
-                    {events.fakeEvents()[0].date}
+                    {events.fakeEvents()[0]?.date}
                   </div>
                 </div>
                 <Lucide
@@ -606,15 +606,15 @@ function Main() {
                         as="img"
                         alt="Tailwise - Admin Dashboard Template"
                         className="border-2 border-white rounded-full"
-                        src={faker.images[0].path}
+                        src={faker.images[0]?.path}
                         content={faker.name}
                       />
                     </div>
                   ))}
                 </div>
                 <div className="ml-3">
-                  {users.fakeUsers()[0].name.split(" ")[0]},{" "}
-                  {users.fakeUsers()[0].name.split(" ")[0]}, and{" "}
+                  {users.fakeUsers()[0]?.name.split(" ")[0]},{" "}
+                  {users.fakeUsers()[0]?.name.split(" ")[0]}, and{" "}
                   <a href="" className="ml-1 text-primary">
                     2 others
                   </a>
@@ -666,10 +666,10 @@ function Main() {
                   </div>
                 </div>
                 <div className="mt-3 text-base font-medium">
-                  {users.fakeUsers()[0].name}
+                  {users.fakeUsers()[0]?.name}
                 </div>
                 <div className="text-slate-500 mt-0.5">
-                  {users.fakeUsers()[0].position}
+                  {users.fakeUsers()[0]?.position}
                 </div>
                 <div className="flex items-center px-2 mt-6">
                   <div className="w-full text-center">
@@ -692,7 +692,7 @@ function Main() {
                 <div className="leading-relaxed text-center mx-14">
                   How is your project experience with{" "}
                   <a href="" className="text-primary">
-                    {users.fakeUsers()[0].name.split(" ")[0]}
+                    {users.fakeUsers()[0]?.name.split(" ")[0]}
                   </a>
                   ?
                 </div>

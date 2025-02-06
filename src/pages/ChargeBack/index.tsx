@@ -1,18 +1,16 @@
 import Lucide from "@/components/Base/Lucide";
-import { Dialog, Menu, Popover } from "@/components/Base/Headless";
+import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
 import TomSelect from "@/components/Base/TomSelect";
-import { FormCheck, FormInput, FormLabel, FormSelect, FormSwitch } from "@/components/Base/Form";
+import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import chargebacks from "@/fakers/chargebacks";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useRef, useState } from "react";
-import clsx from "clsx";
+import React, { useRef, useState } from "react";
 import _ from "lodash";
-import { Preview, PreviewComponent } from "@/components/Base/PreviewComponent";
 import Modal from "../Modal/modal";
 
 function ChargeBack() {
@@ -77,7 +75,7 @@ function ChargeBack() {
                   </Menu.Items>
                 </Menu>
                 <Popover className="inline-block">
-                  {({ close }) => (
+                  {({ close }: { close: () => void }) => (
                     <>
                       <Popover.Button
                         as={Button}

@@ -143,12 +143,12 @@ function Main() {
                     <FormInput
                       type="text"
                       className="first:rounded-b-none first:md:rounded-bl-md first:md:rounded-r-none [&:not(:first-child):not(:last-child)]:-mt-px [&:not(:first-child):not(:last-child)]:md:mt-0 [&:not(:first-child):not(:last-child)]:md:-ml-px [&:not(:first-child):not(:last-child)]:rounded-none last:rounded-t-none last:md:rounded-l-none last:md:rounded-tr-md last:-mt-px last:md:mt-0 last:md:-ml-px focus:z-10"
-                      placeholder={users.fakeUsers()[0].name.split(" ")[0]}
+                      placeholder={users.fakeUsers()[0]?.name.split(" ")[0]}
                     />
                     <FormInput
                       type="text"
                       className="first:rounded-b-none first:md:rounded-bl-md first:md:rounded-r-none [&:not(:first-child):not(:last-child)]:-mt-px [&:not(:first-child):not(:last-child)]:md:mt-0 [&:not(:first-child):not(:last-child)]:md:-ml-px [&:not(:first-child):not(:last-child)]:rounded-none last:rounded-t-none last:md:rounded-l-none last:md:rounded-tr-md last:-mt-px last:md:mt-0 last:md:-ml-px focus:z-10"
-                      placeholder={users.fakeUsers()[0].name.split(" ")[1]}
+                      placeholder={users.fakeUsers()[0]?.name.split(" ")[1]}
                     />
                   </div>
                 </div>
@@ -256,7 +256,7 @@ function Main() {
                 <div className="flex-1 w-full mt-3 xl:mt-0">
                   <FormInput
                     type="text"
-                    placeholder={users.fakeUsers()[0].email}
+                    placeholder={users.fakeUsers()[0]?.email}
                   />
                 </div>
               </div>
@@ -280,7 +280,7 @@ function Main() {
                     <FormInput
                       type="text"
                       className="first:rounded-b-none first:md:rounded-bl-md first:md:rounded-r-none [&:not(:first-child):not(:last-child)]:-mt-px [&:not(:first-child):not(:last-child)]:md:mt-0 [&:not(:first-child):not(:last-child)]:md:-ml-px [&:not(:first-child):not(:last-child)]:rounded-none last:rounded-t-none last:md:rounded-l-none last:md:rounded-tr-md last:-mt-px last:md:mt-0 last:md:-ml-px focus:z-10"
-                      placeholder={users.fakeUsers()[0].phone}
+                      placeholder={users.fakeUsers()[0]?.phone}
                     />
                     <FormSelect className="md:w-36 first:rounded-b-none first:md:rounded-bl-md first:md:rounded-r-none [&:not(:first-child):not(:last-child)]:-mt-px [&:not(:first-child):not(:last-child)]:md:mt-0 [&:not(:first-child):not(:last-child)]:md:-ml-px [&:not(:first-child):not(:last-child)]:rounded-none last:rounded-t-none last:md:rounded-l-none last:md:rounded-tr-md last:-mt-px last:md:mt-0 last:md:-ml-px focus:z-10">
                       <option value="office">Office</option>

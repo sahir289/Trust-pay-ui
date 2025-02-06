@@ -34,7 +34,9 @@ function Main() {
 
   const setColorSchemeClass = () => {
     const el = document.querySelectorAll("html")[0];
-    el?.setAttribute("class", activeColorScheme);
+    if (activeColorScheme) {
+      el?.setAttribute("class", activeColorScheme);
+    }
   };
 
   const switchColor = (colorScheme: ColorSchemes) => {

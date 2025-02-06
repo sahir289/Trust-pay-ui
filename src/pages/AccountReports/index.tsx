@@ -1,58 +1,20 @@
 import Lucide from "@/components/Base/Lucide";
-import { Tab } from "@/components/Base/Headless";
-import { formatCurrency } from "@/utils/helper";
-import transactions from "@/fakers/transactions";
 import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import { useState } from "react";
-import fakersPayouts from "@/fakers/payouts";
-
 import { Menu, Popover } from "@/components/Base/Headless";
-
-
 import TomSelect from "@/components/Base/TomSelect";
 import Pagination from "@/components/Base/Pagination";
-import fakeVendorAccount from "@/fakers/vendorreports";
 import fakeReportAccount from "@/fakers/accountreports";
 
 function AccountReports() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [selectedUser, setSelectedUser] = useState("1");
-
-  interface StatusStyle {
-    color: string;
-    icon: JSX.Element;
-  }
-  const getStatusStyles = (status: string): StatusStyle => {
-  switch (status) {
-
-
-    case "Rejected":
-      return {
-        color: "text-red-500",
-        icon: <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
-      };
-
-      case "Initiated":
-        return {
-          color: "text-grey-500",
-          icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" />
-        };
-
-
-    case "Success":
-      return {
-        color: "text-green-500",
-        icon: <Lucide icon="CheckCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
-      };
-
-    default:
-      return { color: "text-gray-500", icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" /> };
-  }}
+  
   return (
 
     <>
@@ -149,7 +111,7 @@ function AccountReports() {
         <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 sm:ml-auto ">
          
           <Popover className="inline-block">
-            {({ close }) => (
+            {({ close }: { close: () => void }) => (
               <>
                 
                 <Popover.Panel placement="bottom-end">

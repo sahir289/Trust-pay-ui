@@ -24,7 +24,7 @@ const fakers = {
 
     for (let i = 0; i < 10; i++) {
       transactions.push({
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] || { name: '', icon: 'Accessibility', tags: [], slug: '', isActive: false },
         orderId: (() => {
           const romanNumerals = [
             "I",
@@ -53,9 +53,9 @@ const fakers = {
             .toString()
             .padStart(2, "0")}/${randRoman1}/${randRoman2}/${randNumber}`;
         })(),
-        user: users.fakeUsers()[0],
+        user: users.fakeUsers()[0] || { name: '', email: '', isActive: false, position: '', photo: '', phone: '', department: '', location: '', joinedDate: '', manager: '', addressLine1: '', addressLine2: '' },
         products: products.fakeProducts(),
-        orderStatus: transactionStatus.fakeTransactionStatus()[0],
+        orderStatus: transactionStatus.fakeTransactionStatus()[0] || { name: '', textColor: '', icon: 'Accessibility' },
         orderDate: dayjs
           .unix(_.random(1586584776897, 1672333200000) / 1000)
           .format("DD MMMM YYYY"),

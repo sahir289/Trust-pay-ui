@@ -92,18 +92,18 @@ const updateValue = <T extends string | string[]>(
   computedOptions: RecursivePartial<TomSettings>
 ) => {
   // Remove old options
-  for (const [optionKey, option] of Object.entries(
+  for (const [option] of Object.entries(
     clonedEl.TomSelect.options
   )) {
     if (
       !getOptions(originalEl.children).filter((optionEl) => {
         return (
           optionEl instanceof HTMLOptionElement &&
-          optionEl.value === option.value
+          optionEl.value === option
         );
       }).length
     ) {
-      clonedEl.TomSelect.removeOption(option.value);
+      clonedEl.TomSelect.removeOption(option);
     }
   }
 

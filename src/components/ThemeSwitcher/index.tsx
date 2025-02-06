@@ -1,3 +1,4 @@
+import React from "react";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { selectColorScheme } from "@/stores/colorSchemeSlice";
 import {
@@ -13,6 +14,7 @@ import { Slideover } from "@/components/Base/Headless";
 import Lucide from "@/components/Base/Lucide";
 import { useState, useEffect } from "react";
 import clsx from "clsx";
+import { URLSearchParams } from "url";
 
 function Main() {
   const dispatch = useAppDispatch();
@@ -29,7 +31,9 @@ function Main() {
 
   const setColorSchemeClass = () => {
     const el = document.querySelectorAll("html")[0];
-    el.setAttribute("class", activeColorScheme);
+    if (activeColorScheme) {
+      el?.setAttribute("class", activeColorScheme);
+    }
   };
 
   const switchColor = (colorScheme: ColorSchemes) => {
@@ -52,7 +56,7 @@ function Main() {
 
   const setDarkModeClass = () => {
     const el = document.querySelectorAll("html")[0];
-    activeDarkMode ? el.classList.add("dark") : el.classList.remove("dark");
+    activeDarkMode ? el?.classList.add("dark") : el?.classList.remove("dark");
   };
   const switchDarkMode = (darkMode: boolean) => {
     dispatch(setDarkMode(darkMode));
@@ -137,7 +141,7 @@ function Main() {
                               src={
                                 imageAssets[
                                   `/src/assets/images/themes/${theme.name}.png`
-                                ].default
+                                ]?.default
                               }
                             />
                           )}

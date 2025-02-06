@@ -1,3 +1,4 @@
+import React from "react";
 import Chart from "@/components/Base/Chart";
 import { ChartData, ChartOptions } from "chart.js/auto";
 import { getColor } from "@/utils/colors";
@@ -29,7 +30,7 @@ function Main({ width = "auto", height = "auto", className = "" }: MainProps) {
           categoryPercentage: 0.5,
           barPercentage: 0.8,
           borderRadius: 2,
-          data: Array.from({ length: 15 }, (index) => _.random(1, 1000)),
+          data: Array.from({ length: 15 }, () => _.random(1, 1000)),
           borderWidth: 1,
           borderColor: colorScheme ? getColor("primary", 0.7) : "",
           backgroundColor: colorScheme ? getColor("primary", 0.35) : "",
@@ -38,7 +39,7 @@ function Main({ width = "auto", height = "auto", className = "" }: MainProps) {
           categoryPercentage: 0.5,
           barPercentage: 0.8,
           borderRadius: 2,
-          data: Array.from({ length: 15 }, (index) => _.random(1, 1000)),
+          data: Array.from({ length: 15 }, () => _.random(1, 1000)),
           borderWidth: 1,
           borderColor: colorScheme ? getColor("success", 0.7) : "",
           backgroundColor: colorScheme ? getColor("success", 0.35) : "",

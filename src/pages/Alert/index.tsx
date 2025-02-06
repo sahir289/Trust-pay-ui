@@ -1,5 +1,5 @@
+import { JSX } from "react";
 import clsx from "clsx";
-import _ from "lodash";
 import Table from "@/components/Base/Table";
 import Alert from "@/components/Base/Alert";
 import Lucide from "@/components/Base/Lucide";
@@ -11,7 +11,7 @@ import {
 } from "@/components/Base/PreviewComponent";
 import { FormSwitch } from "@/components/Base/Form";
 
-function Main() {
+function Main(): JSX.Element {
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -660,7 +660,7 @@ function Main() {
                                 variant="primary"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertCircle"
@@ -668,10 +668,10 @@ function Main() {
                                     />{" "}
                                     Awesome alert with icon
                                     <Alert.DismissButton
-                                      type="button"
+                                      as="button"
                                       className="text-white"
                                       aria-label="Close"
-                                      onClick={dismiss}
+                                      onClick={() => dismiss()}
                                     >
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
@@ -682,7 +682,7 @@ function Main() {
                                 variant="secondary"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertOctagon"
@@ -690,7 +690,7 @@ function Main() {
                                     />{" "}
                                     Awesome alert with icon
                                     <Alert.DismissButton
-                                      type="button"
+                                      as="button"
                                       className="btn-close"
                                       aria-label="Close"
                                       onClick={dismiss}
@@ -704,7 +704,7 @@ function Main() {
                                 variant="success"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertTriangle"
@@ -712,7 +712,7 @@ function Main() {
                                     />{" "}
                                     Awesome alert with icon
                                     <Alert.DismissButton
-                                      type="button"
+                                      as="button"
                                       className="btn-close"
                                       aria-label="Close"
                                       onClick={dismiss}
@@ -726,7 +726,7 @@ function Main() {
                                 variant="warning"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertCircle"
@@ -748,7 +748,7 @@ function Main() {
                                 variant="pending"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertTriangle"
@@ -770,7 +770,7 @@ function Main() {
                                 variant="danger"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertOctagon"
@@ -792,7 +792,7 @@ function Main() {
                                 variant="dark"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertTriangle"
@@ -1029,7 +1029,7 @@ function Main() {
                                 variant="outline-primary"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertCircle"
@@ -1051,7 +1051,7 @@ function Main() {
                                 variant="outline-secondary"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertOctagon"
@@ -1073,7 +1073,7 @@ function Main() {
                                 variant="outline-success"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertTriangle"
@@ -1095,7 +1095,7 @@ function Main() {
                                 variant="outline-warning"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertCircle"
@@ -1117,7 +1117,7 @@ function Main() {
                                 variant="outline-pending"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertCircle"
@@ -1139,7 +1139,7 @@ function Main() {
                                 variant="outline-danger"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertOctagon"
@@ -1161,7 +1161,7 @@ function Main() {
                                 variant="outline-dark"
                                 className="flex items-center"
                               >
-                                {({ dismiss }) => (
+                                {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertTriangle"
@@ -1608,24 +1608,24 @@ function Main() {
                         </Table.Tr>
                         <Table.Tr>
                           <Table.Td>`onShow`</Table.Td>
-                          <Table.Td>`() =&gt; {}`</Table.Td>
+                          <Table.Td>`() =&gt; { }`</Table.Td>
                           <Table.Td>Callback when the alert is shown</Table.Td>
                         </Table.Tr>
                         <Table.Tr>
                           <Table.Td>`onShown`</Table.Td>
-                          <Table.Td>`() =&gt; {}`</Table.Td>
+                          <Table.Td>`() =&gt; { }`</Table.Td>
                           <Table.Td>Callback after the alert is shown</Table.Td>
                         </Table.Tr>
                         <Table.Tr>
                           <Table.Td>`onHide`</Table.Td>
-                          <Table.Td>`() =&gt; {}`</Table.Td>
+                          <Table.Td>`() =&gt; { }`</Table.Td>
                           <Table.Td>
                             Callback when the alert is about to hide
                           </Table.Td>
                         </Table.Tr>
                         <Table.Tr>
                           <Table.Td>`onHidden`</Table.Td>
-                          <Table.Td>`() =&gt; {}`</Table.Td>
+                          <Table.Td>`() =&gt; { }`</Table.Td>
                           <Table.Td>
                             Callback after the alert is hidden
                           </Table.Td>

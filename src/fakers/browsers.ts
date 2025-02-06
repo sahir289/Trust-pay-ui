@@ -10,26 +10,26 @@ const imageAssets = import.meta.glob<{
 }>("/src/assets/images/browsers/*.{jpg,jpeg,png,svg}", { eager: true });
 
 const fakers = {
-  fakeBrowsers() {
+  fakeBrowsers(): Array<Browser> {
     const browsers: Array<Browser> = [
       {
-        image: imageAssets["/src/assets/images/browsers/chrome.png"].default,
+        image: imageAssets["/src/assets/images/browsers/chrome.png"]?.default || '',
         name: "Chrome",
       },
       {
-        image: imageAssets["/src/assets/images/browsers/edge.png"].default,
+        image: imageAssets["/src/assets/images/browsers/edge.png"]?.default || '',
         name: "Edge",
       },
       {
-        image: imageAssets["/src/assets/images/browsers/firefox.png"].default,
+        image: imageAssets["/src/assets/images/browsers/firefox.png"]?.default || '',
         name: "Firefox",
       },
       {
-        image: imageAssets["/src/assets/images/browsers/opera.png"].default,
+        image: imageAssets["/src/assets/images/browsers/opera.png"]?.default || '',
         name: "Opera",
       },
       {
-        image: imageAssets["/src/assets/images/browsers/safari.png"].default,
+        image: imageAssets["/src/assets/images/browsers/safari.png"]?.default || '',
         name: "Safari",
       },
     ];

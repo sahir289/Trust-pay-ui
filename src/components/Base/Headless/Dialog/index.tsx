@@ -1,6 +1,6 @@
 import { twMerge } from "tailwind-merge";
 import { Dialog as HeadlessDialog, Transition } from "@headlessui/react";
-import { Fragment, createContext, useContext, useRef, useState } from "react";
+import React,{ Fragment, createContext, useContext, useRef, useState } from "react";
 
 type Size = "sm" | "md" | "lg" | "xl";
 
@@ -23,7 +23,7 @@ function Dialog({
   staticBackdrop,
   size = "md",
   ...props
-}: ExtractProps<typeof HeadlessDialog> & {
+}: React.ComponentProps<typeof HeadlessDialog> & {
   size?: Size;
   staticBackdrop?: boolean;
 }) {
@@ -67,7 +67,7 @@ Dialog.Panel = ({
   className,
   as = "div",
   ...props
-}: ExtractProps<typeof HeadlessDialog.Panel> & {
+}: React.ComponentProps<typeof HeadlessDialog.Panel> & {
   size?: Size;
 }) => {
   const dialog = useContext(dialogContext);
@@ -119,7 +119,7 @@ Dialog.Title = ({
   className,
   as = "div",
   ...props
-}: ExtractProps<typeof HeadlessDialog.Title>) => {
+}: React.ComponentProps<typeof HeadlessDialog.Title>) => {
   return (
     <HeadlessDialog.Title
       as={as}
@@ -139,7 +139,7 @@ Dialog.Description = ({
   className,
   as = "div",
   ...props
-}: ExtractProps<typeof HeadlessDialog.Description>) => {
+}: React.ComponentProps<typeof HeadlessDialog.Description>) => {
   return (
     <HeadlessDialog.Description
       as={as}

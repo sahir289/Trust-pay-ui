@@ -1,3 +1,4 @@
+import React from "react";
 import Chart, { ChartElement } from "@/components/Base/Chart";
 import { ChartData, ChartOptions } from "chart.js/auto";
 import { getColor } from "@/utils/colors";
@@ -18,7 +19,7 @@ function Main({ width = "auto", height = "auto", className = "" }: MainProps) {
   const darkMode = useAppSelector(selectDarkMode);
 
   // Fake visitor data
-  const reportBarChartData = new Array(25).fill(0).map((data, key) => {
+  const reportBarChartData = new Array(25).fill(0).map((key) => {
     if (key % 3 == 0 || key % 5 == 0) {
       return Math.ceil(Math.random() * (0 - 20) + 20);
     } else {
@@ -27,17 +28,17 @@ function Main({ width = "auto", height = "auto", className = "" }: MainProps) {
   });
 
   // Fake visitor bar color
-  const reportBarChartColor = useMemo(() => {
-    return reportBarChartData.map((data) => {
-      if (data >= 8 && data <= 14) {
-        return colorScheme ? getColor("primary", 0.3) : "";
-      } else if (data >= 15) {
-        return colorScheme ? getColor("primary", 0.3) : "";
-      }
+  // const reportBarChartColor = useMemo(() => {
+  //   return reportBarChartData.map((data) => {
+  //     if (data >= 8 && data <= 14) {
+  //       return colorScheme ? getColor("primary", 0.3) : "";
+  //     } else if (data >= 15) {
+  //       return colorScheme ? getColor("primary", 0.3) : "";
+  //     }
 
-      return colorScheme ? getColor("primary", 0.3) : "";
-    });
-  }, [colorScheme, darkMode]);
+  //     return colorScheme ? getColor("primary", 0.3) : "";
+  //   });
+  // }, [colorScheme, darkMode]);
 
   const data: ChartData = useMemo(() => {
     return {
@@ -96,16 +97,18 @@ function Main({ width = "auto", height = "auto", className = "" }: MainProps) {
         const chartConfig = chartInstance.config;
 
         // Swap visitor data
-        const newData = chartConfig.data.datasets[0].data[0];
-        chartConfig.data.datasets[0].data.shift();
-        chartConfig.data.datasets[0].data.push(newData);
+        const newData = chartConfig.data.datasets[0]?.data[0];
+        chartConfig.data.datasets[0]?.data.shift();
+        if (newData !== undefined) {
+          chartConfig.data.datasets[0]?.data.push(newData);
+        }
         chartInstance.update();
 
         // Swap visitor bar color
-        if (Array.isArray(chartConfig.data.datasets[0].backgroundColor)) {
-          const newColor = chartConfig.data.datasets[0].backgroundColor[0];
-          chartConfig.data.datasets[0].backgroundColor.shift();
-          chartConfig.data.datasets[0].backgroundColor.push(newColor);
+        if (Array.isArray(chartConfig.data.datasets[0]?.backgroundColor)) {
+          const newColor = chartConfig.data.datasets[0]?.backgroundColor[0];
+          chartConfig.data.datasets[0]?.backgroundColor.shift();
+          chartConfig.data.datasets[0]?.backgroundColor.push(newColor);
         }
         chartInstance.update();
       }

@@ -49,7 +49,7 @@ function Main() {
                     variant="outline-warning"
                     className="flex items-center px-4 mb-2 bg-warning/5 border-warning/30"
                   >
-                    {({ dismiss }) => (
+                    {({ dismiss }: { dismiss: () => void }) => (
                       <>
                         <div>
                           <Lucide
@@ -203,7 +203,7 @@ function Main() {
                                 <img
                                   className="rounded-lg"
                                   alt="Tailwise - Admin Dashboard Template"
-                                  src={faker.images[0].path}
+                                  src={faker.images[0]?.path}
                                 />
                                 <Tippy
                                   content="Remove this image?"
@@ -1237,7 +1237,7 @@ function Main() {
                         variant="outline-primary"
                         className="flex items-center px-4 mt-5 mb-2 bg-primary/5 border-primary/20"
                       >
-                        {({ dismiss }) => (
+                        {({ dismiss }: { dismiss: () => void }) => (
                           <>
                             <Lucide
                               icon="AlertTriangle"

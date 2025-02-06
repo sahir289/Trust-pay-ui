@@ -334,7 +334,7 @@ function Main() {
                         </FormSelect>
                       </div>
                       <Popover className="inline-block">
-                        {({ close }) => (
+                        {({ close }: { close: () => void }) => (
                           <>
                             <Popover.Button
                               as={Button}

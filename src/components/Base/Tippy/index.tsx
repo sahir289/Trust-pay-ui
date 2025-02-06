@@ -1,5 +1,5 @@
+import React, { createRef, useEffect } from "react";
 import "@/assets/css/vendors/tippy.css";
-import { createRef, useEffect } from "react";
 import tippy, {
   PopperElement,
   Props,
@@ -8,12 +8,23 @@ import tippy, {
 } from "tippy.js";
 import clsx from "clsx";
 
+// Define PolymorphicComponentPropWithRef for polymorphic component support
+type AsProp<C extends React.ElementType> = {
+  as?: C;
+};
+
+type PolymorphicComponentProp<C extends React.ElementType, Props = {}> = 
+  Props & AsProp<C> & Omit<React.ComponentPropsWithoutRef<C>, keyof Props>;
+
+type PolymorphicComponentPropWithRef<C extends React.ElementType, Props = {}> = 
+  PolymorphicComponentProp<C, Props> & { ref?: React.Ref<React.ElementType> };
+
+// Define props for Tippy component
 type TippyProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
   C,
   {
     getRef?: (el: PopperElement | null) => void;
     content: string;
-    as?: C;
     options?: Partial<Props>;
   }
 >;
@@ -48,7 +59,7 @@ const Tippy = <C extends React.ElementType = "span">(props: TippyProps<C>) => {
 
   useEffect(() => {
     if (props.getRef) {
-      props.getRef && props.getRef(tippyRef.current);
+      props.getRef(tippyRef.current);
     }
 
     if (tippyRef.current !== null) {
@@ -56,7 +67,7 @@ const Tippy = <C extends React.ElementType = "span">(props: TippyProps<C>) => {
     }
   }, [props.content]);
 
-  const { content, as, options, getRef, className, ...computedProps } = props;
+  const { className, ...computedProps } = props;
   return (
     <Component
       ref={tippyRef}

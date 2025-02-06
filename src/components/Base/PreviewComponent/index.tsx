@@ -1,3 +1,4 @@
+import React from "react";
 import "@/assets/css/vendors/highlight.css";
 import {
   createContext,
@@ -77,10 +78,10 @@ function Highlight({
   useEffect(() => {
     if (highlightRef.current) {
       const codeEl = highlightRef.current.querySelectorAll("code")[0];
-      let source = codeEl.innerHTML;
+      let source = codeEl?.innerHTML;
 
       // Format for beautify
-      source = _.replace(source, /&lt;/g, "<");
+      source = _.replace(source ?? "", /&lt;/g, "<");
       source = _.replace(source, /&gt;/g, ">");
 
       // Beautify code
@@ -93,9 +94,13 @@ function Highlight({
       source = _.replace(source, /</g, "&lt;");
       source = _.replace(source, />/g, "&gt;");
 
-      codeEl.innerHTML = source;
+      if (codeEl) {
+        codeEl.innerHTML = source;
+      }
 
-      hljs.highlightElement(codeEl);
+      if (codeEl) {
+        hljs.highlightElement(codeEl);
+      }
     }
   }, []);
 

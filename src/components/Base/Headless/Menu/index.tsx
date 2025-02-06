@@ -1,13 +1,13 @@
 import { twMerge } from "tailwind-merge";
 import { Menu as HeadlessMenu, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import React, { Fragment, ComponentProps } from "react";
 import clsx from "clsx";
 
 function Menu({
   children,
   className,
   ...props
-}: ExtractProps<typeof HeadlessMenu>) {
+}: ComponentProps<typeof HeadlessMenu>) {
   return (
     <HeadlessMenu
       as="div"
@@ -24,7 +24,7 @@ Menu.Button = <C extends React.ElementType = "div">({
   children,
   className,
   ...props
-}: ExtractProps<typeof HeadlessMenu.Button> & {
+}: ComponentProps<typeof HeadlessMenu.Button> & {
   as?: C;
 } & React.ComponentPropsWithRef<C>) => {
   return (
@@ -43,7 +43,7 @@ Menu.Items = ({
   className,
   placement = "bottom-end",
   ...props
-}: ExtractProps<typeof HeadlessMenu.Items> & {
+}: ComponentProps<typeof HeadlessMenu.Items> & {
   placement?:
     | "top-start"
     | "top"
@@ -104,7 +104,7 @@ Menu.Item = ({
   children,
   className,
   ...props
-}: ExtractProps<typeof HeadlessMenu.Item>) => {
+}: ComponentProps<typeof HeadlessMenu.Item>) => {
   return (
     <HeadlessMenu.Item
       as="a"

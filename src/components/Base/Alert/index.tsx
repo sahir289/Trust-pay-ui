@@ -1,4 +1,4 @@
-import { forwardRef, useState, Fragment } from "react";
+import React, { forwardRef, useState, Fragment, JSX } from "react";
 import { twMerge } from "tailwind-merge";
 import { Transition } from "@headlessui/react";
 
@@ -25,7 +25,7 @@ type Variant =
   | "soft-danger"
   | "soft-dark";
 
-type AlertProps<C extends React.ElementType> = PolymorphicComponentPropWithRef<
+type AlertProps<C extends React.ElementType> = PolymorphicComponentProp<
   C,
   {
     children?:
@@ -47,7 +47,7 @@ type AlertComponent = <C extends React.ElementType = "div">(
 const Alert: AlertComponent = forwardRef(
   <C extends React.ElementType>(
     { as, dismissible, variant, ...props }: AlertProps<C>,
-    ref?: PolymorphicRef<C>
+    ref: React.Ref<any>
   ) => {
     const [show, setShow] = useState<boolean>(true);
     const Component = as || "div";
@@ -197,6 +197,13 @@ const Alert: AlertComponent = forwardRef(
   }
 );
 
+type PolymorphicComponentProp<C extends React.ElementType, Props = {}> = Props & {
+  as?: C;
+  className?: string;
+  style?: React.CSSProperties;
+  children?: React.ReactNode;
+};
+
 type DismissButtonProps<C extends React.ElementType> = PolymorphicComponentProp<
   C,
   {
@@ -226,8 +233,8 @@ const DismissButton = <C extends React.ElementType = "button">({
   );
 };
 
-const AlertComponent = Object.assign({}, Alert, {
+const EnhancedAlert = Object.assign({}, Alert, {
   DismissButton: DismissButton,
 });
 
-export default AlertComponent;
+export default EnhancedAlert;
