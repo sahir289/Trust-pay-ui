@@ -186,7 +186,7 @@ function MerchantSettlement() {
 
                 </fieldset>
                 <Dialog.Footer>
-                  <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
+                  <Button variant="primary" type="button" className="w-20">
                     Verify
                   </Button>
                 </Dialog.Footer>

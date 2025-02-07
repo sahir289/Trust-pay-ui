@@ -131,7 +131,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                     variant="primary"
                                                     type="button"
                                                     className="w-20 ml-3"
-                                                    ref={sendButtonRef}
+                                                    // ref={sendButtonRef}
                                                 >
                                                     Save
                                                 </Button>
@@ -273,7 +273,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                     variant="primary"
                                                     type="button"
                                                     className="w-20 ml-3"
-                                                    ref={sendButtonRef}
+                                                    // ref={sendButtonRef}
                                                 >
                                                     Save
                                                 </Button>
@@ -497,7 +497,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                         variant="primary"
                                                         type="button"
                                                         className="w-20 ml-3"
-                                                        ref={sendButtonRef}
+                                                        // ref={sendButtonRef}
                                                     >
                                                         Save
                                                     </Button>
@@ -569,7 +569,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                     variant="primary"
                                                     type="button"
                                                     className="w-20 ml-3"
-                                                    ref={sendButtonRef}
+                                                    // ref={sendButtonRef}
                                                 >
                                                     Save
                                                 </Button>
@@ -641,7 +641,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                     variant="primary"
                                                     type="button"
                                                     className="w-20 ml-3"
-                                                    ref={sendButtonRef}
+                                                    // // ref={sendButtonRef}
                                                 >
                                                     Save
                                                 </Button>
@@ -727,7 +727,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                     variant="outline-secondary"
 
                                                     className="w-20 mr-1"
-                                                    ref={sendButtonRef}
+                                                    // // ref={sendButtonRef}
                                                 >
                                                     Reset
                                                 </Button>
@@ -818,7 +818,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                     variant="primary"
                                                     type="button"
                                                     className="w-20 ml-3"
-                                                    ref={sendButtonRef}
+                                                    // // ref={sendButtonRef}
                                                 >
                                                     Save
                                                 </Button>
@@ -899,7 +899,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                     variant="primary"
                                                     type="button"
                                                     className="w-20 ml-3"
-                                                    ref={sendButtonRef}
+                                                    // // ref={sendButtonRef}
                                                 >
                                                     Save
                                                 </Button>
@@ -960,7 +960,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                     variant="primary"
                                                     type="button"
                                                     className="w-30 ml-3"
-                                                    ref={sendButtonRef}
+                                                    // // ref={sendButtonRef}
                                                 >
                                                     Check UTR
                                                 </Button>
@@ -1010,7 +1010,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                     variant="primary"
                                                     type="button"
                                                     className="w-30 ml-3"
-                                                    ref={sendButtonRef}
+                                                    // // ref={sendButtonRef}
                                                 >
                                                     Reset Deposit
                                                 </Button>
@@ -1080,7 +1080,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                     variant="primary"
                                                     type="button"
                                                     className="w-30 ml-3"
-                                                    ref={sendButtonRef}
+                                                    // // ref={sendButtonRef}
                                                 >
                                                     Search
                                                 </Button>
@@ -1150,7 +1150,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                     variant="primary"
                                                     type="button"
                                                     className="w-30 ml-3"
-                                                    ref={sendButtonRef}
+                                                    // // ref={sendButtonRef}
                                                 >
                                                     Search
                                                 </Button>

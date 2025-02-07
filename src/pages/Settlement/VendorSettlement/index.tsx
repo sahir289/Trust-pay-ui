@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import { Dialog, Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
@@ -19,6 +20,7 @@ function VendorSettlement() {
   const [showPassword, setShowPassword] = useState(false);
   const sendButtonRef = useRef(null);
   return (
+    <>
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
         <div className="mt-3.5">
@@ -187,7 +189,7 @@ function VendorSettlement() {
 
                 </fieldset>
                 <Dialog.Footer>
-                  <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
+                  <Button variant="primary" type="button" className="w-20">
                     Verify
                   </Button>
                 </Dialog.Footer>
@@ -365,6 +367,7 @@ function VendorSettlement() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

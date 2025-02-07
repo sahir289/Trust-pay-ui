@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { forwardRef, ElementType, ReactNode, JSX } from "react";
 import { twMerge } from "tailwind-merge";
 

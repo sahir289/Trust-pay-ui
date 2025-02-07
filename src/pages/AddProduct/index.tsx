@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import TomSelect from "@/components/Base/TomSelect";
 import { ClassicEditor } from "@/components/Base/Ckeditor";
@@ -49,7 +50,7 @@ function Main() {
                     variant="outline-warning"
                     className="flex items-center px-4 mb-2 bg-warning/5 border-warning/30"
                   >
-                    {({ dismiss }: { dismiss: () => void }) => (
+                    {/* {({ dismiss }: { dismiss: () => void }) => (
                       <>
                         <div>
                           <Lucide
@@ -77,7 +78,7 @@ function Main() {
                           </Alert.DismissButton>
                         </div>
                       </>
-                    )}
+                    )} */}
                   </Alert>
                   <div className="flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0">
                     <label className="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:w-60 xl:mr-14">
@@ -1237,7 +1238,7 @@ function Main() {
                         variant="outline-primary"
                         className="flex items-center px-4 mt-5 mb-2 bg-primary/5 border-primary/20"
                       >
-                        {({ dismiss }: { dismiss: () => void }) => (
+                        {/* {({ dismiss }: { dismiss: () => void }) => (
                           <>
                             <Lucide
                               icon="AlertTriangle"
@@ -1263,7 +1264,7 @@ function Main() {
                               <Lucide icon="X" className="w-4 h-4" />
                             </Alert.DismissButton>
                           </>
-                        )}
+                        )} */}
                       </Alert>
                     </div>
                   </div>

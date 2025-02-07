@@ -1,5 +1,6 @@
+/* eslint-disable no-undef */
 import { TomSelectProps, TomSelectElement } from "./index";
-import { TomSettings, RecursivePartial } from "tom-select/src/types/index";
+import { TomSettings, RecursivePartial } from "tom-select/src/types/index.ts";
 import TomSelect from "tom-select";
 import _ from "lodash";
 

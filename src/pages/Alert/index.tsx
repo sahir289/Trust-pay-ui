@@ -660,7 +660,7 @@ function Main(): JSX.Element {
                                 variant="primary"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertCircle"
@@ -676,13 +676,13 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                               <Alert
                                 variant="secondary"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertOctagon"
@@ -698,13 +698,13 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                               <Alert
                                 variant="success"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertTriangle"
@@ -720,13 +720,13 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                               <Alert
                                 variant="warning"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertCircle"
@@ -742,13 +742,13 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                               <Alert
                                 variant="pending"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertTriangle"
@@ -764,13 +764,13 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                               <Alert
                                 variant="danger"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertOctagon"
@@ -786,13 +786,13 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                               <Alert
                                 variant="dark"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertTriangle"
@@ -808,7 +808,7 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                             </div>
                           </Preview>
@@ -1029,7 +1029,7 @@ function Main(): JSX.Element {
                                 variant="outline-primary"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertCircle"
@@ -1045,13 +1045,13 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                               <Alert
                                 variant="outline-secondary"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertOctagon"
@@ -1067,13 +1067,13 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                               <Alert
                                 variant="outline-success"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertTriangle"
@@ -1089,13 +1089,13 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                               <Alert
                                 variant="outline-warning"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertCircle"
@@ -1111,13 +1111,13 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                               <Alert
                                 variant="outline-pending"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertCircle"
@@ -1133,13 +1133,13 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                               <Alert
                                 variant="outline-danger"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertOctagon"
@@ -1155,13 +1155,13 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                               <Alert
                                 variant="outline-dark"
                                 className="flex items-center"
                               >
-                                {({ dismiss }: { dismiss: () => void }) => (
+                                {/* {({ dismiss }: { dismiss: () => void }) => (
                                   <>
                                     <Lucide
                                       icon="AlertTriangle"
@@ -1177,7 +1177,7 @@ function Main(): JSX.Element {
                                       <Lucide icon="X" className="w-4 h-4" />
                                     </Alert.DismissButton>
                                   </>
-                                )}
+                                )} */}
                               </Alert>
                             </div>
                           </Preview>

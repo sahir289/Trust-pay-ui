@@ -1084,7 +1084,7 @@ function Main() {
                     variant="outline-primary"
                     className="flex items-center px-4 mb-2 bg-primary/5 border-primary/20"
                   >
-                    {({ dismiss }: { dismiss: () => void }) => (
+                    {/* {({ dismiss }: { dismiss: () => void }) => (
                       <>
                         <div>
                           <Lucide
@@ -1111,7 +1111,7 @@ function Main() {
                           </Alert.DismissButton>
                         </div>
                       </>
-                    )}
+                    )} */}
                   </Alert>
                   <div className="mt-5 border rounded-lg border-slate-200/80">
                     <div className="overflow-auto xl:overflow-visible">

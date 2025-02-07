@@ -84,7 +84,7 @@ function Main() {
               >
                 Cancel
               </Button>
-              <Button variant="primary" type="button" className="w-30" ref={sendButtonRef}>
+              <Button variant="primary" type="button" className="w-30" >
                 Add Vendor
               </Button>
             </Dialog.Footer>
@@ -137,7 +137,7 @@ function Main() {
 
             </fieldset>
             <Dialog.Footer>
-              <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
+              <Button variant="primary" type="button" className="w-20">
                 Verify
               </Button>
             </Dialog.Footer>
