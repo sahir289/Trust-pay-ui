@@ -9,10 +9,10 @@ import Tippy from "@/components/Base/Tippy";
 import PasswordVerificationModal from "@/pages/PasswordModal";
 import { useState } from "react";
 interface CustomTableProps {
-  columns: string[];
-  data: any[];
+  columns: string[]; 
+  data: Array<Record<string, any>>; 
   title: string;
-  status: string;
+  status: string; 
 }
 const CustomTable: React.FC<CustomTableProps> = ({ columns, data, title, status }) => {
 interface StatusStyle {
