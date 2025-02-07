@@ -6,7 +6,6 @@ import InProgressPayin from "./inProgressPayin";
 import DroppedPayin from "./droppedPayin";
 import Lucide from "@/components/Base/Lucide";
 import { useState } from "react";
-import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 interface PayinProps {
   resetModal: boolean; // Expecting a boolean prop to control modal reset
   setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
@@ -55,8 +54,7 @@ const Payin: React.FC<PayinProps> =({ resetModal, setResetModal, setStatus, stat
 
   return (
     <div className="flex flex-col p-5 ">
-     {initialState.sno && 
-      <ModalTransactionDetails initialState={initialState}/>}
+     {initialState.sno && <>
       <Tab.Group>
         <Tab.List variant="tabs">
           <Tab>
@@ -110,7 +108,7 @@ const Payin: React.FC<PayinProps> =({ resetModal, setResetModal, setStatus, stat
             <DroppedPayin />
           </Tab.Panel>
         </Tab.Panels>
-      </Tab.Group>
+      </Tab.Group></>}
     </div>
   );
 }

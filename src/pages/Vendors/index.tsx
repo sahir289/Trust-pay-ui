@@ -2,7 +2,7 @@
 import Lucide from "@/components/Base/Lucide";
 import { Menu } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import { FormLabel, FormInput, FormSelect } from "@/components/Base/Form";
+import { FormInput, FormSelect } from "@/components/Base/Form";
 import { Dialog } from "@/components/Base/Headless";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";

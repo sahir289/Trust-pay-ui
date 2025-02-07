@@ -1,10 +1,6 @@
-import {
-    PreviewComponent,
-    Preview,
-} from "@/components/Base/PreviewComponent";
+
 import {
     FormLabel,
-    FormSwitch,
 
 } from "@/components/Base/Form";
 import { Dialog } from '@/components/Base/Headless';
@@ -15,12 +11,8 @@ import React from "react";
 
 interface ModalProps {
     handleModal: () => void;
-    sendButtonRef: React.RefObject<HTMLButtonElement>;
-    title: string;
-    forOpen: boolean;
-    state: boolean;
+   
     id: string;
-    sno: number;
     code: string;
     confirmed: string;
     commission: string;
@@ -39,18 +31,15 @@ interface ModalProps {
 
 const ModalTransactionDetails: React.FC<ModalProps> = ({
     handleModal,
-    sendButtonRef,
-    title,
-    forOpen,
-    state,
+  
+  
+
     id,
-    sno,
     code,
     confirmed,
     commission,
     amount,
     status,
-    merchant_order_id,
     merchant_code,
     name,
     user_submitted_utr,
@@ -65,7 +54,7 @@ const ModalTransactionDetails: React.FC<ModalProps> = ({
     return (
 
 
-        <Dialog open={state} onClose={handleModal}>
+        <Dialog open={true} onClose={handleModal}>
             <Dialog.Panel>
                 <Dialog.Title>
                     <h2 className="mr-auto text-base font-medium">Transaction Detail</h2>
@@ -151,7 +140,7 @@ const ModalTransactionDetails: React.FC<ModalProps> = ({
                     <Button type="button" variant="outline-secondary" onClick={handleModal} className="w-20 mr-1">
                         Cancel
                     </Button>
-                    <Button variant="primary" type="button" className="w-20 ml-3" ref={sendButtonRef}>
+                    <Button variant="primary" type="button" className="w-20 ml-3" >
                         Save
                     </Button>
                 </Dialog.Description>

@@ -1,4 +1,4 @@
-import React, { JSX, useRef, useState } from "react";
+import React, { JSX, useState } from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
@@ -15,8 +15,6 @@ import {
   FormCheck,
 } from "@/components/Base/Form";
 import _ from "lodash";
-import Modal from "@/pages/Modal/modal";
-import { Dialog, Tab } from "@headlessui/react";
 import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 interface PayinProps {
   resetModal: boolean; // Expecting a boolean prop to control modal reset
@@ -26,9 +24,7 @@ interface PayinProps {
  
 }
 const AllPayin: React.FC<PayinProps> = ({ resetModal,  setResetModal, setStatus }) => {
-  const [selectedUser, setSelectedUser] = useState("1");
 
-  const transactionPayout = useRef(null)
     const [open, setOpen] = useState(false)
   const handlepayoutTransaction=()=>{
     setOpen(!open)
@@ -257,12 +253,8 @@ console.log(open, "all")
                         <Table.Td><div>
                       {open &&
                      <ModalTransactionDetails 
-                     state={true} 
-                     title="Transaction Details" 
                      handleModal={handlepayoutTransaction} 
-                     sendButtonRef={transactionPayout}
                      id={faker.id} 
-                     sno={faker.sno} 
                      code={faker.code} 
                      confirmed={faker.confirmed} 
                      commission={faker.commission} 

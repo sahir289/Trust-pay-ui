@@ -1,15 +1,14 @@
 import Lucide from "@/components/Base/Lucide";
-import { Dialog, Menu, Popover } from "@/components/Base/Headless";
+import {  Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import { FormCheck, FormInput, FormLabel, FormSelect, FormSwitch } from "@/components/Base/Form";
-import Tippy from "@/components/Base/Tippy";
+import { FormCheck, FormInput, FormSelect, FormSwitch } from "@/components/Base/Form";
 import merchants from "@/fakers/merchants";
 
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
 import React, { useRef, useState } from "react";
-import { Preview, PreviewComponent } from "@/components/Base/PreviewComponent";
+import Modal from "../Modal/modal";
 
 function Merchant() {
     const [newMerchantModal, setNewMerchantModal] = useState(false);
@@ -19,37 +18,8 @@ function Merchant() {
         setNewMerchantModal(!newMerchantModal)
     }
 
-    interface Merchant {
-        sno: number;
-        code: string;
-        site: string;
-        apikey: string;
-        public_api_key: string;
-        balance: string;
-        payin_range: string;
-        payin_commission: string;
-        payout_range: string;
-        payout_commission: string;
-        test_mode: boolean;
-        allow_intent: boolean;
-        created_at: string;
-        submerchant: SubMerchant[];
-    }
+ 
 
-    interface SubMerchant {
-        code: string;
-        site: string;
-        apikey: string;
-        public_api_key: string;
-        balance: string;
-        payin_range: string;
-        payin_commission: string;
-        payout_range: string;
-        payout_commission: string;
-        test_mode: boolean;
-        allow_intent: boolean;
-        created_at: string;
-    }
 
     const handleRowClick = (fakerKey: number): void => {
         setExpandedRow((prevRow) => (prevRow === fakerKey ? null : fakerKey));

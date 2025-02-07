@@ -1,62 +1,25 @@
 import Lucide from "@/components/Base/Lucide";
-import { Tab } from "@/components/Base/Headless";
-import { formatCurrency } from "@/utils/helper";
-import transactions from "@/fakers/transactions";
-import users from "@/fakers/users";
+
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import { useState } from "react";
-import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import fakersPayouts from "@/fakers/payouts";
 
 import { Menu, Popover } from "@/components/Base/Headless";
 
 
-import TomSelect from "@/components/Base/TomSelect";
 import Pagination from "@/components/Base/Pagination";
-import fakeVendorAccount from "@/fakers/vendorreports";
 import fakeReportAccount from "@/fakers/accountreports";
 import Litepicker from "@/components/Base/Litepicker";
 
 function AccountReports() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [selectedUser, setSelectedUser] = useState("1");
-
-  interface StatusStyle {
-    color: string;
-    icon: JSX.Element;
-  }
-  const getStatusStyles = (status: string): StatusStyle => {
-    switch (status) {
 
 
-      case "Rejected":
-        return {
-          color: "text-red-500",
-          icon: <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
-        };
 
-      case "Initiated":
-        return {
-          color: "text-grey-500",
-          icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" />
-        };
-
-
-      case "Success":
-        return {
-          color: "text-green-500",
-          icon: <Lucide icon="CheckCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
-        };
-
-      default:
-        return { color: "text-gray-500", icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" /> };
-    }
-  }
   return (
 
     <>
@@ -190,22 +153,22 @@ function AccountReports() {
                           <div className="p-2">
                             <div>
                               <div className="text-left text-slate-500">User</div>
-                              <TomSelect
+                                {/* <TomSelect
                                 className="flex-1 mt-2"
                                 value={selectedUser}
-                                onChange={(e) => {
-                                  setSelectedUser(e.target.value);
+                                onChange={(value: string) => {
+                                  setSelectedUser(value);
                                 }}
                                 options={{
                                   placeholder: "Search user",
                                 }}
-                              >
-                                {users.fakeUsers().map((faker, fakerKey) => (
-                                  <option key={fakerKey} value={fakerKey}>
-                                    {faker.name}
+                                >
+                                {users.fakeUsers().map((user, userKey) => (
+                                  <option key={userKey} value={userKey}>
+                                  {user.name}
                                   </option>
                                 ))}
-                              </TomSelect>
+                                </TomSelect> */}
                             </div>
                             <div className="mt-3">
                               <div className="text-left text-slate-500">

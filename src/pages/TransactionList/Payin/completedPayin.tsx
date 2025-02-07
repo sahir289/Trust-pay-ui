@@ -1,4 +1,4 @@
-import React, { JSX } from "react";
+import React, { JSX, useState } from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
@@ -17,12 +17,10 @@ interface PayinProps {
  
 }
 const CompletedPayin: React.FC<PayinProps>=({ })=> {
-    const transactionPayout = useRef(null)
     const [open, setOpen] = useState(false)
     const handlepayoutTransaction=()=>{
       setOpen(!open)
     }
-  const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {
     color: string;
     icon: JSX.Element;
@@ -257,13 +255,8 @@ const CompletedPayin: React.FC<PayinProps>=({ })=> {
                       ><Table.Td>
                          {open &&
                         <ModalTransactionDetails
-                        state={true} 
-                        title="Transaction Details" 
                         handleModal={handlepayoutTransaction} 
-                        sendButtonRef={transactionPayout}
-                        forOpen={true}
                         id={faker.id} 
-                        sno={faker.sno} 
                         code={faker.code} 
                         confirmed={faker.confirmed} 
                         commission={faker.commission} 

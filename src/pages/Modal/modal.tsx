@@ -32,7 +32,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                     {() => (
                         <>
                             <Preview>
-                                {!state &&
+                          
                                 <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
                                     <Button
                                         variant="primary"
@@ -48,7 +48,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                         <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 mr-2" />{" "}
                                         {title}
                                     </Button>
-                                </div>}
+                                </div>
 
                                 {  title === "Transaction Details"  && 
                                          <Dialog
@@ -253,7 +253,6 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                      variant="primary"
                                                      type="button"
                                                      className="w-20 ml-3"
-                                                     ref={sendButtonRef}
                                                  >
                                                      Save
                                                  </Button>
@@ -467,7 +466,6 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                                                      variant="primary"
                                                      type="button"
                                                      className="w-20 ml-3"
-                                                     ref={sendButtonRef}
                                                  >
                                                      Save
                                                  </Button>

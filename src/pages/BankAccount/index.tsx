@@ -1,11 +1,10 @@
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover, Dialog } from "@/components/Base/Headless";
+import { Menu,  Dialog } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import { FormCheck, FormInput, FormSelect, FormLabel, FormSwitch } from "@/components/Base/Form";
-import Tippy from "@/components/Base/Tippy";
-import users from "@/fakers/users";
+import {  FormInput, FormSelect, FormLabel, FormSwitch } from "@/components/Base/Form";
+
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import clsx from "clsx";
@@ -13,7 +12,7 @@ import _ from "lodash";
 import { useState, useRef } from "react";
 function Main() {
   const [selectedOption, setSelectedOption] = useState("PayIn");
-  const handleOptionChange = (event) => {
+  const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
   };
   const [headerFooterModalPreview, setHeaderFooterModalPreview] = useState(false);
@@ -362,7 +361,7 @@ function Main() {
               >
                 Cancel
               </Button>
-              <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
+              <Button variant="primary" type="button" className="w-20" >
                 ok
               </Button>
             </Dialog.Footer>
@@ -417,7 +416,7 @@ function Main() {
 
             </fieldset>
             <Dialog.Footer>
-              <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
+              <Button variant="primary" type="button" className="w-20" >
                 Verify
               </Button>
             </Dialog.Footer>

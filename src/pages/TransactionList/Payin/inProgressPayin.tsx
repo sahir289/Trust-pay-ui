@@ -10,10 +10,8 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useRef, useState } from "react";
-import clsx from "clsx";
+import { useRef } from "react";
 import _ from "lodash";
-import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 import Modal from "@/pages/Modal/modal";
 interface PayinProps {
   resetModal: boolean; // Expecting a boolean prop to control modal reset
@@ -26,19 +24,15 @@ interface PayinProps {
 }
 const InProgressPayin: React.FC<PayinProps> = ({ resetModal, setResetModal, setStatus }) => {
   const transactionPayout = useRef(null)
-  const [open, setOpen] = useState(false)
 
   const handlepayoutTransaction = () => {
-    setOpen(prevOpen => !prevOpen)
   }
  
   interface StatusStyle {
     color: string;
     icon: JSX.Element;
   }
-useEffect(()=>{
-  console.log(open)
-},[open])
+
   const getStatusStyles = (status: string): StatusStyle => {
     switch (status) {
       case "Image Pending":
@@ -272,7 +266,6 @@ useEffect(()=>{
                         <Table.Td>
                     <div
                       className="flex mt-2 text-xs text-center bg-blue-500 rounded-full w-7 h-7"
-                      onClick={()=>setOpen(true)}
                     >
                       <Lucide
                         icon="Check" 

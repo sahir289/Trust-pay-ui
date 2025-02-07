@@ -1,6 +1,6 @@
 import React, { JSX } from "react";
 import Lucide from "@/components/Base/Lucide";
-import { Dialog, Menu, Popover } from "@/components/Base/Headless";
+import {  Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
 // import TomSelect from "@/components/Base/TomSelect";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
@@ -10,17 +10,13 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useRef, useState } from "react";
-import clsx from "clsx";
+import {  useState } from "react";
 import _ from "lodash";
-import Modal from "@/pages/Modal/modal";
 import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 interface PayinProps {
 
 }
 const DroppedPayin: React.FC<PayinProps> = ({ }) => {
-  const [selectedUser, setSelectedUser] = useState("1");
-  const transactionPayout = useRef(null)
   const [open, setOpen] = useState(false)
   
   const handlepayoutTransaction=()=>{
@@ -254,12 +250,8 @@ const DroppedPayin: React.FC<PayinProps> = ({ }) => {
                       >
                         {open &&
                         <ModalTransactionDetails
-                        state={true} 
-                        title="Transaction Details" 
                         handleModal={handlepayoutTransaction} 
-                        sendButtonRef={transactionPayout}
                         id={faker.id} 
-                        sno={faker.sno} 
                         code={faker.code} 
                         confirmed={faker.confirmed} 
                         commission={faker.commission} 
