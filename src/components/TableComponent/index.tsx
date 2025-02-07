@@ -6,6 +6,8 @@ import Table from "@/components/Base/Table";
 import clsx from "clsx";
 import _ from "lodash";
 import Tippy from "@/components/Base/Tippy";
+import PasswordVerificationModal from "@/pages/PasswordModal";
+import { useState } from "react";
 interface CustomTableProps {
   columns: string[];
   data: any[];
@@ -56,10 +58,26 @@ const getStatusStyles = (status: string): StatusStyle => {
       };
   }
 };
-
+const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const openModal = (): void => {
+    setIsModalOpen(true);
+  };
+  const closeModal = (): void => {
+    setIsModalOpen(false);
+  };
+  const handleVerify = (): void => {
+    console.log("Password Verified");
+    closeModal(); 
+  };
   return (
-    <div>
-      <div className="overflow-auto">
+    <div> 
+      {/* ///password modal// */}
+      <PasswordVerificationModal
+    isOpen={isModalOpen} 
+    onClose={closeModal} 
+    onVerify={handleVerify}
+  />
+    <div className="overflow-auto">
       <Table className="border-b border-slate-200/60">
         <Table.Thead>
           <Table.Tr>
@@ -339,10 +357,8 @@ const getStatusStyles = (status: string): StatusStyle => {
                                                                htmlFor="show-example-1 "
                                                                className="ml-0 "
                                                            >
-                                                              
                                                                <FormSwitch.Input
                                                                    id="show-example-1"
-                                                                   //   onClick={}
                                                                    className="ml-0 mr-0 border-2 border-slate-300  "
                                                                    type="checkbox"
                                                                />
@@ -379,19 +395,14 @@ const getStatusStyles = (status: string): StatusStyle => {
                                 />{" "}
                                 Report
                               </Menu.Item>
-                              <Menu.Item  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                  }}>
+                              <Menu.Item  onClick={openModal}>
                                 <Lucide
                                   icon="CheckSquare"
                                   className="w-4 h-4 mr-2"
-                                 
                                 />{" "}
                                 Edit
                               </Menu.Item>
-                              <Menu.Item className="text-danger "  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                  }}>
+                              <Menu.Item className="text-danger"  onClick={openModal}>
                                 <Lucide
                                   icon="Trash2"
                                   className="w-4 h-4 mr-2"
@@ -579,20 +590,14 @@ const getStatusStyles = (status: string): StatusStyle => {
                                 />
                               </Menu.Button>
                               <Menu.Items className="w-40">
-                              <Menu.Item  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                    // setVerificationModal(true);
-                                  }}>
+                              <Menu.Item  onClick={openModal}>
                                 <Lucide
                                   icon="CheckSquare"
                                   className="w-4 h-4 mr-2"
                                 />{" "}
                                 Edit
                               </Menu.Item>
-                              <Menu.Item className="text-danger"  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                    // setVerificationModal(true);
-                                  }}>
+                              <Menu.Item className="text-danger"  onClick={openModal}>
                                 <Lucide
                                   icon="Trash2"
                                   className="w-4 h-4 mr-2"
@@ -633,7 +638,7 @@ const getStatusStyles = (status: string): StatusStyle => {
                         
                       </Table.Td>
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                       
+            
                           <span className="ml-1.5 text-[13px] ">{faker.merchant_code}</span>
                   
                       </Table.Td>
@@ -791,20 +796,14 @@ const getStatusStyles = (status: string): StatusStyle => {
                                 />
                               </Menu.Button>
                               <Menu.Items className="w-40">
-                              <Menu.Item  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                  ;
-                                  }}>
+                              <Menu.Item  onClick={openModal}>
                                 <Lucide
                                   icon="CheckSquare"
                                   className="w-4 h-4 mr-2"
                                 />{" "}
                                 Edit
                               </Menu.Item>
-                              <Menu.Item className="text-danger"  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                    ;
-                                  }}>
+                              <Menu.Item className="text-danger"  onClick={openModal}>
                                 <Lucide
                                   icon="Trash2"
                                   className="w-4 h-4 mr-2"
@@ -916,18 +915,14 @@ const getStatusStyles = (status: string): StatusStyle => {
                               />
                             </Menu.Button>
                             <Menu.Items className="w-40">
-                              <Menu.Item  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                  }}>
+                              <Menu.Item  onClick={openModal}>
                                 <Lucide
                                   icon="CheckSquare"
                                   className="w-4 h-4 mr-2"
                                 />{" "}
                                 Edit
                               </Menu.Item>
-                              <Menu.Item className="text-danger"  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                  }}>
+                              <Menu.Item className="text-danger"  onClick={openModal}>
                                 <Lucide
                                   icon="Trash2"
                                   className="w-4 h-4 mr-2"
@@ -940,6 +935,7 @@ const getStatusStyles = (status: string): StatusStyle => {
                       </Table.Td>
                     </Table.Tr>
                   ))}
+    
   {title === "Users"&& _.take(data.fakeUsers(), 10).map((faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                       <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
@@ -1105,18 +1101,14 @@ const getStatusStyles = (status: string): StatusStyle => {
                               />
                             </Menu.Button>
                             <Menu.Items className="w-40">
-                              <Menu.Item  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                  }}>
+                              <Menu.Item  onClick={openModal}>
                                 <Lucide
                                   icon="CheckSquare"
                                   className="w-4 h-4 mr-2"
                                 />{" "}
                                 Edit
                               </Menu.Item>
-                              <Menu.Item className="text-danger"  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                  }}>
+                              <Menu.Item className="text-danger"  onClick={openModal}>
                                 <Lucide
                                   icon="Trash2"
                                   className="w-4 h-4 mr-2"
@@ -1181,18 +1173,14 @@ const getStatusStyles = (status: string): StatusStyle => {
                               />
                             </Menu.Button>
                             <Menu.Items className="w-40">
-                              <Menu.Item  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                  }}>
+                              <Menu.Item  onClick={openModal}>
                                 <Lucide
                                   icon="CheckSquare"
                                   className="w-4 h-4 mr-2"
                                 />{" "}
                                 Edit
                               </Menu.Item>
-                              <Menu.Item className="text-danger"  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                  }}>
+                              <Menu.Item className="text-danger"  onClick={openModal}>
                                 <Lucide
                                   icon="Trash2"
                                   className="w-4 h-4 mr-2"
