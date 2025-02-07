@@ -45,7 +45,7 @@ const ModalPopUp: FC<ModalDialogProps> = ({
             onClick={onClose}
           />
         </Dialog.Title>
-
+    {fields && 
         <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
           {fields?.map((field, index) => (
             <div key={index} className="col-span-12 sm:col-span-6 mx-2">
@@ -57,12 +57,12 @@ const ModalPopUp: FC<ModalDialogProps> = ({
               />
             </div>
           ))}
-        </Dialog.Description>
+        </Dialog.Description>}
         
         <Dialog.Description className="mx-1">
 
           {singleField?.map((val, key) => (
-            <div key={key} className="mx-2">
+            <div key={key} className="mx-2 mb-2">
               <FormLabel htmlFor={val.id}>{val.label}</FormLabel>
               <FormInput
                 id={val.id}
@@ -72,7 +72,7 @@ const ModalPopUp: FC<ModalDialogProps> = ({
             </div>
           ))}
         </Dialog.Description>
-        <Dialog.Description className="mt-4 flex justify-end">
+        <Dialog.Description className="mt-1 flex justify-end">
           <Button
             type="button"
             variant="outline-secondary"

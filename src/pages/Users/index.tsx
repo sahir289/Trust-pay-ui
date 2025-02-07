@@ -29,7 +29,7 @@ function Main() {
 
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
 
-            <Modal handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title="Add User" />
+            <Modal  state={false} handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title="Add User" />
           </div>
         </div>
 

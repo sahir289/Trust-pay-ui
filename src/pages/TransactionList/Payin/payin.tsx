@@ -5,6 +5,8 @@ import CompletedPayin from "./completedPayin";
 import InProgressPayin from "./inProgressPayin";
 import DroppedPayin from "./droppedPayin";
 import Lucide from "@/components/Base/Lucide";
+import { useState } from "react";
+import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 interface PayinProps {
   resetModal: boolean; // Expecting a boolean prop to control modal reset
   setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
@@ -14,9 +16,47 @@ interface PayinProps {
   status : string;
 }
 const Payin: React.FC<PayinProps> =({ resetModal, setResetModal, setStatus, status, approve, setApprove })=> {
+  interface TransactionDetails {
+    sno: string;
+    code: string;
+    confirmed: string;
+    amount: string;
+    status: string;
+    merchantOrderId: string;
+    merchant: string;
+    user: string;
+    userSubmittedUtr: string;
+    utr: string;
+    method: string;
+    payinId: string;
+    updatedAt: string;
+    image: string;
+  }
+  
+  const initialState: TransactionDetails = {
+    sno: '',
+    code: '',
+    confirmed: '',
+    amount: '',
+    status: '',
+    merchantOrderId: '',
+    merchant: '',
+    user: '',
+    userSubmittedUtr: '',
+    utr: '',
+    method: '',
+    payinId: '',
+    updatedAt: '',
+    image: ''
+  };
+  
+  // Using the useState hook with TransactionDetails type
+  const [, ] = useState<TransactionDetails>(initialState);
 
   return (
     <div className="flex flex-col p-5 ">
+     {initialState.sno && 
+      <ModalTransactionDetails initialState={initialState}/>}
       <Tab.Group>
         <Tab.List variant="tabs">
           <Tab>
@@ -58,13 +98,13 @@ const Payin: React.FC<PayinProps> =({ resetModal, setResetModal, setStatus, stat
         </Tab.List>
         <Tab.Panels className="border-b border-l border-r">
           <Tab.Panel className="py-5 leading-relaxed">
-            <AllPayin resetModal={resetModal} setResetModal={setResetModal} status={status} setStatus={setStatus}/>
+            <AllPayin resetModal={resetModal} setResetModal={setResetModal} status={status} setStatus={setStatus} />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
-            <CompletedPayin />
+            <CompletedPayin/>
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
-            <InProgressPayin resetModal={resetModal} setResetModal={setResetModal} status={status} setStatus={setStatus} approve={approve} setApprove={setApprove}/>
+            <InProgressPayin resetModal={resetModal} setResetModal={setResetModal} status={status} setStatus={setStatus} approve={approve} setApprove={setApprove}  />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
             <DroppedPayin />

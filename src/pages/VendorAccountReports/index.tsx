@@ -18,6 +18,7 @@ import { Menu, Popover } from "@/components/Base/Headless";
 import TomSelect from "@/components/Base/TomSelect";
 import Pagination from "@/components/Base/Pagination";
 import fakeVendorAccount from "@/fakers/vendorreports";
+import Litepicker from "@/components/Base/Litepicker";
 
 function AccountReports() {
   const [startDate, setStartDate] = useState('');
@@ -91,30 +92,58 @@ function AccountReports() {
                     <div className="flex gap-3 mt-3 mx-1">
 
                      
-                      <input
-                        type="date"
-                        placeholder="Start Date"
-                        value={startDate}
-                        className="py-3 my-2 rounded-lg dark:bg-darkmode-600"
-                        onChange={(e) => setStartDate(e.target.value)}
-                        
-                      />
-                      <input
-                        type="date"
-                        placeholder="End Date"
-                        value={endDate}
-                        className="py-3 my-2 rounded-lg dark:bg-darkmode-600"
-                        onChange={(e) => setEndDate(e.target.value)}
-                      />
-                    <div className="flex gap-3 ">
-                      <Button
-                        rounded
-                        variant="primary"
-                        className="px-4 w-35 my-2 border-primary/50 rounded-lg"
-                      >
-                        Download Now
-                      </Button>
-                     
+                    <Litepicker
+                  placeholder="Start Date"
+                  value={startDate}
+                  onChange={(e) => {
+                    setStartDate(e.target.value);
+                  }}
+                  options={{
+                    autoApply: false,
+                    singleMode: false,
+                    numberOfColumns: 2,
+                    numberOfMonths: 2,
+                    showWeekNumbers: true,
+                    dropdowns: {
+                      minYear: 1990,
+                      maxYear: null,
+                      months: true,
+                      years: true,
+                    },
+                  }}
+                  className="sm:w-56 rounded-[0.5rem] group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent dark:group-[.mode--light]:!bg-darkmode-900/30 dark:!box"
+                />
+
+                <Litepicker
+                  placeholder="Start Date"
+                  value={endDate}
+                  onChange={(e) => {
+                    setEndDate(e.target.value);
+                  }}
+                  options={{
+                    autoApply: false,
+                    singleMode: false,
+                    numberOfColumns: 2,
+                    numberOfMonths: 2,
+                    showWeekNumbers: true,
+                    dropdowns: {
+                      minYear: 1990,
+                      maxYear: null,
+                      months: true,
+                      years: true,
+                    },
+                  }}
+                  className=" sm:w-56 rounded-[0.5rem] group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent dark:group-[.mode--light]:!bg-darkmode-900/30 dark:!box"
+                />
+               
+                <div className="flex gap-3 ">
+                  <Button
+                    rounded
+                    variant="primary"
+                    className="px-1 w-40 my-2 border-primary/50 rounded-lg"
+                  >
+                    Download Now
+                  </Button>
                     </div>
                     </div>
                   </div>

@@ -10,11 +10,15 @@ import Table from "@/components/Base/Table";
 import clsx from "clsx";
 import _ from "lodash";
 import { useState, useRef } from "react";
+import ModalPopUp from "../ModalPopUp";
 function Main() {
   const [headerFooterModalPreview, setHeaderFooterModalPreview] = useState(false);
   const sendButtonRef = useRef(null);
   const [VerificationModal, setVerificationModal] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const handleHeaderClose = () => {
+    setHeaderFooterModalPreview(false)
+  }
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -36,7 +40,7 @@ function Main() {
             </Button>
           </div>
         </div>
-        <Dialog
+        {/* <Dialog
           open={headerFooterModalPreview}
           onClose={() => setHeaderFooterModalPreview(false)}
           initialFocus={sendButtonRef}
@@ -88,7 +92,24 @@ function Main() {
               </Button>
             </Dialog.Footer>
           </Dialog.Panel>
-        </Dialog>
+        </Dialog> */}
+
+        <ModalPopUp
+          open={headerFooterModalPreview}
+          onClose={handleHeaderClose}
+          title="New Vendor"
+          fields={[]}
+          singleField={[
+            { id: "Vendor Code", label: "Vendor Code", type: "text", placeholder: "Vendor Code" },
+            { id: "Commision", label: "Commision", type: "text", placeholder: "Commision" }
+
+
+          ]}
+          buttonText="Add Vendor"
+          onSubmit={() => {/* Handle Success */ }}
+          onReset={() => setHeaderFooterModalPreview(false)}
+          resetRef={sendButtonRef}
+        />
         <Dialog open={VerificationModal}
           onClose={() => setVerificationModal(false)}
           initialFocus={sendButtonRef}>

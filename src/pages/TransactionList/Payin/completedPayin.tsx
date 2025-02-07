@@ -9,13 +9,19 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";
+import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 interface PayinProps {
-
+ 
 }
 const CompletedPayin: React.FC<PayinProps>=({ })=> {
+    const transactionPayout = useRef(null)
+    const [open, setOpen] = useState(false)
+    const handlepayoutTransaction=()=>{
+      setOpen(!open)
+    }
   const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {
     color: string;
@@ -74,6 +80,7 @@ const CompletedPayin: React.FC<PayinProps>=({ })=> {
                   <Lucide
                     icon="Search"
                     className="absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 stroke-[1.3] text-slate-500"
+                    
                   />
                   <FormInput
                     type="text"
@@ -92,6 +99,7 @@ const CompletedPayin: React.FC<PayinProps>=({ })=> {
                     <Lucide
                       icon="Download"
                       className="stroke-[1.3] w-4 h-4 mr-2"
+                    
                     />
                     Export
                     <Lucide
@@ -185,7 +193,7 @@ const CompletedPayin: React.FC<PayinProps>=({ })=> {
             </div>
             <div className="overflow-auto">
               <Table className="border-b border-slate-200/60">
-                <Table.Thead>
+                <Table.Thead >
                   <Table.Tr>
                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       <FormCheck.Input type="checkbox" />
@@ -253,32 +261,60 @@ const CompletedPayin: React.FC<PayinProps>=({ })=> {
                       <Table.Tr
                         key={fakerKey}
                         className="[&_td]:last:border-b-0"
+                         onClick={()=>setOpen(true)}                       
                       >
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         {open &&
+                        <ModalTransactionDetails
+                        state={true} 
+                        title="Transaction Details" 
+                        handleModal={handlepayoutTransaction} 
+                        sendButtonRef={transactionPayout}
+                        forOpen={true}
+                        id={faker.id} 
+                        sno={faker.sno} 
+                        code={faker.code} 
+                        confirmed={faker.confirmed} 
+                        commission={faker.commission} 
+                        amount={faker.amount} 
+                        status={faker.status} 
+                        merchant_order_id={faker.merchant_order_id} 
+                        merchant_code={faker.merchant_code} 
+                        name={faker.name} 
+                        user_submitted_utr={faker.user_submitted_utr} 
+                        utr={faker.utr} 
+                        method={faker.method} 
+                        duration={faker.duration} 
+                        bank={faker.bank} 
+                        updated_at={faker.updated_at} 
+                      />
+                      
+                        }
+                     
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" >
                           <FormCheck.Input type="checkbox" />
                         </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" >
+                          <a  className="font-medium whitespace-nowrap" >
                             {faker.sno}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.code}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.confirmed}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.commission}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.amount}
                           </a>
                         </Table.Td>
@@ -289,12 +325,12 @@ const CompletedPayin: React.FC<PayinProps>=({ })=> {
                           </div>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.merchant_order_id}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.merchant_code}
                           </a>
                         </Table.Td>
@@ -311,7 +347,7 @@ const CompletedPayin: React.FC<PayinProps>=({ })=> {
                             </div>
                             <div className="ml-3.5">
                               <a
-                                href=""
+                                
                                 className="font-medium whitespace-nowrap"
                               >
                                 {faker.name}
@@ -320,27 +356,27 @@ const CompletedPayin: React.FC<PayinProps>=({ })=> {
                           </div>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.user_submitted_utr}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.utr}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.method}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.id}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.updated_at}
                           </a>
                         </Table.Td>
@@ -370,6 +406,7 @@ const CompletedPayin: React.FC<PayinProps>=({ })=> {
                             </Menu>
                           </div>
                         </Table.Td>
+              
                       </Table.Tr>
                     )
                   )}

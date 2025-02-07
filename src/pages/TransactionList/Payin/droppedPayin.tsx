@@ -1,5 +1,5 @@
 import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover } from "@/components/Base/Headless";
+import { Dialog, Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
 import TomSelect from "@/components/Base/TomSelect";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
@@ -9,14 +9,22 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";
+import Modal from "@/pages/Modal/modal";
+import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 interface PayinProps {
- 
+
 }
-const DroppedPayin: React.FC<PayinProps>=({  })=> {
+const DroppedPayin: React.FC<PayinProps> = ({ }) => {
   const [selectedUser, setSelectedUser] = useState("1");
+  const transactionPayout = useRef(null)
+  const [open, setOpen] = useState(false)
+  
+  const handlepayoutTransaction=()=>{
+    setOpen(!open)
+  }
   interface StatusStyle {
     color: string;
     icon: JSX.Element;
@@ -184,7 +192,7 @@ const DroppedPayin: React.FC<PayinProps>=({  })=> {
               </div>
             </div>
             <div className="overflow-auto">
-            <Table className="border-b border-slate-200/60">
+              <Table className="border-b border-slate-200/60">
                 <Table.Thead>
                   <Table.Tr>
                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
@@ -249,8 +257,34 @@ const DroppedPayin: React.FC<PayinProps>=({  })=> {
                     (faker, fakerKey) => (
                       <Table.Tr
                         key={fakerKey}
-                        className="[&_td]:last:border-b-0"
-                      >
+                        className="[&_td]:last:border-b-0"  
+                        onClick={()=>setOpen(true)} 
+                      ><td>
+                        {open &&
+                        <ModalTransactionDetails
+                        state={true} 
+                        title="Transaction Details" 
+                        handleModal={handlepayoutTransaction} 
+                        sendButtonRef={transactionPayout}
+                        id={faker.id} 
+                        sno={faker.sno} 
+                        code={faker.code} 
+                        confirmed={faker.confirmed} 
+                        commission={faker.commission} 
+                        amount={faker.amount} 
+                        status={faker.status} 
+                        merchant_order_id={faker.merchant_order_id} 
+                        merchant_code={faker.merchant_code} 
+                        name={faker.name} 
+                        user_submitted_utr={faker.user_submitted_utr} 
+                        utr={faker.utr} 
+                        method={faker.method} 
+                        duration={faker.duration} 
+                        bank={faker.bank} 
+                        updated_at={faker.updated_at} 
+                      />
+                      
+                        }</td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <FormCheck.Input type="checkbox" />
                         </Table.Td>
@@ -358,7 +392,7 @@ const DroppedPayin: React.FC<PayinProps>=({  })=> {
                                   className="w-5 h-5 stroke-slate-400/70 fill-green-400/70"
                                 />
                               </Menu.Button>
-                              
+
                             </Menu>
                           </div>
                         </Table.Td>

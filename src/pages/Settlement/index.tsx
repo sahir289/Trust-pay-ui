@@ -21,7 +21,7 @@ function Main() {
                         Settlements
                     </div>
                     <div>
-                        <Modal handleModal={settlementModal} sendButtonRef={transactionRef} forOpen={newSettlementModal} title={title}/>
+                        <Modal state={false} handleModal={settlementModal} sendButtonRef={transactionRef} forOpen={newSettlementModal} title={title}/>
                     </div>
                 </div>
                 <div className="relative flex flex-col col-span-12 lg:col-span-12 xl:col-span-12 gap-y-7">

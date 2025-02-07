@@ -9,9 +9,10 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";
+import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 interface PayinProps {
   resetModal: boolean; // Expecting a boolean prop to control modal reset
   setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
@@ -19,9 +20,15 @@ interface PayinProps {
   setApprove: React.Dispatch<React.SetStateAction<boolean>>
   setStatus : React.Dispatch<React.SetStateAction<string>>
   status: string
+ 
 }
-const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal,setStatus,status, approve, setApprove })=> {
-
+const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal , setStatus })=> {
+  const transactionPayout = useRef(null)
+  const [open, setOpen] = useState(false)
+  
+  const handlepayoutTransaction=()=>{
+    setOpen(!open)
+  }
   const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {
     color: string;
@@ -256,7 +263,33 @@ const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal,setStat
                       <Table.Tr
                         key={fakerKey}
                         className="[&_td]:last:border-b-0"
-                      >
+                        onClick={()=>setOpen(true)} 
+                      ><td>
+                         {open &&
+                        <ModalTransactionDetails
+                        state={true} 
+                        title="Transaction Details" 
+                        handleModal={handlepayoutTransaction} 
+                        sendButtonRef={transactionPayout}
+                        id={faker.id} 
+                        sno={faker.sno} 
+                        code={faker.code} 
+                        confirmed={faker.confirmed} 
+                        commission={faker.commission} 
+                        amount={faker.amount} 
+                        status={faker.status} 
+                        merchant_order_id={faker.merchant_order_id} 
+                        merchant_code={faker.merchant_code} 
+                        name={faker.name} 
+                        user_submitted_utr={faker.user_submitted_utr} 
+                        utr={faker.utr} 
+                        method={faker.method} 
+                        duration={faker.duration} 
+                        bank={faker.bank} 
+                        updated_at={faker.updated_at} 
+                      />
+                      
+                        }</td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <FormCheck.Input type="checkbox" />
                         </Table.Td>
@@ -366,7 +399,7 @@ const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal,setStat
                                 />
                               </Menu.Button>
                               <Menu.Items className="w-40">
-                                <Menu.Item onClick={()=>{setResetModal(!resetModal); setStatus(faker.status)}}>
+                                <Menu.Item onClick={()=>{setResetModal(!resetModal) ; setStatus(faker.status)}}>
                                   <Lucide
                                     icon="CheckSquare"
                                     className="w-4 h-4 mr-2"

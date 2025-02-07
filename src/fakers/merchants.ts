@@ -1,5 +1,23 @@
 import _ from "lodash";
+export interface subMerchant {
+  name: string;
+  photo: string;
 
+  code: string;
+  site: string;
+  apikey: string;
+  public_api_key: string;
+  balance: string;
+  payin_range: string;
+  payin_commission: string;
+  payout_range: string;
+  payout_commission: string;
+
+  test_mode: string;
+  allow_intent: string;
+  created_at: string;
+  actions: string;
+}
 export interface Merchant {
   name: string;
   photo: string;
@@ -16,6 +34,7 @@ export interface Merchant {
   allow_intent: string;
   created_at: string;
   actions: string;
+  submerchant: subMerchant[];
 }
 
 const imageAssets = import.meta.glob<{
@@ -26,10 +45,10 @@ const fakersMerchant = {
   fakeMerchants() {
     const merchants: Array<Merchant> = [
       {
-        name: "Tom Hanks",
+        name: "Noah Centineo",
         photo: imageAssets["/src/assets/images/users/user1-50x50.jpg"].default,
         code: "tom",
-        site: "https://heav@gmail.com",
+        site: "https://NoahCentineo@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         balance: "₹0",
@@ -41,6 +60,43 @@ const fakersMerchant = {
         allow_intent: "",
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
+        submerchant: [
+          {
+            name: "Noah Centineo",
+            photo: imageAssets["/src/assets/images/users/user1-50x50.jpg"].default,
+            code: "tom",
+            site: "https://heav@gmail.com",
+            apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
+            public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
+            balance: "$0",
+            payin_range: "$1 - $10",
+            payin_commission: "$1 - $10",
+            payout_range: "$1 - $10",
+            payout_commission: "$1 - $10",
+            test_mode: "",
+            allow_intent: "",
+            created_at: "28/01/2025 at 05:01:23 PM",
+            actions: "",
+          },
+          {
+            name: "Noah Centineo",
+            photo: imageAssets["/src/assets/images/users/user1-50x50.jpg"].default,
+            code: "tom",
+            site: "https://heav@gmail.com",
+            apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
+            public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
+            balance: "$0",
+            payin_range: "$1 - $10",
+            payin_commission: "$1 - $10",
+            payout_range: "$1 - $10",
+            payout_commission: "$1 - $10",
+            test_mode: "",
+            allow_intent: "",
+            created_at: "28/01/2025 at 05:01:23 PM",
+            actions: "",
+          }
+
+        ]
       },
       {
         name: "Meryl Streep",
@@ -58,6 +114,7 @@ const fakersMerchant = {
         allow_intent: "",
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
+        submerchant:[]
       },
       {
         name: "Leonardo DiCaprio",
@@ -75,6 +132,7 @@ const fakersMerchant = {
         allow_intent: "",
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
+        submerchant:[]
       },
       {
         name: "Angelina Jolie",
@@ -92,6 +150,7 @@ const fakersMerchant = {
         allow_intent: "",
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
+        submerchant:[]
       },
       {
         name: "Brad Pitt",
@@ -109,6 +168,7 @@ const fakersMerchant = {
         allow_intent: "",
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
+        submerchant:[]
       },
       {
         name: "Jennifer Lawrence",
@@ -126,6 +186,7 @@ const fakersMerchant = {
         allow_intent: "",
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
+        submerchant:[]
       },
       {
         name: "Johnny Depp",
@@ -143,6 +204,7 @@ const fakersMerchant = {
         allow_intent: "",
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
+        submerchant:[]
       },
       {
         name: "Cate Blanchett",
@@ -160,6 +222,7 @@ const fakersMerchant = {
         allow_intent: "",
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
+        submerchant:[]
       },
       {
         name: "Denzel Washington",
@@ -177,6 +240,7 @@ const fakersMerchant = {
         allow_intent: "",
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
+        submerchant:[]
       },
       {
         name: "Julia Roberts",
@@ -194,10 +258,11 @@ const fakersMerchant = {
         allow_intent: "",
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
+        submerchant:[]
       },
     ];
 
-    return _.shuffle(merchants);
+    return (merchants);
   },
 };
 

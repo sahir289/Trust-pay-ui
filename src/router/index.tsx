@@ -16,7 +16,7 @@ import Departments from "../pages/Departments";
 import AddUser from "../pages/AddUser";
 import ProfileOverview from "../pages/ProfileOverview";
 import Settings from "../pages/Settings";
-
+// import AccountReports from "../pages/account-reports";
 import VendorAccountReports from "../pages/VendorAccountReports";
 
 import Categories from "../pages/Categories";
@@ -70,7 +70,7 @@ import AddData from "../pages/AddData";
 
 import Layout from "../themes";
 import Bankaccount from "../pages/BankAccount";
-import AccountReports from "@/pages/AccoutnReports";
+import AccountReports from "@/pages/AccountReport";
 function Router() {
   const routes = [
     {

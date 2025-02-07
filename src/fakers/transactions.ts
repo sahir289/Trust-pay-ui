@@ -63,7 +63,7 @@ const fakers = {
       });
     }
 
-    return _.shuffle(transactions);
+    return (transactions);
   },
 };
 

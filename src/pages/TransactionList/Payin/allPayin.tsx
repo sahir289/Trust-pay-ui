@@ -20,18 +20,21 @@ import {
 import _ from "lodash";
 import Modal from "@/pages/Modal/modal";
 import { Dialog } from "@headlessui/react";
+import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 interface PayinProps {
   resetModal: boolean; // Expecting a boolean prop to control modal reset
   setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   status: string;
+ 
 }
-const AllPayin: React.FC<PayinProps> = ({ resetModal, setResetModal, setStatus, status }) => {
+const AllPayin: React.FC<PayinProps> = ({ resetModal,  setResetModal, setStatus, status }) => {
   const [selectedUser, setSelectedUser] = useState("1");
-  const [editModal, setEditModal] = useState(false);
-  const resetRef = useRef(null);
-  const handleResetModal = () => {
-    setResetModal(!resetModal)
+
+  const transactionPayout = useRef(null)
+    const [open, setOpen] = useState(false)
+  const handlepayoutTransaction=()=>{
+    setOpen(!open)
   }
   interface StatusStyle {
     color: string;
@@ -261,7 +264,35 @@ const AllPayin: React.FC<PayinProps> = ({ resetModal, setResetModal, setStatus, 
                       <Table.Tr
                         key={fakerKey}
                         className="[&_td]:last:border-b-0"
+                        onClick={()=>setOpen(true)} 
                       >
+                         {open &&
+                        <ModalTransactionDetails
+                        state={true} 
+                        title="Transaction Details" 
+                        handleModal={handlepayoutTransaction} 
+                        sendButtonRef={transactionPayout}
+                        id={faker.id} 
+                        sno={faker.sno} 
+                        code={faker.code} 
+                        confirmed={faker.confirmed} 
+                        commission={faker.commission} 
+                        amount={faker.amount} 
+                        status={faker.status} 
+                        merchant_order_id={faker.merchant_order_id} 
+                        merchant_code={faker.merchant_code} 
+                        name={faker.name} 
+                       
+                        user_submitted_utr={faker.user_submitted_utr} 
+                        utr={faker.utr} 
+                        method={faker.method} 
+                        duration={faker.duration} 
+                        bank={faker.bank} 
+                        updated_at={faker.updated_at} 
+                   
+                      />
+                      
+                        }
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <FormCheck.Input type="checkbox" />
                         </Table.Td>

@@ -30,7 +30,7 @@ function ChargeBack() {
             ChargeBacks
           </div>
 
-      <div><Modal handleModal={chargebackModal} sendButtonRef={chargebackRef} forOpen={newChargeBackModal} title="Add Chargeback"/></div>
+      <div><Modal state={false} handleModal={chargebackModal} sendButtonRef={chargebackRef} forOpen={newChargeBackModal} title="Add Chargeback"/></div>
         </div>
         <div className="mt-3.5">
           <div className="flex flex-col box box--stacked">
