@@ -17,7 +17,6 @@ interface StatusStyle {
   color: string;
   icon: JSX.Element;
 }
-
 const getStatusStyles = (status: string): StatusStyle => {
   switch (status) {
     case "Image Pending":
@@ -268,8 +267,6 @@ const getStatusStyles = (status: string): StatusStyle => {
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
         <div className="text-xs text-slate-500">{account.balance}</div>
       </Table.Td>
-    
-                    
       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
         <div className="whitespace-nowrap">{account.bankUsedFor}</div>
       </Table.Td>
@@ -289,7 +286,6 @@ const getStatusStyles = (status: string): StatusStyle => {
                                                                htmlFor="show-example-1 "
                                                                className="ml-0 "
                                                            >
-                                                              
                                                                <FormSwitch.Input
                                                                    id="show-example-1"
                                                                    //   onClick={}
