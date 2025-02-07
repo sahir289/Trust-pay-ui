@@ -108,7 +108,6 @@ const [showPassword, setShowPassword] = useState(false);
                                                                 className="w-5 h-5 text-slate-500"
                                                             />
                                                         </Menu.Button>
-
                                                     </Menu>
     </Dialog.Title>
     <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
