@@ -22,25 +22,7 @@ const Modal: React.FC<ModalProps> = ({
   title,
   forOpen,
 }) => {
-  const [basicModalPreview, setBasicModalPreview] = useState(false);
-  const [smallModalSizePreview, setSmallModalSizePreview] = useState(false);
-  const [mediumModalSizePreview, setMediumModalSizePreview] = useState(false);
-  const [largeModalSizePreview, setLargeModalSizePreview] = useState(false);
-  const [superlargeModalSizePreview, setSuperlargeModalSizePreview] =
-    useState(false);
-  const [programmaticallyModal, setProgrammaticallyModal] = useState(false);
-  const [warningModalPreview, setWarningModalPreview] = useState(false);
-  const [buttonModalPreview, setButtonModalPreview] = useState(false);
-  const [staticBackdropModalPreview, setStaticBackdropModalPreview] =
-    useState(false);
-  const [overlappingModalPreview, setOverlappingModalPreview] = useState(false);
-  const [nextOverlappingModalPreview, setNextOverlappingModalPreview] =
-    useState(false);
-  const [headerFooterModalPreview, setHeaderFooterModalPreview] =
-    useState(false);
-  const [deleteModalPreview, setDeleteModalPreview] = useState(false);
-  const [successModalPreview, setSuccessModalPreview] = useState(false);
-  const [tinySliderModalPreview, setTinySliderModalPreview] = useState(false);
+ 
   const [selectedOption, setSelectedOption] = useState("PayIn");
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
