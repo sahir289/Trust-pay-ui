@@ -15,6 +15,9 @@ import {
   FormCheck,
 } from "@/components/Base/Form";
 import _ from "lodash";
+import Modal from "@/pages/Modal/modal";
+import { Dialog, Tab } from "@headlessui/react";
+import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 interface PayinProps {
   resetModal: boolean; // Expecting a boolean prop to control modal reset
   setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
@@ -22,7 +25,7 @@ interface PayinProps {
   status: string;
  
 }
-const AllPayin: React.FC<PayinProps> = ({ resetModal,  setResetModal, setStatus, status }) => {
+const AllPayin: React.FC<PayinProps> = ({ resetModal,  setResetModal, setStatus }) => {
   const [selectedUser, setSelectedUser] = useState("1");
 
   const transactionPayout = useRef(null)
@@ -75,14 +78,14 @@ const AllPayin: React.FC<PayinProps> = ({ resetModal,  setResetModal, setStatus,
         return { color: "text-gray-500", icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" /> };
     }
   };
-
+console.log(open, "all")
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
         <div className="mt-3.5">
           <div className="flex flex-col">
             <div className="flex flex-col py-5 sm:items-center sm:flex-row gap-y-2 mx-3">
-              <div className="">
+              <div>
 
 
                 <div className="relative">
@@ -251,53 +254,54 @@ const AllPayin: React.FC<PayinProps> = ({ resetModal,  setResetModal, setStatus,
                         className="[&_td]:last:border-b-0"
                         onClick={()=>setOpen(true)} 
                       >
-                         {open &&
-                        <ModalTransactionDetails
-                        state={true} 
-                        title="Transaction Details" 
-                        handleModal={handlepayoutTransaction} 
-                        sendButtonRef={transactionPayout}
-                        id={faker.id} 
-                        sno={faker.sno} 
-                        code={faker.code} 
-                        confirmed={faker.confirmed} 
-                        commission={faker.commission} 
-                        amount={faker.amount} 
-                        status={faker.status} 
-                        merchant_order_id={faker.merchant_order_id} 
-                        merchant_code={faker.merchant_code} 
-                        name={faker.name} 
-                       
-                        user_submitted_utr={faker.user_submitted_utr} 
-                        utr={faker.utr} 
-                        method={faker.method} 
-                        duration={faker.duration} 
-                        bank={faker.bank} 
-                        updated_at={faker.updated_at} 
+                        <Table.Td><div>
+                      {open &&
+                     <ModalTransactionDetails 
+                     state={true} 
+                     title="Transaction Details" 
+                     handleModal={handlepayoutTransaction} 
+                     sendButtonRef={transactionPayout}
+                     id={faker.id} 
+                     sno={faker.sno} 
+                     code={faker.code} 
+                     confirmed={faker.confirmed} 
+                     commission={faker.commission} 
+                     amount={faker.amount} 
+                     status={faker.status} 
+                     merchant_order_id={faker.merchant_order_id} 
+                     merchant_code={faker.merchant_code} 
+                     name={faker.name} 
+                     user_submitted_utr={faker.user_submitted_utr} 
+                     utr={faker.utr} 
+                     method={faker.method} 
+                     duration={faker.duration} 
+                     bank={faker.bank} 
+                     updated_at={faker.updated_at} 
+                   />
                    
-                      />
-                      
-                        }
+                     }</div></Table.Td>
+
+                       
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <FormCheck.Input type="checkbox" />
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.sno}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.code}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.confirmed}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.amount}
                           </a>
                         </Table.Td>
@@ -309,12 +313,12 @@ const AllPayin: React.FC<PayinProps> = ({ resetModal,  setResetModal, setStatus,
                         </Table.Td>
 
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.merchant_order_id}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.merchant_code}
                           </a>
                         </Table.Td>
@@ -331,7 +335,7 @@ const AllPayin: React.FC<PayinProps> = ({ resetModal,  setResetModal, setStatus,
                             </div>
                             <div className="ml-3.5">
                               <a
-                                href=""
+                                
                                 className="font-medium whitespace-nowrap"
                               >
                                 {faker.name}
@@ -340,27 +344,27 @@ const AllPayin: React.FC<PayinProps> = ({ resetModal,  setResetModal, setStatus,
                           </div>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.user_submitted_utr}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.utr}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.method}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.id}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.updated_at}
                           </a>
                         </Table.Td>

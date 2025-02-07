@@ -102,16 +102,8 @@ function AccountReports() {
                 <div>
                 </div>
               </div>
-            </div>
-            <div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
+        
+        
 
 
       <div className="grid grid-cols-12 gap-y-10 gap-x-6">

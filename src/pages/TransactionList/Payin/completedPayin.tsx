@@ -252,8 +252,9 @@ const CompletedPayin: React.FC<PayinProps>=({ })=> {
                       <Table.Tr
                         key={fakerKey}
                         className="[&_td]:last:border-b-0"
-                         onClick={()=>setOpen(true)}                       
-                      >
+                     onClick={()=>setOpen(true)}
+                        
+                      ><Table.Td>
                          {open &&
                         <ModalTransactionDetails
                         state={true} 
@@ -279,13 +280,12 @@ const CompletedPayin: React.FC<PayinProps>=({ })=> {
                         updated_at={faker.updated_at} 
                       />
                       
-                        }
-                     
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" >
+                        }</Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <FormCheck.Input type="checkbox" />
                         </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" >
-                          <a  className="font-medium whitespace-nowrap" >
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.sno}
                           </a>
                         </Table.Td>
@@ -397,7 +397,6 @@ const CompletedPayin: React.FC<PayinProps>=({ })=> {
                             </Menu>
                           </div>
                         </Table.Td>
-              
                       </Table.Tr>
                     )
                   )}

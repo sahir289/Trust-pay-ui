@@ -15,10 +15,6 @@ import Departments from "../pages/Departments";
 import AddUser from "../pages/AddUser";
 import ProfileOverview from "../pages/ProfileOverview";
 import Settings from "../pages/Settings";
-<<<<<<< HEAD
-// import AccountReports from "../pages/account-reports";
-=======
->>>>>>> origin/shadow
 import VendorAccountReports from "../pages/VendorAccountReports";
 import Categories from "../pages/Categories";
 import AddProduct from "../pages/AddProduct";

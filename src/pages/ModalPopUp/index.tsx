@@ -72,7 +72,7 @@ const ModalPopUp: FC<ModalDialogProps> = ({
             </div>
           ))}
         </Dialog.Description>
-        <Dialog.Description className="mt-1 flex justify-end">
+        <Dialog.Description className="mt-4 flex justify-end">
           <Button
             type="button"
             variant="outline-secondary"

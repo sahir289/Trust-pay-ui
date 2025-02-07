@@ -10,19 +10,11 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-<<<<<<< HEAD
-import { useState, useRef } from "react";
-import clsx from "clsx";
-import _ from "lodash";
-function MerchantSettlement() {
-  const [selectedUser, setSelectedUser] = useState("1");
-=======
 import React, { useState, useRef } from "react";
 import clsx from "clsx";
 import _ from "lodash";
 function MerchantSettlement() {
   // const [selectedUser, setSelectedUser] = useState("1");
->>>>>>> origin/shadow
   const [VerificationModal, setVerificationModal] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const sendButtonRef = useRef(null);

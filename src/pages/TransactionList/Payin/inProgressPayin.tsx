@@ -14,28 +14,31 @@ import { useRef, useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";
 import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
+import Modal from "@/pages/Modal/modal";
 interface PayinProps {
   resetModal: boolean; // Expecting a boolean prop to control modal reset
   setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
   approve: boolean; // Expecting a boolean prop to control modal reset
   setApprove: React.Dispatch<React.SetStateAction<boolean>>
-  setStatus : React.Dispatch<React.SetStateAction<string>>
+  setStatus: React.Dispatch<React.SetStateAction<string>>
   status: string
- 
+
 }
-const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal , setStatus })=> {
+const InProgressPayin: React.FC<PayinProps> = ({ resetModal, setResetModal, setStatus }) => {
   const transactionPayout = useRef(null)
   const [open, setOpen] = useState(false)
-  
-  const handlepayoutTransaction=()=>{
-    setOpen(!open)
+
+  const handlepayoutTransaction = () => {
+    setOpen(prevOpen => !prevOpen)
   }
  
   interface StatusStyle {
     color: string;
     icon: JSX.Element;
   }
-
+useEffect(()=>{
+  console.log(open)
+},[open])
   const getStatusStyles = (status: string): StatusStyle => {
     switch (status) {
       case "Image Pending":
@@ -189,11 +192,14 @@ const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal , setSt
               </div>
             </div>
             <div className="overflow-auto">
-            <Table className="border-b border-slate-200/60">
+              <Table className="border-b border-slate-200/60">
                 <Table.Thead>
                   <Table.Tr>
                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       <FormCheck.Input type="checkbox" />
+                    </Table.Td>
+                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                      Check Details
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       SNO.
@@ -255,53 +261,47 @@ const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal , setSt
                       <Table.Tr
                         key={fakerKey}
                         className="[&_td]:last:border-b-0"
-                        onClick={()=>setOpen(true)} 
-                      ><td>
-                         {open &&
-                        <ModalTransactionDetails
-                        state={true} 
-                        title="Transaction Details" 
-                        handleModal={handlepayoutTransaction} 
-                        sendButtonRef={transactionPayout}
-                        id={faker.id} 
-                        sno={faker.sno} 
-                        code={faker.code} 
-                        confirmed={faker.confirmed} 
-                        commission={faker.commission} 
-                        amount={faker.amount} 
-                        status={faker.status} 
-                        merchant_order_id={faker.merchant_order_id} 
-                        merchant_code={faker.merchant_code} 
-                        name={faker.name} 
-                        user_submitted_utr={faker.user_submitted_utr} 
-                        utr={faker.utr} 
-                        method={faker.method} 
-                        duration={faker.duration} 
-                        bank={faker.bank} 
-                        updated_at={faker.updated_at} 
-                      />
                       
-                        }</td>
+                      ><Table.Td>
+                     
+                      </Table.Td>
+
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <FormCheck.Input type="checkbox" />
                         </Table.Td>
+                        <Table.Td>
+                    <div
+                      className="flex mt-2 text-xs text-center bg-blue-500 rounded-full w-7 h-7"
+                      onClick={()=>setOpen(true)}
+                    >
+                      <Lucide
+                        icon="Check" 
+                        className="block mx-auto my-auto font-bold justify-center items-center"
+                      />
+                      
+                 
+                          <Modal state={true} handleModal={handlepayoutTransaction} sendButtonRef={transactionPayout} forOpen={true} title="abc"/>
+                           
+                      
+                    </div>
+                        </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.sno}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.code}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.confirmed}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.amount}
                           </a>
                         </Table.Td>
@@ -309,16 +309,16 @@ const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal , setSt
                           <div className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(faker.status).color}`}>
                             {getStatusStyles(faker.status).icon}
                             {faker.status}
-                           
+
                           </div>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.merchant_order_id}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.merchant_code}
                           </a>
                         </Table.Td>
@@ -335,7 +335,7 @@ const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal , setSt
                             </div>
                             <div className="ml-3.5">
                               <a
-                                href=""
+                                
                                 className="font-medium whitespace-nowrap"
                               >
                                 {faker.name}
@@ -344,27 +344,27 @@ const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal , setSt
                           </div>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.user_submitted_utr}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.utr}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.method}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.id}
                           </a>
                         </Table.Td>
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="" className="font-medium whitespace-nowrap">
+                          <a  className="font-medium whitespace-nowrap">
                             {faker.updated_at}
                           </a>
                         </Table.Td>
@@ -391,7 +391,7 @@ const InProgressPayin: React.FC<PayinProps>=({ resetModal, setResetModal , setSt
                                 />
                               </Menu.Button>
                               <Menu.Items className="w-40">
-                                <Menu.Item onClick={()=>{setResetModal(!resetModal) ; setStatus(faker.status)}}>
+                                <Menu.Item onClick={() => { setResetModal(!resetModal); setStatus(faker.status) }}>
                                   <Lucide
                                     icon="CheckSquare"
                                     className="w-4 h-4 mr-2"

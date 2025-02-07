@@ -251,7 +251,7 @@ const DroppedPayin: React.FC<PayinProps> = ({ }) => {
                         key={fakerKey}
                         className="[&_td]:last:border-b-0"  
                         onClick={()=>setOpen(true)} 
-                      ><td>
+                      >
                         {open &&
                         <ModalTransactionDetails
                         state={true} 
@@ -276,7 +276,7 @@ const DroppedPayin: React.FC<PayinProps> = ({ }) => {
                         updated_at={faker.updated_at} 
                       />
                       
-                        }</td>
+                        }
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <FormCheck.Input type="checkbox" />
                         </Table.Td>

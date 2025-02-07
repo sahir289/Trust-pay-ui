@@ -11,6 +11,7 @@ import Table from "@/components/Base/Table";
 import clsx from "clsx";
 import _ from "lodash";
 import React, { useState, useRef } from "react";
+import ModalPopUp from "../ModalPopUp";
 function Main() {
   const [headerFooterModalPreview, setHeaderFooterModalPreview] = useState(false);
   const sendButtonRef = useRef(null);
