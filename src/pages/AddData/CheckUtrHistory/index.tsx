@@ -12,10 +12,18 @@ import Table from "@/components/Base/Table";
 import { useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";
-
+import CustomTable from "@/components/TableComponent";
 function CheckUtrHistory() {
   const [selectedUser, setSelectedUser] = useState("1");
-
+  const transactionTableHeaders: string[] = [
+    "Customer Name",
+    "Transaction ID",
+    "Status",
+    "Amount",
+    "Date",
+    "Action"
+  ];
+  
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -137,7 +145,9 @@ function CheckUtrHistory() {
               </div>
             </div>
             <div className="overflow-auto">
-              <Table className="border-b border-slate-200/60">
+            <CustomTable columns={transactionTableHeaders} data={transactions} title={"Data Entries"} status={[""]}/>
+
+              {/* <Table className="border-b border-slate-200/60">
                 <Table.Thead>
                   <Table.Tr>
                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
@@ -269,9 +279,9 @@ function CheckUtrHistory() {
                     )
                   )}
                 </Table.Tbody>
-              </Table>
+              </Table> */}
             </div>
-            <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
+            {/* <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
               <Pagination className="flex-1 w-full mr-auto sm:w-auto">
                 <Pagination.Link>
                   <Lucide icon="ChevronsLeft" className="w-4 h-4" />
@@ -297,7 +307,7 @@ function CheckUtrHistory() {
                 <option>35</option>
                 <option>50</option>
               </FormSelect>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -202,7 +202,7 @@ const tableHeaders = [
   </Dialog.Panel>
 </Dialog>
             <div className="overflow-auto">
-            <CustomTable columns={tableHeaders} data={transactions} title={"Vendors"} status={""}/>
+            <CustomTable columns={tableHeaders} data={transactions} title={"Vendors Settlements"} status={""}/>
 
               {/* <Table className="border-b border-slate-200/60">
                 <Table.Thead>

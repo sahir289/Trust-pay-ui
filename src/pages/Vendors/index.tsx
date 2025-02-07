@@ -10,10 +10,19 @@ import Table from "@/components/Base/Table";
 import clsx from "clsx";
 import _ from "lodash";
 import Modal from "../Modal/modal";
+import CustomTable from "@/components/TableComponent";
 import { useState,useRef } from "react";
 function Main() {
   const [newUserModal, setNewUserModal] = useState(false);
-  const [title, setTitle] = useState("Add Vendors")
+  const tableHeaders = [
+    "sno",
+    "code",
+    "vendor_commission",
+    "created_date",
+    "created_by",
+    "status",
+    "action"
+  ];
   const userRef = useRef(null);
   const userModal = () => {
     setNewUserModal(!newUserModal)
@@ -311,7 +320,8 @@ const [showPassword, setShowPassword] = useState(false);
               </div> */}
             </div>
             <div className="overflow-auto xl:overflow-visible">
-              <Table className="border-b border-slate-200/60">
+              <CustomTable columns={tableHeaders} data={users} title={"Vendors"} status={""}/>
+              {/* <Table className="border-b border-slate-200/60">
                 <Table.Thead>
                   <Table.Tr>
                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
@@ -329,7 +339,7 @@ const [showPassword, setShowPassword] = useState(false);
                     {/* <Table.Td className="py-4 font-medium border-t w-52 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Profile Completeness
                     </Table.Td> */}
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                    {/* <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                       Created Date
                     </Table.Td>
                     <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
@@ -342,159 +352,13 @@ const [showPassword, setShowPassword] = useState(false);
                       Action
                     </Table.Td>
                   </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>
-                  {_.take(users.fakeUsers(), 20).map((faker, fakerKey) => (
-                    <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        {fakerKey+1}
-                      </Table.Td>
-                      <Table.Td className="py-4 border-dashed w-80 dark:bg-darkmode-600">
-                        <div className="flex items-center">
-                          <div className="w-9 h-9 image-fit zoom-in">
-                            <Tippy
-                              as="img"
-                              alt="Tailwise - Admin Dashboard Template"
-                              className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                              src={faker.photo}
-                              content={faker.name}
-                            />
-                          </div>
-                          <div className="ml-3.5">
-                            <a
-                              href=""
-                              className="font-medium whitespace-nowrap"
-                            >
-                              {faker.name}
-                            </a>
-                            <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                              {faker.email}
-                            </div>
-                          </div>
-                        </div>
-                      </Table.Td>
-                      {/* <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <a href="" className="font-medium whitespace-nowrap">
-                          {faker.position}
-                        </a>
-                        <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                          {faker.department}
-                        </div>
-                      </Table.Td> */}
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="w-40">
-                          <div className="text-xs text-slate-500">
-                            {_.random(1, 5)}%
-                          </div>
-                          <div className="flex h-1 border rounded-sm bg-slate-50 mt-1.5 dark:bg-darkmode-400">
-                            <div
-                              className={clsx([
-                                "first:rounded-l-sm last:rounded-r-sm border border-primary/20 -m-px bg-primary/40",
-                                [
-                                  "w-[35%]",
-                                  "w-[45%]",
-                                  "w-[55%]",
-                                  "w-[65%]",
-                                  "w-[75%]",
-                                ][_.random(0, 4)],
-                              ])}
-                            ></div>
-                          </div>
-                        </div>
-                      </Table.Td>
-                     
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="whitespace-nowrap">
-                          {faker.joinedDate}
-                        </div>
-                      </Table.Td>
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="whitespace-nowrap">
-                          {faker.manager}
-                        </div>
-                      </Table.Td>
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div
-                          className={clsx([
-                            "flex ",
-                            ["text-success", "text-danger"][_.random(0, 1)],
-                          ])}
-                        >
-                          <Lucide
-                            icon="Database"
-                            className="w-3.5 h-3.5 stroke-[1.7]"
-                          />
-                          <div className="ml-1.5 whitespace-nowrap">
-                            {_.random(0, 1) ? "Active" : "Inactive"}
-                          </div>
-                        </div>
-                      </Table.Td>
-                      <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="flex items-center justify-center">
-                          <Menu className="h-5">
-                            <Menu.Button className="w-5 h-5 text-slate-500">
-                              <Lucide
-                                icon="MoreVertical"
-                                className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
-                              />
-                            </Menu.Button>
-                            <Menu.Items className="w-40">
-                              <Menu.Item  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                    setVerificationModal(true);
-                                  }}>
-                                <Lucide
-                                  icon="CheckSquare"
-                                  className="w-4 h-4 mr-2"
-                                />{" "}
-                                Edit
-                              </Menu.Item>
-                              <Menu.Item className="text-danger"  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                    setVerificationModal(true);
-                                  }}>
-                                <Lucide
-                                  icon="Trash2"
-                                  className="w-4 h-4 mr-2"
-                                />
-                                Delete
-                              </Menu.Item>
-                            </Menu.Items>
-                          </Menu>
-                        </div>
-                      </Table.Td>
-                    </Table.Tr>
-                  ))}
-                </Table.Tbody>
-              </Table>
+                </Table.Thead> */}
+                {/* <Table.Tbody>
+                 
+                </Table.Tbody> */}
+              {/* </Table> */} 
             </div>
-            <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
-              <Pagination className="flex-1 w-full mr-auto sm:w-auto">
-                <Pagination.Link>
-                  <Lucide icon="ChevronsLeft" className="w-4 h-4" />
-                </Pagination.Link>
-                <Pagination.Link>
-                  <Lucide icon="ChevronLeft" className="w-4 h-4" />
-                </Pagination.Link>
-                <Pagination.Link>...</Pagination.Link>
-                <Pagination.Link>1</Pagination.Link>
-                <Pagination.Link active>2</Pagination.Link>
-                <Pagination.Link>3</Pagination.Link>
-                <Pagination.Link>...</Pagination.Link>
-                <Pagination.Link>
-                  <Lucide icon="ChevronRight" className="w-4 h-4" />
-                </Pagination.Link>
-                <Pagination.Link>
-                  <Lucide icon="ChevronsRight" className="w-4 h-4" />
-                </Pagination.Link>
-              </Pagination>
-              <FormSelect className="sm:w-20 rounded-[0.5rem]">
-                <option>10</option>
-                <option>25</option>
-                <option>35</option>
-                <option>50</option>
-              </FormSelect>
-            </div>
+           
           </div>
         </div>
       </div>

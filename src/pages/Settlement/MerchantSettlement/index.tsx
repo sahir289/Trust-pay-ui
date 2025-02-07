@@ -202,7 +202,7 @@ function MerchantSettlement() {
   </Dialog.Panel>
 </Dialog>
             <div className="overflow-auto">
-              <CustomTable columns={tableHeaders} data={transactions} title={"Merchants"} status={""}/>
+              <CustomTable columns={tableHeaders} data={transactions} title={"Merchants Settlements"} status={""}/>
               {/* <Table className="border-b border-slate-200/60">
                 <Table.Thead>
                   <Table.Tr>

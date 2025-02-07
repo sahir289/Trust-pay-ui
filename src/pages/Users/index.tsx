@@ -10,7 +10,7 @@ import clsx from "clsx";
 import _ from "lodash";
 import Modal from "../Modal/modal";
 import { useRef, useState } from "react";
-
+import CustomTable from "@/components/TableComponent";
 function Main() {
   const [newUserModal, setNewUserModal] = useState(false);
   const [title, setTitle] = useState("Payins")
@@ -18,7 +18,14 @@ function Main() {
   const userModal = () => {
     setNewUserModal(!newUserModal)
   }
-
+  const tableHeaders = [
+    "admin_name",
+    "user_name",
+    "role",
+    "last_logged_in",
+    "enabled"
+  ];
+  
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -205,175 +212,7 @@ function Main() {
               </div> */}
             </div>
             <div className="overflow-auto xl:overflow-visible">
-              <Table className="border-b border-slate-200/60">
-                <Table.Thead>
-                  <Table.Tr>
-                    <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      <FormCheck.Input type="checkbox" />
-                    </Table.Td>
-                    {/* <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                          SNO
-                                        </Table.Td> */}
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Admin Name
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      User Name
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t w-52 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Role
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Last Logged in
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Enabled
-                    </Table.Td>
-                  </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>
-                  {_.take(users.fakeUsers(), 10).map((faker, fakerKey) => (
-                    <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
-                      <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        <FormCheck.Input type="checkbox" />
-                      </Table.Td>
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        {faker.manager}
-                      </Table.Td>
-                      <Table.Td className="py-4 border-dashed w-80 dark:bg-darkmode-600">
-                        <div className="flex items-center">
-                          <div className="w-9 h-9 image-fit zoom-in">
-                            <Tippy
-                              as="img"
-                              alt="Tailwise - Admin Dashboard Template"
-                              className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                              src={faker.photo}
-                              content={faker.name}
-                            />
-                          </div>
-                          <div className="ml-3.5">
-                            <a
-                              href=""
-                              className="font-medium whitespace-nowrap"
-                            >
-                              {faker.name}
-                            </a>
-                            <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                              {faker.email}
-                            </div>
-                          </div>
-                        </div>
-                      </Table.Td>
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <a href="" className="font-medium whitespace-nowrap">
-                          {faker.position}
-                        </a>
-                        <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                          {faker.department}
-                        </div>
-                      </Table.Td>
-                      {/* <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="w-40">
-                          <div className="text-xs text-slate-500">
-                            {_.random(50, 100)}%
-                          </div>
-                          <div className="flex h-1 border rounded-sm bg-slate-50 mt-1.5 dark:bg-darkmode-400">
-                            <div
-                              className={clsx([
-                                "first:rounded-l-sm last:rounded-r-sm border border-primary/20 -m-px bg-primary/40",
-                                [
-                                  "w-[35%]",
-                                  "w-[45%]",
-                                  "w-[55%]",
-                                  "w-[65%]",
-                                  "w-[75%]",
-                                ][_.random(0, 4)],
-                              ])}
-                            ></div>
-                          </div>
-                        </div>
-                      </Table.Td> */}
-                      
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="whitespace-nowrap">
-                          {faker.joinedDate}
-                        </div>
-                      </Table.Td>
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <FormSwitch className=" dark:border-red-500 rounded-lg">
-                          <FormSwitch.Label
-                            htmlFor="show-example-1 "
-                            className="ml-0 "
-                          >
-
-                            <FormSwitch.Input
-                              id="show-example-1"
-                              //   onClick={}
-                              className="ml-0 mr-0 border-2 border-slate-300  "
-                              type="checkbox"
-                            />
-                          </FormSwitch.Label>
-                        </FormSwitch>
-                      </Table.Td>
-                      {/* <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="flex items-center justify-center">
-                          <Menu className="h-5">
-                            <Menu.Button className="w-5 h-5 text-slate-500">
-                              <Lucide
-                                icon="MoreVertical"
-                                className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
-                              />
-                            </Menu.Button>
-                            <Menu.Items className="w-40">
-                              <Menu.Item>
-                                <Lucide
-                                  icon="CheckSquare"
-                                  className="w-4 h-4 mr-2"
-                                />{" "}
-                                Edit
-                              </Menu.Item>
-                              <Menu.Item className="text-danger">
-                                <Lucide
-                                  icon="Trash2"
-                                  className="w-4 h-4 mr-2"
-                                />
-                                Delete
-                              </Menu.Item>
-                            </Menu.Items>
-                          </Menu>
-                        </div>
-                      </Table.Td> */}
-                    </Table.Tr>
-                  ))}
-                </Table.Tbody>
-              </Table>
-            </div>
-            <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
-              <Pagination className="flex-1 w-full mr-auto sm:w-auto">
-                <Pagination.Link>
-                  <Lucide icon="ChevronsLeft" className="w-4 h-4" />
-                </Pagination.Link>
-                <Pagination.Link>
-                  <Lucide icon="ChevronLeft" className="w-4 h-4" />
-                </Pagination.Link>
-                <Pagination.Link>...</Pagination.Link>
-                <Pagination.Link>1</Pagination.Link>
-                <Pagination.Link active>2</Pagination.Link>
-                <Pagination.Link>3</Pagination.Link>
-                <Pagination.Link>...</Pagination.Link>
-                <Pagination.Link>
-                  <Lucide icon="ChevronRight" className="w-4 h-4" />
-                </Pagination.Link>
-                <Pagination.Link>
-                  <Lucide icon="ChevronsRight" className="w-4 h-4" />
-                </Pagination.Link>
-              </Pagination>
-              <FormSelect className="sm:w-20 rounded-[0.5rem]">
-                <option>10</option>
-                <option>25</option>
-                <option>35</option>
-                <option>50</option>
-              </FormSelect>
+              <CustomTable columns={tableHeaders} data={users} title={"Users"} status={""}/>
             </div>
           </div>
         </div>

@@ -11,6 +11,7 @@ import clsx from "clsx";
 import _ from "lodash";
 import Modal from "../Modal/modal";
 import { useState,useRef } from "react";
+import CustomTable from "@/components/TableComponent";
 function Main() {
     const [newUserModal, setNewUserModal] = useState(false);
     const [title, setTitle] = useState("Designation")
@@ -20,6 +21,14 @@ function Main() {
     }
 const [VerificationModal , setVerificationModal] = useState(false);
 const [showPassword, setShowPassword] = useState(false);
+const tableHeaders = [
+  "Designation",
+  "Role",
+  "Created_By",
+  "Created_At",
+  "Updated_at",   
+  "Action"
+];
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12 ">
@@ -260,121 +269,10 @@ const [showPassword, setShowPassword] = useState(false);
               </div> */}
             </div>
             <div className="overflow-auto xl:overflow-visible">
-              <Table className="border-b border-slate-200/60">
-                <Table.Thead>
-                  <Table.Tr>
-                     <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                          <FormCheck.Input type="checkbox" />
-                                        </Table.Td>
-                    <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Designation
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Role
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Created_By
-                    </Table.Td>
-                    {/* <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Position
-                    </Table.Td> */}
-                    {/* <Table.Td className="py-4 font-medium border-t w-52 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Profile Completeness
-                    </Table.Td> */}
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Created_At
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Updated_at
-                    </Table.Td>
-                    <Table.Td className="w-20 py-4 font-medium  border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Action
-                    </Table.Td>
-                  </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>
-                  {_.take(users.fakeUsers(), 20).map((faker, fakerKey) => (
-                    <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
-                         <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                                <FormCheck.Input type="checkbox" />
-                                              </Table.Td>
-                      <Table.Td className="py-4 border-dashed w-80 dark:bg-darkmode-600">
-                      <a href="" className="font-medium whitespace-nowrap">
-                                              {faker.position} 
-                                              </a>
-                      </Table.Td>
-                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                       <a href="" className="font-medium whitespace-nowrap">
-                                              {faker.position} 
-                                              </a>
-                                              <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                                              {faker.name}
-                                              </div>
-                                            </Table.Td>
-                      {/* <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <a href="" className="font-medium whitespace-nowrap">
-                          {faker.position}
-                        </a>
-                        <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                          {faker.department}
-                        </div>
-                      </Table.Td> */}
-                      
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="whitespace-nowrap">
-                          {faker.manager}
-                        </div>
-                      </Table.Td>
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="whitespace-nowrap">
-                          {faker.joinedDate}
-                        </div>
-                      </Table.Td>
-                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="whitespace-nowrap">
-                          {faker.joinedDate}
-                        </div>
-                      </Table.Td>
-                      <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="flex items-center justify-center">
-                          <Menu className="h-5">
-                            <Menu.Button className="w-5 h-5 text-slate-500">
-                              <Lucide
-                                icon="MoreVertical"
-                                className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
-                              />
-                            </Menu.Button>
-                            <Menu.Items className="w-40">
-                              <Menu.Item  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                    setVerificationModal(true);
-                                  }}>
-                                <Lucide
-                                  icon="CheckSquare"
-                                  className="w-4 h-4 mr-2"
-                                />{" "}
-                                Edit
-                              </Menu.Item>
-                              <Menu.Item className="text-danger"  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                    setVerificationModal(true);
-                                  }}>
-                                <Lucide
-                                  icon="Trash2"
-                                  className="w-4 h-4 mr-2"
-                                />
-                                Delete
-                              </Menu.Item>
-                            </Menu.Items>
-                          </Menu>
-                        </div>
-                      </Table.Td>
-                    </Table.Tr>
-                  ))}
-                </Table.Tbody>
-              </Table>
+              <CustomTable columns={tableHeaders} data={users} title={"Designation"}  status={""}/>
+            
             </div>
-            <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
+            {/* <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
               <Pagination className="flex-1 w-full mr-auto sm:w-auto">
                 <Pagination.Link>
                   <Lucide icon="ChevronsLeft" className="w-4 h-4" />
@@ -400,7 +298,7 @@ const [showPassword, setShowPassword] = useState(false);
                 <option>35</option>
                 <option>50</option>
               </FormSelect>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
