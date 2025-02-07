@@ -6,7 +6,7 @@ import Pagination from "@/components/Base/Pagination";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import transactions from "@/fakers/transactions";
-// import users from "@/fakers/users";
+import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
@@ -84,22 +84,13 @@ function CheckUtrHistory() {
                         <div className="p-2">
                           <div>
                             <div className="text-left text-slate-500">User</div>
-                            {/* <TomSelect
-                              className="flex-1 mt-2"
-                              value={selectedUser}
-                              onChange={(e) => {
-                                setSelectedUser(e.target.value);
-                              }}
-                              options={{
-                                placeholder: "Search user",
-                              }}
-                            >
+                            <FormSelect className="flex-1 mt-2">
                               {users.fakeUsers().map((faker, fakerKey) => (
                                 <option key={fakerKey} value={fakerKey}>
                                   {faker.name}
                                 </option>
                               ))}
-                            </TomSelect> */}
+                            </FormSelect>
                           </div>
                           <div className="mt-3">
                             <div className="text-left text-slate-500">

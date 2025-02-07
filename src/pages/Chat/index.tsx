@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-undef */
 import "@/assets/css/vendors/simplebar.css";
 import Lucide from "@/components/Base/Lucide";
 import { Menu } from "@/components/Base/Headless";
