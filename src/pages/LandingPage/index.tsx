@@ -18,7 +18,7 @@ import messages from "@/fakers/messages";
 import activities from "@/fakers/activities";
 import Button from "@/components/Base/Button";
 import { themes, Themes } from "@/stores/themeSlice";
-import { useState } from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";
 
@@ -34,7 +34,9 @@ function Main() {
 
   const setColorSchemeClass = () => {
     const el = document.querySelectorAll("html")[0];
-    el.setAttribute("class", activeColorScheme);
+    if (activeColorScheme) {
+      el?.setAttribute("class", activeColorScheme);
+    }
   };
 
   const switchColor = (colorScheme: ColorSchemes) => {
@@ -573,7 +575,7 @@ function Main() {
                         <Tippy
                           as="a"
                           className="flex relative items-center justify-center border rounded-full w-11 h-11 border-primary/[0.25] bg-primary/[0.03]"
-                          content={users.fakeUsers()[0].email}
+                          content={users.fakeUsers()[0]?.email || ""}
                         >
                           <Lucide
                             icon="SkipBack"
@@ -583,13 +585,13 @@ function Main() {
                         <div className="w-28 h-28 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                           <img
                             alt="Tailwise - Admin Dashboard Template"
-                            src={users.fakeUsers()[0].photo}
+                            src={users.fakeUsers()[0]?.photo}
                           />
                         </div>
                         <Tippy
                           as="a"
                           className="flex relative items-center justify-center border rounded-full w-11 h-11 border-primary/[0.25] bg-primary/[0.03]"
-                          content={users.fakeUsers()[0].name}
+                          content={users.fakeUsers()[0]?.name || ""}
                         >
                           <Lucide
                             icon="SkipForward"
@@ -746,20 +748,20 @@ function Main() {
                             <div className="w-32 h-32 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70 -mt-1 -mr-1">
                               <img
                                 alt="Tailwise - Admin Dashboard Template"
-                                src={users.fakeUsers()[0].photo}
+                                src={users.fakeUsers()[0]?.photo}
                               />
                             </div>
                           </div>
                           <div className="absolute left-0 w-6 h-6 overflow-hidden border rounded-full image-fit border-slate-200/70 -ml-2.5">
                             <img
                               alt="Tailwise - Admin Dashboard Template"
-                              src={users.fakeUsers()[0].photo}
+                              src={users.fakeUsers()[0]?.photo}
                             />
                           </div>
                           <div className="absolute bottom-0 left-0 w-8 h-8 mb-2.5 ml-2.5 overflow-hidden border rounded-full image-fit border-slate-200/70">
                             <img
                               alt="Tailwise - Admin Dashboard Template"
-                              src={users.fakeUsers()[0].photo}
+                              src={users.fakeUsers()[0]?.photo}
                             />
                           </div>
                           <Tippy
@@ -801,16 +803,16 @@ function Main() {
                         <div className="w-14 h-14 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                           <img
                             alt="Tailwise - Admin Dashboard Template"
-                            src={users.fakeUsers()[0].photo}
+                            src={users.fakeUsers()[0]?.photo}
                           />
                         </div>
                       </div>
                       <div>
                         <div className="text-base font-medium truncate max-w-[9rem] md:max-w-none">
-                          {users.fakeUsers()[0].name}
+                          {users.fakeUsers()[0]?.name}
                         </div>
                         <div className="text-slate-500 mt-0.5">
-                          {users.fakeUsers()[0].position}
+                          {users.fakeUsers()[0]?.position}
                         </div>
                       </div>
                     </div>
@@ -828,7 +830,7 @@ function Main() {
                   <div className="p-5 box box--stacked">
                     <div className="flex flex-col items-center pb-8 mb-5 border-b border-dashed">
                       <div className="max-w-[17rem] text-base font-medium truncate">
-                        Hi, {users.fakeUsers()[0].name}
+                        Hi, {users.fakeUsers()[0]?.name}
                       </div>
                       <div className="text-slate-500 mt-0.5">
                         Your food is getting ready in
@@ -884,13 +886,13 @@ function Main() {
                           <div className="w-10 h-10 overflow-hidden border-2 rounded-full image-fit border-slate-200/70">
                             <img
                               alt="Tailwise - Admin Dashboard Template"
-                              src={users.fakeUsers()[0].photo}
+                              src={users.fakeUsers()[0]?.photo}
                             />
                           </div>
                         </div>
                         <div>
                           <div className="font-medium truncate max-w-[15rem]">
-                            {users.fakeUsers()[0].name}
+                            {users.fakeUsers()[0]?.name}
                           </div>
                           <div className="mt-1 text-xs text-slate-500">
                             Driver
@@ -979,15 +981,15 @@ function Main() {
                         <div className="w-28 h-28 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                           <img
                             alt="Tailwise - Admin Dashboard Template"
-                            src={users.fakeUsers()[0].photo}
+                            src={users.fakeUsers()[0]?.photo}
                           />
                         </div>
                       </div>
                       <div className="mt-3.5 text-base font-medium">
-                        {users.fakeUsers()[0].name}
+                        {users.fakeUsers()[0]?.name}
                       </div>
                       <div className="text-slate-500 mt-0.5">
-                        {users.fakeUsers()[0].department}
+                        {users.fakeUsers()[0]?.department}
                       </div>
                       <div className="flex items-center gap-3 mt-5">
                         <div className="flex items-center text-xs font-medium rounded-md text-primary bg-primary/10 border border-primary/10 px-2 py-0.5">
@@ -1021,19 +1023,19 @@ function Main() {
                         <div className="w-14 h-14 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                           <img
                             alt="Tailwise - Admin Dashboard Template"
-                            src={users.fakeUsers()[0].photo}
+                            src={users.fakeUsers()[0]?.photo}
                           />
                         </div>
                       </div>
                       <div>
                         <div className="text-base font-medium text-white">
-                          {users.fakeUsers()[0].name}
+                          {users.fakeUsers()[0]?.name}
                         </div>
                         <div className="text-slate-500 mt-0.5 text-white/80">
-                          {activities.fakeActivities()[0].activity}
+                          {activities.fakeActivities()[0]?.activity}
                         </div>
                         <div className="mt-1 text-white/80">
-                          {activities.fakeActivities()[0].date}
+                          {activities.fakeActivities()[0]?.date}
                         </div>
                       </div>
                       <div className="flex gap-2 ml-auto">
@@ -1056,7 +1058,7 @@ function Main() {
                         <div className="w-28 h-28 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                           <img
                             alt="Tailwise - Admin Dashboard Template"
-                            src={users.fakeUsers()[0].photo}
+                            src={users.fakeUsers()[0]?.photo}
                           />
                         </div>
                       </div>
@@ -1177,7 +1179,7 @@ function Main() {
                               src={
                                 themesImageAssets[
                                   `/src/assets/images/themes/${theme.name}.png`
-                                ].default
+                                ]?.default
                               }
                             />
                           </div>
@@ -1231,13 +1233,13 @@ function Main() {
                           <div className="overflow-hidden border-2 rounded-full border-white/20 w-14 h-14 image-fit">
                             <img
                               alt="Tailwise - Admin Dashboard Template"
-                              src={users.fakeUsers()[0].photo}
+                              src={users.fakeUsers()[0]?.photo}
                             />
                           </div>
                         </div>
                         <div>
                           <div className="text-base font-medium truncate max-w-[8rem] md:max-w-none text-white">
-                            {users.fakeUsers()[0].name}
+                            {users.fakeUsers()[0]?.name}
                           </div>
                           <div className="text-white/80 mt-0.5">Available</div>
                         </div>
@@ -1345,7 +1347,7 @@ function Main() {
                           <div className="w-40 h-40 overflow-hidden rounded-full image-fit border-[3px] border-white/20">
                             <img
                               alt="Tailwise - Admin Dashboard Template"
-                              src={users.fakeUsers()[0].photo}
+                              src={users.fakeUsers()[0]?.photo}
                             />
                           </div>
                           <Lucide
@@ -1359,7 +1361,7 @@ function Main() {
                         </div>
                         <div className="mt-4 text-white/80">Welcome Back</div>
                         <div className="text-base text-white font-medium mt-0.5">
-                          {users.fakeUsers()[0].name}
+                          {users.fakeUsers()[0]?.name}
                         </div>
                         <Button
                           type="button"
@@ -1455,7 +1457,7 @@ function Main() {
                                 src={
                                   pageImageAssets[
                                     `/src/assets/images/pages/${page.image}.jpg`
-                                  ].default
+                                  ]?.default
                                 }
                               />
                             </div>
@@ -1507,7 +1509,7 @@ function Main() {
                           src={
                             frameworkImageAssets[
                               `/src/assets/images/frameworks/react.png`
-                            ].default
+                            ]?.default
                           }
                         />
                       </div>
@@ -1528,7 +1530,7 @@ function Main() {
                           src={
                             frameworkImageAssets[
                               `/src/assets/images/frameworks/tailwindcss.png`
-                            ].default
+                            ]?.default
                           }
                         />
                       </div>
@@ -1549,7 +1551,7 @@ function Main() {
                           src={
                             frameworkImageAssets[
                               `/src/assets/images/frameworks/vite.png`
-                            ].default
+                            ]?.default
                           }
                         />
                       </div>
@@ -1568,7 +1570,7 @@ function Main() {
                           src={
                             frameworkImageAssets[
                               `/src/assets/images/frameworks/headlessui.png`
-                            ].default
+                            ]?.default
                           }
                         />
                       </div>
@@ -1590,7 +1592,7 @@ function Main() {
                           src={
                             frameworkImageAssets[
                               `/src/assets/images/frameworks/reduxtoolkit.png`
-                            ].default
+                            ]?.default
                           }
                         />
                       </div>
@@ -1612,7 +1614,7 @@ function Main() {
                           src={
                             frameworkImageAssets[
                               `/src/assets/images/frameworks/typescript.png`
-                            ].default
+                            ]?.default
                           }
                         />
                       </div>
@@ -1633,7 +1635,7 @@ function Main() {
                           src={
                             frameworkImageAssets[
                               `/src/assets/images/frameworks/postcss.png`
-                            ].default
+                            ]?.default
                           }
                         />
                       </div>
@@ -1653,7 +1655,7 @@ function Main() {
                           src={
                             frameworkImageAssets[
                               `/src/assets/images/frameworks/chartjs.png`
-                            ].default
+                            ]?.default
                           }
                         />
                       </div>
@@ -1673,7 +1675,7 @@ function Main() {
                           src={
                             frameworkImageAssets[
                               `/src/assets/images/frameworks/ckeditor.png`
-                            ].default
+                            ]?.default
                           }
                         />
                       </div>
@@ -1724,9 +1726,9 @@ function Main() {
                       src={
                         themesImageAssets[
                           `/src/assets/images/themes/${
-                            themes[_.random(0, themes.length - 1)].name
+                            themes[_.random(0, themes.length - 1)]?.name
                           }.png`
-                        ].default
+                        ]?.default
                       }
                     />
                   </div>

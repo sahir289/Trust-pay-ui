@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import "@/assets/css/vendors/tom-select.css";
 import { createRef, useEffect } from "react";
 import { setValue, init, updateValue } from "./tom-select";
@@ -5,7 +7,7 @@ import {
   TomSettings,
   RecursivePartial,
   TomInput,
-} from "tom-select/src/types/index";
+} from "tom-select/src/types/index.ts";
 import TomSelectPlugin from "tom-select";
 import { useRef, useMemo } from "react";
 import clsx from "clsx";
@@ -14,20 +16,6 @@ export interface TomSelectElement
   extends HTMLSelectElement,
     Omit<TomInput, keyof HTMLSelectElement | "tomselect"> {
   TomSelect: TomSelectPlugin;
-}
-
-export interface TomSelectProps<T extends string | string[]>
-  extends React.PropsWithChildren,
-    Omit<React.ComponentPropsWithoutRef<"select">, "onChange"> {
-  value: T;
-  onOptionAdd?: (value: string) => void;
-  onChange: (e: {
-    target: {
-      value: T;
-    };
-  }) => void;
-  options?: RecursivePartial<TomSettings>;
-  getRef?: (el: TomSelectElement) => void;
 }
 
 export interface TomSelectProps<T extends string | string[] = string | string[]>

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-undef */
 import "@/assets/css/vendors/simplebar.css";
 import Lucide from "@/components/Base/Lucide";
 import { Menu } from "@/components/Base/Headless";
@@ -176,16 +178,16 @@ function Main() {
                   <div className="w-12 h-12 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                 </div>
                 <div>
                   <div className="font-medium truncate max-w-[9rem] md:max-w-none">
-                    {users.fakeUsers()[0].name}
+                    {users.fakeUsers()[0]?.name}
                   </div>
                   <div className="text-slate-500 mt-0.5 truncate max-w-[9rem] md:max-w-none">
-                    {users.fakeUsers()[0].position}
+                    {users.fakeUsers()[0]?.position}
                   </div>
                 </div>
                 <div className="flex gap-2 ml-auto">
@@ -231,7 +233,7 @@ function Main() {
                         <div className="w-12 h-12 overflow-hidden rounded-full image-fit border-[3px] border-slate-200/70">
                           <img
                             alt="Tailwise - Admin Dashboard Template"
-                            src={users.fakeUsers()[0].photo}
+                            src={users.fakeUsers()[0]?.photo}
                           />
                         </div>
                       </div>
@@ -303,7 +305,7 @@ function Main() {
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="p-0.5 border rounded-lg saturate-150"
                                 src={
-                                  projectDetails.fakeProjectDetails()[0].image
+                                  projectDetails.fakeProjectDetails()[0]?.image
                                 }
                               />
                             </div>
@@ -329,8 +331,8 @@ function Main() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                src={users.fakeUsers()[0].photo}
-                                content={users.fakeUsers()[0].name}
+                                src={users.fakeUsers()[0]?.photo}
+                                content={users.fakeUsers()[0]?.name || ""}
                               />
                             </div>
                             <div className="w-5 h-5 -ml-0.5 image-fit zoom-in">
@@ -338,8 +340,8 @@ function Main() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                src={users.fakeUsers()[1].photo}
-                                content={users.fakeUsers()[1].name}
+                                src={users.fakeUsers()[1]?.photo}
+                                content={users.fakeUsers()[1]?.name || ""}
                               />
                             </div>
                             <div className="w-5 h-5 -ml-0.5 image-fit zoom-in">
@@ -347,8 +349,8 @@ function Main() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                src={users.fakeUsers()[2].photo}
-                                content={users.fakeUsers()[2].name}
+                                src={users.fakeUsers()[2]?.photo}
+                                content={users.fakeUsers()[2]?.name || ""}
                               />
                             </div>
                           </div>

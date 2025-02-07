@@ -2,10 +2,7 @@ import { FormCheck, FormInput, FormLabel } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
-import Alert from "@/components/Base/Alert";
-import Lucide from "@/components/Base/Lucide";
 import clsx from "clsx";
-import _ from "lodash";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import { useNavigate } from "react-router-dom";
 
@@ -38,41 +35,12 @@ function Main() {
                   Sign Up
                 </a>
               </div>
-              {/* <Alert
-                variant="outline-primary"
-                className="flex items-center px-4 py-3 my-7 bg-primary/5 border-primary/20 rounded-[0.6rem] leading-[1.7]"
-              >
-                {({ dismiss }) => (
-                  <>
-                    <div className="">
-                      <Lucide
-                        icon="Lightbulb"
-                        className="stroke-[0.8] w-7 h-7 mr-2 fill-primary/10"
-                      />
-                    </div>
-                    <div className="ml-1 mr-8">
-                      Welcome to <span className="font-medium">Tailwise</span>{" "}
-                      demo! Simply click{" "}
-                      <span className="font-medium">Sign In</span> to explore
-                      and access our documentation.
-                    </div>
-                    <Alert.DismissButton
-                      type="button"
-                      className="btn-close text-primary"
-                      onClick={dismiss}
-                      aria-label="Close"
-                    >
-                      <Lucide icon="X" className="w-5 h-5" />
-                    </Alert.DismissButton>
-                  </>
-                )}
-              </Alert> */}
               <div className="mt-6">
                 <FormLabel>Email*</FormLabel>
                 <FormInput
                   type="text"
                   className="block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80"
-                  placeholder={users.fakeUsers()[0].email}
+                  placeholder={users.fakeUsers()[0]?.email}
                 />
                 <FormLabel className="mt-4">Password*</FormLabel>
                 <FormInput
@@ -150,8 +118,8 @@ function Main() {
                     as="img"
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
-                    src={users.fakeUsers()[0].photo}
-                    content={users.fakeUsers()[0].name}
+                    src={users.fakeUsers()[0]?.photo}
+                    content={users.fakeUsers()[0]?.name || ""}
                   />
                 </div>
                 <div className="-ml-3 w-9 h-9 2xl:w-11 2xl:h-11 image-fit zoom-in">
@@ -159,8 +127,8 @@ function Main() {
                     as="img"
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
-                    src={users.fakeUsers()[0].photo}
-                    content={users.fakeUsers()[0].name}
+                    src={users.fakeUsers()[0]?.photo}
+                    content={users.fakeUsers()[0]?.name || ""}
                   />
                 </div>
                 <div className="-ml-3 w-9 h-9 2xl:w-11 2xl:h-11 image-fit zoom-in">
@@ -168,8 +136,8 @@ function Main() {
                     as="img"
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
-                    src={users.fakeUsers()[0].photo}
-                    content={users.fakeUsers()[0].name}
+                    src={users.fakeUsers()[0]?.photo}
+                    content={users.fakeUsers()[0]?.name || ""}
                   />
                 </div>
                 <div className="-ml-3 w-9 h-9 2xl:w-11 2xl:h-11 image-fit zoom-in">
@@ -177,8 +145,8 @@ function Main() {
                     as="img"
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
-                    src={users.fakeUsers()[0].photo}
-                    content={users.fakeUsers()[0].name}
+                    src={users.fakeUsers()[0]?.photo}
+                    content={users.fakeUsers()[0]?.name || ""}
                   />
                 </div>
               </div>

@@ -13,8 +13,20 @@ export interface Mail {
 const fakers = {
   fakeMails() {
     const mails: Array<Mail> = [
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Regarding Project Deadline",
         content:
           "Hello team, I wanted to discuss the upcoming project deadline. Let's meet tomorrow to go over the details.",
@@ -23,8 +35,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: false,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Weekly Status Report",
         content:
           "Hi everyone, please submit your weekly status reports by the end of the day. Thank you!",
@@ -33,8 +57,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: true,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Invitation: Team Lunch",
         content:
           "Dear team, we're organizing a team lunch this Friday at the new Italian restaurant. Please RSVP by Wednesday.",
@@ -43,8 +79,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: false,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "New Product Launch",
         content:
           "Hello everyone, we're excited to announce the launch of our new product line. Check out the attached brochure for details.",
@@ -53,8 +101,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: true,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Upcoming Training Session",
         content:
           "Hi team, there will be a training session on the new software next Monday. Be sure to attend!",
@@ -63,8 +123,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: false,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Project Update Meeting",
         content:
           "Dear team, let's schedule a project update meeting for next week to discuss our progress.",
@@ -73,8 +145,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: true,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Important Announcement",
         content:
           "Hello team, we have an important announcement regarding changes to the company policies. Please read the attached document.",
@@ -83,8 +167,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: false,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Team Building Event",
         content:
           "Hi everyone, get ready for a fun team-building event this weekend! Don't forget to bring your enthusiasm.",
@@ -93,8 +189,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: true,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Meeting Rescheduled",
         content:
           "Dear team, the meeting scheduled for tomorrow has been rescheduled to next week. Check your updated calendars.",
@@ -103,8 +211,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: false,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Holiday Schedule",
         content:
           "Hello team, here is the holiday schedule for the upcoming month. Plan your time off accordingly.",
@@ -113,8 +233,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: true,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Important Update: New Policies",
         content:
           "Hello team, please review the updated company policies attached to this email.",
@@ -123,8 +255,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: true,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Reminder: Team Meeting Tomorrow",
         content:
           "Hi everyone, a reminder that we have a team meeting scheduled for tomorrow. Don't forget to prepare your updates.",
@@ -133,8 +277,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: false,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Project Deadline Extension",
         content:
           "Dear team, we've extended the project deadline by one week. Please adjust your schedules accordingly.",
@@ -143,8 +299,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: true,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Congratulations on the Successful Launch!",
         content:
           "Hello team, I wanted to congratulate everyone on the successful launch of our new product. Great job!",
@@ -153,8 +321,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: false,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Upcoming Training Session",
         content:
           "Hi team, there will be a training session on the new software next Monday. Be sure to attend!",
@@ -163,8 +343,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: true,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Project Update Meeting",
         content:
           "Dear team, let's schedule a project update meeting for next week to discuss our progress.",
@@ -173,8 +365,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: false,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Important Announcement",
         content:
           "Hello team, we have an important announcement regarding changes to the company policies. Please read the attached document.",
@@ -183,8 +387,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: true,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Team Building Event",
         content:
           "Hi everyone, get ready for a fun team-building event this weekend! Don't forget to bring your enthusiasm.",
@@ -193,8 +409,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: false,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Meeting Rescheduled",
         content:
           "Dear team, the meeting scheduled for tomorrow has been rescheduled to next week. Check your updated calendars.",
@@ -203,8 +431,20 @@ const fakers = {
           .format("DD MMMM YYYY"),
         opened: true,
       },
-      {
-        sender: users.fakeUsers()[0],
+      {sender: users.fakeUsers()[0] || { 
+          name: "Unknown User", 
+          position: "", 
+          photo: "", 
+          email: "", 
+          phone: "",
+          department: "",
+          location: "",
+          joinedDate: "",
+          manager: "",
+          addressLine1: "",
+          addressLine2: "",
+          isActive: false
+        },
         subject: "Holiday Schedule",
         content:
           "Hello team, here is the holiday schedule for the upcoming month. Plan your time off accordingly.",

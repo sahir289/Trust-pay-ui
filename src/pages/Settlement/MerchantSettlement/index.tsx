@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import { Dialog, Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import transactions from "@/fakers/transactions";
@@ -9,11 +10,19 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
+<<<<<<< HEAD
 import { useState, useRef } from "react";
 import clsx from "clsx";
 import _ from "lodash";
 function MerchantSettlement() {
   const [selectedUser, setSelectedUser] = useState("1");
+=======
+import React, { useState, useRef } from "react";
+import clsx from "clsx";
+import _ from "lodash";
+function MerchantSettlement() {
+  // const [selectedUser, setSelectedUser] = useState("1");
+>>>>>>> origin/shadow
   const [VerificationModal, setVerificationModal] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const sendButtonRef = useRef(null);
@@ -65,74 +74,65 @@ function MerchantSettlement() {
                   </Menu.Items>
                 </Menu>
                 <Popover className="inline-block">
-                  {({ close }) => (
-                    <>
-                      <Popover.Button
-                        as={Button}
-                        variant="outline-secondary"
-                        className="w-full sm:w-auto"
-                      >
-                        <Lucide
-                          icon="ArrowDownWideNarrow"
-                          className="stroke-[1.3] w-4 h-4 mr-2"
-                        />
-                        Filter
-                        <div className="flex items-center justify-center h-5 px-1.5 ml-2 text-xs font-medium border rounded-full bg-slate-100 dark:bg-darkmode-400">
-                          3
-                        </div>
-                      </Popover.Button>
-                      <Popover.Panel placement="bottom-end">
-                        <div className="p-2">
-                          <div>
-                            <div className="text-left text-slate-500">User</div>
-                            <TomSelect
-                              className="flex-1 mt-2"
-                              value={selectedUser}
-                              onChange={(e) => {
-                                setSelectedUser(e.target.value);
-                              }}
-                              options={{
-                                placeholder: "Search user",
-                              }}
-                            >
+                  {({ close }: { close: () => void }) => (
+                  <>
+                    <Popover.Button
+                      as={Button}
+                      variant="outline-secondary"
+                      className="w-full sm:w-auto"
+                    >
+                      <Lucide
+                        icon="ArrowDownWideNarrow"
+                        className="stroke-[1.3] w-4 h-4 mr-2"
+                      />
+                      Filter
+                      <div className="flex items-center justify-center h-5 px-1.5 ml-2 text-xs font-medium border rounded-full bg-slate-100 dark:bg-darkmode-400">
+                        3
+                      </div>
+                    </Popover.Button>
+                    <Popover.Panel placement="bottom-end">
+                      <div className="p-2">
+                        <div>
+                          <div className="text-left text-slate-500">User</div>
+                            <FormSelect className="flex-1 mt-2">
                               {users.fakeUsers().map((faker, fakerKey) => (
                                 <option key={fakerKey} value={fakerKey}>
                                   {faker.name}
                                 </option>
                               ))}
-                            </TomSelect>
-                          </div>
-                          <div className="mt-3">
-                            <div className="text-left text-slate-500">
-                              Status
-                            </div>
-                            <FormSelect className="flex-1 mt-2">
-                              {transactionStatus
-                                .fakeTransactionStatus()
-                                .map((faker, fakerKey) => (
-                                  <option key={fakerKey} value={fakerKey}>
-                                    {faker.name}
-                                  </option>
-                                ))}
                             </FormSelect>
-                          </div>
-                          <div className="flex items-center mt-4">
-                            <Button
-                              variant="secondary"
-                              onClick={() => {
-                                close();
-                              }}
-                              className="w-32 ml-auto"
-                            >
-                              Close
-                            </Button>
-                            <Button variant="primary" className="w-32 ml-2">
-                              Apply
-                            </Button>
-                          </div>
                         </div>
-                      </Popover.Panel>
-                    </>
+                        <div className="mt-3">
+                          <div className="text-left text-slate-500">
+                            Status
+                          </div>
+                          <FormSelect className="flex-1 mt-2">
+                            {transactionStatus
+                              .fakeTransactionStatus()
+                              .map((faker, fakerKey) => (
+                                <option key={fakerKey} value={fakerKey}>
+                                  {faker.name}
+                                </option>
+                              ))}
+                          </FormSelect>
+                        </div>
+                        <div className="flex items-center mt-4">
+                          <Button
+                            variant="secondary"
+                            onClick={() => {
+                              close();
+                            }}
+                            className="w-32 ml-auto"
+                          >
+                            Close
+                          </Button>
+                          <Button variant="primary" className="w-32 ml-2">
+                            Apply
+                          </Button>
+                        </div>
+                      </div>
+                    </Popover.Panel>
+                  </>
                   )}
                 </Popover>
               </div>
@@ -186,7 +186,7 @@ function MerchantSettlement() {
 
                 </fieldset>
                 <Dialog.Footer>
-                  <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
+                  <Button variant="primary" type="button" className="w-20">
                     Verify
                   </Button>
                 </Dialog.Footer>

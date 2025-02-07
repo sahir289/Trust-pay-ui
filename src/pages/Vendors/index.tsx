@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover } from "@/components/Base/Headless";
+import { Menu } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
 import { FormLabel, FormInput, FormSelect } from "@/components/Base/Form";
 import { Dialog } from "@/components/Base/Headless";
@@ -9,8 +10,7 @@ import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import clsx from "clsx";
 import _ from "lodash";
-import { useState, useRef } from "react";
-import ModalPopUp from "../ModalPopUp";
+import React, { useState, useRef } from "react";
 function Main() {
   const [headerFooterModalPreview, setHeaderFooterModalPreview] = useState(false);
   const sendButtonRef = useRef(null);
@@ -87,7 +87,7 @@ function Main() {
               >
                 Cancel
               </Button>
-              <Button variant="primary" type="button" className="w-30" ref={sendButtonRef}>
+              <Button variant="primary" type="button" className="w-30" >
                 Add Vendor
               </Button>
             </Dialog.Footer>
@@ -157,7 +157,7 @@ function Main() {
 
             </fieldset>
             <Dialog.Footer>
-              <Button variant="primary" type="button" className="w-20" ref={sendButtonRef}>
+              <Button variant="primary" type="button" className="w-20">
                 Verify
               </Button>
             </Dialog.Footer>
@@ -265,7 +265,7 @@ function Main() {
                   </Menu.Items>
                 </Menu>
                 <Popover className="inline-block">
-                  {({ close }) => (
+                  {({ close }: { close: () => void }) => (
                     <>
                       <Popover.Button
                         as={Button}

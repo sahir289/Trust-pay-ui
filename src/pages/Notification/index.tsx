@@ -600,12 +600,12 @@ function Main() {
                                 <div className="flex-none w-10 h-10 overflow-hidden rounded-full image-fit">
                                   <img
                                     alt="Tailwise - Admin Dashboard Template"
-                                    src={users.fakeUsers()[0].photo}
+                                    src={users.fakeUsers()[0]?.photo}
                                   />
                                 </div>
                                 <div className="ml-4 sm:mr-28">
                                   <div className="font-medium">
-                                    {users.fakeUsers()[0].name}
+                                    {users.fakeUsers()[0]?.name}
                                   </div>
                                   <div className="mt-1 text-slate-500">
                                     See you later! 😃😃😃
@@ -647,7 +647,7 @@ function Main() {
                   <div className="flex-none w-10 h-10 overflow-hidden rounded-full image-fit">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                   <div className="ml-4 sm:mr-28">
@@ -914,7 +914,7 @@ function Main() {
                                 <Lucide icon="FileText" />
                                 <div className="ml-4 mr-5 sm:mr-20">
                                   <div className="font-medium">
-                                    {users.fakeUsers()[0].name}
+                                    {users.fakeUsers()[0]?.name}
                                   </div>
                                   <div className="mt-1 text-slate-500">
                                     Sent you new documents.

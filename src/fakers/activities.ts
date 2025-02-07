@@ -55,12 +55,9 @@ const fakers = {
         activityDetails: "Accessed the dashboard",
         statusBadge: "Success",
         images: [
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         ],
       },
       {
@@ -86,12 +83,9 @@ const fakers = {
         activityDetails: "Changed profile photo",
         statusBadge: "Success",
         images: [
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         ],
       },
       {
@@ -162,12 +156,9 @@ const fakers = {
         activityDetails: "Reviewed and provided feedback",
         statusBadge: "Completed",
         images: [
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         ],
       },
       {
@@ -177,12 +168,9 @@ const fakers = {
         activity: "Uploaded images",
         activityDetails: "Added project screenshots",
         images: [
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         ],
         statusBadge: "Completed",
       },
@@ -222,12 +210,9 @@ const fakers = {
         activityDetails: "Signed out from the dashboard",
         statusBadge: "Info",
         images: [
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         ],
       },
       {
@@ -237,12 +222,9 @@ const fakers = {
         activity: "Received a friend request",
         activityDetails: "Friend request from John",
         images: [
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
+          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         ],
         statusBadge: "New",
       },

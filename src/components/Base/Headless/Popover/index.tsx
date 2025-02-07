@@ -1,13 +1,13 @@
 import { twMerge } from "tailwind-merge";
 import { Popover as HeadlessPopover, Transition } from "@headlessui/react";
-import { Fragment } from "react";
+import React, { Fragment, ComponentProps } from "react";
 import clsx from "clsx";
 
 function Popover({
   children,
   className,
   ...props
-}: ExtractProps<typeof HeadlessPopover>) {
+}: ComponentProps<typeof HeadlessPopover>) {
   return (
     <HeadlessPopover
       as="div"
@@ -24,7 +24,7 @@ Popover.Button = <C extends React.ElementType = "div">({
   children,
   className,
   ...props
-}: ExtractProps<typeof HeadlessPopover.Button> & {
+}: ComponentProps<typeof HeadlessPopover.Button> & {
   as?: C;
 } & React.ComponentPropsWithRef<C>) => {
   return (
@@ -43,7 +43,7 @@ Popover.Panel = ({
   className,
   placement = "bottom-end",
   ...props
-}: ExtractProps<typeof HeadlessPopover.Panel> & {
+}: ComponentProps<typeof HeadlessPopover.Panel> & {
   placement?:
     | "top-start"
     | "top"

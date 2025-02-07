@@ -22,27 +22,27 @@ function Main() {
     dayMaxEvents: true,
     events: [
       {
-        title: events.fakeEvents()[0].title,
+        title: events.fakeEvents()[0]?.title,
         start: "2045-01-01",
         end: "2045-01-05",
       },
       {
-        title: events.fakeEvents()[0].title,
+        title: events.fakeEvents()[0]?.title,
         start: "2045-01-11",
         end: "2045-01-15",
       },
       {
-        title: events.fakeEvents()[0].title,
+        title: events.fakeEvents()[0]?.title,
         start: "2045-01-17",
         end: "2045-01-21",
       },
       {
-        title: events.fakeEvents()[0].title,
+        title: events.fakeEvents()[0]?.title,
         start: "2045-01-23",
         end: "2045-01-26",
       },
       {
-        title: events.fakeEvents()[0].title,
+        title: events.fakeEvents()[0]?.title,
         start: "2045-01-31",
         end: "2045-01-34",
       },
@@ -55,11 +55,11 @@ function Main() {
       ) {
         (info.draggedEl.parentNode as HTMLElement).remove();
         if (
-          document.querySelectorAll("#calendar-events")[0].children.length == 1
+          document.querySelectorAll("#calendar-events")[0]?.children.length == 1
         ) {
           document
             .querySelectorAll("#calendar-no-events")[0]
-            .classList.remove("hidden");
+            ?.classList.remove("hidden");
         }
       }
     },

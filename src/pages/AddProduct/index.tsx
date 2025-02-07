@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import TomSelect from "@/components/Base/TomSelect";
 import { ClassicEditor } from "@/components/Base/Ckeditor";
@@ -22,7 +25,6 @@ import clsx from "clsx";
 import _ from "lodash";
 
 function Main() {
-  const [subcategory, setSubcategory] = useState(["0"]);
   const [editorData, setEditorData] = useState("<p>Content of the editor.</p>");
 
   return (
@@ -49,7 +51,7 @@ function Main() {
                     variant="outline-warning"
                     className="flex items-center px-4 mb-2 bg-warning/5 border-warning/30"
                   >
-                    {({ dismiss }) => (
+                    {/* {({ dismiss }: { dismiss: () => void }) => (
                       <>
                         <div>
                           <Lucide
@@ -77,7 +79,7 @@ function Main() {
                           </Alert.DismissButton>
                         </div>
                       </>
-                    )}
+                    )} */}
                   </Alert>
                   <div className="flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0">
                     <label className="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:w-60 xl:mr-14">
@@ -142,7 +144,7 @@ function Main() {
                       </div>
                     </label>
                     <div className="flex-1 w-full mt-3 xl:mt-0">
-                      <TomSelect
+                      {/* <TomSelect
                         value={subcategory}
                         onChange={(e) => {
                           setSubcategory(e.target.value);
@@ -158,7 +160,7 @@ function Main() {
                             {faker.name}
                           </option>
                         ))}
-                      </TomSelect>
+                      </TomSelect> */}
                     </div>
                   </div>
                 </div>
@@ -203,7 +205,7 @@ function Main() {
                                 <img
                                   className="rounded-lg"
                                   alt="Tailwise - Admin Dashboard Template"
-                                  src={faker.images[0].path}
+                                  src={faker.images[0]?.path}
                                 />
                                 <Tippy
                                   content="Remove this image?"
@@ -1237,7 +1239,7 @@ function Main() {
                         variant="outline-primary"
                         className="flex items-center px-4 mt-5 mb-2 bg-primary/5 border-primary/20"
                       >
-                        {({ dismiss }) => (
+                        {/* {({ dismiss }: { dismiss: () => void }) => (
                           <>
                             <Lucide
                               icon="AlertTriangle"
@@ -1263,7 +1265,7 @@ function Main() {
                               <Lucide icon="X" className="w-4 h-4" />
                             </Alert.DismissButton>
                           </>
-                        )}
+                        )} */}
                       </Alert>
                     </div>
                   </div>

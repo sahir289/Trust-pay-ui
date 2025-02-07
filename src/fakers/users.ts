@@ -25,7 +25,7 @@ const fakers = {
       {
         name: "Tom Hanks",
         position: "Sales Manager",
-        photo: imageAssets["/src/assets/images/users/user1-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user1-50x50.jpg"]?.default || "/src/assets/images/default-user.jpg",
         email: "tom.hanks@left4code.com",
         phone: "+1 (123) 456-7890",
         department: "Sales Department",
@@ -39,7 +39,7 @@ const fakers = {
       {
         name: "Meryl Streep",
         position: "Marketing Coordinator",
-        photo: imageAssets["/src/assets/images/users/user2-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user2-50x50.jpg"]?.default || "/src/assets/images/default-user.jpg",
         email: "meryl.streep@left4code.com",
         phone: "+1 (234) 567-8901",
         department: "Marketing Department",
@@ -53,7 +53,7 @@ const fakers = {
       {
         name: "Leonardo DiCaprio",
         position: "Support Specialist",
-        photo: imageAssets["/src/assets/images/users/user3-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user3-50x50.jpg"]?.default || "/src/assets/images/default-user.jpg",
         email: "leonardo.dicaprio@left4code.com",
         phone: "+1 (345) 678-9012",
         department: "Support Team",
@@ -67,7 +67,7 @@ const fakers = {
       {
         name: "Angelina Jolie",
         position: "Account Executive",
-        photo: imageAssets["/src/assets/images/users/user4-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user4-50x50.jpg"]?.default || "/src/assets/images/default-user.jpg",
         email: "angelina.jolie@left4code.com",
         phone: "+1 (456) 789-0123",
         department: "Account Management",
@@ -81,7 +81,7 @@ const fakers = {
       {
         name: "Brad Pitt",
         position: "Data Analyst",
-        photo: imageAssets["/src/assets/images/users/user5-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user5-50x50.jpg"]?.default || "/src/assets/images/default-user.jpg",
         email: "brad.pitt@left4code.com",
         phone: "+1 (567) 890-1234",
         department: "Data Analytics",
@@ -95,7 +95,7 @@ const fakers = {
       {
         name: "Jennifer Lawrence",
         position: "CRM Administrator",
-        photo: imageAssets["/src/assets/images/users/user6-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user6-50x50.jpg"]?.default || "/src/assets/images/default-user.jpg",
         email: "jennifer.lawrence@left4code.com",
         phone: "+1 (678) 901-2345",
         department: "CRM Team",
@@ -109,7 +109,7 @@ const fakers = {
       {
         name: "Johnny Depp",
         position: "Product Manager",
-        photo: imageAssets["/src/assets/images/users/user7-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user7-50x50.jpg"]?.default || "/src/assets/images/default-user.jpg",
         email: "johnny.depp@left4code.com",
         phone: "+1 (789) 012-3456",
         department: "Product Management",
@@ -123,7 +123,7 @@ const fakers = {
       {
         name: "Cate Blanchett",
         position: "Project Manager",
-        photo: imageAssets["/src/assets/images/users/user8-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user8-50x50.jpg"]?.default || "/src/assets/images/default-user.jpg",
         email: "cate.blanchett@left4code.com",
         phone: "+1 (890) 123-4567",
         department: "Project Management",
@@ -137,7 +137,7 @@ const fakers = {
       {
         name: "Denzel Washington",
         position: "HR Director",
-        photo: imageAssets["/src/assets/images/users/user9-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user9-50x50.jpg"]?.default || "/src/assets/images/default-user.jpg",
         email: "denzel.washington@left4code.com",
         phone: "+1 (901) 234-5678",
         department: "Human Resources",
@@ -151,7 +151,7 @@ const fakers = {
       {
         name: "Julia Roberts",
         position: "Software Engineer",
-        photo: imageAssets["/src/assets/images/users/user10-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user10-50x50.jpg"]?.default || "/src/assets/images/default-user.jpg",
         email: "julia.roberts@left4code.com",
         phone: "+1 (234) 567-8901",
         department: "Engineering",

@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-undef */
 import Lucide from "@/components/Base/Lucide";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import { Link, useLocation } from "react-router-dom";
 import {
   FormLabel,
@@ -12,9 +14,9 @@ import {
 import Alert from "@/components/Base/Alert";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
-import countries from "@/fakers/countries";
-import languages from "@/fakers/languages";
-import timezones from "@/fakers/timezones";
+// import countries from "@/fakers/countries";
+// import languages from "@/fakers/languages";
+// import timezones from "@/fakers/timezones";
 import recentDevices from "@/fakers/recent-devices";
 import Button from "@/components/Base/Button";
 import Litepicker from "@/components/Base/Litepicker";
@@ -24,9 +26,9 @@ import clsx from "clsx";
 import _ from "lodash";
 
 function Main() {
-  const [selectedCountry, setSelectedCountry] = useState("1");
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [selectedTimezone, setSelectedTimezone] = useState("-05:00");
+  // const [selectedCountry, setSelectedCountry] = useState("1");
+  // const [selectedLanguage, setSelectedLanguage] = useState("en");
+  // const [selectedTimezone, setSelectedTimezone] = useState("-05:00");
   const [dateOfBirth, setDateOfBirth] = useState<string>();
 
   const { search } = useLocation();
@@ -213,7 +215,7 @@ function Main() {
                   <div className="w-full h-full overflow-hidden border-[6px] box border-white rounded-full image-fit">
                     <img
                       alt="Tailwise - Admin Dashboard Template"
-                      src={users.fakeUsers()[0].photo}
+                      src={users.fakeUsers()[0]?.photo}
                     />
                   </div>
                   <div className="absolute bottom-0 right-0 w-5 h-5 mb-2.5 mr-2.5 border-2 border-white rounded-full bg-success box"></div>
@@ -282,12 +284,12 @@ function Main() {
                         <FormInput
                           type="text"
                           className="first:rounded-b-none first:md:rounded-bl-md first:md:rounded-r-none [&:not(:first-child):not(:last-child)]:-mt-px [&:not(:first-child):not(:last-child)]:md:mt-0 [&:not(:first-child):not(:last-child)]:md:-ml-px [&:not(:first-child):not(:last-child)]:rounded-none last:rounded-t-none last:md:rounded-l-none last:md:rounded-tr-md last:-mt-px last:md:mt-0 last:md:-ml-px focus:z-10"
-                          placeholder={users.fakeUsers()[0].name.split(" ")[0]}
+                          placeholder={users.fakeUsers()[0]?.name.split(" ")[0]}
                         />
                         <FormInput
                           type="text"
                           className="first:rounded-b-none first:md:rounded-bl-md first:md:rounded-r-none [&:not(:first-child):not(:last-child)]:-mt-px [&:not(:first-child):not(:last-child)]:md:mt-0 [&:not(:first-child):not(:last-child)]:md:-ml-px [&:not(:first-child):not(:last-child)]:rounded-none last:rounded-t-none last:md:rounded-l-none last:md:rounded-tr-md last:-mt-px last:md:mt-0 last:md:-ml-px focus:z-10"
-                          placeholder={users.fakeUsers()[0].name.split(" ")[1]}
+                          placeholder={users.fakeUsers()[0]?.name.split(" ")[1]}
                         />
                       </div>
                     </div>
@@ -395,7 +397,7 @@ function Main() {
                     <div className="flex-1 w-full mt-3 xl:mt-0">
                       <FormInput
                         type="text"
-                        placeholder={users.fakeUsers()[0].email}
+                        placeholder={users.fakeUsers()[0]?.email}
                       />
                     </div>
                   </div>
@@ -419,7 +421,7 @@ function Main() {
                         <FormInput
                           type="text"
                           className="first:rounded-b-none first:md:rounded-bl-md first:md:rounded-r-none [&:not(:first-child):not(:last-child)]:-mt-px [&:not(:first-child):not(:last-child)]:md:mt-0 [&:not(:first-child):not(:last-child)]:md:-ml-px [&:not(:first-child):not(:last-child)]:rounded-none last:rounded-t-none last:md:rounded-l-none last:md:rounded-tr-md last:-mt-px last:md:mt-0 last:md:-ml-px focus:z-10"
-                          placeholder={users.fakeUsers()[0].phone}
+                          placeholder={users.fakeUsers()[0]?.phone}
                         />
                         <FormSelect className="md:w-36 first:rounded-b-none first:md:rounded-bl-md first:md:rounded-r-none [&:not(:first-child):not(:last-child)]:-mt-px [&:not(:first-child):not(:last-child)]:md:mt-0 [&:not(:first-child):not(:last-child)]:md:-ml-px [&:not(:first-child):not(:last-child)]:rounded-none last:rounded-t-none last:md:rounded-l-none last:md:rounded-tr-md last:-mt-px last:md:mt-0 last:md:-ml-px focus:z-10">
                           <option value="office">Office</option>
@@ -517,7 +519,7 @@ function Main() {
                       </div>
                     </label>
                     <div className="flex-1 w-full mt-3 xl:mt-0">
-                      <TomSelect
+                      {/* <TomSelect
                         value={selectedCountry}
                         onChange={(e) => {
                           setSelectedCountry(e.target.value);
@@ -532,7 +534,7 @@ function Main() {
                             {faker.name}
                           </option>
                         ))}
-                      </TomSelect>
+                      </TomSelect> */}
                     </div>
                   </div>
                   <div className="flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0">
@@ -554,7 +556,7 @@ function Main() {
                     <div className="flex-1 w-full mt-3 xl:mt-0">
                       <FormInput
                         type="text"
-                        placeholder={users.fakeUsers()[0].location}
+                        placeholder={users.fakeUsers()[0]?.location}
                       />
                     </div>
                   </div>
@@ -574,7 +576,7 @@ function Main() {
                     <div className="flex-1 w-full mt-3 xl:mt-0">
                       <FormInput
                         type="text"
-                        placeholder={users.fakeUsers()[0].location}
+                        placeholder={users.fakeUsers()[0]?.location}
                       />
                     </div>
                   </div>
@@ -596,7 +598,7 @@ function Main() {
                     <div className="flex-1 w-full mt-3 xl:mt-0">
                       <FormInput
                         type="text"
-                        placeholder={users.fakeUsers()[0].location}
+                        placeholder={users.fakeUsers()[0]?.location}
                       />
                     </div>
                   </div>
@@ -618,7 +620,7 @@ function Main() {
                     <div className="flex-1 w-full mt-3 xl:mt-0">
                       <FormInput
                         type="text"
-                        placeholder={users.fakeUsers()[0].location}
+                        placeholder={users.fakeUsers()[0]?.location}
                       />
                     </div>
                   </div>
@@ -694,7 +696,7 @@ function Main() {
                   <div className="text-slate-500">
                     Your current email address is{" "}
                     <span className="font-medium">
-                      {users.fakeUsers()[1].email}
+                      {users.fakeUsers()[1]?.email}
                     </span>
                     .
                   </div>
@@ -716,7 +718,7 @@ function Main() {
                     <div className="flex-1 w-full mt-3 xl:mt-0">
                       <FormInput
                         type="text"
-                        placeholder={users.fakeUsers()[0].email}
+                        placeholder={users.fakeUsers()[0]?.email}
                       />
                     </div>
                   </div>
@@ -839,7 +841,7 @@ function Main() {
                       </div>
                     </label>
                     <div className="flex-1 w-full mt-3 xl:mt-0">
-                      <TomSelect
+                      {/* <TomSelect
                         value={selectedLanguage}
                         onChange={(e) => {
                           setSelectedLanguage(e.target.value);
@@ -854,7 +856,7 @@ function Main() {
                             {faker.name}
                           </option>
                         ))}
-                      </TomSelect>
+                      </TomSelect> */}
                     </div>
                   </div>
                   <div className="flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0">
@@ -873,7 +875,7 @@ function Main() {
                       </div>
                     </label>
                     <div className="flex-1 w-full mt-3 xl:mt-0">
-                      <TomSelect
+                      {/* <TomSelect
                         value={selectedTimezone}
                         onChange={(e) => {
                           setSelectedTimezone(e.target.value);
@@ -888,7 +890,7 @@ function Main() {
                             {faker.name}
                           </option>
                         ))}
-                      </TomSelect>
+                      </TomSelect> */}
                     </div>
                   </div>
                   <div className="flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0">
@@ -1083,7 +1085,7 @@ function Main() {
                     variant="outline-primary"
                     className="flex items-center px-4 mb-2 bg-primary/5 border-primary/20"
                   >
-                    {({ dismiss }) => (
+                    {/* {({ dismiss }: { dismiss: () => void }) => (
                       <>
                         <div>
                           <Lucide
@@ -1110,7 +1112,7 @@ function Main() {
                           </Alert.DismissButton>
                         </div>
                       </>
-                    )}
+                    )} */}
                   </Alert>
                   <div className="mt-5 border rounded-lg border-slate-200/80">
                     <div className="overflow-auto xl:overflow-visible">
@@ -1628,7 +1630,7 @@ function Main() {
                             www.facebook.com/
                             {users
                               .fakeUsers()[0]
-                              .name.toLowerCase()
+                              ?.name.toLowerCase()
                               .replace(" ", "")}
                           </a>
                         </div>
@@ -1701,7 +1703,7 @@ function Main() {
                             www.twitter.com/
                             {users
                               .fakeUsers()[0]
-                              .name.toLowerCase()
+                              ?.name.toLowerCase()
                               .replace(" ", "")}
                           </a>
                         </div>

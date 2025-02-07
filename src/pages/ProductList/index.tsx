@@ -73,7 +73,7 @@ function Main() {
                   </Menu.Items>
                 </Menu>
                 <Popover className="inline-block">
-                  {({ close }) => (
+                  {({ close }: { close: () => void }) => (
                     <>
                       <Popover.Button
                         as={Button}
@@ -178,8 +178,8 @@ function Main() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                src={faker.images[0].path}
-                                content={`Uploaded at ${faker.images[0].uploadDate}`}
+                                src={faker.images[0]?.path}
+                                content={`Uploaded at ${faker.images[0]?.uploadDate}`}
                               />
                             </div>
                             <div className="-ml-3 w-9 h-9 image-fit zoom-in">
@@ -187,8 +187,8 @@ function Main() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                src={faker.images[1].path}
-                                content={`Uploaded at ${faker.images[1].uploadDate}`}
+                                src={faker.images[1]?.path}
+                                content={`Uploaded at ${faker.images[1]?.uploadDate}`}
                               />
                             </div>
                             <div className="-ml-3 w-9 h-9 image-fit zoom-in">
@@ -196,8 +196,8 @@ function Main() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                src={faker.images[2].path}
-                                content={`Uploaded at ${faker.images[2].uploadDate}`}
+                                src={faker.images[2]?.path}
+                                content={`Uploaded at ${faker.images[2]?.uploadDate}`}
                               />
                             </div>
                           </div>

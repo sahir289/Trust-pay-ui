@@ -8,9 +8,8 @@ import merchants from "@/fakers/merchants";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
-import { Preview, PreviewComponent, Source } from "@/components/Base/PreviewComponent";
-import Modal from "../Modal/modal";
+import React, { useRef, useState } from "react";
+import { Preview, PreviewComponent } from "@/components/Base/PreviewComponent";
 
 function Merchant() {
     const [newMerchantModal, setNewMerchantModal] = useState(false);
@@ -172,7 +171,7 @@ function Merchant() {
                                     </Menu.Items>
                                 </Menu>
                                 <Popover className="inline-block">
-                                    {({ close }) => (
+                                    {({ close }: { close: () => void }) => (
                                         <>
                                             <Popover.Button
                                                 as={Button}

@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import _ from "lodash";
 import Table from "@/components/Base/Table";
 import {
   PreviewComponent,
@@ -107,7 +106,7 @@ function Main() {
                                 <ImageZoom
                                   alt="Tailwise - Admin Dashboard Template"
                                   src={
-                                    products.fakeProducts()[0].images[0].path
+                                    products.fakeProducts()[0]?.images[0]?.path
                                   }
                                   className="w-full rounded-md"
                                 />
@@ -165,7 +164,7 @@ function Main() {
                                 <ImageZoom
                                   alt="Tailwise - Admin Dashboard Template"
                                   src={
-                                    products.fakeProducts()[0].images[0].path
+                                    products.fakeProducts()[0]?.images[0]?.path
                                   }
                                   className="w-full rounded-md"
                                 />
@@ -229,13 +228,13 @@ function Main() {
                   they sold out. Carles kogi fixie, squid twee Tonx readymade
                   cred typewriter scenester locavore kale chips vegan organic.
                   Meggings pug wolf Shoreditch typewriter skateboard.
-                  McSweeney\'s iPhone chillwave, food truck direct trade disrupt
+                  McSweeney's iPhone chillwave, food truck direct trade disrupt
                   flannel irony tousled Cosby sweater single-origin coffee.
                   Organic disrupt bicycle rights, tattooed messenger bag flannel
                   craft beer fashion axe bitters. Readymade sartorial craft
                   beer, quinoa sustainable butcher Marfa Echo Park Terry
                   Richardson gluten-free flannel retro cred mlkshk banjo. Salvia
-                  90\'s art party Blue Bottle, PBR&B cardigan 8-bit.
+                  90's art party Blue Bottle, PBR&B cardigan 8-bit.
                 </p>
                 <p className="mb-5">
                   Meggings irony fashion axe, tattooed master cleanse Blue
@@ -265,7 +264,7 @@ function Main() {
                   Tonx direct trade bicycle rights gluten-free flexitarian
                   asymmetrical. Whatever drinking vinegar PBR XOXO Bushwick
                   gentrify. Cliche semiotics banjo retro squid Wes Anderson.
-                  Fashion axe dreamcatcher you probably haven\'t heard of them
+                  Fashion axe dreamcatcher you probably haven't heard of them
                   bicycle rights. Tote bag organic four loko ethical selfies
                   gastropub, PBR fingerstache tattooed bicycle rights.
                 </p>
@@ -273,12 +272,12 @@ function Main() {
                   Ugh Portland Austin, distillery tattooed typewriter polaroid
                   pug Banksy Neutra keffiyeh. Shoreditch mixtape wolf PBR&B,
                   tote bag dreamcatcher literally bespoke Odd Future selfies
-                  90\'s master cleanse vegan. Flannel tofu deep v next level
+                  90's master cleanse vegan. Flannel tofu deep v next level
                   pickled, authentic Etsy Shoreditch literally swag photo booth
                   iPhone pug semiotics banjo. Bicycle rights butcher Blue
                   Bottle, actually DIY semiotics Banksy banjo mixtape Austin
                   pork belly post-ironic. American Apparel gastropub hashtag,
-                  McSweeney\'s master cleanse occupy High Life bitters wayfarers
+                  McSweeney's master cleanse occupy High Life bitters wayfarers
                   next level bicycle rights. Wolf chia Terry Richardson, pop-up
                   plaid kitsch ugh. Butcher +1 Carles, swag selfies Blue Bottle
                   viral.
@@ -289,10 +288,10 @@ function Main() {
                   Neutra retro fixie gastropub +1, High Life semiotics. Vinyl
                   distillery Etsy freegan flexitarian cliche jean shorts,
                   Schlitz wayfarers skateboard tousled irony locavore XOXO meh.
-                  Ethnic Wes Anderson McSweeney\'s messenger bag, mixtape XOXO
+                  Ethnic Wes Anderson McSweeney's messenger bag, mixtape XOXO
                   slow-carb cornhole aesthetic Marfa banjo Thundercats bitters.
                   Raw denim banjo typewriter cray Tumblr, High Life
-                  single-origin coffee. 90\'s Tumblr cred, Terry Richardson
+                  single-origin coffee. 90's Tumblr cred, Terry Richardson
                   occupy raw denim tofu fashion axe photo booth banh mi. Trust
                   fund locavore Helvetica, fashion axe selvage authentic
                   Shoreditch swag selfies stumptown +1.
@@ -310,7 +309,7 @@ function Main() {
                   party pork belly leggings, photo booth jean shorts. Austin
                   readymade PBR plaid chambray. Squid Echo Park pour-over,
                   wayfarers forage whatever locavore typewriter artisan deep v
-                  four loko. Locavore occupy Neutra Pitchfork McSweeney\'s,
+                  four loko. Locavore occupy Neutra Pitchfork McSweeney's,
                   wayfarers fingerstache. Actually asymmetrical drinking vinegar
                   yr brunch biodiesel. Before they sold out sustainable
                   readymade craft beer Portland gastropub squid Austin, roof
@@ -321,7 +320,7 @@ function Main() {
                   wayfarers. Biodiesel farm-to-table actually, locavore keffiyeh
                   hella shabby chic pour-over try-hard Bushwick. Sriracha
                   American Apparel Brooklyn, synth cray stumptown blog Bushwick
-                  +1 VHS hashtag. Wolf umami Carles Marfa, 90\'s food truck
+                  +1 VHS hashtag. Wolf umami Carles Marfa, 90's food truck
                   Cosby sweater. Fanny pack try-hard keytar pop-up readymade,
                   master cleanse four loko trust fund polaroid salvia. Photo
                   booth kitsch forage chambray, Carles scenester slow-carb lomo
@@ -334,12 +333,12 @@ function Main() {
                   distillery Shoreditch messenger bag swag iPhone Pitchfork.
                   Viral PBR&B single-origin coffee quinoa readymade, ethical
                   chillwave drinking vinegar gluten-free Wes Anderson kitsch
-                  Tumblr synth actually bitters. Butcher McSweeney\'s forage
+                  Tumblr synth actually bitters. Butcher McSweeney's forage
                   mlkshk kogi fingerstache. Selvage scenester butcher
                   Shoreditch, Carles beard plaid disrupt DIY. Pug readymade
                   selvage retro, Austin salvia vinyl master cleanse flexitarian
                   deep v bicycle rights plaid Terry Richardson mlkshk pour-over.
-                  Trust fund try-hard banh mi Brooklyn, 90\'s Etsy kogi YOLO
+                  Trust fund try-hard banh mi Brooklyn, 90's Etsy kogi YOLO
                   salvia.
                 </p>
               </div>

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import { FormCheck, FormInput } from "@/components/Base/Form";
@@ -53,7 +54,7 @@ function Main() {
               <div className="w-full h-full overflow-hidden border-[6px] box border-white rounded-full image-fit">
                 <img
                   alt="Tailwise - Admin Dashboard Template"
-                  src={users.fakeUsers()[0].photo}
+                  src={users.fakeUsers()[0]?.photo}
                 />
               </div>
               <div className="absolute bottom-0 right-0 w-5 h-5 mb-2.5 mr-2.5 border-2 border-white rounded-full bg-success box dark:bg-success"></div>
@@ -61,7 +62,7 @@ function Main() {
           </div>
           <div className="rounded-[0.6rem] bg-slate-50 pt-12 pb-6 dark:bg-darkmode-500">
             <div className="flex items-center justify-center text-xl font-medium">
-              {users.fakeUsers()[0].name}
+              {users.fakeUsers()[0]?.name}
               <Lucide
                 icon="BadgeCheck"
                 className="w-5 h-5 ml-2 text-blue-500 fill-blue-500/30"
@@ -73,21 +74,21 @@ function Main() {
                   icon="Briefcase"
                   className="w-3.5 h-3.5 mr-1.5 stroke-[1.3]"
                 />
-                {users.fakeUsers()[0].department}
+                {users.fakeUsers()[0]?.department}
               </div>
               <div className="flex items-center text-slate-500">
                 <Lucide
                   icon="MountainSnow"
                   className="w-3.5 h-3.5 mr-1.5 stroke-[1.3]"
                 />
-                <a href="">{users.fakeUsers()[0].location}</a>
+                <a href="">{users.fakeUsers()[0]?.location}</a>
               </div>
               <div className="flex items-center text-slate-500">
                 <Lucide
                   icon="Signal"
                   className="w-3.5 h-3.5 mr-1.5 stroke-[1.3]"
                 />
-                {users.fakeUsers()[0].phone}
+                {users.fakeUsers()[0]?.phone}
               </div>
             </div>
           </div>
@@ -184,7 +185,7 @@ function Main() {
                 </Menu.Items>
               </Menu>
               <Popover className="inline-block">
-                {({ close }) => (
+                {({ close }: { close: () => void }) => (
                   <>
                     <Popover.Button
                       as={Button}
@@ -206,7 +207,7 @@ function Main() {
                           <div className="text-left">Invite by Email</div>
                           <FormInput
                             className="flex-1 mt-2"
-                            placeholder={users.fakeUsers()[1].email}
+                            placeholder={users.fakeUsers()[1]?.email}
                             type="text"
                           />
                         </div>
@@ -597,9 +598,9 @@ function Main() {
                                               as="img"
                                               alt="Tailwise - Admin Dashboard Template"
                                               className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                              src={faker.contributors[0].photo}
+                                              src={faker.contributors[0]?.photo}
                                               content={
-                                                faker.contributors[0].name
+                                                faker.contributors[0]?.name || ""
                                               }
                                             />
                                           </div>
@@ -608,9 +609,9 @@ function Main() {
                                               as="img"
                                               alt="Tailwise - Admin Dashboard Template"
                                               className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                              src={faker.contributors[1].photo}
+                                              src={faker.contributors[1]?.photo}
                                               content={
-                                                faker.contributors[1].name
+                                                faker.contributors[1]?.name || ""
                                               }
                                             />
                                           </div>
@@ -619,9 +620,9 @@ function Main() {
                                               as="img"
                                               alt="Tailwise - Admin Dashboard Template"
                                               className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                              src={faker.contributors[2].photo}
+                                              src={faker.contributors[2]?.photo}
                                               content={
-                                                faker.contributors[2].name
+                                                faker.contributors[2]?.name || ""
                                               }
                                             />
                                           </div>
@@ -687,14 +688,14 @@ function Main() {
                                 icon="Clipboard"
                                 className="w-4 h-4 mr-2 stroke-[1.3] text-slate-500"
                               />
-                              Department: {users.fakeUsers()[0].department}
+                              Department: {users.fakeUsers()[0]?.department}
                             </div>
                             <div className="flex items-center mt-3">
                               <Lucide
                                 icon="Calendar"
                                 className="w-4 h-4 mr-2 stroke-[1.3] text-slate-500"
                               />
-                              Location: {users.fakeUsers()[0].location}
+                              Location: {users.fakeUsers()[0]?.location}
                             </div>
                             <div className="flex items-center mt-3">
                               <Lucide
@@ -704,7 +705,7 @@ function Main() {
                               Manager:
                               <div className="flex items-center text-xs font-medium rounded-md text-success bg-success/10 border border-success/10 px-1.5 py-px ml-1">
                                 <span className="-mt-px">
-                                  {users.fakeUsers()[0].manager}
+                                  {users.fakeUsers()[0]?.manager}
                                 </span>
                               </div>
                             </div>
@@ -713,7 +714,7 @@ function Main() {
                                 icon="Map"
                                 className="w-4 h-4 mr-2 stroke-[1.3] text-slate-500"
                               />
-                              Position: {users.fakeUsers()[0].position}
+                              Position: {users.fakeUsers()[0]?.position}
                             </div>
                           </div>
                         </div>
@@ -732,7 +733,7 @@ function Main() {
                                 href=""
                                 className="ml-1 text-primary whitespace-nowrap underline decoration-dotted decoration-primary/30 underline-offset-[3px]"
                               >
-                                {users.fakeUsers()[0].email}
+                                {users.fakeUsers()[0]?.email}
                               </a>
                             </div>
                             <div className="flex items-center mt-3">
@@ -745,7 +746,7 @@ function Main() {
                                 href=""
                                 className="ml-1 text-primary whitespace-nowrap underline decoration-dotted decoration-primary/30 underline-offset-[3px]"
                               >
-                                {users.fakeUsers()[0].phone}
+                                {users.fakeUsers()[0]?.phone}
                               </a>
                             </div>
                           </div>
@@ -775,7 +776,7 @@ function Main() {
                                 href=""
                                 className="ml-1 underline decoration-dotted decoration-primary/30 underline-offset-[3px]"
                               >
-                                {projectDetails.fakeProjectDetails()[0].title}
+                                {projectDetails.fakeProjectDetails()[0]?.title}
                               </a>
                             </div>
                           </div>
@@ -886,8 +887,8 @@ function Main() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="border-2 border-white rounded-full"
-                                src={faker.attendees[0].photo}
-                                content={`Uploaded at ${faker.attendees[0].name}`}
+                                src={faker.attendees[0]?.photo}
+                                content={`Uploaded at ${faker.attendees[0]?.name}`}
                               />
                             </div>
                             <div className="w-6 h-6 -ml-2 image-fit zoom-in">
@@ -895,8 +896,8 @@ function Main() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="border-2 border-white rounded-full"
-                                src={faker.attendees[1].photo}
-                                content={`Uploaded at ${faker.attendees[1].name}`}
+                                src={faker.attendees[1]?.photo}
+                                content={`Uploaded at ${faker.attendees[1]?.name}`}
                               />
                             </div>
                             <div className="w-6 h-6 -ml-2 image-fit zoom-in">
@@ -904,8 +905,8 @@ function Main() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="border-2 border-white rounded-full"
-                                src={faker.attendees[2].photo}
-                                content={`Uploaded at ${faker.attendees[2].name}`}
+                                src={faker.attendees[2]?.photo}
+                                content={`Uploaded at ${faker.attendees[2]?.name}`}
                               />
                             </div>
                             <div className="w-6 h-6 -ml-2 image-fit zoom-in">
@@ -913,8 +914,8 @@ function Main() {
                                 as="img"
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="border-2 border-white rounded-full"
-                                src={faker.attendees[3].photo}
-                                content={`Uploaded at ${faker.attendees[3].name}`}
+                                src={faker.attendees[3]?.photo}
+                                content={`Uploaded at ${faker.attendees[3]?.name}`}
                               />
                             </div>
                             <div className="ml-1 text-slate-500">
@@ -994,8 +995,8 @@ function Main() {
                               as="img"
                               alt="Tailwise - Admin Dashboard Template"
                               className="border-2 border-white rounded-full"
-                              src={faker.collaborators[0].photo}
-                              content={faker.collaborators[0].name}
+                              src={faker.collaborators[0]?.photo}
+                              content={faker.collaborators[0]?.name || ""}
                             />
                           </div>
                           <div className="w-10 h-10 -ml-3 image-fit zoom-in">
@@ -1003,8 +1004,8 @@ function Main() {
                               as="img"
                               alt="Tailwise - Admin Dashboard Template"
                               className="border-2 border-white rounded-full"
-                              src={faker.collaborators[1].photo}
-                              content={faker.collaborators[1].name}
+                              src={faker.collaborators[1]?.photo}
+                              content={faker.collaborators[1]?.name || ""}
                             />
                           </div>
                           <div className="w-10 h-10 -ml-3 image-fit zoom-in">
@@ -1012,8 +1013,8 @@ function Main() {
                               as="img"
                               alt="Tailwise - Admin Dashboard Template"
                               className="border-2 border-white rounded-full"
-                              src={faker.collaborators[2].photo}
-                              content={faker.collaborators[2].name}
+                              src={faker.collaborators[2]?.photo}
+                              content={faker.collaborators[2]?.name || ""}
                             />
                           </div>
                           <div className="w-10 h-10 -ml-3 image-fit zoom-in">
@@ -1021,8 +1022,8 @@ function Main() {
                               as="img"
                               alt="Tailwise - Admin Dashboard Template"
                               className="border-2 border-white rounded-full"
-                              src={faker.collaborators[3].photo}
-                              content={faker.collaborators[3].name}
+                              src={faker.collaborators[3]?.photo}
+                              content={faker.collaborators[3]?.name || ""}
                             />
                           </div>
                         </div>

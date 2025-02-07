@@ -1,7 +1,8 @@
+import React, { JSX } from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Dialog, Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import payins from "@/fakers/payins";
@@ -119,7 +120,7 @@ const DroppedPayin: React.FC<PayinProps> = ({ }) => {
                   </Menu.Items>
                 </Menu>
                 <Popover className="inline-block">
-                  {({ close }) => (
+                  {({ close }: { close: () => void }) => (
                     <>
                       <Popover.Button
                         as={Button}
@@ -139,22 +140,13 @@ const DroppedPayin: React.FC<PayinProps> = ({ }) => {
                         <div className="p-2">
                           <div>
                             <div className="text-left text-slate-500">User</div>
-                            <TomSelect
-                              className="flex-1 mt-2"
-                              value={selectedUser}
-                              onChange={(e) => {
-                                setSelectedUser(e.target.value);
-                              }}
-                              options={{
-                                placeholder: "Search user",
-                              }}
-                            >
+                            <FormSelect className="flex-1 mt-2">
                               {users.fakeUsers().map((faker, fakerKey) => (
                                 <option key={fakerKey} value={fakerKey}>
                                   {faker.name}
                                 </option>
                               ))}
-                            </TomSelect>
+                            </FormSelect>
                           </div>
                           <div className="mt-3">
                             <div className="text-left text-slate-500">

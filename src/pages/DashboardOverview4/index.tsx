@@ -335,7 +335,7 @@ function Main() {
                       as="img"
                       alt="Tailwise - Admin Dashboard Template"
                       className="border-[3px] border-slate-50 rounded-full cursor-pointer"
-                      src={faker.images[0].path}
+                      src={faker.images[0]?.path}
                       content={faker.name}
                     />
                   </div>

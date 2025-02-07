@@ -1,3 +1,4 @@
+import React from "react";
 import Chart, { ChartElement } from "@/components/Base/Chart";
 import { ChartData, ChartOptions } from "chart.js/auto";
 import { selectColorScheme } from "@/stores/colorSchemeSlice";
@@ -5,7 +6,6 @@ import { selectDarkMode } from "@/stores/darkModeSlice";
 import { useAppSelector } from "@/stores/hooks";
 import { useMemo, useRef } from "react";
 import { getColor } from "@/utils/colors";
-import _ from "lodash";
 
 interface MainProps extends React.ComponentPropsWithoutRef<"canvas"> {
   width?: number | "auto";
@@ -54,7 +54,7 @@ function Main({ width = "auto", height = "auto", className = "" }: MainProps) {
       labels: data[0],
       datasets: [
         {
-          data: data[0],
+          data: data[0] || [],
           borderWidth: 1.3,
           borderColor: colorScheme ? getColor("primary", 0.7) : "",
           pointRadius: 0,
@@ -63,7 +63,7 @@ function Main({ width = "auto", height = "auto", className = "" }: MainProps) {
           fill: true,
         },
         {
-          data: data[1],
+          data: data[1] || [],
           borderWidth: 1.2,
           borderColor: colorScheme ? getColor("slate.500", 0.5) : "",
           pointRadius: 0,

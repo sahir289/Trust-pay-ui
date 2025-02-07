@@ -1,24 +1,22 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
-import { Dialog, Menu, Popover } from "@/components/Base/Headless";
+import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import TomSelect from "@/components/Base/TomSelect";
-import { FormCheck, FormInput, FormLabel, FormSelect, FormSwitch } from "@/components/Base/Form";
+// import TomSelect from "@/components/Base/TomSelect";
+import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import chargebacks from "@/fakers/chargebacks";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useRef, useState } from "react";
-import clsx from "clsx";
+import React, { useRef, useState } from "react";
 import _ from "lodash";
-import { Preview, PreviewComponent } from "@/components/Base/PreviewComponent";
 import Modal from "../Modal/modal";
 
 function ChargeBack() {
   const [newChargeBackModal, setNewChargeBackModal] = useState(false);
   const chargebackRef = useRef(null);
-  const [selectedUser, setSelectedUser] = useState("1");
  const chargebackModal = ()=>{
   setNewChargeBackModal(!newChargeBackModal)
  }
@@ -77,7 +75,7 @@ function ChargeBack() {
                   </Menu.Items>
                 </Menu>
                 <Popover className="inline-block">
-                  {({ close }) => (
+                  {({ close }: { close: () => void }) => (
                     <>
                       <Popover.Button
                         as={Button}
@@ -97,22 +95,13 @@ function ChargeBack() {
                         <div className="p-2">
                           <div>
                             <div className="text-left text-slate-500">User</div>
-                            <TomSelect
-                              className="flex-1 mt-2"
-                              value={selectedUser}
-                              onChange={(e) => {
-                                setSelectedUser(e.target.value);
-                              }}
-                              options={{
-                                placeholder: "Search user",
-                              }}
-                            >
+                            <FormSelect className="flex-1 mt-2">
                               {users.fakeUsers().map((faker, fakerKey) => (
                                 <option key={fakerKey} value={fakerKey}>
                                   {faker.name}
                                 </option>
                               ))}
-                            </TomSelect>
+                            </FormSelect>
                           </div>
                           <div className="mt-3">
                             <div className="text-left text-slate-500">

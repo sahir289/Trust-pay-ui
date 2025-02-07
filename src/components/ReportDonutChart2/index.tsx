@@ -1,5 +1,6 @@
+import React from "react";
 import Chart from "@/components/Base/Chart";
-import { ChartData, ChartOptions, Plugin } from "chart.js/auto";
+import { ChartData, ChartOptions } from "chart.js/auto";
 import { getColor } from "@/utils/colors";
 import { selectColorScheme } from "@/stores/colorSchemeSlice";
 import { selectDarkMode } from "@/stores/darkModeSlice";

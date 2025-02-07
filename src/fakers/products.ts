@@ -32,24 +32,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -59,7 +59,7 @@ const fakers = {
         price: 149.99,
         isActive: true,
         stock: 50,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "wireless-noise-cancelling-headphones",
       },
@@ -67,24 +67,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -94,7 +94,7 @@ const fakers = {
         price: 19.99,
         isActive: false,
         stock: 25,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "smartphone-charging-dock",
       },
@@ -102,24 +102,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -129,7 +129,7 @@ const fakers = {
         price: 599.99,
         isActive: true,
         stock: 75,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "ultra-hd-4k-smart-tv",
       },
@@ -137,24 +137,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -164,7 +164,7 @@ const fakers = {
         price: 799.99,
         isActive: true,
         stock: 60,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "professional-dslr-camera",
       },
@@ -172,24 +172,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -199,7 +199,7 @@ const fakers = {
         price: 49.99,
         isActive: false,
         stock: 10,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "wireless-gaming-mouse",
       },
@@ -207,24 +207,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -234,7 +234,7 @@ const fakers = {
         price: 1099.99,
         isActive: true,
         stock: 30,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "high-performance-laptop",
       },
@@ -242,24 +242,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -269,7 +269,7 @@ const fakers = {
         price: 79.99,
         isActive: true,
         stock: 40,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "bluetooth-speaker-with-bass-boost",
       },
@@ -277,24 +277,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -304,7 +304,7 @@ const fakers = {
         price: 79.99,
         isActive: false,
         stock: 20,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "wireless-earbuds-with-mic",
       },
@@ -312,24 +312,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -339,7 +339,7 @@ const fakers = {
         price: 39.99,
         isActive: true,
         stock: 55,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "8-cup-coffee-maker",
       },
@@ -347,24 +347,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -374,7 +374,7 @@ const fakers = {
         price: 129.99,
         isActive: true,
         stock: 15,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "smart-home-security-camera",
       },
@@ -382,24 +382,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -409,7 +409,7 @@ const fakers = {
         price: 149.99,
         isActive: true,
         stock: 50,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "wireless-noise-cancelling-headphones",
       },
@@ -417,24 +417,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -444,7 +444,7 @@ const fakers = {
         price: 19.99,
         isActive: false,
         stock: 25,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "smartphone-charging-dock",
       },
@@ -452,24 +452,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -479,7 +479,7 @@ const fakers = {
         price: 599.99,
         isActive: true,
         stock: 75,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "ultra-hd-4k-smart-tv",
       },
@@ -487,24 +487,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -514,7 +514,7 @@ const fakers = {
         price: 799.99,
         isActive: true,
         stock: 60,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "professional-dslr-camera",
       },
@@ -522,24 +522,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -549,7 +549,7 @@ const fakers = {
         price: 49.99,
         isActive: false,
         stock: 10,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "wireless-gaming-mouse",
       },
@@ -557,24 +557,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -584,7 +584,7 @@ const fakers = {
         price: 1099.99,
         isActive: true,
         stock: 30,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "high-performance-laptop",
       },
@@ -592,24 +592,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -619,7 +619,7 @@ const fakers = {
         price: 79.99,
         isActive: true,
         stock: 40,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "bluetooth-speaker-with-bass-boost",
       },
@@ -627,24 +627,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -654,7 +654,7 @@ const fakers = {
         price: 79.99,
         isActive: false,
         stock: 20,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "wireless-earbuds-with-mic",
       },
@@ -662,24 +662,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -689,7 +689,7 @@ const fakers = {
         price: 39.99,
         isActive: true,
         stock: 55,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "8-cup-coffee-maker",
       },
@@ -697,24 +697,24 @@ const fakers = {
         images: [
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
           },
           {
             path: imageAssets[
-              filteredImages[_.random(0, filteredImages.length - 1)]
-            ].default,
+              filteredImages.length > 0 ? filteredImages[_.random(0, filteredImages.length - 1) as number] ?? "" : ""
+            ]?.default ?? "",
             uploadDate: dayjs
               .unix(_.random(1586584776897, 1672333200000) / 1000)
               .format("DD MMMM YYYY"),
@@ -724,7 +724,7 @@ const fakers = {
         price: 129.99,
         isActive: true,
         stock: 15,
-        category: categories.fakeCategories()[0],
+        category: categories.fakeCategories()[0] ?? { name: 'Default Category', icon: 'Accessibility', tags: [], slug: 'default-category', isActive: true },
         buyers: users.fakeUsers(),
         slug: "smart-home-security-camera",
       },

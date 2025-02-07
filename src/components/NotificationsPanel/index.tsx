@@ -49,7 +49,7 @@ function Main(props: MainProps) {
                     <div className="overflow-hidden border-2 rounded-full w-11 h-11 image-fit border-slate-200/70">
                       <img
                         alt="Tailwise - Admin Dashboard Template"
-                        src={users.fakeUsers()[0].photo}
+                        src={users.fakeUsers()[0]?.photo}
                       />
                     </div>
                   </div>

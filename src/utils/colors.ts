@@ -1,8 +1,10 @@
+/* eslint-disable no-undef */
 import { toRGB } from "./helper";
 import tailwindColors from "tailwindcss/colors";
 import resolveConfig from "tailwindcss/resolveConfig";
 import tailwindConfig from "tailwind-config";
 import { flatten } from "flat";
+import { DotNestedKeys } from "@/types/utils";
 
 const twConfig = resolveConfig(tailwindConfig);
 const colors = twConfig.theme?.colors;
@@ -47,16 +49,17 @@ const getColor = (colorKey: DotNestedKeys<Colors>, opacity: number = 1) => {
     }
   >(colors);
 
-  if (flattenColors[colorKey].search("var") === -1) {
-    return `rgb(${toRGB(flattenColors[colorKey])} / ${opacity})`;
-  } else {
-    const cssVariableName = `--color-${
-      flattenColors[colorKey].split("--color-")[1].split(")")[0]
-    }`;
-    return `rgb(${getComputedStyle(document.body).getPropertyValue(
-      cssVariableName
-    )} / ${opacity})`;
+  const colorValue = flattenColors[colorKey];
+
+  if (colorValue && colorValue.search("var") === -1) {
+    // Ensure colorValue is a valid string before passing to toRGB
+    return `rgb(${toRGB(colorValue)} / ${opacity})`;
+  } else if (colorValue) {
+    const cssVariableName = `--color-${colorValue.split("--color-")[1]?.split(")")[0]}`;
+    return `rgb(${getComputedStyle(document.body).getPropertyValue(cssVariableName)} / ${opacity})`;
   }
+
+  return 'defaultColor'; // Or any fallback value you prefer
 };
 
 export { getColor };

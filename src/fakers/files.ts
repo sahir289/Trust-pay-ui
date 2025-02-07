@@ -49,9 +49,7 @@ const fakers = {
         size: "120 MB",
       },
       {
-        fileName:
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+        fileName:imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         size: "750 KB",
         type: "Image",
       },
@@ -66,9 +64,8 @@ const fakers = {
         type: "TXT",
       },
       {
-        fileName:
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+        
+        fileName:imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         size: "150 KB",
         type: "Image",
       },
@@ -84,23 +81,20 @@ const fakers = {
         type: "ZIP",
       },
       {
-        fileName:
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+        
+        fileName:imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         size: "30 KB",
         type: "Image",
       },
       {
-        fileName:
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+        
+        fileName:imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         size: "550 KB",
         type: "Image",
       },
       {
-        fileName:
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+        
+        fileName:imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         size: "150 KB",
         type: "Image",
       },
@@ -110,23 +104,20 @@ const fakers = {
         type: "MP3",
       },
       {
-        fileName:
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+        
+        fileName:imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         size: "1.1 MB",
         type: "Image",
       },
       {
-        fileName:
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+        
+        fileName:imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         size: "20 KB",
         type: "Image",
       },
       {
-        fileName:
-          imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]]
-            .default,
+        
+        fileName:imageAssets[filteredImages[_.random(0, filteredImages.length - 1)]!]?.default!,
         size: "50 KB",
         type: "Image",
       },

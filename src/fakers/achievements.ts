@@ -34,7 +34,7 @@ const fakers = {
         duration: "6m",
         score: 95,
         collaborators: users.fakeUsers(),
-        event: events.fakeEvents()[0],
+        event: events.fakeEvents()[0] || { id: '', title: '', description: '', date: '', time: '', location: '', icon: 'Accessibility', organizer: '', attendees: [], availableSeats: 0, image: '' },
       },
       {
         id: "2",
@@ -49,7 +49,7 @@ const fakers = {
         duration: "1y",
         score: 90,
         collaborators: users.fakeUsers(),
-        event: events.fakeEvents()[0],
+        event: events.fakeEvents()[0] || { id: '', title: '', description: '', date: '', time: '', location: '', icon: 'Accessibility', organizer: '', attendees: [], availableSeats: 0, image: '' },
       },
       {
         id: "3",
@@ -64,7 +64,7 @@ const fakers = {
         duration: "2y",
         score: 98,
         collaborators: users.fakeUsers(),
-        event: events.fakeEvents()[0],
+        event: events.fakeEvents()[0] || { id: '', title: '', description: '', date: '', time: '', location: '', icon: 'Accessibility', organizer: '', attendees: [], availableSeats: 0, image: '' },
       },
       {
         id: "4",
@@ -79,7 +79,7 @@ const fakers = {
         duration: "3m",
         score: 100,
         collaborators: users.fakeUsers(),
-        event: events.fakeEvents()[0],
+        event: events.fakeEvents()[0] || { id: '', title: '', description: '', date: '', time: '', location: '', icon: 'Accessibility', organizer: '', attendees: [], availableSeats: 0, image: '' },
       },
       {
         id: "5",
@@ -93,7 +93,7 @@ const fakers = {
         duration: "2y",
         score: 93,
         collaborators: users.fakeUsers(),
-        event: events.fakeEvents()[0],
+        event: events.fakeEvents()[0] || { id: '', title: '', description: '', date: '', time: '', location: '', icon: 'Accessibility', organizer: '', attendees: [], availableSeats: 0, image: '' },
       },
       {
         id: "6",
@@ -108,7 +108,7 @@ const fakers = {
         duration: "1y",
         score: 88,
         collaborators: users.fakeUsers(),
-        event: events.fakeEvents()[0],
+        event: events.fakeEvents()[0] || { id: '', title: '', description: '', date: '', time: '', location: '', icon: 'Accessibility', organizer: '', attendees: [], availableSeats: 0, image: '' },
       },
       {
         id: "7",
@@ -123,7 +123,7 @@ const fakers = {
         duration: "6m",
         score: 97,
         collaborators: users.fakeUsers(),
-        event: events.fakeEvents()[0],
+        event: events.fakeEvents()[0] || { id: '', title: '', description: '', date: '', time: '', location: '', icon: 'Accessibility', organizer: '', attendees: [], availableSeats: 0, image: '' },
       },
       {
         id: "8",
@@ -138,7 +138,7 @@ const fakers = {
         duration: "2y",
         score: 91,
         collaborators: users.fakeUsers(),
-        event: events.fakeEvents()[0],
+        event: events.fakeEvents()[0] || { id: '', title: '', description: '', date: '', time: '', location: '', icon: 'Accessibility', organizer: '', attendees: [], availableSeats: 0, image: '' },
       },
       {
         id: "9",
@@ -153,7 +153,7 @@ const fakers = {
         duration: "9m",
         score: 96,
         collaborators: users.fakeUsers(),
-        event: events.fakeEvents()[0],
+        event: events.fakeEvents()[0] || { id: '', title: '', description: '', date: '', time: '', location: '', icon: 'Accessibility', organizer: '', attendees: [], availableSeats: 0, image: '' },
       },
       {
         id: "10",
@@ -167,7 +167,7 @@ const fakers = {
         duration: "1y",
         score: 85,
         collaborators: users.fakeUsers(),
-        event: events.fakeEvents()[0],
+        event: events.fakeEvents()[0] || { id: '', title: '', description: '', date: '', time: '', location: '', icon: 'Accessibility', organizer: '', attendees: [], availableSeats: 0, image: '' },
       },
     ];
 

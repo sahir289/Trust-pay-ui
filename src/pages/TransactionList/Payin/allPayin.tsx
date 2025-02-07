@@ -1,26 +1,20 @@
+import React, { JSX, useRef, useState } from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import Tippy from "@/components/Base/Tippy";
 import payins from "@/fakers/payins";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useRef, useState } from "react";
-import clsx from "clsx";
 import {
-  FormLabel,
-  FormSwitch,
   FormInput,
   FormSelect,
   FormCheck,
 } from "@/components/Base/Form";
 import _ from "lodash";
-import Modal from "@/pages/Modal/modal";
-import { Dialog } from "@headlessui/react";
-import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 interface PayinProps {
   resetModal: boolean; // Expecting a boolean prop to control modal reset
   setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
@@ -132,7 +126,7 @@ const AllPayin: React.FC<PayinProps> = ({ resetModal,  setResetModal, setStatus,
                   </Menu.Items>
                 </Menu>
                 <Popover className="inline-block">
-                  {({ close }) => (
+                  {({ close }: { close: () => void }) => (
                     <>
                       <Popover.Button
                         as={Button}
@@ -152,22 +146,13 @@ const AllPayin: React.FC<PayinProps> = ({ resetModal,  setResetModal, setStatus,
                         <div className="p-2">
                           <div>
                             <div className="text-left text-slate-500">User</div>
-                            <TomSelect
-                              className="flex-1 mt-2"
-                              value={selectedUser}
-                              onChange={(e) => {
-                                setSelectedUser(e.target.value);
-                              }}
-                              options={{
-                                placeholder: "Search user",
-                              }}
-                            >
+                            <FormSelect className="flex-1 mt-2">
                               {users.fakeUsers().map((faker, fakerKey) => (
                                 <option key={fakerKey} value={fakerKey}>
                                   {faker.name}
                                 </option>
                               ))}
-                            </TomSelect>
+                            </FormSelect>
                           </div>
                           <div className="mt-3">
                             <div className="text-left text-slate-500">
@@ -394,7 +379,7 @@ const AllPayin: React.FC<PayinProps> = ({ resetModal,  setResetModal, setStatus,
                         </Table.Td>
                         <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                           <div className="flex items-center justify-center">
-                            {(faker.status === "Dispute" || faker.status === "Bank Mismatch" ) ? (
+                            {(faker.status === "Dispute" || faker.status === "Bank Mismatch") ? (
                               <Menu className="h-5">
                                 <Menu.Button className="w-5 h-5 text-slate-500">
                                   <Lucide
@@ -416,13 +401,13 @@ const AllPayin: React.FC<PayinProps> = ({ resetModal,  setResetModal, setStatus,
                             ) : (
 
                               <Menu className="h-5">
-                              <Menu.Button className="w-5 h-5 text-slate-500">
-                                <Lucide
-                                  icon="Bell"
-                                  className="w-5 h-5 stroke-slate-400/70 fill-green-400/70"
-                                />
-                              </Menu.Button>
-                            </Menu>
+                                <Menu.Button className="w-5 h-5 text-slate-500">
+                                  <Lucide
+                                    icon="Bell"
+                                    className="w-5 h-5 stroke-slate-400/70 fill-green-400/70"
+                                  />
+                                </Menu.Button>
+                              </Menu>
 
                             )}
 

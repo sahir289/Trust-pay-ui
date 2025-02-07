@@ -492,7 +492,7 @@ function Main() {
                                     variant="primary"
                                     type="button"
                                     className="w-20"
-                                    ref={cancelButtonRef}
+                                    // ref={cancelButtonRef}
                                   >
                                     Submit
                                   </Button>

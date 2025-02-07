@@ -1,6 +1,7 @@
+import React from "react";
 import { twMerge } from "tailwind-merge";
 import { Dialog as HeadlessDialog, Transition } from "@headlessui/react";
-import { Fragment, createContext, useContext, useRef, useState } from "react";
+import { Fragment, createContext, useContext, useRef, useState, ComponentProps } from "react";
 
 type Size = "sm" | "md" | "lg" | "xl";
 
@@ -23,7 +24,7 @@ function Slideover({
   staticBackdrop,
   size = "md",
   ...props
-}: ExtractProps<typeof HeadlessDialog> & {
+}: ComponentProps<typeof HeadlessDialog> & {
   size?: Size;
   staticBackdrop?: boolean;
 }) {
@@ -67,7 +68,7 @@ Slideover.Panel = ({
   className,
   as = "div",
   ...props
-}: ExtractProps<typeof HeadlessDialog.Panel> & {
+}: ComponentProps<typeof HeadlessDialog.Panel> & {
   size?: Size;
 }) => {
   const slideover = useContext(slideoverContext);
@@ -119,7 +120,7 @@ Slideover.Title = ({
   className,
   as = "div",
   ...props
-}: ExtractProps<typeof HeadlessDialog.Title>) => {
+}: ComponentProps<typeof HeadlessDialog.Title>) => {
   return (
     <HeadlessDialog.Title
       as={as}
@@ -139,7 +140,7 @@ Slideover.Description = ({
   className,
   as = "div",
   ...props
-}: ExtractProps<typeof HeadlessDialog.Description>) => {
+}: ComponentProps<typeof HeadlessDialog.Description>) => {
   return (
     <HeadlessDialog.Description
       as={as}

@@ -1,5 +1,4 @@
 import clsx from "clsx";
-import _ from "lodash";
 import Table from "@/components/Base/Table";
 import Tippy from "@/components/Base/Tippy";
 import Button from "@/components/Base/Button";
@@ -333,12 +332,12 @@ function Main() {
                                     <img
                                       alt="Tailwise - Admin Dashboard Template"
                                       className="rounded-full"
-                                      src={users.fakeUsers()[0].photo}
+                                      src={users.fakeUsers()[0]?.photo}
                                     />
                                   </div>
                                   <div className="ml-4 mr-auto">
                                     <div className="font-medium leading-normal whitespace-nowrap dark:text-slate-200">
-                                      {users.fakeUsers()[0].name}
+                                      {users.fakeUsers()[0]?.name}
                                     </div>
                                     <div className="mt-0.5 text-xs text-slate-500 whitespace-nowrap dark:text-slate-400">
                                       TailwindCSS 3+ Admin Dashboard Template
@@ -370,7 +369,7 @@ function Main() {
                       <img
                         alt="Tailwise - Admin Dashboard Template"
                         className="rounded-full"
-                        src={users.fakeUsers()[0].photo}
+                        src={users.fakeUsers()[0]?.photo}
                       />
                     </div>
                     <div className="ml-4 mr-auto">

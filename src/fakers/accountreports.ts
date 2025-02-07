@@ -1,7 +1,5 @@
 
 import _ from "lodash";
-import { number } from "yup";
-
 export interface reportAccount {
     date: string;
     vendorCode: string;
@@ -21,15 +19,6 @@ export interface reportAccount {
     currentBalance: number;
     netBalance: number;
 }
-
-
-
-
-
-
-const imageAssets = import.meta.glob<{
-    default: string;
-}>("/src/assets/images/users/*.{jpg,jpeg,png,svg}", { eager: true });
 
 const fakeReportAccount = {
     fakeAccountReport(): Array<reportAccount> {

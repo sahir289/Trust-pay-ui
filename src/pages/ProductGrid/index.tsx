@@ -71,7 +71,7 @@ function Main() {
                   </Menu.Items>
                 </Menu>
                 <Popover className="inline-block">
-                  {({ close }) => (
+                  {({ close }: { close: () => void }) => (
                     <>
                       <Popover.Button
                         as={Button}
@@ -140,7 +140,7 @@ function Main() {
                       <img
                         alt="Tailwise - Admin Dashboard Template"
                         className="rounded-md"
-                        src={faker.images[0].path}
+                        src={faker.images[0]?.path}
                       />
                       {faker.isActive ? (
                         <span className="absolute top-0 z-10 px-2.5 py-1 m-5 text-xs text-white rounded-lg bg-success/80 font-medium border-white/20 border">
@@ -216,9 +216,9 @@ function Main() {
                                   as="img"
                                   alt="Tailwise - Admin Dashboard Template"
                                   className="border-2 border-white rounded-full"
-                                  src={reviews.fakeReviews()[0].user.photo}
+                                  src={reviews.fakeReviews()[0]?.user.photo}
                                   content={`${
-                                    reviews.fakeReviews()[0].comment
+                                    reviews.fakeReviews()[0]?.comment
                                   }`}
                                 />
                               </div>
@@ -227,9 +227,9 @@ function Main() {
                                   as="img"
                                   alt="Tailwise - Admin Dashboard Template"
                                   className="border-2 border-white rounded-full"
-                                  src={reviews.fakeReviews()[0].user.photo}
+                                  src={reviews.fakeReviews()[0]?.user.photo}
                                   content={`${
-                                    reviews.fakeReviews()[0].comment
+                                    reviews.fakeReviews()[0]?.comment
                                   }`}
                                 />
                               </div>
@@ -238,9 +238,9 @@ function Main() {
                                   as="img"
                                   alt="Tailwise - Admin Dashboard Template"
                                   className="border-2 border-white rounded-full"
-                                  src={reviews.fakeReviews()[0].user.photo}
+                                  src={reviews.fakeReviews()[0]?.user.photo}
                                   content={`${
-                                    reviews.fakeReviews()[0].comment
+                                    reviews.fakeReviews()[0]?.comment
                                   }`}
                                 />
                               </div>
@@ -249,9 +249,9 @@ function Main() {
                                   as="img"
                                   alt="Tailwise - Admin Dashboard Template"
                                   className="border-2 border-white rounded-full"
-                                  src={reviews.fakeReviews()[0].user.photo}
+                                  src={reviews.fakeReviews()[0]?.user.photo}
                                   content={`${
-                                    reviews.fakeReviews()[0].comment
+                                    reviews.fakeReviews()[0]?.comment
                                   }`}
                                 />
                               </div>

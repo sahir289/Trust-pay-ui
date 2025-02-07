@@ -46,7 +46,7 @@ const fakersMerchant = {
     const merchants: Array<Merchant> = [
       {
         name: "Noah Centineo",
-        photo: imageAssets["/src/assets/images/users/user1-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user1-50x50.jpg"].default || "/src/assets/images/default.jpg",
         code: "tom",
         site: "https://NoahCentineo@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
@@ -100,7 +100,7 @@ const fakersMerchant = {
       },
       {
         name: "Meryl Streep",
-        photo: imageAssets["/src/assets/images/users/user2-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user2-50x50.jpg"]?.default || "/src/assets/images/default.jpg",
         code: "tom",
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
@@ -118,7 +118,7 @@ const fakersMerchant = {
       },
       {
         name: "Leonardo DiCaprio",
-        photo: imageAssets["/src/assets/images/users/user3-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user3-50x50.jpg"]?.default || "/src/assets/images/default.jpg",
         code: "tom",
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
@@ -136,7 +136,7 @@ const fakersMerchant = {
       },
       {
         name: "Angelina Jolie",
-        photo: imageAssets["/src/assets/images/users/user4-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user4-50x50.jpg"]?.default || "/src/assets/images/default.jpg",
         code: "tom",
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
@@ -154,7 +154,7 @@ const fakersMerchant = {
       },
       {
         name: "Brad Pitt",
-        photo: imageAssets["/src/assets/images/users/user5-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user5-50x50.jpg"]?.default || "/src/assets/images/default.jpg",
         code: "tom",
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
@@ -172,7 +172,7 @@ const fakersMerchant = {
       },
       {
         name: "Jennifer Lawrence",
-        photo: imageAssets["/src/assets/images/users/user6-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user6-50x50.jpg"]?.default || "/src/assets/images/default.jpg",
         code: "tom",
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
@@ -190,7 +190,7 @@ const fakersMerchant = {
       },
       {
         name: "Johnny Depp",
-        photo: imageAssets["/src/assets/images/users/user7-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user7-50x50.jpg"]?.default || "/src/assets/images/default.jpg",
         code: "tom",
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
@@ -208,7 +208,7 @@ const fakersMerchant = {
       },
       {
         name: "Cate Blanchett",
-        photo: imageAssets["/src/assets/images/users/user8-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user8-50x50.jpg"]?.default || "/src/assets/images/default.jpg",
         code: "tom",
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
@@ -226,7 +226,7 @@ const fakersMerchant = {
       },
       {
         name: "Denzel Washington",
-        photo: imageAssets["/src/assets/images/users/user9-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user9-50x50.jpg"]?.default || "/src/assets/images/default.jpg",
         code: "tom",
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
@@ -244,7 +244,7 @@ const fakersMerchant = {
       },
       {
         name: "Julia Roberts",
-        photo: imageAssets["/src/assets/images/users/user10-50x50.jpg"].default,
+        photo: imageAssets["/src/assets/images/users/user10-50x50.jpg"]?.default || "/src/assets/images/default.jpg",
         code: "tom",
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",

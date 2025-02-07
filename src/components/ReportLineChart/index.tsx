@@ -1,3 +1,4 @@
+import React from "react";
 import Chart, { ChartElement } from "@/components/Base/Chart";
 import { ChartData, ChartOptions } from "chart.js/auto";
 import { selectColorScheme } from "@/stores/colorSchemeSlice";
@@ -124,10 +125,10 @@ function Main({
     ];
 
     return {
-      labels: data[props.index][0],
+      labels: data[props.index]?.[0] || [],
       datasets: [
         {
-          data: data[props.index][0],
+          data: data[props.index]?.[0] || [],
           borderWidth: 1.1,
           borderColor: colorScheme ? props.borderColor : "",
           pointRadius: 0,
@@ -136,7 +137,7 @@ function Main({
           fill: true,
         },
         {
-          data: data[props.index][1],
+          data: data[props.index]?.[1] || [],
           borderWidth: 1.1,
           borderColor: colorScheme ? getColor("slate.400") : "",
           pointRadius: 0,

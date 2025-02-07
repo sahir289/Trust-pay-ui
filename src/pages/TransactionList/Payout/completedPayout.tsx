@@ -1,17 +1,16 @@
+import React, { JSX } from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
-import { useState } from "react";
 import _ from "lodash";
 import payouts from "@/fakers/payouts";
-import fakersPayouts from "@/fakers/payouts";
 interface PayinProps {
   reject: boolean; // Expecting a boolean prop to control modal reset
   setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
@@ -20,7 +19,7 @@ interface PayinProps {
 }
 const CompletedPayout: React.FC<PayinProps> = ({ reject, setReject, approve, setApprove }) => {
 
-  const [selectedUser, setSelectedUser] = useState("1");
+  // const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {
     color: string;
     icon: JSX.Element;
@@ -100,7 +99,7 @@ const CompletedPayout: React.FC<PayinProps> = ({ reject, setReject, approve, set
                   </Menu.Items>
                 </Menu>
                 <Popover className="inline-block">
-                  {({ close }) => (
+                  {({ close }: { close: () => void }) => (
                     <>
                       <Popover.Button
                         as={Button}
@@ -120,22 +119,13 @@ const CompletedPayout: React.FC<PayinProps> = ({ reject, setReject, approve, set
                         <div className="p-2">
                           <div>
                             <div className="text-left text-slate-500">User</div>
-                            <TomSelect
-                              className="flex-1 mt-2"
-                              value={selectedUser}
-                              onChange={(e) => {
-                                setSelectedUser(e.target.value);
-                              }}
-                              options={{
-                                placeholder: "Search user",
-                              }}
-                            >
+                            <FormSelect className="flex-1 mt-2">
                               {users.fakeUsers().map((faker, fakerKey) => (
                                 <option key={fakerKey} value={fakerKey}>
                                   {faker.name}
                                 </option>
                               ))}
-                            </TomSelect>
+                            </FormSelect>
                           </div>
                           <div className="mt-3">
                             <div className="text-left text-slate-500">
@@ -232,7 +222,7 @@ const CompletedPayout: React.FC<PayinProps> = ({ reject, setReject, approve, set
                     ),
                     10
                   ).map(
-                    (faker, fakerKey) => (
+                    (faker) => (
                       <Table.Tr key={faker.id} className="[&_td]:last:border-b-0">
                         <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                           <FormCheck.Input type="checkbox" />
