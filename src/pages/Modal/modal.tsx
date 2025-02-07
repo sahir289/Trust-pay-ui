@@ -11,9 +11,9 @@ import Lucide from "@/components/Base/Lucide";
 import Litepicker from "@/components/Base/Litepicker";
 import React, { useState, useRef } from "react";
 interface ModalProps {
-  handleModal: () => void; // Function that takes no arguments and returns nothing
+  handleModal: () => void; 
   sendButtonRef: React.RefObject<HTMLButtonElement>;
-  title: string; // Title as a string
+  title: string; 
   forOpen: boolean;
 }
 const Modal: React.FC<ModalProps> = ({
@@ -65,7 +65,6 @@ const Modal: React.FC<ModalProps> = ({
                     href="#"
                     onClick={(event: React.MouseEvent) => {
                       event.preventDefault();
-                      // setNewMerchantModal(true);
                       handleModal();
                     }}
                   >
@@ -90,7 +89,6 @@ const Modal: React.FC<ModalProps> = ({
                         <Lucide
                           icon="X"
                           className="w-5 h-5 ml-px stroke-[3]"
-                          // onClick={() => setNewMerchantModal(false)}
                           onClick={handleModal}
                         />
                       </Dialog.Title>

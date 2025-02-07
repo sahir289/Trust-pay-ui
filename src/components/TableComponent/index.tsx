@@ -72,7 +72,7 @@ const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   };
   return (
     <div> 
-      {/* ///password modal// */}
+      
       <PasswordVerificationModal
     isOpen={isModalOpen} 
     onClose={closeModal} 

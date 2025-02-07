@@ -8,7 +8,6 @@ interface PasswordVerificationModalProps {
   onClose: () => void;
   onVerify: () => void;
 }
-
 const PasswordVerificationModal: React.FC<PasswordVerificationModalProps> = ({
   isOpen,
   onClose,
@@ -16,7 +15,6 @@ const PasswordVerificationModal: React.FC<PasswordVerificationModalProps> = ({
 }) => {
   const sendButtonRef = useRef(null);
   const [showPassword, setShowPassword] = useState(false);
-
   return (
     <Dialog open={isOpen} onClose={onClose} initialFocus={sendButtonRef}>
       <Dialog.Panel>
@@ -40,16 +38,13 @@ const PasswordVerificationModal: React.FC<PasswordVerificationModalProps> = ({
             </Menu.Button>
           </Menu>
         </Dialog.Title>
-
-        <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
-          <legend className="ml-4 pt-1 px-2">Password</legend>
           <Dialog.Description>
             <div className="relative col-span-12 sm:col-span-12">
               <FormInput
                 id="modal-form-1"
                 placeholder="Type here..."
-                type={showPassword ? "text" : "password"} // Toggle password visibility
-                className="w-full pr-10" // Space for icon
+                type={showPassword ? "text" : "password"} 
+                className="w-full pr-10" 
               />
               <button
                 type="button"
@@ -60,8 +55,6 @@ const PasswordVerificationModal: React.FC<PasswordVerificationModalProps> = ({
               </button>
             </div>
           </Dialog.Description>
-        </fieldset>
-
         <Dialog.Footer>
           <Button
             variant="primary"
