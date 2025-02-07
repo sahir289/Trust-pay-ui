@@ -57,7 +57,6 @@ const ModalPopUp: FC<ModalDialogProps> = ({
         </Dialog.Description>}
         
         <Dialog.Description className="mx-1">
-
           {singleField?.map((val, key) => (
             <div key={key} className="mx-2 mb-2">
               <FormLabel htmlFor={val.id}>{val.label}</FormLabel>

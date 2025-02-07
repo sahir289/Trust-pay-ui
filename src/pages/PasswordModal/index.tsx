@@ -3,7 +3,6 @@ import { Dialog, Menu } from "@/components/Base/Headless";
 import Lucide from "@/components/Base/Lucide";
 import Button from "@/components/Base/Button";
 import { FormLabel, FormInput, FormSelect } from "@/components/Base/Form"; 
-
 interface PasswordVerificationModalProps {
   isOpen: boolean;
   onClose: () => void;

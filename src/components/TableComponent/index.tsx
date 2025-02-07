@@ -19,6 +19,7 @@ interface StatusStyle {
   color: string;
   icon: JSX.Element;
 }
+
 const getStatusStyles = (status: string): StatusStyle => {
   switch (status) {
     case "Image Pending":

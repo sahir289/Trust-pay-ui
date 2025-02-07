@@ -227,8 +227,6 @@ function Main() {
         "Status",
         "Action"
       ];
-      
-       
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
