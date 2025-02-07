@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import { ClassicEditor } from "@/components/Base/Ckeditor";
 import {
   FormLabel,
