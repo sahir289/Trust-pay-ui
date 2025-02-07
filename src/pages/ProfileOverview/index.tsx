@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import { FormCheck, FormInput } from "@/components/Base/Form";
@@ -15,7 +16,6 @@ import { Tab } from "@/components/Base/Headless";
 import ImageZoom from "@/components/Base/ImageZoom";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { URLSearchParams } from "url";
 import clsx from "clsx";
 import _ from "lodash";
 

@@ -1,24 +1,22 @@
 /* eslint-disable no-empty-pattern */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
-import users from "@/fakers/users";
+// import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import { useState } from "react";
 import { Menu, Popover } from "@/components/Base/Headless";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import Pagination from "@/components/Base/Pagination";
 import fakeVendorAccount from "@/fakers/vendorreports";
 
 function AccountReports() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [selectedUser, setSelectedUser] = useState("1");
+  // const [selectedUser, setSelectedUser] = useState("1");
   return (
 
     <>
@@ -117,12 +115,11 @@ function AccountReports() {
           <Popover className="inline-block">
             {({  }) => (
               <>
-                
                 <Popover.Panel placement="bottom-end">
                   <div className="p-2">
                     <div>
                       <div className="text-left text-slate-500">User</div>
-                      <TomSelect
+                      {/* <TomSelect
                         className="flex-1 mt-2"
                         value={selectedUser}
                         onChange={(e) => {
@@ -137,7 +134,7 @@ function AccountReports() {
                             {faker.name}
                           </option>
                         ))}
-                      </TomSelect>
+                      </TomSelect> */}
                     </div>
                     <div className="mt-3">
                       <div className="text-left text-slate-500">

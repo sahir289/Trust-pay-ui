@@ -1,12 +1,11 @@
-/* eslint-disable no-undef */
-import React, { JSX, useState } from "react";
+import React, { JSX } from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
-import users from "@/fakers/users";
+// import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
@@ -20,7 +19,7 @@ interface PayinProps {
 }
 const CompletedPayout: React.FC<PayinProps> = ({ reject, setReject, approve, setApprove }) => {
 
-  const [selectedUser, setSelectedUser] = useState("1");
+  // const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {
     color: string;
     icon: JSX.Element;
@@ -120,7 +119,7 @@ const CompletedPayout: React.FC<PayinProps> = ({ reject, setReject, approve, set
                         <div className="p-2">
                           <div>
                             <div className="text-left text-slate-500">User</div>
-                            <TomSelect
+                            {/* <TomSelect
                               className="flex-1 mt-2"
                               value={selectedUser}
                               onChange={(e) => {
@@ -135,7 +134,7 @@ const CompletedPayout: React.FC<PayinProps> = ({ reject, setReject, approve, set
                                   {faker.name}
                                 </option>
                               ))}
-                            </TomSelect>
+                            </TomSelect> */}
                           </div>
                           <div className="mt-3">
                             <div className="text-left text-slate-500">

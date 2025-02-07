@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import chargebacks from "@/fakers/chargebacks";
-import users from "@/fakers/users";
+// import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
@@ -16,7 +17,6 @@ import Modal from "../Modal/modal";
 function ChargeBack() {
   const [newChargeBackModal, setNewChargeBackModal] = useState(false);
   const chargebackRef = useRef(null);
-  const [selectedUser, setSelectedUser] = useState("1");
  const chargebackModal = ()=>{
   setNewChargeBackModal(!newChargeBackModal)
  }
@@ -95,7 +95,7 @@ function ChargeBack() {
                         <div className="p-2">
                           <div>
                             <div className="text-left text-slate-500">User</div>
-                            <TomSelect
+                            {/* <TomSelect
                               className="flex-1 mt-2"
                               value={selectedUser}
                               onChange={(e) => {
@@ -110,7 +110,7 @@ function ChargeBack() {
                                   {faker.name}
                                 </option>
                               ))}
-                            </TomSelect>
+                            </TomSelect> */}
                           </div>
                           <div className="mt-3">
                             <div className="text-left text-slate-500">

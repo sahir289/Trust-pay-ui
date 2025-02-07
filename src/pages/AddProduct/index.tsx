@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import TomSelect from "@/components/Base/TomSelect";
@@ -23,7 +25,6 @@ import clsx from "clsx";
 import _ from "lodash";
 
 function Main() {
-  const [subcategory, setSubcategory] = useState(["0"]);
   const [editorData, setEditorData] = useState("<p>Content of the editor.</p>");
 
   return (
@@ -143,7 +144,7 @@ function Main() {
                       </div>
                     </label>
                     <div className="flex-1 w-full mt-3 xl:mt-0">
-                      <TomSelect
+                      {/* <TomSelect
                         value={subcategory}
                         onChange={(e) => {
                           setSubcategory(e.target.value);
@@ -159,7 +160,7 @@ function Main() {
                             {faker.name}
                           </option>
                         ))}
-                      </TomSelect>
+                      </TomSelect> */}
                     </div>
                   </div>
                 </div>

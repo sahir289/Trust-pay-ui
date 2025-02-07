@@ -1,17 +1,17 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import Tippy from "@/components/Base/Tippy";
-import users from "@/fakers/users";
+// import users from "@/fakers/users";
 import mails from "@/fakers/mails";
 import Button from "@/components/Base/Button";
-import { useState } from "react";
+// import { useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";
 
 function Main() {
-  const [selectedUser, setSelectedUser] = useState("1");
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -271,7 +271,7 @@ function Main() {
                               <div className="text-left text-slate-500">
                                 Sender
                               </div>
-                              <TomSelect
+                              {/* <TomSelect
                                 className="flex-1 mt-2"
                                 value={selectedUser}
                                 onChange={(e) => {
@@ -286,7 +286,7 @@ function Main() {
                                     {faker.name}
                                   </option>
                                 ))}
-                              </TomSelect>
+                              </TomSelect> */}
                             </div>
                             <div className="mt-3">
                               <div className="text-left text-slate-500">

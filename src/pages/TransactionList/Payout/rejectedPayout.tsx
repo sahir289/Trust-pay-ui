@@ -1,15 +1,13 @@
 /* eslint-disable no-empty-pattern */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import React, { JSX, useState } from "react";
+import React, { JSX } from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
-import users from "@/fakers/users";
+// import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
@@ -23,7 +21,7 @@ interface PayinProps {
 }
 const RejectedPayout: React.FC<PayinProps>=()=> {
 
-  const [selectedUser, setSelectedUser] = useState("1");
+  // const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {
     color: string;
     icon: JSX.Element;
@@ -122,7 +120,7 @@ const RejectedPayout: React.FC<PayinProps>=()=> {
                         <div className="p-2">
                           <div>
                             <div className="text-left text-slate-500">User</div>
-                            <TomSelect
+                            {/* <TomSelect
                               className="flex-1 mt-2"
                               value={selectedUser}
                               onChange={(e) => {
@@ -137,7 +135,7 @@ const RejectedPayout: React.FC<PayinProps>=()=> {
                                   {faker.name}
                                 </option>
                               ))}
-                            </TomSelect>
+                            </TomSelect> */}
                           </div>
                           <div className="mt-3">
                             <div className="text-left text-slate-500">

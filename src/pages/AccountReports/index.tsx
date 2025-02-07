@@ -1,19 +1,18 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
-import users from "@/fakers/users";
+// import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import { useState } from "react";
 import { Menu, Popover } from "@/components/Base/Headless";
-import TomSelect from "@/components/Base/TomSelect";
 import Pagination from "@/components/Base/Pagination";
 import fakeReportAccount from "@/fakers/accountreports";
 
 function AccountReports() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [selectedUser, setSelectedUser] = useState("1");
   
   return (
 
@@ -118,7 +117,7 @@ function AccountReports() {
                   <div className="p-2">
                     <div>
                       <div className="text-left text-slate-500">User</div>
-                      <TomSelect
+                      {/* <TomSelect
                         className="flex-1 mt-2"
                         value={selectedUser}
                         onChange={(e) => {
@@ -133,7 +132,7 @@ function AccountReports() {
                             {faker.name}
                           </option>
                         ))}
-                      </TomSelect>
+                      </TomSelect> */}
                     </div>
                     <div className="mt-3">
                       <div className="text-left text-slate-500">

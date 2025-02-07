@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import clsx from "clsx";
-import _ from "lodash";
-import { useState } from "react";
+// import _ from "lodash";
+// import { useState } from "react";
 import Table from "@/components/Base/Table";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import {
   PreviewComponent,
   Preview,
@@ -12,9 +13,9 @@ import {
 import { FormSwitch } from "@/components/Base/Form";
 
 function Main() {
-  const [select, setSelect] = useState("1");
-  const [selectMultiple, setSelectMultiple] = useState(["1", "3"]);
-  const [selectHeader, setSelectHeader] = useState(["2", "3", "5"]);
+  // const [select, setSelect] = useState("1");
+  // const [selectMultiple, setSelectMultiple] = useState(["1", "3"]);
+  // const [selectHeader, setSelectHeader] = useState(["2", "3", "5"]);
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -73,7 +74,7 @@ function Main() {
                             <div>
                               <label>Basic</label>
                               <div className="mt-2">
-                                <TomSelect
+                                {/* <TomSelect
                                   value={select}
                                   onChange={(e) => {
                                     setSelect(e.target.value);
@@ -88,7 +89,7 @@ function Main() {
                                   <option value="3">Robert Downey, Jr</option>
                                   <option value="4">Samuel L. Jackson</option>
                                   <option value="5">Morgan Freeman</option>
-                                </TomSelect>
+                                </TomSelect> */}
                               </div>
                             </div>
                             {/* END: Basic Select */}
@@ -96,7 +97,7 @@ function Main() {
                             <div className="mt-3">
                               <label>Nested</label>
                               <div className="mt-2">
-                                <TomSelect
+                                {/* <TomSelect
                                   value={select}
                                   onChange={(e) => {
                                     setSelect(e.target.value);
@@ -122,7 +123,7 @@ function Main() {
                                     <option value="9">Emma Stone</option>
                                     <option value="10">Angelina Jolie</option>
                                   </optgroup>
-                                </TomSelect>
+                                </TomSelect> */}
                               </div>
                             </div>
                             {/* END: Nested Select */}
@@ -134,22 +135,22 @@ function Main() {
               <div>
                 <label>Basic</label>
                 <div className="mt-2">
-                  <TomSelect
-                    value={select}
-                    onChange={(e) => {
-                      setSelect(e.target.value);
-                    }}
-                    options={{
-                      placeholder: "Select your favorite actors",
-                    }}
-                    className="w-full"
-                  >
-                    <option value="1">Leonardo DiCaprio</option>
-                    <option value="2">Johnny Deep</option>
-                    <option value="3">Robert Downey, Jr</option>
-                    <option value="4">Samuel L. Jackson</option>
-                    <option value="5">Morgan Freeman</option>
-                  </TomSelect>
+                  // <TomSelect
+                  //   value={select}
+                  //   onChange={(e) => {
+                  //     setSelect(e.target.value);
+                  //   }}
+                  //   options={{
+                  //     placeholder: "Select your favorite actors",
+                  //   }}
+                  //   className="w-full"
+                  // >
+                  //   <option value="1">Leonardo DiCaprio</option>
+                  //   <option value="2">Johnny Deep</option>
+                  //   <option value="3">Robert Downey, Jr</option>
+                  //   <option value="4">Samuel L. Jackson</option>
+                  //   <option value="5">Morgan Freeman</option>
+                  // </TomSelect>
                 </div>
               </div>
               {/* END: Basic Select */}
@@ -157,31 +158,31 @@ function Main() {
               <div className="mt-3">
                 <label>Nested</label>
                 <div className="mt-2">
-                  <TomSelect
-                    value={select}
-                    onChange={(e) => {
-                      setSelect(e.target.value);
-                    }}
-                    options={{
-                      placeholder: "Select your favorite actors",
-                    }}
-                    className="w-full"
-                  >
-                    <optgroup label="American Actors">
-                      <option value="1">Leonardo DiCaprio</option>
-                      <option value="2">Johnny Deep</option>
-                      <option value="3">Robert Downey, Jr</option>
-                      <option value="4">Samuel L. Jackson</option>
-                      <option value="5">Morgan Freeman</option>
-                    </optgroup>
-                    <optgroup label="American Actresses">
-                      <option value="6">Scarlett Johansson</option>
-                      <option value="7">Jessica Alba</option>
-                      <option value="8">Jennifer Lawrence</option>
-                      <option value="9">Emma Stone</option>
-                      <option value="10">Angelina Jolie</option>
-                    </optgroup>
-                  </TomSelect>
+                  // <TomSelect
+                  //   value={select}
+                  //   onChange={(e) => {
+                  //     setSelect(e.target.value);
+                  //   }}
+                  //   options={{
+                  //     placeholder: "Select your favorite actors",
+                  //   }}
+                  //   className="w-full"
+                  // >
+                  //   <optgroup label="American Actors">
+                  //     <option value="1">Leonardo DiCaprio</option>
+                  //     <option value="2">Johnny Deep</option>
+                  //     <option value="3">Robert Downey, Jr</option>
+                  //     <option value="4">Samuel L. Jackson</option>
+                  //     <option value="5">Morgan Freeman</option>
+                  //   </optgroup>
+                  //   <optgroup label="American Actresses">
+                  //     <option value="6">Scarlett Johansson</option>
+                  //     <option value="7">Jessica Alba</option>
+                  //     <option value="8">Jennifer Lawrence</option>
+                  //     <option value="9">Emma Stone</option>
+                  //     <option value="10">Angelina Jolie</option>
+                  //   </optgroup>
+                  // </TomSelect>
                 </div>
               </div>
               {/* END: Nested Select */}
@@ -239,7 +240,7 @@ function Main() {
                         </div>
                         <div className="px-5 py-2 mt-4 flex flex-col gap-3.5">
                           <Preview>
-                            <TomSelect
+                            {/* <TomSelect
                               value={selectMultiple}
                               onChange={(e) => {
                                 setSelectMultiple(e.target.value);
@@ -255,26 +256,26 @@ function Main() {
                               <option value="3">Robert Downey, Jr</option>
                               <option value="4">Samuel L. Jackson</option>
                               <option value="5">Morgan Freeman</option>
-                            </TomSelect>
+                            </TomSelect> */}
                           </Preview>
                           <Source>
                             <Highlight>
                               {`
-              <TomSelect
-                value={selectMultiple}
-                onChange={setSelectMultiple}
-                options={{
-                  placeholder: "Select your favorite actors",
-                }}
-                className="w-full"
-                multiple
-              >
-                <option value="1">Leonardo DiCaprio</option>
-                <option value="2">Johnny Deep</option>
-                <option value="3">Robert Downey, Jr</option>
-                <option value="4">Samuel L. Jackson</option>
-                <option value="5">Morgan Freeman</option>
-              </TomSelect>
+              // <TomSelect
+              //   value={selectMultiple}
+              //   onChange={setSelectMultiple}
+              //   options={{
+              //     placeholder: "Select your favorite actors",
+              //   }}
+              //   className="w-full"
+              //   multiple
+              // >
+              //   <option value="1">Leonardo DiCaprio</option>
+              //   <option value="2">Johnny Deep</option>
+              //   <option value="3">Robert Downey, Jr</option>
+              //   <option value="4">Samuel L. Jackson</option>
+              //   <option value="5">Morgan Freeman</option>
+              // </TomSelect>
               `}
                             </Highlight>
                           </Source>
@@ -329,7 +330,7 @@ function Main() {
                         </div>
                         <div className="px-5 py-2 mt-4 flex flex-col gap-3.5">
                           <Preview>
-                            <TomSelect
+                            {/* <TomSelect
                               value={selectHeader}
                               onChange={(e) => {
                                 setSelectHeader(e.target.value);
@@ -350,7 +351,7 @@ function Main() {
                               <option value="3">Robert Downey, Jr</option>
                               <option value="4">Samuel L. Jackson</option>
                               <option value="5">Morgan Freeman</option>
-                            </TomSelect>
+                            </TomSelect> */}
                           </Preview>
                           <Source>
                             <Highlight>
@@ -438,7 +439,7 @@ function Main() {
                               <div className="z-30 flex items-center justify-center w-10 -mr-1 border rounded-l bg-slate-100 text-slate-600 dark:bg-darkmode-700 dark:border-darkmode-800 dark:text-slate-400">
                                 @
                               </div>
-                              <TomSelect
+                              {/* <TomSelect
                                 value={select}
                                 onChange={(e) => {
                                   setSelect(e.target.value);
@@ -450,7 +451,7 @@ function Main() {
                                 <option value="3">Robert Downey, Jr</option>
                                 <option value="4">Samuel L. Jackson</option>
                                 <option value="5">Morgan Freeman</option>
-                              </TomSelect>
+                              </TomSelect> */}
                             </div>
                           </Preview>
                           <Source>
@@ -531,7 +532,7 @@ function Main() {
                         </div>
                         <div className="px-5 py-2 mt-4 flex flex-col gap-3.5">
                           <Preview>
-                            <TomSelect
+                            {/* <TomSelect
                               value={select}
                               onChange={(e) => {
                                 setSelect(e.target.value);
@@ -544,7 +545,7 @@ function Main() {
                               <option value="3">Robert Downey, Jr</option>
                               <option value="4">Samuel L. Jackson</option>
                               <option value="5">Morgan Freeman</option>
-                            </TomSelect>
+                            </TomSelect> */}
                           </Preview>
                           <Source>
                             <Highlight>
@@ -623,7 +624,7 @@ function Main() {
                         </div>
                         <div className="px-5 py-2 mt-4 flex flex-col gap-3.5">
                           <Preview>
-                            <TomSelect
+                            {/* <TomSelect
                               value={select}
                               onChange={(e) => {
                                 setSelect(e.target.value);
@@ -639,7 +640,7 @@ function Main() {
                                 Samuel L. Jackson
                               </option>
                               <option value="5">Morgan Freeman</option>
-                            </TomSelect>
+                            </TomSelect> */}
                           </Preview>
                           <Source>
                             <Highlight>

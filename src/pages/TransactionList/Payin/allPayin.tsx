@@ -1,11 +1,11 @@
-import React, { JSX, useState } from "react";
+import React, { JSX } from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import Pagination from "@/components/Base/Pagination";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import Tippy from "@/components/Base/Tippy";
 import payins from "@/fakers/payins";
-import users from "@/fakers/users";
+// import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
@@ -22,7 +22,7 @@ interface PayinProps {
   status: string;
 }
 const AllPayin: React.FC<PayinProps> = ({ resetModal, setResetModal, setStatus }) => {
-  const [selectedUser, setSelectedUser] = useState("1");
+  // const [selectedUser, setSelectedUser] = useState("1");
   interface StatusStyle {
     color: string;
     icon: JSX.Element;
@@ -139,7 +139,7 @@ const AllPayin: React.FC<PayinProps> = ({ resetModal, setResetModal, setStatus }
                         <div className="p-2">
                           <div>
                             <div className="text-left text-slate-500">User</div>
-                            <TomSelect
+                            {/* <TomSelect
                               className="flex-1 mt-2"
                               value={selectedUser}
                               onChange={(e) => {
@@ -154,7 +154,7 @@ const AllPayin: React.FC<PayinProps> = ({ resetModal, setResetModal, setStatus }
                                   {faker.name}
                                 </option>
                               ))}
-                            </TomSelect>
+                            </TomSelect> */}
                           </div>
                           <div className="mt-3">
                             <div className="text-left text-slate-500">

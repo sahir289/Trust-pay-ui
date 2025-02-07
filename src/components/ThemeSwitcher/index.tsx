@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from "react";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";
 import { selectColorScheme } from "@/stores/colorSchemeSlice";
@@ -14,7 +15,6 @@ import { Slideover } from "@/components/Base/Headless";
 import Lucide from "@/components/Base/Lucide";
 import { useState, useEffect } from "react";
 import clsx from "clsx";
-import { URLSearchParams } from "url";
 
 function Main() {
   const dispatch = useAppDispatch();

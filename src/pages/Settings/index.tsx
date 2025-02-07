@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-undef */
 import Lucide from "@/components/Base/Lucide";
-import TomSelect from "@/components/Base/TomSelect";
+// import TomSelect from "@/components/Base/TomSelect";
 import { Link, useLocation } from "react-router-dom";
 import {
   FormLabel,
@@ -12,22 +14,21 @@ import {
 import Alert from "@/components/Base/Alert";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
-import countries from "@/fakers/countries";
-import languages from "@/fakers/languages";
-import timezones from "@/fakers/timezones";
+// import countries from "@/fakers/countries";
+// import languages from "@/fakers/languages";
+// import timezones from "@/fakers/timezones";
 import recentDevices from "@/fakers/recent-devices";
 import Button from "@/components/Base/Button";
 import Litepicker from "@/components/Base/Litepicker";
 import Table from "@/components/Base/Table";
 import { useState } from "react";
-import { URLSearchParams } from "url";
 import clsx from "clsx";
 import _ from "lodash";
 
 function Main() {
-  const [selectedCountry, setSelectedCountry] = useState("1");
-  const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [selectedTimezone, setSelectedTimezone] = useState("-05:00");
+  // const [selectedCountry, setSelectedCountry] = useState("1");
+  // const [selectedLanguage, setSelectedLanguage] = useState("en");
+  // const [selectedTimezone, setSelectedTimezone] = useState("-05:00");
   const [dateOfBirth, setDateOfBirth] = useState<string>();
 
   const { search } = useLocation();
@@ -518,7 +519,7 @@ function Main() {
                       </div>
                     </label>
                     <div className="flex-1 w-full mt-3 xl:mt-0">
-                      <TomSelect
+                      {/* <TomSelect
                         value={selectedCountry}
                         onChange={(e) => {
                           setSelectedCountry(e.target.value);
@@ -533,7 +534,7 @@ function Main() {
                             {faker.name}
                           </option>
                         ))}
-                      </TomSelect>
+                      </TomSelect> */}
                     </div>
                   </div>
                   <div className="flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0">
@@ -840,7 +841,7 @@ function Main() {
                       </div>
                     </label>
                     <div className="flex-1 w-full mt-3 xl:mt-0">
-                      <TomSelect
+                      {/* <TomSelect
                         value={selectedLanguage}
                         onChange={(e) => {
                           setSelectedLanguage(e.target.value);
@@ -855,7 +856,7 @@ function Main() {
                             {faker.name}
                           </option>
                         ))}
-                      </TomSelect>
+                      </TomSelect> */}
                     </div>
                   </div>
                   <div className="flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0">
@@ -874,7 +875,7 @@ function Main() {
                       </div>
                     </label>
                     <div className="flex-1 w-full mt-3 xl:mt-0">
-                      <TomSelect
+                      {/* <TomSelect
                         value={selectedTimezone}
                         onChange={(e) => {
                           setSelectedTimezone(e.target.value);
@@ -889,7 +890,7 @@ function Main() {
                             {faker.name}
                           </option>
                         ))}
-                      </TomSelect>
+                      </TomSelect> */}
                     </div>
                   </div>
                   <div className="flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0">

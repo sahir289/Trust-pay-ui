@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { useRoutes } from "react-router-dom";
 import DashboardOverview1 from "../pages/DashboardOverview1";
 import DashboardOverview2 from "../pages/DashboardOverview2";
@@ -51,7 +52,7 @@ import Icon from "../pages/Icon";
 import LoadingIcon from "../pages/LoadingIcon";
 import RegularForm from "../pages/RegularForm";
 import Datepicker from "../pages/Datepicker";
-import TomSelect from "../pages/TomSelect";
+// import TomSelect from "../pages/TomSelect";
 import FileUpload from "../pages/FileUpload";
 import WysiwygEditor from "../pages/WysiwygEditor";
 import Validation from "../pages/Validation";
@@ -296,10 +297,10 @@ function Router() {
           path: "datepicker",
           element: <Datepicker />,
         },
-        {
-          path: "tom-select",
-          element: <TomSelect />,
-        },
+        // {
+        //   path: "tom-select",
+        //   element: <TomSelect />,
+        // },
         {
           path: "file-upload",
           element: <FileUpload />,
