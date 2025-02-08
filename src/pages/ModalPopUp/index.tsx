@@ -18,6 +18,7 @@ interface ModalDialogProps {
   buttonText: string;
   onSubmit: () => void;
   onReset: () => void;
+  button: string;
   // eslint-disable-next-line no-undef
   resetRef: React.RefObject<HTMLButtonElement>;
 }
@@ -30,10 +31,13 @@ const ModalPopUp: FC<ModalDialogProps> = ({
   buttonText, 
   onSubmit, 
   onReset, 
-  resetRef 
+  button,
+  resetRef,
 }) => {
-  return (
-    <Dialog open={open} onClose={onClose} initialFocus={resetRef}>
+  
+  
+  return (<>
+    {button == "Edit" &&<Dialog open={open} onClose={onClose} initialFocus={resetRef}>
       <Dialog.Panel className="pt-2 pb-4">
         <Dialog.Title className="justify-between">
           <h2>{title}</h2>
@@ -88,7 +92,31 @@ const ModalPopUp: FC<ModalDialogProps> = ({
           </Button>
         </Dialog.Description>
       </Dialog.Panel>
-    </Dialog>
+    </Dialog>}
+    {/* modal for delete confirmation */}
+    {button=="Delete" && <Dialog open={open} onClose={onClose}>
+        <Dialog.Panel className="p-4">
+        <Dialog.Title className="justify-between">
+          <h2>{button}</h2>
+          <Lucide
+            icon="X"
+            className="w-5 h-5 ml-px stroke-[3]"
+            onClick={onClose}
+          />
+        </Dialog.Title>
+          <Dialog.Description className="mt-2">
+          Are you sure you want to delete this Data</Dialog.Description>
+          <div className="mt-4 flex justify-end">
+            <Button variant="outline-secondary" onClick={onClose}>
+              Cancel
+            </Button>
+            <Button variant="danger" className="ml-3" onClick={onClose}>
+              Ok
+            </Button>
+          </div>
+        </Dialog.Panel>
+      </Dialog>}
+    </>
   );
 };
 
