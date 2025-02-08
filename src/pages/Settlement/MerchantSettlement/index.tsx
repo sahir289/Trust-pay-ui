@@ -139,24 +139,28 @@ function MerchantSettlement() {
                 </Popover>
               </div>
             </div>
-          
-          
-              <CustomTable columns={tableHeaders}   data={transactions.fakeTransactions().map((transaction, index) => ({
-                sno: index + 1,
-                code: transaction.orderId,
-                confirmed: true,
-                amount: Number(transaction.amount),
-                status: transaction.orderStatus.toString(),
-                merchant_order_id: transaction.orderId,
-                merchant_code: "default_code",
-                photo: "default_photo_url",
-                name: transaction.user.toString(),
-                user_submitted_utr: "default_utr",
-                utr: "default_utr",
-                method: "default_method",
-                id: "default_id",
-                updated_at: "default_updated_at",
-              }))}  title={"Merchants Settlements"} status={[]}/>
+            <CustomTable columns={tableHeaders} data={transactions.fakeTransactions().map((transaction, index) => ({
+              sno: index + 1,
+              code: transaction.orderId,
+              confirmed: true, // or any appropriate value
+              amount: Number(`${transaction.amount}`), // convert to number
+              status: transaction.orderStatus.name, // convert to string
+              merchant_order_id: transaction.orderId,
+              merchant_code: "M123", // or any appropriate value
+              photo: transaction.user.photo, // or any appropriate value
+              name: transaction.user.name, // convert to string
+              user_submitted_utr: "", // or any appropriate value
+              utr: "", // or any appropriate value
+              category: transaction.category,
+              orderId: transaction.orderId,
+              user: transaction.user,
+              products: transaction.products,
+              orderStatus: transaction.orderStatus,
+              orderDate: transaction.orderDate,
+              method: "", // or any appropriate value
+              id: "", // or any appropriate value
+              updated_at: "" // or any appropriate value
+            }))} title={"Merchants Settlements"} status={[]} />
           </div>
         </div>
       </div>

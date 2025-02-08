@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import Lucide from "@/components/Base/Lucide";
 import { FormInput } from "@/components/Base/Form";
-import fakersBankAccount from "@/fakers/bankaccount";
+import bankaccounts from "@/fakers/bankaccount";
 import Modal from "../Modal/modal";
 import { useState, useRef, JSX } from "react";
 import CustomTable from "@/components/TableComponent";
@@ -137,23 +137,35 @@ function Main(): JSX.Element {
                 </div>
               </div>
             </div>
-            <CustomTable columns={tableHeaders} data={fakersBankAccount.fakeBankAccounts().map(account => ({
-              sno: 0, // or any appropriate value
+            <CustomTable columns={tableHeaders} data={bankaccounts.fakeBankAccounts().map((account, index) => ({
+              sno: index + 1,
               code: '',
               confirmed: false,
               amount: 0,
-              status: account.status,
               merchant_order_id: '',
               merchant_code: '',
               photo: '',
               name: account.accountName,
               user_submitted_utr: '',
               utr: '',
+              accountName: account.accountName,
+              bankDetails: account.bankDetails,
+              accountNumber: account.accountNumber,
+              upiId: account.upiId,
+              limits: account.limits,
+              balance: parseFloat(account.balance),
+              bankUsedFor: account.bankUsedFor,
+              vendors: account.vendors,
+              createdAt: account.createdAt,
+              lastScheduledAt: account.lastScheduledAt,
+              allowIntent: account.allowIntent,
+              allowQR: account.allowQR,
+              showBank: account.showBank,
+              status: account.status,
               method: '',
               id: '',
               updated_at: '',
-              // add other properties as needed
-              position: undefined,
+              position: ''
             }))} title={"Bankaccounts"} status={[]} />
           </div>
         </div>
