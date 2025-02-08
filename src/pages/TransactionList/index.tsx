@@ -57,6 +57,7 @@ function Main() {
               buttonText="Success"
               onSubmit={() => {/* Handle Success */ }}
               onReset={() => setResetModal(false)}
+              button=""
               resetRef={resetRef}
             />
           )}
@@ -73,6 +74,7 @@ function Main() {
               buttonText="Approve"
               onSubmit={() => {/* Handle Approve */ }}
               onReset={handleClose}
+              button=""
               resetRef={resetRef}
             />
           )}
@@ -93,6 +95,7 @@ function Main() {
               buttonText="Approve"
               onSubmit={() => {/* Handle Approve */ }}
               onReset={handleApprove}
+              button=""
               resetRef={resetRef}
             />
           )}
@@ -109,6 +112,7 @@ function Main() {
               buttonText="Reject"
               onSubmit={() => {/* Handle Reject */ }}
               onReset={handleReject}
+              button=""
               resetRef={resetRef}
             />
           )}
