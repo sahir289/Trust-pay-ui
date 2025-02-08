@@ -217,30 +217,38 @@ const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
                         </Table.Td>
                         <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                           <div className="flex items-center justify-center">
-                            <Menu className="h-5">
-                              <Menu.Button className="w-5 h-5 text-slate-500">
-                                <Lucide
-                                  icon="MoreVertical"
-                                  className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
-                                />
-                              </Menu.Button>
-                              <Menu.Items className="w-40">
-                                <Menu.Item>
+                            {(faker.status === "Dispute" || faker.status === "Bank Mismatch") ? (
+                              <Menu className="h-5">
+                                <Menu.Button className="w-5 h-5 text-slate-500">
                                   <Lucide
-                                    icon="CheckSquare"
-                                    className="w-4 h-4 mr-2"
-                                  />{" "}
-                                  Edit
-                                </Menu.Item>
-                                <Menu.Item className="text-danger">
-                                  <Lucide
-                                    icon="Trash2"
-                                    className="w-4 h-4 mr-2"
+                                    icon="MoreVertical"
+                                    className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
                                   />
-                                  Delete
-                                </Menu.Item>
-                              </Menu.Items>
-                            </Menu>
+                                </Menu.Button>
+
+                                <Menu.Items className="w-40">
+                                  <Menu.Item >
+                                    <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Reset
+                                  </Menu.Item>
+
+                                  <Menu.Item className="text-danger">
+                                    <Lucide icon="Bell" className="w-4 h-4 mr-2" /> Notify
+                                  </Menu.Item>
+                                </Menu.Items>
+                              </Menu>
+                            ) : (
+
+                              <Menu className="h-5">
+                                <Menu.Button className="w-5 h-5 text-slate-500">
+                                  <Lucide
+                                    icon="Bell"
+                                    className="w-5 h-5 stroke-slate-400/70 fill-green-400/70"
+                                  />
+                                </Menu.Button>
+                              </Menu>
+
+                            )}
+
                           </div>
                         </Table.Td>
                       </Table.Tr>
