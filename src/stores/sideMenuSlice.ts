@@ -65,12 +65,12 @@ const initialState: SideMenuState = {
     "ROLES & RESPONSIBILITIES",
     {
       icon: "CircleUserRound",
-      pathname: "/layout/profile-overview",
+      pathname: "/layout/roles",
       title: "Roles",
     },
     {
       icon: "UserCog",
-      pathname: "/layout/profile-overview",
+      pathname: "/layout/designation",
       title: "Designation",
     },
     "DATA ENTRIES",

@@ -1,0 +1,200 @@
+import _ from "lodash";
+
+export interface BankAccount {
+  accountName: string;
+  bankDetails: string;
+  accountNumber: string;
+  upiId: string;
+  limits: string;
+  balance: string;
+  allowIntent: boolean;
+  allowQR: boolean;
+  showBank: boolean;
+  status: "Active" | "Inactive";
+  action: string;
+  bankUsedFor: "Payouts" | "Settlements" | "Payins";
+  vendors: string;
+  createdAt: string;
+  lastScheduledAt: string;
+}
+
+const fakersBankAccount = {
+  fakeBankAccounts(): Array<BankAccount> {
+    const bankAccounts:Array<BankAccount> = [
+      {
+        accountName: "John Doe",
+        bankDetails: "Bank of America, Branch XYZ",
+        accountNumber: "123456789",
+        upiId: "john@upi",
+        limits: "10000",
+        balance: "5000",
+        createdAt: "2023-01-01",
+        lastScheduledAt: "2023-01-10",
+        allowIntent: true,
+        allowQR: true,
+        showBank: true,
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor A",
+      },
+      {
+        accountName: "John Doe",
+        bankDetails: "Bank of America, Branch XYZ",
+        accountNumber: "123456789",
+        upiId: "john@upi",
+        limits: "10000",
+        balance: "5000",
+        createdAt: "2023-01-01",
+        lastScheduledAt: "2023-01-10",
+        allowIntent: true,
+        allowQR: true,
+        showBank: true,
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor A",
+      },
+      {
+        accountName: "John Doe",
+        bankDetails: "Bank of America, Branch XYZ",
+        accountNumber: "123456789",
+        upiId: "john@upi",
+        limits: "10000",
+        balance: "5000",
+        createdAt: "2023-01-01",
+        lastScheduledAt: "2023-01-10",
+        allowIntent: true,
+        allowQR: true,
+        showBank: true,
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor A",
+      },
+      {
+        accountName: "John Doe",
+        bankDetails: "Bank of America, Branch XYZ",
+        accountNumber: "123456789",
+        upiId: "john@upi",
+        limits: "10000",
+        balance: "5000",
+        createdAt: "2023-01-01",
+        lastScheduledAt: "2023-01-10",
+        allowIntent: true,
+        allowQR: true,
+        showBank: true,
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor A",
+      },
+      {
+        accountName: "John Doe",
+        bankDetails: "Bank of America, Branch XYZ",
+        accountNumber: "123456789",
+        upiId: "john@upi",
+        limits: "10000",
+        balance: "5000",
+        createdAt: "2023-01-01",
+        lastScheduledAt: "2023-01-10",
+        allowIntent: true,
+        allowQR: true,
+        showBank: true,
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor A",
+      },
+      {
+        accountName: "John Doe",
+        bankDetails: "Bank of America, Branch XYZ",
+        accountNumber: "123456789",
+        upiId: "john@upi",
+        limits: "10000",
+        balance: "5000",
+        createdAt: "2023-01-01",
+        lastScheduledAt: "2023-01-10",
+        allowIntent: true,
+        allowQR: true,
+        showBank: true,
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor A",
+      },
+      {
+        accountName: "John Doe",
+        bankDetails: "Bank of America, Branch XYZ",
+        accountNumber: "123456789",
+        upiId: "john@upi",
+        limits: "10000",
+        balance: "5000",
+        createdAt: "2023-01-01",
+        lastScheduledAt: "2023-01-10",
+        allowIntent: true,
+        allowQR: true,
+        showBank: true,
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor A",
+      },
+      {
+        accountName: "John Doe",
+        bankDetails: "Bank of America, Branch XYZ",
+        accountNumber: "123456789",
+        upiId: "john@upi",
+        limits: "10000",
+        balance: "5000",
+        createdAt: "2023-01-01",
+        lastScheduledAt: "2023-01-10",
+        allowIntent: true,
+        allowQR: true,
+        showBank: true,
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor A",
+      },
+      {
+        accountName: "John Doe",
+        bankDetails: "Bank of America, Branch XYZ",
+        accountNumber: "123456789",
+        upiId: "john@upi",
+        limits: "10000",
+        balance: "5000",
+        createdAt: "2023-01-01",
+        lastScheduledAt: "2023-01-10",
+        allowIntent: true,
+        allowQR: true,
+        showBank: true,
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor A",
+      },
+      {
+        accountName: "John Doe",
+        bankDetails: "Bank of America, Branch XYZ",
+        accountNumber: "123456789",
+        upiId: "john@upi",
+        limits: "10000",
+        balance: "5000",
+        createdAt: "2023-01-01",
+        lastScheduledAt: "2023-01-10",
+        allowIntent: true,
+        allowQR: true,
+        showBank: true,
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor A",
+      },
+    ];
+
+    return _.shuffle(bankAccounts);
+  },
+};
+
+export default fakersBankAccount;

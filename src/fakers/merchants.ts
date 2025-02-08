@@ -37,7 +37,7 @@ export interface Merchant {
 
 
 const fakersMerchant = {
-  fakeMerchants() {
+  fakeMerchants(): Array<Merchant> {
     const merchants: Array<Merchant> = [
       {
         name: "Noah Centineo",

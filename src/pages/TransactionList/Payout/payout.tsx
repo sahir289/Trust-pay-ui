@@ -11,60 +11,61 @@ interface PayinProps {
   approve: boolean; // Expecting a boolean prop to control modal reset
   setApprove: React.Dispatch<React.SetStateAction<boolean>>
 }
-const Payin: React.FC<PayinProps> =({ reject, setReject, approve, setApprove  })=> {
+
+const Payout: React.FC<PayinProps> = ({ reject, setReject, approve, setApprove }) => {
 
   return (
     <div className="flex flex-col p-5"><Tab.Group>
       <Tab.List variant="tabs">
         <Tab>
           <Tab.Button className="w-full py-2 flex items-center justify-center" as="button">
-              <Lucide
-                icon="Globe"
-                className="w-5 h-5 ml-px stroke-[2.5]"
-              />&nbsp;
+            <Lucide
+              icon="Globe"
+              className="w-5 h-5 ml-px stroke-[2.5]"
+            />&nbsp;
             All
           </Tab.Button>
         </Tab>
         <Tab>
           <Tab.Button className="w-full py-2 flex items-center justify-center" as="button">
-              <Lucide
-                icon="BadgeCheck"
-                className="w-5 h-5 ml-px stroke-[2.5]"
-              />&nbsp;
+            <Lucide
+              icon="BadgeCheck"
+              className="w-5 h-5 ml-px stroke-[2.5]"
+            />&nbsp;
             Completed
           </Tab.Button>
         </Tab>
         <Tab>
           <Tab.Button className="w-full py-2 flex items-center justify-center" as="button">
-              <Lucide
-                icon="TrendingUp"
-                className="w-5 h-5 ml-px stroke-[2.5]"
-              />&nbsp;
+            <Lucide
+              icon="TrendingUp"
+              className="w-5 h-5 ml-px stroke-[2.5]"
+            />&nbsp;
             Inprogress
           </Tab.Button>
         </Tab>
         <Tab>
           <Tab.Button className="w-full py-2 flex items-center justify-center" as="button">
-              <Lucide
-                icon="BadgeX"
-                className="w-5 h-5 ml-px stroke-[2.5]"
-              />&nbsp;
+            <Lucide
+              icon="BadgeX"
+              className="w-5 h-5 ml-px stroke-[2.5]"
+            />&nbsp;
             Rejected
           </Tab.Button>
         </Tab>
       </Tab.List>
       <Tab.Panels className="border-b border-l border-r">
         <Tab.Panel className="py-5 leading-relaxed">
-          <AllPayout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove}/>
+          <AllPayout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove} />
         </Tab.Panel>
         <Tab.Panel className="py-5 leading-relaxed">
-          <CompletedPayout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove}/>
+          <CompletedPayout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove} />
         </Tab.Panel>
         <Tab.Panel className="py-5 leading-relaxed">
-          <InProgressPayout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove}/>
+          <InProgressPayout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove} />
         </Tab.Panel>
         <Tab.Panel className="py-5 leading-relaxed">
-          <RejectedPayout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove}/>
+          <RejectedPayout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove} />
         </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
@@ -72,4 +73,4 @@ const Payin: React.FC<PayinProps> =({ reject, setReject, approve, setApprove  })
   );
 }
 
-export default Payin;
+export default Payout;

@@ -26,7 +26,7 @@ const imageAssets = import.meta.glob<{
 }>("/src/assets/images/users/*.{jpg,jpeg,png,svg}", { eager: true });
 
 const fakersPayins = {
-    fakePayins() {
+    fakePayins(): Array<Payin> {
         const payins: Array<Payin> = [
             {
                 id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
