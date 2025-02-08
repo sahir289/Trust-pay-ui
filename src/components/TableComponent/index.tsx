@@ -703,22 +703,46 @@ const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
                         <span className="whitespace-nowrap">{faker.updated_at}</span>
                       </Table.Td>
                       <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                        <div className="flex items-center justify-center">
-                          <Menu className="h-5">
-                            <Menu.Button className="w-5 h-5 text-slate-500">
-                              <Lucide icon="MoreVertical" className="w-5 h-5" />
-                            </Menu.Button>
-                            <Menu.Items className="w-40">
-                              <Menu.Item>
-                                <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
-                              </Menu.Item>
-                              <Menu.Item className="text-danger">
-                                <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
-                              </Menu.Item>
-                            </Menu.Items>
-                          </Menu>
-                        </div>
-                      </Table.Td>
+                          <div className="flex items-center justify-center">
+                            <Menu className="h-5">
+
+                              <Menu.Button className="w-5 h-5 text-slate-500">
+                                {faker.status === "Rejected" ? (
+                                  <>   <Lucide icon="Bell" className="w-5 h-5 text-green-500" /></>
+                                ) : (
+
+                                  <>   <Lucide icon="MoreVertical" className="w-5 h-5" /></>
+                                )}
+                              </Menu.Button>
+
+
+                              {faker.status === "Initiated" ? (
+
+                                <Menu.Items className="w-40">
+                                  <Menu.Item
+                                    
+                                  >
+                                    <Lucide icon="Check" className="w-4 h-4 mr-2" /> Approve
+                                  </Menu.Item>
+                                  <Menu.Item className="text-danger" >
+                                    <Lucide icon="X" className="w-4 h-4 mr-2" /> Reject
+                                  </Menu.Item>
+                                </Menu.Items>
+                              ) : (
+                                <Menu.Items className="w-40">
+                                  <Menu.Item
+                                  //  onClick={()=>setApprove(!approve)}
+                                  >
+                                    <Lucide icon="Bell" className="w-4 h-4 mr-2 text-green-500" /> Notify
+                                  </Menu.Item>
+                                  <Menu.Item className="text-danger" >
+                                    <Lucide icon="X" className="w-4 h-4 mr-2" /> Reject
+                                  </Menu.Item>
+                                </Menu.Items>
+                              )}
+                            </Menu>
+                          </div>
+                        </Table.Td>
                     </Table.Tr>
                   )
                 )}
