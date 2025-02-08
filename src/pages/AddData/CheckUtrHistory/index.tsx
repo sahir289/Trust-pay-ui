@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
-// import TomSelect from "@/components/Base/TomSelect";
 import {  FormInput, FormSelect } from "@/components/Base/Form";
 import transactions from "@/fakers/transactions";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
-// import { useState } from "react";
-import _ from "lodash";
 import CustomTable from "@/components/TableComponent";
 export interface Transaction {
   category: string;
@@ -143,18 +140,24 @@ function CheckUtrHistory() {
             <CustomTable columns={transactionTableHeaders}  data={transactions.fakeTransactions().map((transaction, index) => ({
                 sno: index + 1,
                 code: transaction.orderId,
-                confirmed: true,
-                amount: Number(transaction.amount),
-                status: transaction.orderStatus.toString(),
+                confirmed: true, // or any appropriate value
+                amount: Number(`${transaction.amount}`), // convert to number
+                status: transaction.orderStatus.name, // convert to string
                 merchant_order_id: transaction.orderId,
-                merchant_code: "default_code",
-                photo: "default_photo_url",
-                name: transaction.user.toString(),
-                user_submitted_utr: "default_utr",
-                utr: "default_utr",
-                method: "default_method",
-                id: "default_id",
-                updated_at: "default_updated_at",
+                merchant_code: "M123", // or any appropriate value
+                photo: transaction.user.photo, // or any appropriate value
+                name: transaction.user.name, // convert to string
+                user_submitted_utr: "", // or any appropriate value
+                utr: "", // or any appropriate value
+                category: transaction.category,
+                orderId: transaction.orderId,
+                user: transaction.user,
+                products: transaction.products,
+                orderStatus: transaction.orderStatus,
+                orderDate: transaction.orderDate,
+                method: "", // or any appropriate value
+                id: "", // or any appropriate value
+                updated_at: "" // or any appropriate value
               }))}  title={"Data Entries"} status={[""]}/>
           </div>
         </div>

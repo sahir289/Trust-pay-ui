@@ -11,7 +11,7 @@ import DashboardOverview8 from "../pages/DashboardOverview8";
 import Users from "../pages/Users";
 import Vendors from "../pages/Vendors";
 import Merchant from "../pages/Merchant";
-import Roles from "../pages/Merchant";
+import Roles from "../pages/Roles";
 import Departments from "../pages/Departments";
 import AddUser from "../pages/AddUser";
 import ProfileOverview from "../pages/ProfileOverview";
