@@ -101,10 +101,15 @@ setTitleforDelete(open);
       <ModalPopUp 
         open={isModalPopupOpen}
         onClose={closeModal}
-        title=""
-        fields={[]}
-        singleField={[]}
-        buttonText=""
+        title="Update Details"
+        fields={[
+          { id: "amount", label: "Example", type: "text", placeholder: "Example" },
+          { id: "confirmAmount", label: "Confirm Example", type: "text", placeholder: "Confirm Example" },
+        ]}
+        singleField={[
+          { id: "merchantOrderId", label: "Example.com", type: "text", placeholder: "@example.com" }
+        ]}
+        buttonText="Success"
         onSubmit={() => {}}
         onReset={() => {}}
         button={TitleforDelete}
