@@ -34,7 +34,7 @@ function Main(): JSX.Element {
     const userModal = (): void => {
       setNewUserModal(!newUserModal)
     }
-    const tableHeaders = [
+    const tableHeaders: string[] = [
       "sno",
       "role",
       "created_by",
@@ -57,64 +57,8 @@ function Main(): JSX.Element {
           </div>
         </div>
 
-{/* END: Modal Content */}
         <div className="flex flex-col gap-8 mt-3.5">
-          {/* <div className="flex flex-col p-5 box box--stacked">
-            <div className="grid grid-cols-4 gap-5">
-              <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                <div className="text-base text-slate-500">Registered Vendors</div>
-                <div className="mt-1.5 text-2xl font-medium">204</div>
-                <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
-                  <div className="flex items-center border border-danger/10 bg-danger/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-danger">
-                    3%
-                    <Lucide
-                      icon="ChevronDown"
-                      className="w-4 h-4 ml-px stroke-[1.5]"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                <div className="text-base text-slate-500">Active Vendors</div>
-                <div className="mt-1.5 text-2xl font-medium">721</div>
-                <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
-                  <div className="flex items-center border border-success/10 bg-success/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-success">
-                    2%
-                    <Lucide
-                      icon="ChevronUp"
-                      className="w-4 h-4 ml-px stroke-[1.5]"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                <div className="text-base text-slate-500">New Vendors</div>
-                <div className="mt-1.5 text-2xl font-mediumm">223</div>
-                <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
-                  <div className="flex items-center border border-danger/10 bg-danger/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-danger">
-                    3%
-                    <Lucide
-                      icon="ChevronDown"
-                      className="w-4 h-4 ml-px stroke-[1.5]"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                <div className="text-base text-slate-500">Login Activity</div>
-                <div className="mt-1.5 text-2xl font-mediumm">25</div>
-                <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
-                  <div className="flex items-center border border-success/10 bg-success/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-success">
-                    8%
-                    <Lucide
-                      icon="ChevronUp"
-                      className="w-4 h-4 ml-px stroke-[1.5]"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
+         
           <div className="flex flex-col box box--stacked">
             <div className="flex flex-col p-5 sm:items-center sm:flex-row gap-y-2">
               <div>
@@ -130,117 +74,7 @@ function Main(): JSX.Element {
                   />
                 </div>
               </div>
-              {/* <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 sm:ml-auto">
-                <Menu>
-                  <Menu.Button
-                    as={Button}
-                    variant="outline-secondary"
-                    className="w-full sm:w-auto"
-                  >
-                    <Lucide
-                      icon="Download"
-                      className="stroke-[1.3] w-4 h-4 mr-2"
-                    />
-                    Export
-                    <Lucide
-                      icon="ChevronDown"
-                      className="stroke-[1.3] w-4 h-4 ml-2"
-                    />
-                  </Menu.Button>
-                  <Menu.Items className="w-40">
-                    <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{" "}
-                      PDF
-                    </Menu.Item>
-                    <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />
-                      CSV
-                    </Menu.Item>
-                  </Menu.Items>
-                </Menu>
-                <Popover className="inline-block">
-                  {({ close }) => (
-                    <>
-                      <Popover.Button
-                        as={Button}
-                        variant="outline-secondary"
-                        className="w-full sm:w-auto"
-                      >
-                        <Lucide
-                          icon="ArrowDownWideNarrow"
-                          className="stroke-[1.3] w-4 h-4 mr-2"
-                        />
-                        Filter
-                        <div className="flex items-center justify-center h-5 px-1.5 ml-2 text-xs font-medium border rounded-full bg-slate-100 dark:bg-darkmode-400">
-                          3
-                        </div>
-                      </Popover.Button>
-                      <Popover.Panel placement="bottom-end">
-                        <div className="p-2">
-                          <div>
-                            <div className="text-left text-slate-500">
-                              Position
-                            </div>
-                            <FormSelect className="flex-1 mt-2">
-                              {_.take(users.fakeUsers(), 5).map(
-                                (faker, fakerKey) => (
-                                  <option key={fakerKey} value={faker.position}>
-                                    {faker.position}
-                                  </option>
-                                )
-                              )}
-                            </FormSelect>
-                          </div>
-                          <div className="mt-3">
-                            <div className="text-left text-slate-500">
-                              Department
-                            </div>
-                            <FormSelect className="flex-1 mt-2">
-                              {_.take(users.fakeUsers(), 5).map(
-                                (faker, fakerKey) => (
-                                  <option
-                                    key={fakerKey}
-                                    value={faker.department}
-                                  >
-                                    {faker.department}
-                                  </option>
-                                )
-                              )}
-                            </FormSelect>
-                          </div>
-                          <div className="flex items-center mt-4">
-                            <Button
-                              variant="secondary"
-                              onClick={() => {
-                                close();
-                              }}
-                              className="w-32 ml-auto"
-                            >
-                              Close
-                            </Button>
-                            <Button variant="primary" className="w-32 ml-2">
-              <CustomTable columns={tableHeaders} data={users.fakeUsers().map(user => ({
-                ...user,
-                code: '',
-                confirmed: false,
-                amount: 0,
-                status: '',
-                merchant_order_id: '',
-                merchant_code: '',
-                photo: '',
-                name: '',
-                user_submitted_utr: '',
-                utr: '',
-                position: ''
-              })) as TableData[]} title={"Roles"} status={[]}/>
-                            </Button>
-              <CustomTable columns={tableHeaders} data={users.fakeUsers() as User[]} title={"Roles"} status={[]}/>
-                        </div>
-                      </Popover.Panel>
-                    </>
-                  )}
-                </Popover>
-              </div> */}
+            
             </div>
             <div className="overflow-auto xl:overflow-visible">
               <CustomTable columns={tableHeaders} data={users.fakeUsers() as unknown as TableData[]} title={"Roles"} status={[]}/>

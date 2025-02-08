@@ -50,13 +50,9 @@ const tableHeaders: string[] = [
           </div>
  <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
   <Modal handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title={title} />
-
           </div>
         </div>
-      
-
-{/* END: Modal Content */}
-        <div className="flex flex-col gap-8 mt-3.5">
+              <div className="flex flex-col gap-8 mt-3.5">
           
           <div className="flex flex-col box box--stacked">
             <div className="flex flex-col p-5 sm:items-center sm:flex-row gap-y-2">
