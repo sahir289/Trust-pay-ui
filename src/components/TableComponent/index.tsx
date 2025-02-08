@@ -11,6 +11,7 @@ import Tippy from "@/components/Base/Tippy";
 import PasswordVerificationModal from "@/pages/PasswordModal";
 import { useState } from "react";
 import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
+import ModalPopUp from "@/pages/ModalPopUp";
 interface CustomTableProps {
   columns: string[];
   data: Array<{ sno: number; code: string; confirmed: boolean; amount: number; status: string; merchant_order_id: string; merchant_code: string; photo: string; name: string; user_submitted_utr: string; utr: string; method: string; id: string; updated_at: string; commission?: number; bankDetails?: string; balance?: number; bankUsedFor?: string; vendors?: string; createdAt?: string; lastScheduledAt?: string; accountName?: string; accountNumber?: string; upiId?: string; orderId?: string; orderStatus?: { textColor: string; icon: string; name: string }; orderDate?: string; referance_date?: string; fromBank?: string; vendor?: string; manager?: string; joinedDate?: string; email?: string; department?: string; position?: string; duration?: number; bank?: string }>;
@@ -90,6 +91,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
         };
     }
   };
+  const [isModalPopupOpen, setIsModalPopupOpen] = useState<boolean>(false);
+  const [TitleforDelete, setTitleforDelete] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [details, setDetails] = useState<{
     sno: string;
@@ -109,23 +112,44 @@ const CustomTable: React.FC<CustomTableProps> = ({
     bank: string;
     updated_at: string;
   } | null>(null);
-  const openModal = (): void => {
+
+
+  const openModal = (open: string): void => {
     setIsModalOpen(true);
-  };
+    setTitleforDelete(open);
+  }
   const closeModal = (): void => {
     setIsModalOpen(false);
+    setIsModalPopupOpen(false)
   };
-  const handleVerify = (): void => {
+  interface Verify {
+    verify: string;
+  }
+  const handleVerify = (verify: Verify): void => {
     closeModal();
+    setIsModalPopupOpen(true);
+    setTitleforDelete(verify.verify);
   };
 
   return (
 
     <div>
+      <ModalPopUp
+        open={isModalPopupOpen}
+        onClose={closeModal}
+        title=""
+        fields={[]}
+        singleField={[]}
+        buttonText=""
+        onSubmit={() => { }}
+        onReset={() => { }}
+        button={TitleforDelete}
+        resetRef={React.createRef()}
+      />
       <PasswordVerificationModal
         isOpen={isModalOpen}
         onClose={closeModal}
-        onVerify={handleVerify}
+        onVerify={() => handleVerify({ verify: TitleforDelete })}
       />{details && (
         <ModalTransactionDetails
           handleModal={() => setDetails(null)}
@@ -466,21 +490,19 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         </Menu.Button>
                         <Menu.Items className="w-40">
                           <Menu.Item
-                            onClick={(event: React.MouseEvent) => {
-                              event.preventDefault();
-                            }}
+                            onClick={() => openModal("List")}
                           >
                             <Lucide icon="Eye" className="w-4 h-4 mr-2" /> List
                           </Menu.Item>
                           <Menu.Item
-                            onClick={(event: React.MouseEvent) => {
-                              event.preventDefault();
-                            }}
+                            onClick={() => openModal("Report")}
                           >
                             <Lucide icon="Download" className="w-4 h-4 mr-2" />{" "}
                             Report
                           </Menu.Item>
-                          <Menu.Item onClick={openModal}>
+                          <Menu.Item
+                            onClick={() => openModal("Edit")}
+                          >
                             <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
@@ -489,8 +511,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={openModal}
-                          >
+                            onClick={() => openModal("Delete")}                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -654,7 +675,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item onClick={openModal}>
+                          <Menu.Item
+                            onClick={() => openModal("Edit")}                          >
                             <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
@@ -663,8 +685,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={openModal}
-                          >
+                            onClick={() => openModal("Delete")}                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -906,7 +927,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item onClick={openModal}>
+                          <Menu.Item
+                            onClick={() => openModal("Edit")}
+                          >
                             <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
@@ -915,8 +938,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={openModal}
-                          >
+                            onClick={() => openModal("Delete")}                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -1018,8 +1040,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item onClick={openModal}>
-                            <Lucide
+                          <Menu.Item
+                            onClick={() => openModal("Edit")}>                            <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
                             />{" "}
@@ -1027,8 +1049,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={openModal}
-                          >
+                            onClick={() => openModal("Delete")}                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -1172,7 +1193,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item onClick={openModal}>
+                          <Menu.Item
+                            onClick={() => openModal("Edit")}>
                             <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
@@ -1181,8 +1203,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={openModal}
-                          >
+                            onClick={() => openModal("Delete")}                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -1239,7 +1260,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item onClick={openModal}>
+                          <Menu.Item onClick={() => openModal("Edit")}
+                          >
                             <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
@@ -1248,7 +1270,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={openModal}
+                            onClick={() => openModal("Delete")}
                           >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
