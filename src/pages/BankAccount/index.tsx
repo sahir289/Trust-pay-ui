@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import Lucide from "@/components/Base/Lucide";
-import { FormInput} from "@/components/Base/Form";
+import { FormInput } from "@/components/Base/Form";
 import fakersBankAccount from "@/fakers/bankaccount";
 import Modal from "../Modal/modal";
 import { useState, useRef, JSX } from "react";
@@ -16,8 +16,8 @@ export interface BankAccount {
   balance: string;
   bankUsedFor: string;
   vendors: string;
-  createdAt: string; 
-  lastScheduledAt: string; 
+  createdAt: string;
+  lastScheduledAt: string;
   allowIntent: boolean;
   allowQR: boolean;
   showBank: boolean;
@@ -32,25 +32,25 @@ function Main(): JSX.Element {
   const userModal = (): void => {
     setNewUserModal((prev) => !prev);
   };
- 
 
-      const tableHeaders: string[] = [
-        "Account Name",
-        "Bank Details",
-        "Account Number",
-        "UPI ID",
-        "Limits",
-        "Balance",
-        "Bank Used For",
-        "Vendors",
-        "Created at(IST)",
-        "Last Scheduled at (IST)",
-        "Allow Intent?",
-        "Allow QR?",
-        "Show Bank",
-        "Status",
-        "Action"
-      ];
+
+  const tableHeaders: string[] = [
+    "Account Name",
+    "Bank Details",
+    "Account Number",
+    "UPI ID",
+    "Limits",
+    "Balance",
+    "Bank Used For",
+    "Vendors",
+    "Created at(IST)",
+    "Last Scheduled at (IST)",
+    "Allow Intent?",
+    "Allow QR?",
+    "Show Bank",
+    "Status",
+    "Action"
+  ];
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -59,10 +59,10 @@ function Main(): JSX.Element {
             Bank Accounts
           </div>
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-          <Modal handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title={title} />
+            <Modal handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title={title} />
           </div>
         </div>
-     
+
 
         <div className="flex flex-col gap-8 mt-3.5">
           <div className="flex flex-col p-5 box box--stacked">
@@ -136,125 +136,25 @@ function Main(): JSX.Element {
                   />
                 </div>
               </div>
-              {/* <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 sm:ml-auto">
-                <Menu>
-                  <Menu.Button
-                    as={Button}
-                    variant="outline-secondary"
-                    className="w-full sm:w-auto"
-                  >
-                    <Lucide
-                      icon="Download"
-                      className="stroke-[1.3] w-4 h-4 mr-2"
-                    />
-                    Export
-                    <Lucide
-                      icon="ChevronDown"
-                      className="stroke-[1.3] w-4 h-4 ml-2"
-                    />
-                  </Menu.Button>
-                  <Menu.Items className="w-40">
-                    <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{" "}
-                      PDF
-                    </Menu.Item>
-                    <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />
-                      CSV
-                    </Menu.Item>
-                  </Menu.Items>
-                </Menu>
-                <Popover className="inline-block">
-                  {({ close }) => (
-                    <>
-                      <Popover.Button
-                        as={Button}
-                        variant="outline-secondary"
-                        className="w-full sm:w-auto"
-                      >
-                        <Lucide
-                          icon="ArrowDownWideNarrow"
-                          className="stroke-[1.3] w-4 h-4 mr-2"
-                        />
-                        Filter
-                        <div className="flex items-center justify-center h-5 px-1.5 ml-2 text-xs font-medium border rounded-full bg-slate-100 dark:bg-darkmode-400">
-                          3
-                        </div>
-                      </Popover.Button>
-                      <Popover.Panel placement="bottom-end">
-                        <div className="p-2">
-                          <div>
-                            <div className="text-left text-slate-500">
-                              Position
-                            </div>
-                            <FormSelect className="flex-1 mt-2">
-                              {_.take(users.fakeUsers(), 5).map(
-                                (faker, fakerKey) => (
-                                  <option key={fakerKey} value={faker.position}>
-                                    {faker.position}
-                                  </option>
-                                )
-                              )}
-                            </FormSelect>
-                          </div>
-                          <div className="mt-3">
-                            <div className="text-left text-slate-500">
-                              Department
-                            </div>
-                            <FormSelect className="flex-1 mt-2">
-                              {_.take(users.fakeUsers(), 5).map(
-                                (faker, fakerKey) => (
-                                  <option
-                                    key={fakerKey}
-                                    value={faker.department}
-                                  >
-                                    {faker.department}
-                                  </option>
-                                )
-                              )}
-                            </FormSelect>
-                          </div>
-                          <div className="flex items-center mt-4">
-                            <Button
-                              variant="secondary"
-                              onClick={() => {
-                                close();
-                              }}
-                              className="w-32 ml-auto"
-                            >
-                              Close
-                            </Button>
-                            <Button variant="primary" className="w-32 ml-2">
-                              Apply
-                            </Button>
-                          </div>
-                        </div>
-                      </Popover.Panel>
-                    </>
-                  )}
-                </Popover>
-              </div> */}
             </div>
-          
-              <CustomTable columns={tableHeaders} data={fakersBankAccount.fakeBankAccounts().map(account => ({
-                sno: 0, // or any appropriate value
-                code: '',
-                confirmed: false,
-                amount: 0,
-                status: account.status,
-                merchant_order_id: '',
-                merchant_code: '',
-                photo: '',
-                name: account.accountName,
-                user_submitted_utr: '',
-                utr: '',
-                method: '',
-                id: '',
-                updated_at: '',
-                // add other properties as needed
-                position: undefined,
-              }))} title={"Bankaccounts"} status={[]}/>        
-           
+            <CustomTable columns={tableHeaders} data={fakersBankAccount.fakeBankAccounts().map(account => ({
+              sno: 0, // or any appropriate value
+              code: '',
+              confirmed: false,
+              amount: 0,
+              status: account.status,
+              merchant_order_id: '',
+              merchant_code: '',
+              photo: '',
+              name: account.accountName,
+              user_submitted_utr: '',
+              utr: '',
+              method: '',
+              id: '',
+              updated_at: '',
+              // add other properties as needed
+              position: undefined,
+            }))} title={"Bankaccounts"} status={[]} />
           </div>
         </div>
       </div>

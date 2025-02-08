@@ -8,7 +8,7 @@ export interface ChargeBack {
   merchant_order_id: string;
   amount: string;
   referance_date: string;
-  created_at: string;
+  createdAt: string;
   actions: string;
 }
 
@@ -27,7 +27,7 @@ const fakersChargeBacks = {
         merchant_order_id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         amount: "₹0",
         referance_date: "28/01/2025 at 05:01:23 PM",
-        created_at: "28/01/2025 at 05:01:23 PM",
+        createdAt: "28/01/2025 at 05:01:23 PM",
         actions: "",
       },
       {
@@ -38,7 +38,7 @@ const fakersChargeBacks = {
         merchant_order_id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         amount: "₹0",
         referance_date: "28/01/2025 at 05:01:23 PM",
-        created_at: "28/01/2025 at 05:01:23 PM",
+        createdAt: "28/01/2025 at 05:01:23 PM",
         actions: "",
       },
       {
@@ -49,7 +49,7 @@ const fakersChargeBacks = {
         merchant_order_id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         amount: "₹0",
         referance_date: "28/01/2025 at 05:01:23 PM",
-        created_at: "28/01/2025 at 05:01:23 PM",
+        createdAt: "28/01/2025 at 05:01:23 PM",
         actions: "",
       },
       {
@@ -60,7 +60,7 @@ const fakersChargeBacks = {
         merchant_order_id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         amount: "₹0",
         referance_date: "28/01/2025 at 05:01:23 PM",
-        created_at: "28/01/2025 at 05:01:23 PM",
+        createdAt: "28/01/2025 at 05:01:23 PM",
         actions: "",
       },
       {
@@ -71,7 +71,7 @@ const fakersChargeBacks = {
         merchant_order_id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         amount: "₹0",
         referance_date: "28/01/2025 at 05:01:23 PM",
-        created_at: "28/01/2025 at 05:01:23 PM",
+        createdAt: "28/01/2025 at 05:01:23 PM",
         actions: "",
       },
       {
@@ -82,7 +82,7 @@ const fakersChargeBacks = {
         merchant_order_id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         amount: "₹0",
         referance_date: "28/01/2025 at 05:01:23 PM",
-        created_at: "28/01/2025 at 05:01:23 PM",
+        createdAt: "28/01/2025 at 05:01:23 PM",
         actions: "",
       },
       {
@@ -93,7 +93,7 @@ const fakersChargeBacks = {
         merchant_order_id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         amount: "₹0",
         referance_date: "28/01/2025 at 05:01:23 PM",
-        created_at: "28/01/2025 at 05:01:23 PM",
+        createdAt: "28/01/2025 at 05:01:23 PM",
         actions: "",
       },
       {
@@ -104,7 +104,7 @@ const fakersChargeBacks = {
         merchant_order_id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         amount: "₹0",
         referance_date: "28/01/2025 at 05:01:23 PM",
-        created_at: "28/01/2025 at 05:01:23 PM",
+        createdAt: "28/01/2025 at 05:01:23 PM",
         actions: "",
       },
       {
@@ -115,7 +115,7 @@ const fakersChargeBacks = {
         merchant_order_id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         amount: "₹0",
         referance_date: "28/01/2025 at 05:01:23 PM",
-        created_at: "28/01/2025 at 05:01:23 PM",
+        createdAt: "28/01/2025 at 05:01:23 PM",
         actions: "",
       },
       {
@@ -126,7 +126,7 @@ const fakersChargeBacks = {
         merchant_order_id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         amount: "₹0",
         referance_date: "28/01/2025 at 05:01:23 PM",
-        created_at: "28/01/2025 at 05:01:23 PM",
+        createdAt: "28/01/2025 at 05:01:23 PM",
         actions: "",
       },
     ];

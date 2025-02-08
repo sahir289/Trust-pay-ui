@@ -10,7 +10,7 @@ import CustomTable from "../../../components/TableComponent";
 import {
   FormInput,
   FormSelect,
-  
+
 } from "@/components/Base/Form";
 // import _ from "lodash";
 interface PayinProps {
@@ -18,60 +18,43 @@ interface PayinProps {
   setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
   approve: boolean; // Expecting a boolean prop to control modal reset
   setApprove: React.Dispatch<React.SetStateAction<boolean>>
-  setStatus : React.Dispatch<React.SetStateAction<string>>
+  setStatus: React.Dispatch<React.SetStateAction<string>>
   status: string
 }
-
-
 export interface Payins {
-
   sno: number;
-
   code: string;
-
   confirmed: boolean;
-
   amount: number;
-
   status: string;
-
   merchant_order_id: string;
-
   merchant_code: string;
-
   photo: string;
-
   name: string;
-
   user_submitted_utr: string;
-
   utr: string;
-
   method: string;
   id: string;
   updated_at: string;
 }
 
-
 const AllPayin: React.FC<PayinProps> = () => {
   // const [selectedUser, setSelectedUser] = useState("1");
-
-
   const theadData: string[] = [
-    "SNO", 
-    "Code", 
-    "Confirmed", 
-    "Amount", 
-    "Status", 
-    "Merchant Order ID", 
-    "Merchant", 
-    "User", 
-    "User Submitted UTR", 
-    "UTR", 
-    "Method", 
-    "Payin ID", 
-    "Updated AT", 
-    "Image", 
+    "SNO",
+    "Code",
+    "Confirmed",
+    "Amount",
+    "Status",
+    "Merchant Order ID",
+    "Merchant",
+    "User",
+    "User Submitted UTR",
+    "UTR",
+    "Method",
+    "Payin ID",
+    "Updated AT",
+    "Image",
     "Action"
   ];
   return (
@@ -187,12 +170,8 @@ const AllPayin: React.FC<PayinProps> = () => {
                 </Popover>
               </div>
             </div>
-            
-            <CustomTable columns={theadData} data={payins.fakePayins() as unknown as Payins[]} title={"Payins"} status={['Pending', 'Duplicate', 'Dispute', 'Bank Mismatch', 'Image Pending', 'Assigned', 'Initiated','Success','Dropped','Failled']}/>
-           
-                  
-              
-            </div>
+            <CustomTable columns={theadData} data={payins.fakePayins() as unknown as Payins[]} title={"Payins"} status={['Pending', 'Duplicate', 'Dispute', 'Bank Mismatch', 'Image Pending', 'Assigned', 'Initiated', 'Success', 'Dropped', 'Failled']} />
+          </div>
         </div>
       </div>
     </div>

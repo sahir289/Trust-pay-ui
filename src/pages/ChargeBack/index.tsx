@@ -6,46 +6,46 @@ import chargebacks from "@/fakers/chargebacks";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
-import  { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import Modal from "../Modal/modal";
 import CustomTable from "@/components/TableComponent";
- export interface Chargeback {
-              sno: number;
-              code: string;
-              confirmed: boolean;
-              amount: number;
-              status: string;
-              merchant_order_id: string;
-              merchant_code: string;
-              photo: string;
-              name: string;
-              user_submitted_utr: string;
-              utr: string;
-              reference_date: string;
-              created_date: string;
-              action: string;
-              position?: string;
-              method: string;
-              id: string;
-              updated_at: string;
-            }
+export interface Chargeback {
+  sno: number;
+  code: string;
+  confirmed: boolean;
+  amount: number;
+  status: string;
+  merchant_order_id: string;
+  merchant_code: string;
+  photo: string;
+  name: string;
+  user_submitted_utr: string;
+  utr: string;
+  reference_date: string;
+  created_date: string;
+  action: string;
+  position?: string;
+  method: string;
+  id: string;
+  updated_at: string;
+}
 function ChargeBack() {
 
   const [newChargeBackModal, setNewChargeBackModal] = useState(false);
   const chargebackRef = useRef(null);
- const chargebackModal = ()=>{
-  setNewChargeBackModal(!newChargeBackModal)
- }
- const tableHeaders: string[] = [
-  "sno",
-  "merchant",
-  "merchant_order_id",
-  "user",
-  "amount",
-  "reference_date",
-  "created_date",
-  "action"
-];
+  const chargebackModal = () => {
+    setNewChargeBackModal(!newChargeBackModal)
+  }
+  const tableHeaders: string[] = [
+    "sno",
+    "merchant",
+    "merchant_order_id",
+    "user",
+    "amount",
+    "reference_date",
+    "created_date",
+    "action"
+  ];
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -55,7 +55,7 @@ function ChargeBack() {
             ChargeBacks
           </div>
 
-      <div><Modal handleModal={chargebackModal} sendButtonRef={chargebackRef} forOpen={newChargeBackModal} title="Add Chargeback"/></div>
+          <div><Modal handleModal={chargebackModal} sendButtonRef={chargebackRef} forOpen={newChargeBackModal} title="Add Chargeback" /></div>
         </div>
         <div className="mt-3.5">
           <div className="flex flex-col box box--stacked">
@@ -166,9 +166,7 @@ function ChargeBack() {
               </div>
             </div>
             <div className="overflow-auto">
-              <CustomTable columns={tableHeaders} data={chargebacks.fakeChargeBacks() as unknown as Chargeback[]} title={"Chargebacks"} status={[]}/>
-           
-             
+              <CustomTable columns={tableHeaders} data={chargebacks.fakeChargeBacks() as unknown as Chargeback[]} title={"Chargebacks"} status={[]} />
             </div>
           </div>
         </div>

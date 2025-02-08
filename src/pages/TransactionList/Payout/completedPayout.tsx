@@ -2,7 +2,7 @@ import React from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 // import TomSelect from "@/components/Base/TomSelect";
-import {  FormInput, FormSelect } from "@/components/Base/Form";
+import { FormInput, FormSelect } from "@/components/Base/Form";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
@@ -159,10 +159,10 @@ const CompletedPayout: React.FC<PayinProps> = () => {
                 </Popover>
               </div>
             </div>
-            <CustomTable columns={tableHeaders}  data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Success"]}/>
+            <CustomTable columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Success"]} />
           </div>
         </div>
-      </div>  
+      </div>
     </div>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Tab } from "@/components/Base/Headless";
 import Payin from "./Payin/payin";
 import Payout from "./Payout/payout";
@@ -18,7 +19,7 @@ function Main() {
   const [reject, setReject] = useState(false);
   const [status, setStatus] = useState("");
 
-  const resetRef = useRef< | null>(null)
+  const resetRef = useRef<| null>(null)
   const handleReject = () => {
     setReject(!reject)
   }

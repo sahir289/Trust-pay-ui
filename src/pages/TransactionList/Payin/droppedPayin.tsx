@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 // import TomSelect from "@/components/Base/TomSelect";
@@ -20,54 +20,42 @@ interface PayinProps {
 }
 
 export interface Payins {
-
   sno: number;
-
   code: string;
-
   confirmed: boolean;
-
   amount: number;
-
   status: string;
-
   merchant_order_id: string;
-
   merchant_code: string;
-
   photo: string;
-
   name: string;
-
   user_submitted_utr: string;
-
   utr: string;
-
   method: string;
   id: string;
   updated_at: string;
 }
-const DroppedPayin: React.FC<PayinProps>=()=> {
-  // const [selectedUser, setSelectedUser] = useState("1");
 
+const DroppedPayin: React.FC<PayinProps> = () => {
+  // const [selectedUser, setSelectedUser] = useState("1");
   const theadData: string[] = [
-    "SNO", 
-    "Code", 
-    "Confirmed", 
-    "Amount", 
-    "Status", 
-    "Merchant Order ID", 
-    "Merchant", 
-    "User", 
-    "User Submitted UTR", 
-    "UTR", 
-    "Method", 
-    "Payin ID", 
-    "Updated AT", 
-    "Image", 
+    "SNO",
+    "Code",
+    "Confirmed",
+    "Amount",
+    "Status",
+    "Merchant Order ID",
+    "Merchant",
+    "User",
+    "User Submitted UTR",
+    "UTR",
+    "Method",
+    "Payin ID",
+    "Updated AT",
+    "Image",
     "Action"
   ];
-  
+
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -179,9 +167,9 @@ const DroppedPayin: React.FC<PayinProps>=()=> {
                 </Popover>
               </div>
             </div>
-           
-            <CustomTable columns={theadData} data={payins.fakePayins() as unknown as Payins[]} title={"Payins"} status={["Dropped","Failed"]}/>
-          
+
+            <CustomTable columns={theadData} data={payins.fakePayins() as unknown as Payins[]} title={"Payins"} status={["Dropped", "Failed"]} />
+
           </div>
         </div>
       </div>

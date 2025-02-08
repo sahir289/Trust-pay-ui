@@ -15,34 +15,23 @@ interface PayinProps {
 }
 
 export interface Payins {
-
   sno: number;
-
   code: string;
-
   confirmed: boolean;
-
   amount: number;
-
   status: string;
-
   merchant_order_id: string;
-
   merchant_code: string;
-
   photo: string;
-
   name: string;
-
   user_submitted_utr: string;
-
   utr: string;
-
   method: string;
   id: string;
   updated_at: string;
 }
-const Payin: React.FC<PayinProps> =({ resetModal, setResetModal, setStatus, status, approve, setApprove })=> {
+
+const Payin: React.FC<PayinProps> = ({ resetModal, setResetModal, setStatus, status, approve, setApprove }) => {
 
   return (
     <div className="flex flex-col p-5 ">
@@ -87,13 +76,13 @@ const Payin: React.FC<PayinProps> =({ resetModal, setResetModal, setStatus, stat
         </Tab.List>
         <Tab.Panels className="border-b border-l border-r">
           <Tab.Panel className="py-5 leading-relaxed">
-            <AllPayin resetModal={resetModal} setResetModal={setResetModal} status={status} setStatus={setStatus} approve={approve} setApprove={setApprove}/>
+            <AllPayin resetModal={resetModal} setResetModal={setResetModal} status={status} setStatus={setStatus} approve={approve} setApprove={setApprove} />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
             <CompletedPayin />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
-            <InProgressPayin resetModal={resetModal} setResetModal={setResetModal} status={status} setStatus={setStatus} approve={approve} setApprove={setApprove}/>
+            <InProgressPayin resetModal={resetModal} setResetModal={setResetModal} status={status} setStatus={setStatus} approve={approve} setApprove={setApprove} />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
             <DroppedPayin />
