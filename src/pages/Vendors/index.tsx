@@ -130,7 +130,18 @@ function Main() {
               </div>
             </div>
             <div className="overflow-auto xl:overflow-visible">
-              <CustomTable columns={tableHeaders} data={users.fakeUsers() as unknown as User[]} title={"Vendors"} status={[""]}/></div>
+                <CustomTable 
+                  columns={tableHeaders} 
+                  data={users.fakeUsers() as unknown as User[]} 
+                  title={"Vendors"} 
+                  status={[""]}
+                  setStatus={() => {}} 
+                  approve={false} 
+                  setApprove={() => {}} 
+                  reject={false} 
+                  setReject={() => {}} 
+                />
+              </div>
             </div>
         </div>
       </div>

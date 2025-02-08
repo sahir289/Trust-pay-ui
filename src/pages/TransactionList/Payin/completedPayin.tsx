@@ -23,6 +23,7 @@ interface PayinProps {
 export interface Payins {
   sno: number;
   code: string;
+  checkdetails : string;
   confirmed: boolean;
   amount: number;
   status: string;
@@ -41,6 +42,7 @@ const CompletedPayin: React.FC<PayinProps> = () => {
   const theadData: string[] = [
     "SNO",
     "Code",
+    "Check Details",
     "Confirmed",
     "Commission",
     "Amount",
@@ -70,6 +72,7 @@ const CompletedPayin: React.FC<PayinProps> = () => {
                   <Lucide
                     icon="Search"
                     className="absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 stroke-[1.3] text-slate-500"
+                    
                   />
                   <FormInput
                     type="text"
@@ -88,6 +91,7 @@ const CompletedPayin: React.FC<PayinProps> = () => {
                     <Lucide
                       icon="Download"
                       className="stroke-[1.3] w-4 h-4 mr-2"
+                    
                     />
                     Export
                     <Lucide
@@ -170,7 +174,17 @@ const CompletedPayin: React.FC<PayinProps> = () => {
                 </Popover>
               </div>
             </div>
-            <CustomTable columns={theadData} data={payins.fakePayins() as unknown as Payins[]} title={"Payins"} status={["Success"]} />
+            <CustomTable 
+              columns={theadData} 
+              data={payins.fakePayins() as unknown as Payins[]} 
+              title={"Payins"} 
+              status={["Success"]} 
+              setStatus={() => {}} 
+              approve={false} 
+              setApprove={() => {}} 
+              reject={false} 
+              setReject={() => {}} 
+            />
           </div>
         </div>
       </div>

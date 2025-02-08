@@ -1,29 +1,32 @@
-/* eslint-disable no-empty-pattern */
-/* eslint-disable no-undef */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
-import users from "@/fakers/users";
+
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import { useState } from "react";
+import "react-datepicker/dist/react-datepicker.css";
+
 import { Menu, Popover } from "@/components/Base/Headless";
-// import TomSelect from "@/components/Base/TomSelect";
+
+
 import Pagination from "@/components/Base/Pagination";
-import fakeVendorAccount from "@/fakers/vendorreports";
+import fakeReportAccount from "@/fakers/accountreports";
+import Litepicker from "@/components/Base/Litepicker";
 
 function AccountReports() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  // const [selectedUser, setSelectedUser] = useState("1");
+
+
+
   return (
 
     <>
-  <div className="col-span-12">
+      <div className="col-span-12">
         <div className="flex flex-col md:h-10 mt-4 gap-y-3 md:items-center md:flex-row mx-6">
           <div className="text-base text-xl font-medium group-[.mode--light]:text-white">
-            Vendor Account Reports
+            Merchant Account Reports
           </div>
           <div className="flex flex-col sm:flex-row gap-y-2 md:ml-auto">
             <Button
@@ -40,47 +43,86 @@ function AccountReports() {
         </div>
         <div className="flex w-full flex-row py-10 sm:px-6 ">
           <div className="flex w-full flex-row gap-y-7 md:flex-row px-4 sm:px-2 py-2 sm:py-2  rounded-lg">
+
+
             <div className="p-5 w-full flex flex-row mt-3.5 box box--stacked justify-between">
               <div className="mr-2">
-                <label className="my-4 px-2">Vendor Codes</label>
+                <label className="my-4 px-2">Merchant Codes</label>
                 <FormInput
                   type="text"
                   placeholder="Vendor Codes"
                   className="py-3 mt-3 mx-1 h-13"
-                />
-                </div>
-              <div className="flex gap-3 mt-3 mx-1">
-                <input
-                  type="date"
+                /></div>
+
+              <div className="flex  mt-3 mx-1">
+
+
+
+                <Litepicker
                   placeholder="Start Date"
                   value={startDate}
-                  className="py-3 my-2 rounded-lg dark:bg-darkmode-600"
-                  onChange={(e) => setStartDate(e.target.value)}
+                  onChange={(e) => {
+                    setStartDate(e.target.value);
+                  }}
+                  options={{
+                    autoApply: false,
+                    singleMode: false,
+                    numberOfColumns: 2,
+                    numberOfMonths: 2,
+                    showWeekNumbers: true,
+                    dropdowns: {
+                      minYear: 1990,
+                      maxYear: null,
+                      months: true,
+                      years: true,
+                    },
+                  }}
+                  className="sm:w-56 rounded-[0.5rem] group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent dark:group-[.mode--light]:!bg-darkmode-900/30 dark:!box"
+                />
 
-                />
-                <input
-                  type="date"
-                  placeholder="End Date"
+                <Litepicker
+                  placeholder="Start Date"
                   value={endDate}
-                  className="py-3 my-2 rounded-lg dark:bg-darkmode-600"
-                  onChange={(e) => setEndDate(e.target.value)}
+                  onChange={(e) => {
+                    setEndDate(e.target.value);
+                  }}
+                  options={{
+                    autoApply: false,
+                    singleMode: false,
+                    numberOfColumns: 2,
+                    numberOfMonths: 2,
+                    showWeekNumbers: true,
+                    dropdowns: {
+                      minYear: 1990,
+                      maxYear: null,
+                      months: true,
+                      years: true,
+                    },
+                  }}
+                  className=" sm:w-56 rounded-[0.5rem] group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent dark:group-[.mode--light]:!bg-darkmode-900/30 dark:!box"
                 />
+               
                 <div className="flex gap-3 ">
                   <Button
                     rounded
                     variant="primary"
-                    className="px-4 w-35 my-2 border-primary/50 rounded-lg"
+                    className="px-1 w-40 my-2 border-primary/50 rounded-lg"
                   >
                     Download Now
                   </Button>
+
                 </div>
               </div>
             </div>
+            <div>
+            </div>
+
           </div>
+
         </div>
+
       </div>
-        
-        
+
 
 
       <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -104,19 +146,29 @@ function AccountReports() {
                 <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 sm:ml-auto ">
 
                   <Popover className="inline-block">
-                    {({ }) => (
+                    {({ close }) => (
                       <>
+
                         <Popover.Panel placement="bottom-end">
                           <div className="p-2">
                             <div>
                               <div className="text-left text-slate-500">User</div>
-                              <FormSelect className="flex-1 mt-2">
-                                {users.fakeUsers().map((faker, fakerKey) => (
-                                  <option key={fakerKey} value={fakerKey}>
-                                    {faker.name}
+                                {/* <TomSelect
+                                className="flex-1 mt-2"
+                                value={selectedUser}
+                                onChange={(value: string) => {
+                                  setSelectedUser(value);
+                                }}
+                                options={{
+                                  placeholder: "Search user",
+                                }}
+                                >
+                                {users.fakeUsers().map((user, userKey) => (
+                                  <option key={userKey} value={userKey}>
+                                  {user.name}
                                   </option>
                                 ))}
-                              </FormSelect>
+                                </TomSelect> */}
                             </div>
                             <div className="mt-3">
                               <div className="text-left text-slate-500">
@@ -206,7 +258,7 @@ function AccountReports() {
                   </Table.Thead>
 
                   <Table.Tbody>
-                    {_.take(fakeVendorAccount.fakeVendorReport(), 10).map(
+                    {_.take(fakeReportAccount.fakeAccountReport(), 10).map(
                       (faker, fakerKey) => (
                         <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">

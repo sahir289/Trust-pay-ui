@@ -53,7 +53,7 @@ function Main() {
 
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
 
-            <Modal handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title="Add User" />
+            <Modal   handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title="Add User" />
           </div>
         </div>
 
@@ -131,7 +131,17 @@ function Main() {
               </div>
             </div>
             <div className="overflow-auto xl:overflow-visible">
-              <CustomTable columns={tableHeaders} data={users.fakeUsers() as unknown as User[]} title={"Users"} status={[]}/>
+              <CustomTable 
+                columns={tableHeaders} 
+                data={users.fakeUsers() as unknown as User[]} 
+                title={"Users"} 
+                status={[]} 
+                setStatus={() => {}} 
+                approve={false} 
+                setApprove={() => {}} 
+                reject={false} 
+                setReject={() => {}} 
+              />
             </div>
           </div>
         </div>

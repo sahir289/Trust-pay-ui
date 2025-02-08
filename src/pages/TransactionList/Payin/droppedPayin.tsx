@@ -22,6 +22,7 @@ interface PayinProps {
 export interface Payins {
   sno: number;
   code: string;
+  checkdetails : string;
   confirmed: boolean;
   amount: number;
   status: string;
@@ -41,6 +42,7 @@ const DroppedPayin: React.FC<PayinProps> = () => {
   const theadData: string[] = [
     "SNO",
     "Code",
+    "Check Details",
     "Confirmed",
     "Amount",
     "Status",
@@ -168,7 +170,17 @@ const DroppedPayin: React.FC<PayinProps> = () => {
               </div>
             </div>
 
-            <CustomTable columns={theadData} data={payins.fakePayins() as unknown as Payins[]} title={"Payins"} status={["Dropped", "Failed"]} />
+            <CustomTable 
+              columns={theadData} 
+              data={payins.fakePayins() as unknown as Payins[]} 
+              title={"Payins"} 
+              status={["Dropped", "Failed"]} 
+              setStatus={() => {}} 
+              approve={false} 
+              setApprove={() => {}} 
+              reject={false} 
+              setReject={() => {}} 
+            />
 
           </div>
         </div>

@@ -166,7 +166,17 @@ function ChargeBack() {
               </div>
             </div>
             <div className="overflow-auto">
-              <CustomTable columns={tableHeaders} data={chargebacks.fakeChargeBacks() as unknown as Chargeback[]} title={"Chargebacks"} status={[]} />
+              <CustomTable 
+                columns={tableHeaders} 
+                data={chargebacks.fakeChargeBacks() as unknown as Chargeback[]} 
+                title={"Chargebacks"} 
+                status={[]} 
+                setStatus={() => {}} 
+                approve={false} 
+                setApprove={() => {}} 
+                reject={false} 
+                setReject={() => {}} 
+              />
             </div>
           </div>
         </div>

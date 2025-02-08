@@ -9,7 +9,7 @@ function MerchantBoard() {
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
         <div className="grid grid-cols-12 gap-5 mt-3.5">
-          <div className="flex flex-col col-span-12 p-5 md:col-span-6 2xl:col-span-3 box box--stacked">
+          <div className="flex flex-col col-span-12 p-5 md:col-span-6  box box--stacked">
             <Menu className="absolute top-0 right-0 mt-5 mr-5">
               <Menu.Button className="w-5 h-5 text-slate-500">
                 <Lucide
@@ -70,7 +70,7 @@ function MerchantBoard() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col col-span-12 p-5 md:col-span-6 2xl:col-span-3 box box--stacked">
+          <div className="flex flex-col col-span-12 p-5 md:col-span-6 2box box--stacked">
             <div className="flex items-center">
               <div className="flex items-center justify-center w-12 h-12 border rounded-full border-primary/10 bg-primary/10">
                 <Lucide
@@ -192,7 +192,7 @@ function MerchantBoard() {
               </fieldset>
             </div>
           </div>
-          <div className="flex flex-col col-span-12 p-5 md:col-span-6 2xl:col-span-3 box box--stacked">
+          <div className="flex flex-col col-span-12 p-5 md:col-span-6 box box--stacked">
             <Menu className="absolute top-0 right-0 mt-5 mr-5">
               <Menu.Button className="w-5 h-5 text-slate-500">
                 <Lucide
@@ -241,7 +241,7 @@ function MerchantBoard() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col col-span-12 p-5 md:col-span-6 2xl:col-span-3 box box--stacked">
+          <div className="flex flex-col col-span-12 p-5 md:col-span-6  box box--stacked">
             <Menu className="absolute top-0 right-0 mt-5 mr-5">
               <Menu.Button className="w-5 h-5 text-slate-500">
                 <Lucide

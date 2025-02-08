@@ -19,6 +19,7 @@ interface PayinProps {
 interface Payout {
   method: string;
   id: string;
+  checkdetails : string;
   updated_at: string;
   sno: number;
   code: string;
@@ -38,6 +39,7 @@ const RejectedPayout: React.FC<PayinProps> = () => {
   const tableHeaders = [
     "SNO.",
     "Merchant Order ID",
+    "Check Details",
     "Merchant",
     "Bank Details",
     "Amount",
@@ -163,7 +165,17 @@ const RejectedPayout: React.FC<PayinProps> = () => {
                 </Popover>
               </div>
             </div>
-            <CustomTable title="Payouts" columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} status={["Rejected"]} />
+            <CustomTable 
+              title="Payouts" 
+              columns={tableHeaders} 
+              data={payouts.fakePayouts() as unknown as Payout[]} 
+              status={["Rejected"]} 
+              setStatus={() => {}} 
+              approve={false} 
+              setApprove={() => {}} 
+              reject={false} 
+              setReject={() => {}} 
+            />
           </div>
         </div>
       </div>

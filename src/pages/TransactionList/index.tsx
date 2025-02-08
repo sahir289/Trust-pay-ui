@@ -14,7 +14,6 @@ function Main() {
   const transactionModal = () => {
     setNewTransactionModal(!newTransactionModal)
   }
-  const [resetModal, setResetModal] = useState(false);
   const [approve, setApprove] = useState(false);
   const [reject, setReject] = useState(false);
   const [status, setStatus] = useState("");
@@ -38,13 +37,13 @@ function Main() {
           <div className="text-xl font-medium group-[.mode--light]:text-white ">
             Transactions
           </div>
-          <Modal handleModal={transactionModal} sendButtonRef={transactionRef} forOpen={newTransactionModal} title={title} />
-
-
+          <Modal  handleModal={transactionModal} sendButtonRef={transactionRef} forOpen={newTransactionModal} title={title} />
+         
+         
           {status === "Dispute" && (
             <ModalPopUp
-              open={resetModal}
-              onClose={() => setResetModal(false)}
+              open={true}
+              onClose={handleClose}
               title="Update Transaction"
               fields={[
                 { id: "amount", label: "Amount", type: "text", placeholder: "Amount" },
@@ -56,8 +55,8 @@ function Main() {
               ]}
               buttonText="Success"
               onSubmit={() => {/* Handle Success */ }}
-              onReset={() => setResetModal(false)}
-              button=""
+              onReset={handleClose}
+               button=""
               resetRef={resetRef}
             />
           )}
@@ -147,7 +146,7 @@ function Main() {
                 </Tab.List>
                 <Tab.Panels className="border-b border-l border-r">
                   <Tab.Panel className="p-5 leading-relaxed">
-                    <Payin resetModal={resetModal} setResetModal={setResetModal} status={status} setStatus={setStatus} approve={approve} setApprove={setApprove} />
+                    <Payin  setStatus={setStatus}  />
                   </Tab.Panel>
                   <Tab.Panel className="p-5 leading-relaxed">
                     <Payout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove} />

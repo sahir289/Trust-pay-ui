@@ -230,7 +230,7 @@ const fakersPayins = {
             },
         ];
 
-        return _.shuffle(payins);
+        return (payins);
     },
 };
 

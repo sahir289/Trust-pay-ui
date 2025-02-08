@@ -10,18 +10,34 @@ import { JSX } from "@fullcalendar/core/preact.js";
 import Tippy from "@/components/Base/Tippy";
 import PasswordVerificationModal from "@/pages/PasswordModal";
 import { useState } from "react";
+import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 import ModalPopUp from "@/pages/ModalPopUp";
 interface CustomTableProps {
   columns: string[];
-  data: Array<{ sno: number; code: string; confirmed: boolean; amount: number; status: string; merchant_order_id: string; merchant_code: string; photo: string; name: string; user_submitted_utr: string; utr: string; method: string; id: string; updated_at: string; bankDetails?: string; balance?: number; bankUsedFor?: string; vendors?: string; createdAt?: string; lastScheduledAt?: string; accountName?: string; accountNumber?: string; upiId?: string; orderId?: string; orderStatus?: { textColor: string; icon: string; name: string }; orderDate?: string; referance_date?: string; fromBank?: string; vendor?: string; manager?: string; joinedDate?: string; email?: string; department?: string; position?: string }>;
+  data: Array<{ sno: number; code: string; confirmed: boolean; amount: number; status: string; merchant_order_id: string; merchant_code: string; photo: string; name: string; user_submitted_utr: string; utr: string; method: string; id: string; updated_at: string; commission?: number; bankDetails?: string; balance?: number; bankUsedFor?: string; vendors?: string; createdAt?: string; lastScheduledAt?: string; accountName?: string; accountNumber?: string; upiId?: string; orderId?: string; orderStatus?: { textColor: string; icon: string; name: string }; orderDate?: string; referance_date?: string; fromBank?: string; vendor?: string; manager?: string; joinedDate?: string; email?: string; department?: string; position?: string; duration?: number; bank?: string }>;
   title: string;
+
+
+  setStatus: React.Dispatch<React.SetStateAction<string>>
+
   status: string[];
+  approve: boolean; // Expecting a boolean prop to control modal reset
+  setApprove: React.Dispatch<React.SetStateAction<boolean>>
+  reject: boolean; // Expecting a boolean prop to control modal reset
+  setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
 }
 const CustomTable: React.FC<CustomTableProps> = ({
   columns,
   data,
   title,
   status,
+  approve,
+  setApprove,
+  reject,
+
+  setStatus,
+
+  setReject
 }) => {
   interface StatusStyle {
     color: string;
@@ -76,13 +92,31 @@ const CustomTable: React.FC<CustomTableProps> = ({
     }
   };
   const [isModalPopupOpen, setIsModalPopupOpen] = useState<boolean>(false);
-  const[TitleforDelete,setTitleforDelete]=useState<string>("");
+  const [TitleforDelete, setTitleforDelete] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  
-  
-const openModal = (open: string): void => {
-setIsModalOpen(true);
-setTitleforDelete(open);
+  const [details, setDetails] = useState<{
+    sno: string;
+    id: string;
+    code: string;
+    confirmed: string;
+    commission: string;
+    amount: string;
+    status: string;
+    merchant_order_id: string;
+    merchant_code: string;
+    name: string;
+    user_submitted_utr: string;
+    utr: string;
+    method: string;
+    duration: number;
+    bank: string;
+    updated_at: string;
+  } | null>(null);
+
+
+  const openModal = (open: string): void => {
+    setIsModalOpen(true);
+    setTitleforDelete(open);
   }
   const closeModal = (): void => {
     setIsModalOpen(false);
@@ -96,17 +130,19 @@ setTitleforDelete(open);
     setIsModalPopupOpen(true);
     setTitleforDelete(verify.verify);
   };
+
   return (
+
     <div>
-      <ModalPopUp 
+      <ModalPopUp
         open={isModalPopupOpen}
         onClose={closeModal}
         title=""
         fields={[]}
         singleField={[]}
         buttonText=""
-        onSubmit={() => {}}
-        onReset={() => {}}
+        onSubmit={() => { }}
+        onReset={() => { }}
         button={TitleforDelete}
         resetRef={React.createRef()}
       />
@@ -114,7 +150,13 @@ setTitleforDelete(open);
         isOpen={isModalOpen}
         onClose={closeModal}
         onVerify={() => handleVerify({ verify: TitleforDelete })}
-      />
+      />{details && (
+        <ModalTransactionDetails
+          handleModal={() => setDetails(null)}
+          transaction={details}
+        />
+      )}
+
       <div className="overflow-auto">
         <Table className="border-b border-slate-200/60">
           <Table.Thead>
@@ -147,30 +189,48 @@ setTitleforDelete(open);
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                       <FormCheck.Input type="checkbox" />
                     </Table.Td>
+
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.sno}
                       </a>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.code}
                       </a>
                     </Table.Td>
-                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
-                        {faker.confirmed}
-                      </a>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" onClick={() => setDetails({
+                      sno: String(faker.sno), // Convert number to string
+                      id: faker.id || "", // Ensure id exists
+                      code: faker.code,
+                      confirmed: String(faker.confirmed), // Convert boolean to string
+                      commission: String(faker.commission || "0"), // Ensure commission exists
+                      amount: String(faker.amount), // Convert number to string
+                      status: faker.status,
+                      merchant_order_id: faker.merchant_order_id,
+                      merchant_code: faker.merchant_code,
+                      name: faker.name,
+                      user_submitted_utr: faker.user_submitted_utr,
+                      utr: faker.utr,
+                      method: faker.method,
+                      duration: faker.duration || 0, // Ensure duration exists
+                      bank: faker.bank || "N/A", // Ensure bank exists
+                      updated_at: faker.updated_at || "", // Ensure updated_at exists
+                    })}>
+                      <Lucide
+                        icon="AlertCircle"
+                        className="w-5 h-5 stroke-blue-500 font-bold rounded-full " />
                     </Table.Td>
                     {columns.length > 15 && (
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <a  className="font-medium whitespace-nowrap">
-                          {faker.amount}
+                        <a href="" className="font-medium whitespace-nowrap">
+                          {faker.confirmed}
                         </a>
                       </Table.Td>
                     )}
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.amount}
                       </a>
                     </Table.Td>
@@ -184,12 +244,12 @@ setTitleforDelete(open);
                     </Table.Td>
 
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.merchant_order_id}
                       </a>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.merchant_code}
                       </a>
                     </Table.Td>
@@ -204,34 +264,34 @@ setTitleforDelete(open);
                             content={faker.name} />
                         </div>
                         <div className="ml-3.5">
-                          <a  className="font-medium whitespace-nowrap">
+                          <a className="font-medium whitespace-nowrap">
                             {faker.name}
                           </a>
                         </div>
                       </div>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.user_submitted_utr}
                       </a>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.utr}
                       </a>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.method}
                       </a>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.id}
                       </a>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.updated_at}
                       </a>
                     </Table.Td>
@@ -258,7 +318,7 @@ setTitleforDelete(open);
                                 className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70" />
                             </Menu.Button>
 
-                            <Menu.Items className="w-40">
+                            <Menu.Items className="w-40" onClick={() => setStatus(faker.status)}>
                               <Menu.Item>
                                 <Lucide
                                   icon="CheckSquare"
@@ -430,18 +490,18 @@ setTitleforDelete(open);
                         </Menu.Button>
                         <Menu.Items className="w-40">
                           <Menu.Item
-                           onClick={()=>openModal("List")}
+                            onClick={() => openModal("List")}
                           >
                             <Lucide icon="Eye" className="w-4 h-4 mr-2" /> List
                           </Menu.Item>
                           <Menu.Item
-                            onClick={()=>openModal("Report")}
+                            onClick={() => openModal("Report")}
                           >
                             <Lucide icon="Download" className="w-4 h-4 mr-2" />{" "}
                             Report
                           </Menu.Item>
-                          <Menu.Item 
-                          onClick={()=>openModal("Edit")}
+                          <Menu.Item
+                            onClick={() => openModal("Edit")}
                           >
                             <Lucide
                               icon="CheckSquare"
@@ -451,7 +511,7 @@ setTitleforDelete(open);
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={()=>openModal("Delete")}                          >
+                            onClick={() => openModal("Delete")}                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -479,12 +539,12 @@ setTitleforDelete(open);
                         />
                       </div>
                       <div className="ml-3.5">
-                        <a  className="font-medium whitespace-nowrap">
+                        <a className="font-medium whitespace-nowrap">
                           {faker.name}
                         </a>
                         <div className="flex text-slate-500 text-xs whitespace-nowrap mt-0.5">
                           Product:
-                          <a  className="block ml-1 truncate w-44">
+                          <a className="block ml-1 truncate w-44">
                             Purchased: {_.random(2, 10)} Items
                           </a>
                         </div>
@@ -492,7 +552,7 @@ setTitleforDelete(open);
                     </div>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="flex items-center text-primary">
+                    <a className="flex items-center text-primary">
                       <Lucide
                         icon="ExternalLink"
                         className="w-3.5 h-3.5 stroke-[1.7]"
@@ -558,17 +618,17 @@ setTitleforDelete(open);
                     <FormCheck.Input type="checkbox" />
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.sno}
                     </a>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.code}
                     </a>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.merchant_order_id}
                     </a>
                   </Table.Td>
@@ -584,24 +644,24 @@ setTitleforDelete(open);
                         />
                       </div>
                       <div className="ml-3.5">
-                        <a  className="font-medium whitespace-nowrap">
+                        <a className="font-medium whitespace-nowrap">
                           {faker.name}
                         </a>
                       </div>
                     </div>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.amount}
                     </a>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.referance_date}
                     </a>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.createdAt}
                     </a>
                   </Table.Td>
@@ -615,8 +675,8 @@ setTitleforDelete(open);
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item 
-onClick={()=>openModal("Edit")}                          >
+                          <Menu.Item
+                            onClick={() => openModal("Edit")}                          >
                             <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
@@ -625,7 +685,7 @@ onClick={()=>openModal("Edit")}                          >
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={()=>openModal("Delete")}                          >
+                            onClick={() => openModal("Delete")}                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -655,10 +715,33 @@ onClick={()=>openModal("Edit")}                          >
                       <div className="ml-3.5">{faker.sno}</div>
                     </div>
                   </Table.Td>
+
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                     <span className="ml-1.5 text-[13px]">
                       {faker.merchant_order_id}
                     </span>
+                  </Table.Td>
+                  <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" onClick={() => setDetails({
+                    sno: String(faker.sno), // Convert number to string
+                    id: faker.id || "", // Ensure id exists
+                    code: faker.code,
+                    confirmed: String(faker.confirmed), // Convert boolean to string
+                    commission: String(faker.commission || "0"), // Ensure commission exists
+                    amount: String(faker.amount), // Convert number to string
+                    status: faker.status,
+                    merchant_order_id: faker.merchant_order_id,
+                    merchant_code: faker.merchant_code,
+                    name: faker.name,
+                    user_submitted_utr: faker.user_submitted_utr,
+                    utr: faker.utr,
+                    method: faker.method,
+                    duration: faker.duration || 0, // Ensure duration exists
+                    bank: faker.bank || "N/A", // Ensure bank exists
+                    updated_at: faker.updated_at || "", // Ensure updated_at exists
+                  })}>
+                    <Lucide
+                      icon="AlertCircle"
+                      className="w-5 h-5 stroke-blue-500 font-bold rounded-full " />
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                     <span className="ml-1.5 text-[13px] ">
@@ -697,7 +780,7 @@ onClick={()=>openModal("Edit")}                          >
                         />
                       </div>
                       <div className="ml-3.5">
-                        <a  className="font-medium whitespace-nowrap">
+                        <a className="font-medium whitespace-nowrap">
                           {faker.name}
                         </a>
                       </div>
@@ -742,11 +825,11 @@ onClick={()=>openModal("Edit")}                          >
 
                         {faker.status === "Initiated" ? (
                           <Menu.Items className="w-40">
-                            <Menu.Item>
+                            <Menu.Item onClick={() => setApprove(!approve)}>
                               <Lucide icon="Check" className="w-4 h-4 mr-2" />{" "}
                               Approve
                             </Menu.Item>
-                            <Menu.Item className="text-danger">
+                            <Menu.Item className="text-danger" onClick={() => setReject(!reject)}>
                               <Lucide icon="X" className="w-4 h-4 mr-2" />{" "}
                               Reject
                             </Menu.Item>
@@ -762,7 +845,7 @@ onClick={()=>openModal("Edit")}                          >
                               />{" "}
                               Notify
                             </Menu.Item>
-                            <Menu.Item className="text-danger">
+                            <Menu.Item className="text-danger" onClick={() => setReject(!reject)}>
                               <Lucide icon="X" className="w-4 h-4 mr-2" />{" "}
                               Reject
                             </Menu.Item>
@@ -792,12 +875,12 @@ onClick={()=>openModal("Edit")}                          >
                         />
                       </div>
                       <div className="ml-3.5">
-                        <a  className="font-medium whitespace-nowrap">
+                        <a className="font-medium whitespace-nowrap">
                           {faker.name}
                         </a>
                         <div className="flex text-slate-500 text-xs whitespace-nowrap mt-0.5">
                           Product:
-                          <a  className="block ml-1 truncate w-44">
+                          <a className="block ml-1 truncate w-44">
                             Purchased: {_.random(2, 10)} Items
                           </a>
                         </div>
@@ -805,7 +888,7 @@ onClick={()=>openModal("Edit")}                          >
                     </div>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="flex items-center text-primary">
+                    <a className="flex items-center text-primary">
                       <Lucide
                         icon="ExternalLink"
                         className="w-3.5 h-3.5 stroke-[1.7]"
@@ -844,8 +927,8 @@ onClick={()=>openModal("Edit")}                          >
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item 
-                          onClick={()=>openModal("Edit")}
+                          <Menu.Item
+                            onClick={() => openModal("Edit")}
                           >
                             <Lucide
                               icon="CheckSquare"
@@ -855,7 +938,7 @@ onClick={()=>openModal("Edit")}                          >
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={()=>openModal("Delete")}                          >
+                            onClick={() => openModal("Delete")}                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -886,7 +969,7 @@ onClick={()=>openModal("Edit")}                          >
                         />
                       </div>
                       <div className="ml-3.5">
-                        <a  className="font-medium whitespace-nowrap">
+                        <a className="font-medium whitespace-nowrap">
                           {faker.name}
                         </a>
                         <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
@@ -957,8 +1040,8 @@ onClick={()=>openModal("Edit")}                          >
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item 
-onClick={()=>openModal("Edit")}>                            <Lucide
+                          <Menu.Item
+                            onClick={() => openModal("Edit")}>                            <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
                             />{" "}
@@ -966,7 +1049,7 @@ onClick={()=>openModal("Edit")}>                            <Lucide
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={()=>openModal("Delete")}                          >
+                            onClick={() => openModal("Delete")}                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -998,7 +1081,7 @@ onClick={()=>openModal("Edit")}>                            <Lucide
                         />
                       </div>
                       <div className="ml-3.5">
-                        <a  className="font-medium whitespace-nowrap">
+                        <a className="font-medium whitespace-nowrap">
                           {faker.name}
                         </a>
                         <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
@@ -1008,14 +1091,14 @@ onClick={()=>openModal("Edit")}>                            <Lucide
                     </div>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.position}
                     </a>
                     <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
                       {faker.department}
                     </div>
                   </Table.Td>
-                
+
 
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                     <div className="whitespace-nowrap">{faker.joinedDate}</div>
@@ -1075,7 +1158,7 @@ onClick={()=>openModal("Edit")}>                            <Lucide
                     {fakerKey + 1}
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.position}
                     </a>
                     <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
@@ -1110,8 +1193,8 @@ onClick={()=>openModal("Edit")}>                            <Lucide
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item 
-                          onClick={()=>openModal("Edit")}>
+                          <Menu.Item
+                            onClick={() => openModal("Edit")}>
                             <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
@@ -1120,7 +1203,7 @@ onClick={()=>openModal("Edit")}>                            <Lucide
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={()=>openModal("Delete")}                          >
+                            onClick={() => openModal("Delete")}                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -1137,12 +1220,12 @@ onClick={()=>openModal("Edit")}>                            <Lucide
                     <FormCheck.Input type="checkbox" />
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.position}
                     </a>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.position}
                     </a>
                     <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
@@ -1177,7 +1260,7 @@ onClick={()=>openModal("Edit")}>                            <Lucide
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item  onClick={()=>openModal("Edit")}
+                          <Menu.Item onClick={() => openModal("Edit")}
                           >
                             <Lucide
                               icon="CheckSquare"
@@ -1187,7 +1270,7 @@ onClick={()=>openModal("Edit")}>                            <Lucide
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={()=>openModal("Delete")}
+                            onClick={() => openModal("Delete")}
                           >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
