@@ -150,7 +150,7 @@ function Merchant() {
                                             >
                                                 <Lucide
                                                     icon="ArrowDownWideNarrow"
-                                                    className="stroke-[1.3] w-4 h-4 mr-2"
+                                                    className="stroke-[1.3]  w-4 h-4 mr-2"
                                                 />
                                                 Filter
                                                 <div className="flex items-center justify-center h-5 px-1.5 ml-2 text-xs font-medium border rounded-full bg-slate-100 dark:bg-darkmode-400">
@@ -279,7 +279,7 @@ function Merchant() {
                                                     >
                                                         <Lucide
                                                             icon={expandedRow === fakerKey ? "ArrowDown" : "ArrowRight"}
-                                                            className="block mx-auto my-auto font-bold justify-center items-center"
+                                                            className="block text-white  mx-auto my-auto font-bold justify-center items-center"
                                                         />
                                                     </div>
                                                 </Table.Td>

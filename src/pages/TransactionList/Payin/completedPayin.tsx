@@ -23,6 +23,7 @@ interface PayinProps {
 export interface Payins {
   sno: number;
   code: string;
+  checkdetails : string;
   confirmed: boolean;
   amount: number;
   status: string;
@@ -41,6 +42,7 @@ const CompletedPayin: React.FC<PayinProps> = () => {
   const theadData: string[] = [
     "SNO",
     "Code",
+    "Check Details",
     "Confirmed",
     "Commission",
     "Amount",
@@ -172,7 +174,17 @@ const CompletedPayin: React.FC<PayinProps> = () => {
                 </Popover>
               </div>
             </div>
-            <CustomTable columns={theadData} data={payins.fakePayins() as unknown as Payins[]} title={"Payins"} status={["Success"]} />
+            <CustomTable 
+              columns={theadData} 
+              data={payins.fakePayins() as unknown as Payins[]} 
+              title={"Payins"} 
+              status={["Success"]} 
+              setStatus={() => {}} 
+              approve={false} 
+              setApprove={() => {}} 
+              reject={false} 
+              setReject={() => {}} 
+            />
           </div>
         </div>
       </div>

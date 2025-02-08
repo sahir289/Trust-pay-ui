@@ -1,6 +1,6 @@
 import Lucide from "@/components/Base/Lucide";
 import Pagination from "@/components/Base/Pagination";
-import React from "react";
+import React, { useEffect } from "react";
 import { Menu } from "@/components/Base/Headless";
 import { FormCheck, FormSwitch, FormSelect } from "@/components/Base/Form";
 import Table from "@/components/Base/Table";
@@ -10,17 +10,33 @@ import { JSX } from "@fullcalendar/core/preact.js";
 import Tippy from "@/components/Base/Tippy";
 import PasswordVerificationModal from "@/pages/PasswordModal";
 import { useState } from "react";
+import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 interface CustomTableProps {
   columns: string[];
   data: Array<{ sno: number; code: string; confirmed: boolean; amount: number; status: string; merchant_order_id: string; merchant_code: string; photo: string; name: string; user_submitted_utr: string; utr: string; method: string; id: string; updated_at: string; bankDetails?: string; balance?: number; bankUsedFor?: string; vendors?: string; createdAt?: string; lastScheduledAt?: string; accountName?: string; accountNumber?: string; upiId?: string; orderId?: string; orderStatus?: { textColor: string; icon: string; name: string }; orderDate?: string; referance_date?: string; fromBank?: string; vendor?: string; manager?: string; joinedDate?: string; email?: string; department?: string; position?: string }>;
   title: string;
+
+
+  setStatus: React.Dispatch<React.SetStateAction<string>>
+
   status: string[];
+  approve: boolean; // Expecting a boolean prop to control modal reset
+  setApprove: React.Dispatch<React.SetStateAction<boolean>>
+  reject: boolean; // Expecting a boolean prop to control modal reset
+  setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
 }
 const CustomTable: React.FC<CustomTableProps> = ({
   columns,
   data,
   title,
   status,
+  approve,
+  setApprove,
+  reject,
+
+  setStatus,
+
+  setReject
 }) => {
   interface StatusStyle {
     color: string;
@@ -75,6 +91,24 @@ const CustomTable: React.FC<CustomTableProps> = ({
     }
   };
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [details, setDetails] = useState<{
+    sno: string;
+    id: string;
+    code: string;
+    confirmed: string;
+    commission: string;
+    amount: string;
+    status: string;
+    merchant_order_id: string;
+    merchant_code: string;
+    name: string;
+    user_submitted_utr: string;
+    utr: string;
+    method: string;
+    duration: number;
+    bank: string;
+    updated_at: string;
+  } | null>(null);
   const openModal = (): void => {
     setIsModalOpen(true);
   };
@@ -84,13 +118,21 @@ const CustomTable: React.FC<CustomTableProps> = ({
   const handleVerify = (): void => {
     closeModal();
   };
+
   return (
+
     <div>
       <PasswordVerificationModal
         isOpen={isModalOpen}
         onClose={closeModal}
         onVerify={handleVerify}
-      />
+      />{details && (
+        <ModalTransactionDetails
+          handleModal={() => setDetails(null)}
+          transaction={details}
+        />
+      )}
+
       <div className="overflow-auto">
         <Table className="border-b border-slate-200/60">
           <Table.Thead>
@@ -123,6 +165,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                       <FormCheck.Input type="checkbox" />
                     </Table.Td>
+
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                       <a href="" className="font-medium whitespace-nowrap">
                         {faker.sno}
@@ -133,15 +176,15 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         {faker.code}
                       </a>
                     </Table.Td>
-                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a href="" className="font-medium whitespace-nowrap">
-                        {faker.confirmed}
-                      </a>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" onClick={() => setDetails(faker)}>
+                      <Lucide
+                        icon="AlertCircle"
+                        className="w-5 h-5 stroke-blue-500 font-bold rounded-full " />
                     </Table.Td>
                     {columns.length > 15 && (
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <a href="" className="font-medium whitespace-nowrap">
-                          {faker.amount}
+                          {faker.confirmed}
                         </a>
                       </Table.Td>
                     )}
@@ -234,7 +277,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                                 className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70" />
                             </Menu.Button>
 
-                            <Menu.Items className="w-40">
+                            <Menu.Items className="w-40" onClick={() => setStatus(faker.status)}>
                               <Menu.Item>
                                 <Lucide
                                   icon="CheckSquare"
@@ -634,11 +677,17 @@ const CustomTable: React.FC<CustomTableProps> = ({
                       <div className="ml-3.5">{faker.sno}</div>
                     </div>
                   </Table.Td>
+                  
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                     <span className="ml-1.5 text-[13px]">
                       {faker.merchant_order_id}
                     </span>
                   </Table.Td>
+                  <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" onClick={() => setDetails(faker)}>
+                      <Lucide
+                        icon="AlertCircle"
+                        className="w-5 h-5 stroke-blue-500 font-bold rounded-full " />
+                    </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                     <span className="ml-1.5 text-[13px] ">
                       {faker.merchant_code}
@@ -721,11 +770,11 @@ const CustomTable: React.FC<CustomTableProps> = ({
 
                         {faker.status === "Initiated" ? (
                           <Menu.Items className="w-40">
-                            <Menu.Item>
+                            <Menu.Item onClick={() => setApprove(!approve)}>
                               <Lucide icon="Check" className="w-4 h-4 mr-2" />{" "}
                               Approve
                             </Menu.Item>
-                            <Menu.Item className="text-danger">
+                            <Menu.Item className="text-danger" onClick={() => setReject(!reject)}>
                               <Lucide icon="X" className="w-4 h-4 mr-2" />{" "}
                               Reject
                             </Menu.Item>
@@ -741,7 +790,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                               />{" "}
                               Notify
                             </Menu.Item>
-                            <Menu.Item className="text-danger">
+                            <Menu.Item className="text-danger" onClick={() => setReject(!reject)}>
                               <Lucide icon="X" className="w-4 h-4 mr-2" />{" "}
                               Reject
                             </Menu.Item>

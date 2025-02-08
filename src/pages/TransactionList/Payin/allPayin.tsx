@@ -14,15 +14,12 @@ import {
 } from "@/components/Base/Form";
 // import _ from "lodash";
 interface PayinProps {
-  resetModal: boolean; // Expecting a boolean prop to control modal reset
-  setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
-  approve: boolean; // Expecting a boolean prop to control modal reset
-  setApprove: React.Dispatch<React.SetStateAction<boolean>>
+
   setStatus: React.Dispatch<React.SetStateAction<string>>
-  status: string
 }
 export interface Payins {
   sno: number;
+  checkdetails : string;
   code: string;
   confirmed: boolean;
   amount: number;
@@ -38,11 +35,12 @@ export interface Payins {
   updated_at: string;
 }
 
-const AllPayin: React.FC<PayinProps> = () => {
+const AllPayin: React.FC<PayinProps> = ({ setStatus }) => {
   // const [selectedUser, setSelectedUser] = useState("1");
   const theadData: string[] = [
     "SNO",
     "Code",
+    "Check Details",
     "Confirmed",
     "Amount",
     "Status",
@@ -170,7 +168,18 @@ const AllPayin: React.FC<PayinProps> = () => {
                 </Popover>
               </div>
             </div>
-            <CustomTable columns={theadData} data={payins.fakePayins() as unknown as Payins[]} title={"Payins"} status={['Pending', 'Duplicate', 'Dispute', 'Bank Mismatch', 'Image Pending', 'Assigned', 'Initiated', 'Success', 'Dropped', 'Failled']} />
+            <CustomTable 
+            
+              columns={theadData} 
+              data={payins.fakePayins() as unknown as Payins[]} 
+              title={"Payins"} 
+              status={['Pending', 'Duplicate', 'Dispute', 'Bank Mismatch', 'Image Pending', 'Assigned', 'Initiated', 'Success', 'Dropped', 'Failled']} 
+              setStatus={setStatus}
+              approve={false} 
+              setApprove={() => {}} 
+              reject={false} 
+              setReject={() => {}} 
+            />
           </div>
         </div>
       </div>

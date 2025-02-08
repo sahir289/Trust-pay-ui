@@ -17,6 +17,7 @@ interface PayinProps {
 interface Payout {
   method: string;
   id: string;
+  checkdetails : string;
   updated_at: string;
   sno: number;
   code: string;
@@ -31,10 +32,11 @@ interface Payout {
   utr: string;
   position?: string;
 }
-const CompletedPayout: React.FC<PayinProps> = () => {
+const CompletedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setReject}) => {
   const tableHeaders = [
     "SNO.",
     "Merchant Order ID",
+    "Check Details",
     "Merchant",
     "Bank Details",
     "Amount",
@@ -159,7 +161,7 @@ const CompletedPayout: React.FC<PayinProps> = () => {
                 </Popover>
               </div>
             </div>
-            <CustomTable columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Success"]} />
+            <CustomTable approve={approve} setApprove={setApprove} reject={reject} setReject={setReject} setStatus={() => {}} columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Success"]} />
           </div>
         </div>
       </div>
