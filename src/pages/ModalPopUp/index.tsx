@@ -3,14 +3,12 @@ import { FormInput, FormLabel } from '@/components/Base/Form';
 import { Dialog } from '@/components/Base/Headless';
 import Lucide from '@/components/Base/Lucide';
 import React, { FC } from 'react';
-
 interface Field {
   id: string;
   label: string;
   type: string;
   placeholder: string;
 }
-
 interface ModalDialogProps {
   open: boolean;
   onClose: () => void;
@@ -20,9 +18,9 @@ interface ModalDialogProps {
   buttonText: string;
   onSubmit: () => void;
   onReset: () => void;
+  // eslint-disable-next-line no-undef
   resetRef: React.RefObject<HTMLButtonElement>;
 }
-
 const ModalPopUp: FC<ModalDialogProps> = ({ 
   open, 
   onClose, 
@@ -45,7 +43,6 @@ const ModalPopUp: FC<ModalDialogProps> = ({
             onClick={onClose}
           />
         </Dialog.Title>
-
         <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
           {fields?.map((field, index) => (
             <div key={index} className="col-span-12 sm:col-span-6 mx-2">

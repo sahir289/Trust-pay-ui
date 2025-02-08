@@ -1,56 +1,58 @@
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
-import Pagination from "@/components/Base/Pagination";
 // import TomSelect from "@/components/Base/TomSelect";
-import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
-import Tippy from "@/components/Base/Tippy";
+import {  FormInput, FormSelect } from "@/components/Base/Form";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
-import Table from "@/components/Base/Table";
-import React, { JSX } from "react";
-import _ from "lodash";
+import React from "react";
 import payouts from "@/fakers/payouts";
+import CustomTable from "../../../components/TableComponent";
+
 interface PayinProps {
   reject: boolean; // Expecting a boolean prop to control modal reset
   setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
   approve: boolean; // Expecting a boolean prop to control modal reset
   setApprove: React.Dispatch<React.SetStateAction<boolean>>
 }
-const InProgressPayout: React.FC<PayinProps>=({ reject, setReject, approve, setApprove  })=> {
-
-  // const [selectedUser, setSelectedUser] = useState("1");
-  interface StatusStyle {
-    color: string;
-    icon: JSX.Element;
-  }
-  const getStatusStyles = (status: string): StatusStyle => {
-    switch (status) {
-
-
-      case "Rejected":
-        return {
-          color: "text-red-500",
-          icon: <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
-        };
-
-      case "Initiated":
-        return {
-          color: "text-gray-500",
-          icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" />
-        };
+interface Payout {
+  method: string;
+  id: string;
+  updated_at: string;
+  sno: number;
+  code: string;
+  confirmed: boolean;
+  amount: number;
+  status: string;
+  merchant_order_id: string;
+  merchant_code: string;
+  photo: string;
+  name: string;
+  user_submitted_utr: string;
+  utr: string;
+  position?: string;
+}
+const InProgressPayout: React.FC<PayinProps> = () => {
 
 
-      case "Success":
-        return {
-          color: "text-green-500",
-          icon: <Lucide icon="CheckCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
-        };
-
-      default:
-        return { color: "text-gray-500", icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" /> };
-    }
-  }
+ 
+  const tableHeaders = [
+    "SNO.",
+    "Merchant Order ID",
+    "Merchant",
+    "Bank Details",
+    "Amount",
+    "Status",
+    "UTR",
+    "User",
+    "Method",
+    "Vendor",
+    "From Bank",
+    "Payout ID",
+    "Last Updated",
+    "Action"
+  ];
+ 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -162,200 +164,7 @@ const InProgressPayout: React.FC<PayinProps>=({ reject, setReject, approve, setA
                 </Popover>
               </div>
             </div>
-            <div className="overflow-auto">
-              <Table className="border-b border-slate-200/60">
-                <Table.Thead>
-                  <Table.Tr>
-                    <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      <FormCheck.Input type="checkbox" />
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      SNO.
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Merchant Order ID
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Merchant
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Bank Details
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Amount
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Status
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      UTR
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      User
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Method
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Vendor
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      From Bank
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Payout ID
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Last Updated
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium text-center border-t w-36 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Action
-                    </Table.Td>
-                  </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>
-                  {_.take(
-                    _.orderBy(
-                      _.filter(payouts.fakePayouts(), { status: 'Initiated' }),
-                      ['sno'],
-                      ['desc']
-                    ),
-                    10
-                  ).map(
-                    (faker) => (
-                      <Table.Tr key={faker.id} className="[&_td]:last:border-b-0">
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <FormCheck.Input type="checkbox" />
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
-                          <div className="flex items-center">
-                            <div className="ml-3.5">
-                              <a href="#" className="font-medium whitespace-nowrap">
-                                {faker.sno}
-                              </a>
-                              <div className="text-slate-500 text-xs mt-0.5">
-                                Product: Purchased Items
-                              </div>
-                            </div>
-                          </div>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="#" className="flex items-center text-primary">
-                            <span className="ml-1.5 text-[13px] underline">{faker.merchant_order_id}</span>
-                          </a>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="#" className="flex items-center text-primary">
-                            <span className="ml-1.5 text-[13px] underline">{faker.merchant_code}</span>
-                          </a>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="#" className="flex items-center text-primary">
-                            <span className="ml-1.5 text-[13px] underline">{faker.bankDetails}</span>
-                          </a>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <a href="#" className="flex items-center text-primary">
-                            <span className="ml-1.5 text-[13px] underline">{faker.amount}</span>
-                          </a>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <div className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(faker.status).color}`}>
-                            {getStatusStyles(faker.status).icon}
-                            {faker.status}
-                          </div>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{faker.utr}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
-                          <div className="flex items-center">
-                            <div className="w-9 h-9 image-fit zoom-in">
-                              <Tippy
-                                as="img"
-                                alt="Tailwise - Admin Dashboard Template"
-                                className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                src={faker.photo}
-                                content={faker.name}
-                              />
-                            </div>
-                            <div className="ml-3.5">
-                              <a
-                                href=""
-                                className="font-medium whitespace-nowrap"
-                              >
-                                {faker.name}
-                              </a>
-                            </div>
-                          </div>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{faker.method}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{faker.vendor}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{faker.fromBank}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{faker.id}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{faker.updated_at}</span>
-                        </Table.Td>
-                        <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                          <div className="flex items-center justify-center">
-                          <Menu className="h-5">
-                            <Menu.Button className="w-5 h-5 text-slate-500">
-                              <Lucide icon="MoreVertical" className="w-5 h-5" />
-                            </Menu.Button>
-                            <Menu.Items className="w-40">
-                              <Menu.Item 
-                             onClick={()=>setApprove(!approve)}
-                              >
-                                <Lucide icon="Check" className="w-4 h-4 mr-2" /> Approve
-                              </Menu.Item>
-                              <Menu.Item className="text-danger" onClick={()=>setReject(!reject)}>
-                                <Lucide icon="X" className="w-4 h-4 mr-2" /> Reject
-                              </Menu.Item>
-                            </Menu.Items>
-                          </Menu>
-                          </div>
-                        </Table.Td>
-                      </Table.Tr>
-                    )
-                  )}
-                </Table.Tbody>
-              </Table>
-            </div>
-            <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
-              <Pagination className="flex-1 w-full mr-auto sm:w-auto">
-                <Pagination.Link>
-                  <Lucide icon="ChevronsLeft" className="w-4 h-4" />
-                </Pagination.Link>
-                <Pagination.Link>
-                  <Lucide icon="ChevronLeft" className="w-4 h-4" />
-                </Pagination.Link>
-                <Pagination.Link>...</Pagination.Link>
-                <Pagination.Link>1</Pagination.Link>
-                <Pagination.Link active>2</Pagination.Link>
-                <Pagination.Link>3</Pagination.Link>
-                <Pagination.Link>...</Pagination.Link>
-                <Pagination.Link>
-                  <Lucide icon="ChevronRight" className="w-4 h-4" />
-                </Pagination.Link>
-                <Pagination.Link>
-                  <Lucide icon="ChevronsRight" className="w-4 h-4" />
-                </Pagination.Link>
-              </Pagination>
-              <FormSelect className="sm:w-20 rounded-[0.5rem]">
-                <option>10</option>
-                <option>25</option>
-                <option>35</option>
-                <option>50</option>
-              </FormSelect>
-            </div>
+              <CustomTable columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Initiated"]}/>
           </div>
         </div>
       </div>

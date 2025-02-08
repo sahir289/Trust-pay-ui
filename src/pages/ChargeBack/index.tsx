@@ -1,25 +1,52 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
-import Pagination from "@/components/Base/Pagination";
-// import TomSelect from "@/components/Base/TomSelect";
-import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
-import Tippy from "@/components/Base/Tippy";
+import { FormInput, FormSelect } from "@/components/Base/Form";
 import chargebacks from "@/fakers/chargebacks";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
-import Table from "@/components/Base/Table";
-import React, { useRef, useState } from "react";
-import _ from "lodash";
+import  { useRef, useState } from "react";
 import Modal from "../Modal/modal";
-
+import CustomTable from "@/components/TableComponent";
+ export interface Chargeback {
+              sno: number;
+              code: string;
+              confirmed: boolean;
+              amount: number;
+              status: string;
+              merchant_order_id: string;
+              merchant_code: string;
+              photo: string;
+              name: string;
+              user_submitted_utr: string;
+              utr: string;
+              reference_date: string;
+              created_date: string;
+              action: string;
+              position?: string;
+              method: string;
+              id: string;
+              updated_at: string;
+            }
 function ChargeBack() {
+
   const [newChargeBackModal, setNewChargeBackModal] = useState(false);
   const chargebackRef = useRef(null);
  const chargebackModal = ()=>{
   setNewChargeBackModal(!newChargeBackModal)
  }
+ const tableHeaders: string[] = [
+  "sno",
+  "merchant",
+  "merchant_order_id",
+  "user",
+  "amount",
+  "reference_date",
+  "created_date",
+  "action"
+];
+
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -139,165 +166,9 @@ function ChargeBack() {
               </div>
             </div>
             <div className="overflow-auto">
-              <Table className="border-b border-slate-200/60">
-                <Table.Thead>
-                  <Table.Tr>
-                    <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      <FormCheck.Input type="checkbox" />
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      SNO
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Merchant
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Merchant Order ID
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      User
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Amount
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Referance Date
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Created Date
-                    </Table.Td>
-                    <Table.Td className="py-4 font-medium text-center border-t w-36 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                      Action
-                    </Table.Td>
-                  </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>
-                  {_.take(_.orderBy(chargebacks.fakeChargeBacks(), ['sno'], ['desc']), 10).map(
-                    (faker, fakerKey) => (
-                      <Table.Tr
-                        key={fakerKey}
-                        className="[&_td]:last:border-b-0"
-                      >
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <FormCheck.Input type="checkbox" />
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.sno}
-                            </a>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.code}
-                            </a>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.merchant_order_id}
-                            </a>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
-                          <div className="flex items-center">
-                            <div className="w-9 h-9 image-fit zoom-in">
-                              <Tippy
-                                as="img"
-                                alt="Tailwise - Admin Dashboard Template"
-                                className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                                src={faker.photo}
-                                content={faker.name}
-                              />
-                            </div>
-                            <div className="ml-3.5">
-                              <a
-                                href=""
-                                className="font-medium whitespace-nowrap"
-                              >
-                                {faker.name}
-                              </a>
-                            </div>
-                          </div>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.amount}
-                            </a>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.referance_date}
-                            </a>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <a href="" className="font-medium whitespace-nowrap">
-                                {faker.created_at}
-                            </a>
-                        </Table.Td>
-                        <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                          <div className="flex items-center justify-center">
-                            <Menu className="h-5">
-                              <Menu.Button className="w-5 h-5 text-slate-500">
-                                <Lucide
-                                  icon="MoreVertical"
-                                  className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
-                                />
-                              </Menu.Button>
-                              <Menu.Items className="w-40">
-                              <Menu.Item  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                    // setVerificationModal(true);
-                                  }}>
-                                <Lucide
-                                  icon="CheckSquare"
-                                  className="w-4 h-4 mr-2"
-                                />{" "}
-                                Edit
-                              </Menu.Item>
-                              <Menu.Item className="text-danger"  onClick={(event: React.MouseEvent) => {
-                                    event.preventDefault();
-                                    // setVerificationModal(true);
-                                  }}>
-                                <Lucide
-                                  icon="Trash2"
-                                  className="w-4 h-4 mr-2"
-                                />
-                                Delete
-                              </Menu.Item>
-                            </Menu.Items>
-                            </Menu>
-                          </div>
-                        </Table.Td>
-                      </Table.Tr>
-                    )
-                  )}
-                </Table.Tbody>
-              </Table>
-            </div>
-            <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
-              <Pagination className="flex-1 w-full mr-auto sm:w-auto">
-                <Pagination.Link>
-                  <Lucide icon="ChevronsLeft" className="w-4 h-4" />
-                </Pagination.Link>
-                <Pagination.Link>
-                  <Lucide icon="ChevronLeft" className="w-4 h-4" />
-                </Pagination.Link>
-                <Pagination.Link>...</Pagination.Link>
-                <Pagination.Link>1</Pagination.Link>
-                <Pagination.Link active>2</Pagination.Link>
-                <Pagination.Link>3</Pagination.Link>
-                <Pagination.Link>...</Pagination.Link>
-                <Pagination.Link>
-                  <Lucide icon="ChevronRight" className="w-4 h-4" />
-                </Pagination.Link>
-                <Pagination.Link>
-                  <Lucide icon="ChevronsRight" className="w-4 h-4" />
-                </Pagination.Link>
-              </Pagination>
-              <FormSelect className="sm:w-20 rounded-[0.5rem]">
-                <option>10</option>
-                <option>25</option>
-                <option>35</option>
-                <option>50</option>
-              </FormSelect>
+              <CustomTable columns={tableHeaders} data={chargebacks.fakeChargeBacks() as unknown as Chargeback[]} title={"Chargebacks"} status={[]}/>
+           
+             
             </div>
           </div>
         </div>

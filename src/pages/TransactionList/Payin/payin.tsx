@@ -9,9 +9,38 @@ interface PayinProps {
   resetModal: boolean; // Expecting a boolean prop to control modal reset
   setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
   approve: boolean; // Expecting a boolean prop to control modal reset
-  setApprove: React.Dispatch<React.SetStateAction<boolean>>
-  setStatus: React.Dispatch<React.SetStateAction<string>>
-  status : string;
+  setApprove: React.Dispatch<React.SetStateAction<boolean>>;
+  setStatus: React.Dispatch<React.SetStateAction<string>>;
+  status: string;
+}
+
+export interface Payins {
+
+  sno: number;
+
+  code: string;
+
+  confirmed: boolean;
+
+  amount: number;
+
+  status: string;
+
+  merchant_order_id: string;
+
+  merchant_code: string;
+
+  photo: string;
+
+  name: string;
+
+  user_submitted_utr: string;
+
+  utr: string;
+
+  method: string;
+  id: string;
+  updated_at: string;
 }
 const Payin: React.FC<PayinProps> =({ resetModal, setResetModal, setStatus, status, approve, setApprove })=> {
 
@@ -58,7 +87,7 @@ const Payin: React.FC<PayinProps> =({ resetModal, setResetModal, setStatus, stat
         </Tab.List>
         <Tab.Panels className="border-b border-l border-r">
           <Tab.Panel className="py-5 leading-relaxed">
-            <AllPayin resetModal={resetModal} setResetModal={setResetModal} status={status} setStatus={setStatus}/>
+            <AllPayin resetModal={resetModal} setResetModal={setResetModal} status={status} setStatus={setStatus} approve={approve} setApprove={setApprove}/>
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
             <CompletedPayin />
