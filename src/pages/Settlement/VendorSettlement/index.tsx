@@ -168,6 +168,11 @@ function VendorSettlement() {
                 }))}
                 title={"Vendors Settlements"}
                 status={[]}
+                setStatus={() => {}}
+                approve={false}
+                setApprove={() => {}}
+                reject={false}
+                setReject={() => {}}
               />
             </div>
           </div>

@@ -137,7 +137,9 @@ function CheckUtrHistory() {
                 </Popover>
               </div>
             </div>
-            <CustomTable columns={transactionTableHeaders}  data={transactions.fakeTransactions().map((transaction, index) => ({
+            <CustomTable 
+              columns={transactionTableHeaders}  
+              data={transactions.fakeTransactions().map((transaction, index) => ({
                 sno: index + 1,
                 code: transaction.orderId,
                 confirmed: true, // or any appropriate value
@@ -158,7 +160,15 @@ function CheckUtrHistory() {
                 method: "", // or any appropriate value
                 id: "", // or any appropriate value
                 updated_at: "" // or any appropriate value
-              }))}  title={"Data Entries"} status={[""]}/>
+              }))}  
+              title={"Data Entries"} 
+              status={[""]}
+              setStatus={() => {}} 
+              approve={false} 
+              setApprove={() => {}} 
+              reject={false} 
+              setReject={() => {}} 
+            />
           </div>
         </div>
       </div>

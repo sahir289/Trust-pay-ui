@@ -76,7 +76,17 @@ function Main(): JSX.Element {
               </div>
             
             </div>
-              <CustomTable columns={tableHeaders} data={users.fakeUsers() as unknown as TableData[]} title={"Roles"} status={[]}/>
+              <CustomTable 
+                columns={tableHeaders} 
+                data={users.fakeUsers() as unknown as TableData[]} 
+                title={"Roles"} 
+                status={[]} 
+                setStatus={() => {}} 
+                approve={false} 
+                setApprove={() => {}} 
+                reject={false} 
+                setReject={() => {}} 
+              />
            
            
           </div>

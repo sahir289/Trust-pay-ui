@@ -137,7 +137,9 @@ function Main(): JSX.Element {
                 </div>
               </div>
             </div>
-            <CustomTable columns={tableHeaders} data={bankaccounts.fakeBankAccounts().map((account, index) => ({
+            <CustomTable 
+              columns={tableHeaders} 
+              data={bankaccounts.fakeBankAccounts().map((account, index) => ({
               sno: index + 1,
               code: '',
               confirmed: false,
@@ -164,9 +166,19 @@ function Main(): JSX.Element {
               status: account.status,
               method: '',
               id: '',
-              updated_at: '',
-              position: ''
-            }))} title={"Bankaccounts"} status={[]} />
+                position: '',
+                updated_at: ''
+            }))} 
+              title={"Bankaccounts"} 
+              status={[]} 
+              setStatus={() => {}} 
+              approve={false} 
+              setApprove={() => {}} 
+              reject={false}
+              setReject={() => {}} 
+            />
+            
+         
           </div>
         </div>
       </div>

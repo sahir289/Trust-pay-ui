@@ -71,7 +71,17 @@ const tableHeaders: string[] = [
               </div>
              
             </div>
-              <CustomTable columns={tableHeaders} data={users.fakeUsers() as unknown as User[]} title={"Designation"}  status={[]}/>
+              <CustomTable 
+                columns={tableHeaders} 
+                data={users.fakeUsers() as unknown as User[]} 
+                title={"Designation"}  
+                status={[]} 
+                setStatus={() => {}} 
+                approve={false} 
+                setApprove={() => {}} 
+                reject={false} 
+                setReject={() => {}} 
+              />
           </div>
         </div>
       </div>

@@ -13,7 +13,7 @@ import { useState } from "react";
 import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 interface CustomTableProps {
   columns: string[];
-  data: Array<{ sno: number; code: string; confirmed: boolean; amount: number; status: string; merchant_order_id: string; merchant_code: string; photo: string; name: string; user_submitted_utr: string; utr: string; method: string; id: string; updated_at: string; bankDetails?: string; balance?: number; bankUsedFor?: string; vendors?: string; createdAt?: string; lastScheduledAt?: string; accountName?: string; accountNumber?: string; upiId?: string; orderId?: string; orderStatus?: { textColor: string; icon: string; name: string }; orderDate?: string; referance_date?: string; fromBank?: string; vendor?: string; manager?: string; joinedDate?: string; email?: string; department?: string; position?: string }>;
+  data: Array<{ sno: number; code: string; confirmed: boolean; amount: number; status: string; merchant_order_id: string; merchant_code: string; photo: string; name: string; user_submitted_utr: string; utr: string; method: string; id: string; updated_at: string; commission?: number; bankDetails?: string; balance?: number; bankUsedFor?: string; vendors?: string; createdAt?: string; lastScheduledAt?: string; accountName?: string; accountNumber?: string; upiId?: string; orderId?: string; orderStatus?: { textColor: string; icon: string; name: string }; orderDate?: string; referance_date?: string; fromBank?: string; vendor?: string; manager?: string; joinedDate?: string; email?: string; department?: string; position?: string; duration?: number; bank?: string }>;
   title: string;
 
 
@@ -167,16 +167,33 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     </Table.Td>
 
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.sno}
                       </a>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.code}
                       </a>
                     </Table.Td>
-                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" onClick={() => setDetails(faker)}>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" onClick={() => setDetails({
+                      sno: String(faker.sno), // Convert number to string
+                      id: faker.id || "", // Ensure id exists
+                      code: faker.code,
+                      confirmed: String(faker.confirmed), // Convert boolean to string
+                      commission: String(faker.commission || "0"), // Ensure commission exists
+                      amount: String(faker.amount), // Convert number to string
+                      status: faker.status,
+                      merchant_order_id: faker.merchant_order_id,
+                      merchant_code: faker.merchant_code,
+                      name: faker.name,
+                      user_submitted_utr: faker.user_submitted_utr,
+                      utr: faker.utr,
+                      method: faker.method,
+                      duration: faker.duration || 0, // Ensure duration exists
+                      bank: faker.bank || "N/A", // Ensure bank exists
+                      updated_at: faker.updated_at || "", // Ensure updated_at exists
+                    })}>
                       <Lucide
                         icon="AlertCircle"
                         className="w-5 h-5 stroke-blue-500 font-bold rounded-full " />
@@ -189,7 +206,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                       </Table.Td>
                     )}
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.amount}
                       </a>
                     </Table.Td>
@@ -203,12 +220,12 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     </Table.Td>
 
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.merchant_order_id}
                       </a>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.merchant_code}
                       </a>
                     </Table.Td>
@@ -223,34 +240,34 @@ const CustomTable: React.FC<CustomTableProps> = ({
                             content={faker.name} />
                         </div>
                         <div className="ml-3.5">
-                          <a  className="font-medium whitespace-nowrap">
+                          <a className="font-medium whitespace-nowrap">
                             {faker.name}
                           </a>
                         </div>
                       </div>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.user_submitted_utr}
                       </a>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.utr}
                       </a>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.method}
                       </a>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.id}
                       </a>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                      <a  className="font-medium whitespace-nowrap">
+                      <a className="font-medium whitespace-nowrap">
                         {faker.updated_at}
                       </a>
                     </Table.Td>
@@ -501,12 +518,12 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         />
                       </div>
                       <div className="ml-3.5">
-                        <a  className="font-medium whitespace-nowrap">
+                        <a className="font-medium whitespace-nowrap">
                           {faker.name}
                         </a>
                         <div className="flex text-slate-500 text-xs whitespace-nowrap mt-0.5">
                           Product:
-                          <a  className="block ml-1 truncate w-44">
+                          <a className="block ml-1 truncate w-44">
                             Purchased: {_.random(2, 10)} Items
                           </a>
                         </div>
@@ -514,7 +531,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     </div>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="flex items-center text-primary">
+                    <a className="flex items-center text-primary">
                       <Lucide
                         icon="ExternalLink"
                         className="w-3.5 h-3.5 stroke-[1.7]"
@@ -580,17 +597,17 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     <FormCheck.Input type="checkbox" />
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.sno}
                     </a>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.code}
                     </a>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.merchant_order_id}
                     </a>
                   </Table.Td>
@@ -606,24 +623,24 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         />
                       </div>
                       <div className="ml-3.5">
-                        <a  className="font-medium whitespace-nowrap">
+                        <a className="font-medium whitespace-nowrap">
                           {faker.name}
                         </a>
                       </div>
                     </div>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.amount}
                     </a>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.referance_date}
                     </a>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.createdAt}
                     </a>
                   </Table.Td>
@@ -677,17 +694,34 @@ const CustomTable: React.FC<CustomTableProps> = ({
                       <div className="ml-3.5">{faker.sno}</div>
                     </div>
                   </Table.Td>
-                  
+
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                     <span className="ml-1.5 text-[13px]">
                       {faker.merchant_order_id}
                     </span>
                   </Table.Td>
-                  <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" onClick={() => setDetails(faker)}>
-                      <Lucide
-                        icon="AlertCircle"
-                        className="w-5 h-5 stroke-blue-500 font-bold rounded-full " />
-                    </Table.Td>
+                  <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" onClick={() => setDetails({
+                    sno: String(faker.sno), // Convert number to string
+                    id: faker.id || "", // Ensure id exists
+                    code: faker.code,
+                    confirmed: String(faker.confirmed), // Convert boolean to string
+                    commission: String(faker.commission || "0"), // Ensure commission exists
+                    amount: String(faker.amount), // Convert number to string
+                    status: faker.status,
+                    merchant_order_id: faker.merchant_order_id,
+                    merchant_code: faker.merchant_code,
+                    name: faker.name,
+                    user_submitted_utr: faker.user_submitted_utr,
+                    utr: faker.utr,
+                    method: faker.method,
+                    duration: faker.duration || 0, // Ensure duration exists
+                    bank: faker.bank || "N/A", // Ensure bank exists
+                    updated_at: faker.updated_at || "", // Ensure updated_at exists
+                  })}>
+                    <Lucide
+                      icon="AlertCircle"
+                      className="w-5 h-5 stroke-blue-500 font-bold rounded-full " />
+                  </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                     <span className="ml-1.5 text-[13px] ">
                       {faker.merchant_code}
@@ -725,7 +759,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         />
                       </div>
                       <div className="ml-3.5">
-                        <a  className="font-medium whitespace-nowrap">
+                        <a className="font-medium whitespace-nowrap">
                           {faker.name}
                         </a>
                       </div>
@@ -820,12 +854,12 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         />
                       </div>
                       <div className="ml-3.5">
-                        <a  className="font-medium whitespace-nowrap">
+                        <a className="font-medium whitespace-nowrap">
                           {faker.name}
                         </a>
                         <div className="flex text-slate-500 text-xs whitespace-nowrap mt-0.5">
                           Product:
-                          <a  className="block ml-1 truncate w-44">
+                          <a className="block ml-1 truncate w-44">
                             Purchased: {_.random(2, 10)} Items
                           </a>
                         </div>
@@ -833,7 +867,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     </div>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="flex items-center text-primary">
+                    <a className="flex items-center text-primary">
                       <Lucide
                         icon="ExternalLink"
                         className="w-3.5 h-3.5 stroke-[1.7]"
@@ -913,7 +947,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         />
                       </div>
                       <div className="ml-3.5">
-                        <a  className="font-medium whitespace-nowrap">
+                        <a className="font-medium whitespace-nowrap">
                           {faker.name}
                         </a>
                         <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
@@ -1026,7 +1060,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         />
                       </div>
                       <div className="ml-3.5">
-                        <a  className="font-medium whitespace-nowrap">
+                        <a className="font-medium whitespace-nowrap">
                           {faker.name}
                         </a>
                         <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
@@ -1036,14 +1070,14 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     </div>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.position}
                     </a>
                     <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
                       {faker.department}
                     </div>
                   </Table.Td>
-                
+
 
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                     <div className="whitespace-nowrap">{faker.joinedDate}</div>
@@ -1103,7 +1137,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     {fakerKey + 1}
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.position}
                     </a>
                     <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
@@ -1165,12 +1199,12 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     <FormCheck.Input type="checkbox" />
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.position}
                     </a>
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a  className="font-medium whitespace-nowrap">
+                    <a className="font-medium whitespace-nowrap">
                       {faker.position}
                     </a>
                     <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
