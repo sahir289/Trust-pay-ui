@@ -1,19 +1,19 @@
 import React from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
-import {  FormInput, FormSelect } from "@/components/Base/Form";
+import { FormInput, FormSelect } from "@/components/Base/Form";
 import payins from "@/fakers/payins";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
-import _ from "lodash";
+// import _ from "lodash";
 import CustomTable from "../../../components/TableComponent";
 interface PayinProps {
   resetModal: boolean; // Expecting a boolean prop to control modal reset
   setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
   approve: boolean; // Expecting a boolean prop to control modal reset
   setApprove: React.Dispatch<React.SetStateAction<boolean>>
-  setStatus : React.Dispatch<React.SetStateAction<string>>
+  setStatus: React.Dispatch<React.SetStateAction<string>>
   status: string
 }
 export interface Payins {
@@ -36,20 +36,20 @@ export interface Payins {
 const InProgressPayin: React.FC<PayinProps> = () => {
   const statusArray: string[] = ['Pending', 'Duplicate', 'Dispute', 'Bank Mismatch', 'Image Pending', 'Assigned', 'Initiated'];
   const theadData: string[] = [
-    "SNO", 
-    "Code", 
-    "Confirmed", 
-    "Amount", 
-    "Status", 
-    "Merchant Order ID", 
-    "Merchant", 
-    "User", 
-    "User Submitted UTR", 
-    "UTR", 
-    "Method", 
-    "Payin ID", 
-    "Updated AT", 
-    "Image", 
+    "SNO",
+    "Code",
+    "Confirmed",
+    "Amount",
+    "Status",
+    "Merchant Order ID",
+    "Merchant",
+    "User",
+    "User Submitted UTR",
+    "UTR",
+    "Method",
+    "Payin ID",
+    "Updated AT",
+    "Image",
     "Action"
   ];
 
@@ -164,9 +164,7 @@ const InProgressPayin: React.FC<PayinProps> = () => {
                 </Popover>
               </div>
             </div>
-           
-            <CustomTable columns={theadData} data={payins.fakePayins() as unknown as Payins[]} title={"Payins"} status={statusArray}/>
-          
+            <CustomTable columns={theadData} data={payins.fakePayins() as unknown as Payins[]} title={"Payins"} status={statusArray} />
           </div>
         </div>
       </div>

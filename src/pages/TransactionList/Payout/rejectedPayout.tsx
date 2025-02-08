@@ -33,7 +33,7 @@ interface Payout {
   utr: string;
   position?: string;
 }
-const RejectedPayout: React.FC<PayinProps>=()=> {
+const RejectedPayout: React.FC<PayinProps> = () => {
 
   const tableHeaders = [
     "SNO.",
@@ -51,7 +51,7 @@ const RejectedPayout: React.FC<PayinProps>=()=> {
     "Last Updated",
     "Action"
   ];
- 
+
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -163,7 +163,7 @@ const RejectedPayout: React.FC<PayinProps>=()=> {
                 </Popover>
               </div>
             </div>
-              <CustomTable title="Payouts" columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} status={["Rejected"]}/>
+            <CustomTable title="Payouts" columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} status={["Rejected"]} />
           </div>
         </div>
       </div>

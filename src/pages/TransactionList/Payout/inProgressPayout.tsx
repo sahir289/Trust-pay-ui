@@ -1,7 +1,7 @@
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 // import TomSelect from "@/components/Base/TomSelect";
-import {  FormInput, FormSelect } from "@/components/Base/Form";
+import { FormInput, FormSelect } from "@/components/Base/Form";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
@@ -35,7 +35,7 @@ interface Payout {
 const InProgressPayout: React.FC<PayinProps> = () => {
 
 
- 
+
   const tableHeaders = [
     "SNO.",
     "Merchant Order ID",
@@ -52,7 +52,7 @@ const InProgressPayout: React.FC<PayinProps> = () => {
     "Last Updated",
     "Action"
   ];
- 
+
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -164,7 +164,7 @@ const InProgressPayout: React.FC<PayinProps> = () => {
                 </Popover>
               </div>
             </div>
-              <CustomTable columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Initiated"]}/>
+            <CustomTable columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Initiated"]} />
           </div>
         </div>
       </div>

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
-import {  Menu, Popover } from "@/components/Base/Headless";
+import { Menu, Popover } from "@/components/Base/Headless";
 // import TomSelect from "@/components/Base/TomSelect";
-import {  FormInput, FormSelect } from "@/components/Base/Form";
+import { FormInput, FormSelect } from "@/components/Base/Form";
 import transactions from "@/fakers/transactions";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
@@ -11,8 +11,8 @@ import CustomTable from "@/components/TableComponent";
 export interface Transaction {
   category: string;
   orderId: string;
-  user:string;
-  products:string[];
+  user: string;
+  products: string[];
   orderStatus: string;
   orderDate: string;
   amount: number;
@@ -27,7 +27,7 @@ function MerchantSettlement() {
     "Date",
     "Action"
   ];
-  
+
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -77,25 +77,25 @@ function MerchantSettlement() {
                 </Menu>
                 <Popover className="inline-block">
                   {({ close }: { close: () => void }) => (
-                  <>
-                    <Popover.Button
-                      as={Button}
-                      variant="outline-secondary"
-                      className="w-full sm:w-auto"
-                    >
-                      <Lucide
-                        icon="ArrowDownWideNarrow"
-                        className="stroke-[1.3] w-4 h-4 mr-2"
-                      />
-                      Filter
-                      <div className="flex items-center justify-center h-5 px-1.5 ml-2 text-xs font-medium border rounded-full bg-slate-100 dark:bg-darkmode-400">
-                        3
-                      </div>
-                    </Popover.Button>
-                    <Popover.Panel placement="bottom-end">
-                      <div className="p-2">
-                        <div>
-                          <div className="text-left text-slate-500">User</div>
+                    <>
+                      <Popover.Button
+                        as={Button}
+                        variant="outline-secondary"
+                        className="w-full sm:w-auto"
+                      >
+                        <Lucide
+                          icon="ArrowDownWideNarrow"
+                          className="stroke-[1.3] w-4 h-4 mr-2"
+                        />
+                        Filter
+                        <div className="flex items-center justify-center h-5 px-1.5 ml-2 text-xs font-medium border rounded-full bg-slate-100 dark:bg-darkmode-400">
+                          3
+                        </div>
+                      </Popover.Button>
+                      <Popover.Panel placement="bottom-end">
+                        <div className="p-2">
+                          <div>
+                            <div className="text-left text-slate-500">User</div>
                             <FormSelect className="flex-1 mt-2">
                               {users.fakeUsers().map((faker, fakerKey) => (
                                 <option key={fakerKey} value={fakerKey}>
@@ -103,62 +103,64 @@ function MerchantSettlement() {
                                 </option>
                               ))}
                             </FormSelect>
-                        </div>
-                        <div className="mt-3">
-                          <div className="text-left text-slate-500">
-                            Status
                           </div>
-                          <FormSelect className="flex-1 mt-2">
-                            {transactionStatus
-                              .fakeTransactionStatus()
-                              .map((faker, fakerKey) => (
-                                <option key={fakerKey} value={fakerKey}>
-                                  {faker.name}
-                                </option>
-                              ))}
-                          </FormSelect>
+                          <div className="mt-3">
+                            <div className="text-left text-slate-500">
+                              Status
+                            </div>
+                            <FormSelect className="flex-1 mt-2">
+                              {transactionStatus
+                                .fakeTransactionStatus()
+                                .map((faker, fakerKey) => (
+                                  <option key={fakerKey} value={fakerKey}>
+                                    {faker.name}
+                                  </option>
+                                ))}
+                            </FormSelect>
+                          </div>
+                          <div className="flex items-center mt-4">
+                            <Button
+                              variant="secondary"
+                              onClick={() => {
+                                close();
+                              }}
+                              className="w-32 ml-auto"
+                            >
+                              Close
+                            </Button>
+                            <Button variant="primary" className="w-32 ml-2">
+                              Apply
+                            </Button>
+                          </div>
                         </div>
-                        <div className="flex items-center mt-4">
-                          <Button
-                            variant="secondary"
-                            onClick={() => {
-                              close();
-                            }}
-                            className="w-32 ml-auto"
-                          >
-                            Close
-                          </Button>
-                          <Button variant="primary" className="w-32 ml-2">
-                            Apply
-                          </Button>
-                        </div>
-                      </div>
-                    </Popover.Panel>
-                  </>
+                      </Popover.Panel>
+                    </>
                   )}
                 </Popover>
               </div>
             </div>
-          
-          
-              <CustomTable columns={tableHeaders}   data={transactions.fakeTransactions().map((transaction, index) => ({
-                sno: index + 1,
-                code: transaction.orderId,
-                confirmed: true,
-                amount: Number(transaction.amount),
-                status: transaction.orderStatus.toString(),
-                merchant_order_id: transaction.orderId,
-                merchant_code: "default_code",
-                photo: "default_photo_url",
-                name: transaction.user.toString(),
-                user_submitted_utr: "default_utr",
-                utr: "default_utr",
-                method: "default_method",
-                id: "default_id",
-                updated_at: "default_updated_at",
-              }))}  title={"Merchants Settlements"} status={[]}/>
-              
-           
+            <CustomTable columns={tableHeaders} data={transactions.fakeTransactions().map((transaction, index) => ({
+              sno: index + 1,
+              code: transaction.orderId,
+              confirmed: true, // or any appropriate value
+              amount: Number(`${transaction.amount}`), // convert to number
+              status: transaction.orderStatus.name, // convert to string
+              merchant_order_id: transaction.orderId,
+              merchant_code: "M123", // or any appropriate value
+              photo: transaction.user.photo, // or any appropriate value
+              name: transaction.user.name, // convert to string
+              user_submitted_utr: "", // or any appropriate value
+              utr: "", // or any appropriate value
+              category: transaction.category,
+              orderId: transaction.orderId,
+              user: transaction.user,
+              products: transaction.products,
+              orderStatus: transaction.orderStatus,
+              orderDate: transaction.orderDate,
+              method: "", // or any appropriate value
+              id: "", // or any appropriate value
+              updated_at: "" // or any appropriate value
+            }))} title={"Merchants Settlements"} status={[]} />
           </div>
         </div>
       </div>

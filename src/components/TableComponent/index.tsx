@@ -654,9 +654,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                     <div
-                      className={`flex items-center gap-2 font-medium whitespace-nowrap ${
-                        getStatusStyles(faker.status).color
-                      }`}
+                      className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(faker.status).color
+                        }`}
                     >
                       {getStatusStyles(faker.status).icon as React.ReactNode}
                       {faker.status}

@@ -51,8 +51,8 @@ const AllPayout: React.FC<PayinProps> = () => {
     "Last Updated",
     "Action",
   ];
-  
-  
+
+
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -164,7 +164,7 @@ const AllPayout: React.FC<PayinProps> = () => {
                 </Popover>
               </div>
             </div>
-            <CustomTable columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Success","Rejected","Initiated"]}/>
+            <CustomTable columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Success", "Rejected", "Initiated"]} />
           </div>
         </div>
       </div>

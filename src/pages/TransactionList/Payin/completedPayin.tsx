@@ -2,7 +2,7 @@ import React from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 // import TomSelect from "@/components/Base/TomSelect";
-import {  FormInput, FormSelect } from "@/components/Base/Form";
+import { FormInput, FormSelect } from "@/components/Base/Form";
 import payins from "@/fakers/payins";
 import users from "@/fakers/users";
 import CustomTable from "../../../components/TableComponent";
@@ -10,7 +10,7 @@ import CustomTable from "../../../components/TableComponent";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 // import { useState } from "react";
-import _ from "lodash";
+// import _ from "lodash";
 interface PayinProps {
   // resetModal: boolean; // Expecting a boolean prop to control modal reset
   // setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
@@ -21,56 +21,43 @@ interface PayinProps {
 }
 
 export interface Payins {
-
   sno: number;
-
   code: string;
-
   confirmed: boolean;
-
   amount: number;
-
   status: string;
-
   merchant_order_id: string;
-
   merchant_code: string;
-
   photo: string;
-
   name: string;
-
   user_submitted_utr: string;
-
   utr: string;
-
   method: string;
   id: string;
   updated_at: string;
 }
-const CompletedPayin: React.FC<PayinProps>=()=> {
+const CompletedPayin: React.FC<PayinProps> = () => {
   // const [selectedUser, setSelectedUser] = useState("1");
-
   const theadData: string[] = [
-    "SNO", 
-    "Code", 
+    "SNO",
+    "Code",
     "Confirmed",
-    "Commission", 
+    "Commission",
     "Amount",
-    "Status", 
-    "Merchant Order ID", 
-    "Merchant", 
-    "User", 
-    "User Submitted UTR", 
-    "UTR", 
-    "Method", 
-    "Payin ID", 
-    "Updated AT", 
-    "Image", 
+    "Status",
+    "Merchant Order ID",
+    "Merchant",
+    "User",
+    "User Submitted UTR",
+    "UTR",
+    "Method",
+    "Payin ID",
+    "Updated AT",
+    "Image",
     "Action"
   ];
-  
- 
+
+
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -183,7 +170,7 @@ const CompletedPayin: React.FC<PayinProps>=()=> {
                 </Popover>
               </div>
             </div>
-            <CustomTable columns={theadData} data={payins.fakePayins() as unknown as Payins[]} title={"Payins"} status={["Success"]}/>
+            <CustomTable columns={theadData} data={payins.fakePayins() as unknown as Payins[]} title={"Payins"} status={["Success"]} />
           </div>
         </div>
       </div>
