@@ -1,0 +1,200 @@
+import _ from "lodash";
+
+export interface BankAccount {
+  accountName: string;
+  bankDetails: string[];
+  accountNumber: string;
+  upiId: string;
+  limits: string;
+  balance: string;
+  allowIntent: "Yes" | "No";
+  allowQR: "Yes" | "No";
+  showBank: "Yes" | "No";
+  status: "Active" | "Inactive";
+  action: string;
+  bankUsedFor: "Payouts" | "Settlements" | "Refunds";
+  vendors: string;
+  createdAt: string;
+  lastScheduledAt: string;
+}
+
+const fakersBankAccount = {
+  fakeBankAccounts(): Array<BankAccount> {
+    const bankAccounts:Array<BankAccount> = [
+      {
+        accountName: "HDFC Bank",
+        bankDetails: ["HDFC Bank", "123456789012", "john@hdfc"],
+        accountNumber: "123456789012",
+        upiId: "john@hdfc",
+        limits: "₹50,000",
+        balance: "₹12,500",
+        allowIntent: "Yes",
+        allowQR: "No",
+        showBank: "Yes",
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor A",
+        createdAt: "2025-02-01 10:30 AM",
+        lastScheduledAt: "2025-02-05 12:00 PM",
+      },
+      {
+        accountName: "HDFC Bank",
+        bankDetails: ["HDFC Bank", "123456789012", "john@hdfc"],
+        accountNumber: "123456789012",
+        upiId: "john@hdfc",
+        limits: "₹75,000",
+        balance: "₹30,000",
+        allowIntent: "Yes",
+        allowQR: "Yes",
+        showBank: "Yes",
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Settlements",
+        vendors: "Vendor B",
+        createdAt: "2025-01-30 09:45 AM",
+        lastScheduledAt: "2025-02-04 11:15 AM",
+      },
+      {
+        accountName: "HDFC Bank",
+        bankDetails: ["HDFC Bank", "123456789012", "john@hdfc"],
+        accountNumber: "123456789012",
+        upiId: "john@hdfc",
+        limits: "₹40,000",
+        balance: "₹5,000",
+        allowIntent: "No",
+        allowQR: "Yes",
+        showBank: "No",
+        status: "Inactive",
+        action: "Edit/Delete",
+        bankUsedFor: "Refunds",
+        vendors: "Vendor C",
+        createdAt: "2025-01-28 11:00 AM",
+        lastScheduledAt: "2025-02-03 10:30 AM",
+      },
+      {
+        accountName: "HDFC Bank",
+        bankDetails: ["HDFC Bank", "123456789012", "john@hdfc"],
+        accountNumber: "123456789012",
+        upiId: "john@hdfc",
+        limits: "₹60,000",
+        balance: "₹22,000",
+        allowIntent: "Yes",
+        allowQR: "Yes",
+        showBank: "Yes",
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor D",
+        createdAt: "2025-02-02 08:15 AM",
+        lastScheduledAt: "2025-02-06 01:00 PM",
+      },
+      {
+        accountName: "HDFC Bank",
+        bankDetails: ["HDFC Bank", "123456789012", "john@hdfc"],
+        accountNumber: "123456789012",
+        upiId: "john@hdfc",
+        limits: "₹90,000",
+        balance: "₹60,000",
+        allowIntent: "Yes",
+        allowQR: "No",
+        showBank: "Yes",
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Settlements",
+        vendors: "Vendor E",
+        createdAt: "2025-01-31 07:30 AM",
+        lastScheduledAt: "2025-02-05 02:45 PM",
+      },
+      {
+        accountName: "HDFC Bank",
+        bankDetails: ["HDFC Bank", "123456789012", "john@hdfc"],
+        accountNumber: "123456789012",
+        upiId: "john@hdfc",
+        limits: "₹30,000",
+        balance: "₹2,500",
+        allowIntent: "No",
+        allowQR: "Yes",
+        showBank: "No",
+        status: "Inactive",
+        action: "Edit/Delete",
+        bankUsedFor: "Refunds",
+        vendors: "Vendor F",
+        createdAt: "2025-01-29 06:45 AM",
+        lastScheduledAt: "2025-02-02 11:55 AM",
+      },
+      {
+        accountName: "HDFC Bank",
+        bankDetails: ["HDFC Bank", "123456789012", "john@hdfc"],
+        accountNumber: "123456789012",
+        upiId: "john@hdfc",
+        limits: "₹100,000",
+        balance: "₹85,000",
+        allowIntent: "Yes",
+        allowQR: "Yes",
+        showBank: "Yes",
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor G",
+        createdAt: "2025-02-01 05:00 AM",
+        lastScheduledAt: "2025-02-06 04:00 PM",
+      },
+      {
+        accountName: "HDFC Bank",
+        bankDetails: ["HDFC Bank", "123456789012", "john@hdfc"],
+        accountNumber: "123456789012",
+        upiId: "john@hdfc",
+        limits: "₹70,000",
+        balance: "₹40,500",
+        allowIntent: "Yes",
+        allowQR: "No",
+        showBank: "Yes",
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Settlements",
+        vendors: "Vendor H",
+        createdAt: "2025-02-03 04:15 AM",
+        lastScheduledAt: "2025-02-07 03:20 PM",
+      },
+      {
+        accountName: "HDFC Bank",
+        bankDetails: ["HDFC Bank", "123456789012", "john@hdfc"],
+        accountNumber: "123456789012",
+        upiId: "john@hdfc",
+        limits: "₹55,000",
+        balance: "₹10,000",
+        allowIntent: "No",
+        allowQR: "Yes",
+        showBank: "No",
+        status: "Inactive",
+        action: "Edit/Delete",
+        bankUsedFor: "Refunds",
+        vendors: "Vendor I",
+        createdAt: "2025-01-27 03:30 AM",
+        lastScheduledAt: "2025-02-01 05:10 PM",
+      },
+      {
+        accountName: "HDFC Bank",
+        bankDetails: ["HDFC Bank", "123456789012", "john@hdfc"],
+        accountNumber: "123456789012",
+        upiId: "john@hdfc",
+        limits: "₹80,000",
+        balance: "₹55,200",
+        allowIntent: "Yes",
+        allowQR: "Yes",
+        showBank: "Yes",
+        status: "Active",
+        action: "Edit/Delete",
+        bankUsedFor: "Payouts",
+        vendors: "Vendor J",
+        createdAt: "2025-02-02 02:45 AM",
+        lastScheduledAt: "2025-02-06 06:30 PM",
+      },
+    ];
+
+    return _.shuffle(bankAccounts);
+  },
+};
+
+export default fakersBankAccount;

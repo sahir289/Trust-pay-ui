@@ -20,7 +20,7 @@ const imageAssets = import.meta.glob<{
 }>("/src/assets/images/users/*.{jpg,jpeg,png,svg}", { eager: true });
 
 const fakers = {
-  fakeUsers() {
+  fakeUsers(): Array<User> {
     const users: Array<User> = [
       {
         name: "Tom Hanks",

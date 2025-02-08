@@ -11,6 +11,7 @@ interface PayinProps {
   approve: boolean; // Expecting a boolean prop to control modal reset
   setApprove: React.Dispatch<React.SetStateAction<boolean>>
 }
+
 const Payin: React.FC<PayinProps> =({ reject, setReject, approve, setApprove  })=> {
 
   return (

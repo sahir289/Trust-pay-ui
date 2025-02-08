@@ -8,7 +8,7 @@ export interface TransactionStatus {
 }
 
 const fakers = {
-  fakeTransactionStatus() {
+  fakeTransactionStatus(): Array<TransactionStatus> {
     const transactionStatus: Array<TransactionStatus> = [
       { name: "Pending Payment", textColor: "text-primary", icon: "Hourglass" },
       { name: "Processing", textColor: "text-primary", icon: "Clock4" },

@@ -8,7 +8,7 @@ import transactionStatus, {
 } from "./transaction-status";
 import dayjs from "dayjs";
 
-interface Transaction {
+export interface Transaction {
   category: Category;
   orderId: string;
   user: User;
@@ -19,7 +19,7 @@ interface Transaction {
 }
 
 const fakers = {
-  fakeTransactions() {
+  fakeTransactions(): Array<Transaction> {
     const transactions: Array<Transaction> = [];
 
     for (let i = 0; i < 10; i++) {
