@@ -278,8 +278,8 @@ function Merchant() {
                                                         onClick={() => handleRowClick(fakerKey)}
                                                     >
                                                         <Lucide
-                                                            icon={expandedRow === fakerKey ? "ArrowDown" : "ArrowRight"}
-                                                            className="block text-white  mx-auto my-auto font-bold justify-center items-center"
+                                                            icon={expandedRow === fakerKey ? "Minus" : "Plus"}
+                                                            className="block text-white  mx-auto my-auto stroke-3 justify-center items-center"
                                                         />
                                                     </div>
                                                 </Table.Td>
