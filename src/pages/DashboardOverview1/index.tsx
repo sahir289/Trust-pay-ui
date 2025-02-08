@@ -22,7 +22,7 @@ function Main() {
             DashBoard
           </div>
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-            <Modal state={false} handleModal={transactionModal} sendButtonRef={transactionRef} forOpen={newTransactionModal} title={`${title} Board`} />
+            <Modal  handleModal={transactionModal} sendButtonRef={transactionRef} forOpen={newTransactionModal} title={`${title} Board`} />
           </div>
         </div>
       </div>

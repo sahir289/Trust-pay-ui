@@ -38,7 +38,7 @@ function Main() {
           <div className="text-xl font-medium group-[.mode--light]:text-white ">
             Transactions
           </div>
-          <Modal state={false} handleModal={transactionModal} sendButtonRef={transactionRef} forOpen={newTransactionModal} title={title} />
+          <Modal  handleModal={transactionModal} sendButtonRef={transactionRef} forOpen={newTransactionModal} title={title} />
 
 
           {status === "Dispute" && (

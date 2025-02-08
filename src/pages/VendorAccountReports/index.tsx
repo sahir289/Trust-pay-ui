@@ -12,7 +12,6 @@ import { Menu, Popover } from "@/components/Base/Headless";
 // import TomSelect from "@/components/Base/TomSelect";
 import Pagination from "@/components/Base/Pagination";
 import fakeVendorAccount from "@/fakers/vendorreports";
-import Litepicker from "@/components/Base/Litepicker";
 
 function AccountReports() {
   const [startDate, setStartDate] = useState('');

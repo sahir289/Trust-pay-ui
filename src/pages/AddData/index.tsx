@@ -21,7 +21,7 @@ const [addDataModal, setAddDataModal] = useState(false);
           <div className="text-lg font-medium group-[.mode--light]:text-white">
             Data Entries
           </div>
-          <div><Modal state={false} handleModal={dataModal} sendButtonRef={transactionRef} 
+          <div><Modal  handleModal={dataModal} sendButtonRef={transactionRef} 
           forOpen={addDataModal} title={title}/></div>
         </div>
         <div className="relative flex flex-col col-span-12 lg:col-span-12 xl:col-span-12 gap-y-7">

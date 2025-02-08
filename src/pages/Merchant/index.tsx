@@ -37,7 +37,7 @@ function Merchant() {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-                        <Modal state={false} handleModal={merchantModal} sendButtonRef={sendButtonRef} title="Add Merchant" forOpen={newMerchantModal} />
+                        <Modal  handleModal={merchantModal} sendButtonRef={sendButtonRef} title="Add Merchant" forOpen={newMerchantModal} />
                     </div>
                 </div>
                 <div className="flex flex-col gap-8 mt-3.5">
