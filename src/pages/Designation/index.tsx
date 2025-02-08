@@ -71,10 +71,7 @@ const tableHeaders: string[] = [
               </div>
              
             </div>
-            <div className="overflow-auto xl:overflow-visible">
               <CustomTable columns={tableHeaders} data={users.fakeUsers() as unknown as User[]} title={"Designation"}  status={[]}/>
-            
-            </div>
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import Lucide from "@/components/Base/Lucide";
-import { JSX } from "@fullcalendar/core/preact.js";
+import { JSX } from "react";
 import { FormInput } from "@/components/Base/Form";
 import users from "@/fakers/users";
 
@@ -76,10 +76,8 @@ function Main(): JSX.Element {
               </div>
             
             </div>
-            <div className="overflow-auto xl:overflow-visible">
               <CustomTable columns={tableHeaders} data={users.fakeUsers() as unknown as TableData[]} title={"Roles"} status={[]}/>
            
-            </div>
            
           </div>
         </div>
