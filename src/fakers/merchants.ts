@@ -1,7 +1,6 @@
 import _ from "lodash";
 export interface subMerchant {
   name: string;
-
   code: string;
   site: string;
   apikey: string;
@@ -11,7 +10,6 @@ export interface subMerchant {
   payin_commission: string;
   payout_range: string;
   payout_commission: string;
-
   test_mode: string;
   allow_intent: string;
   created_at: string;

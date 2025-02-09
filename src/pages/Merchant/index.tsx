@@ -1,33 +1,58 @@
 import Lucide from "@/components/Base/Lucide";
 import {  Menu, Popover } from "@/components/Base/Headless";
-import Pagination from "@/components/Base/Pagination";
-import { FormCheck, FormInput, FormSelect, FormSwitch } from "@/components/Base/Form";
+import {  FormInput, FormSelect } from "@/components/Base/Form";
 import merchants from "@/fakers/merchants";
-
 import Button from "@/components/Base/Button";
-import Table from "@/components/Base/Table";
 import _ from "lodash";
-import React, { useRef, useState } from "react";
+import { JSX} from "react";
+import { useRef, useState } from "react";
 import Modal from "../Modal/modal";
-
-function Merchant() {
+import CustomTable from "@/components/TableComponent";
+export interface Merchant {
+    name: string;
+    photo: string;
+    code: string;
+    site: string;
+    apikey: string;
+    public_api_key: string;
+    balance: string;
+    payin_range: string;
+    payin_commission: string;
+    payout_range: string;
+    payout_commission: string;
+    test_mode: string;
+    allow_intent: string;
+    created_at: string;
+    actions: string;
+  }
+  
+function Main(): JSX.Element {
     const [newMerchantModal, setNewMerchantModal] = useState(false);
     const [expandedRow, setExpandedRow] = useState<number | null>(null);
     const sendButtonRef = useRef(null);
     const merchantModal = () => {
         setNewMerchantModal(!newMerchantModal)
     }
-
- 
-
-
     const handleRowClick = (fakerKey: number): void => {
         setExpandedRow((prevRow) => (prevRow === fakerKey ? null : fakerKey));
-        setClick(!click);
     };
 
-    const [click, setClick] = useState(false)
-    console.log(expandedRow, "expanded")
+    const tableHeaders: string[] = [
+        "Sub Merchants",
+        "Code",
+        "Site",
+        "API Key",
+        "Public API Key",
+        "Balance",
+        "PayIn Range",
+        "PayIn Commission",
+        "PayOut Range",
+        "PayOut Commission",
+        "Test Mode",
+        "Allow Intent",
+        "Created at (IST)",
+        "Actions",
+      ];
     return (
         <div className="grid grid-cols-12 gap-y-10 gap-x-6">
             <div className="col-span-12">
@@ -211,262 +236,42 @@ function Merchant() {
                                 </Popover>
                             </div>
                         </div>
-                        <div className="overflow-auto">
-                            <Table className="border-b border-slate-200/60">
-                                <Table.Thead>
-                                    <Table.Tr >
-                                        <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            <FormCheck.Input type="checkbox" />
-                                        </Table.Td>
-                                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            Sub Merchants
-                                        </Table.Td>
-                                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            Code
-                                        </Table.Td>
-                                        <Table.Td className="py-4 font-medium border-t w-52 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            Site
-                                        </Table.Td>
-                                        <Table.Td className="py-4 font-medium text-center border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            API Key
-                                        </Table.Td>
-                                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            Public API Key
-                                        </Table.Td>
-                                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            Balance
-                                        </Table.Td><Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            PayIn Range
-                                        </Table.Td>
-                                        <Table.Td className="w-20 py-4 font-medium text-center border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            PayIn Commission
-                                        </Table.Td>
-                                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            PayOut Range
-                                        </Table.Td>
-                                        <Table.Td className="w-20 py-4 font-medium text-center border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            PayOut Commission
-                                        </Table.Td>
-                                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            Test Mode
-                                        </Table.Td>
-                                        <Table.Td className="w-20 py-4 font-medium text-center border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            Allow Intent
-                                        </Table.Td>
-                                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            Created at (IST)
-                                        </Table.Td>
-                                        <Table.Td className="w-20 py-4 font-medium text-center border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                                            Actions
-                                        </Table.Td>
-
-                                    </Table.Tr>
-                                </Table.Thead>
-                                <Table.Tbody>
-                                {/* {_.take(_.orderBy(chargebacks.fakeChargeBacks(), ['sno'], ['desc']), 10).map( */}
-
-                                    {_.take(_.orderBy(merchants.fakeMerchants(),['sno'],['desc']), 10).map((faker, fakerKey) => (
-                                        <React.Fragment key={fakerKey}>
-                                            {/* Main row */}
-                                            <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
-                                                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                    <FormCheck.Input type="checkbox" />
-                                                </Table.Td>
-                                                <Table.Td>
-                                                    <div
-                                                        className="flex mt-2 text-xs text-center bg-blue-500 rounded-full w-7 h-7"
-                                                        onClick={() => handleRowClick(fakerKey)}
-                                                    >
-                                                        <Lucide
-                                                            icon={expandedRow === fakerKey ? "Minus" : "Plus"}
-                                                            className="block text-white  mx-auto my-auto stroke-3 justify-center items-center"
-                                                        />
-                                                    </div>
-                                                </Table.Td>
-                                                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                    <div  className="font-medium whitespace-nowrap">
-                                                        {faker.code}
-                                                    </div>
-                                                </Table.Td>
-                                                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                    <div  className="font-medium whitespace-nowrap">
-                                                        {faker.site}
-                                                    </div>
-                                                </Table.Td>
-                                                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                    <div  className="font-medium whitespace-nowrap">
-                                                        {faker.apikey}
-                                                    </div>
-                                                </Table.Td>
-                                                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                    <div  className="font-medium whitespace-nowrap">
-                                                        {faker.public_api_key}
-                                                    </div>
-                                                </Table.Td>
-                                                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                    <div  className="font-medium whitespace-nowrap">
-                                                        {faker.balance}
-                                                    </div>
-                                                </Table.Td>
-                                                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                    <div  className="font-medium whitespace-nowrap">
-                                                        {faker.payin_range}
-                                                    </div>
-                                                </Table.Td>
-                                                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                    <div  className="font-medium whitespace-nowrap">
-                                                        {faker.payin_commission}
-                                                    </div>
-                                                </Table.Td>
-                                                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                    <div  className="font-medium whitespace-nowrap">
-                                                        {faker.payout_range}
-                                                    </div>
-                                                </Table.Td>
-                                                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                    <div  className="font-medium whitespace-nowrap">
-                                                        {faker.payout_commission}
-                                                    </div>
-                                                </Table.Td>
-                                                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                    <FormSwitch className="dark:bg-darkmode-200 dark:border-red-500 rounded-lg">
-                                                        <FormSwitch.Label htmlFor="show-example-1" className="ml-0">
-                                                            {faker.test_mode}
-                                                            <FormSwitch.Input
-                                                                id="show-example-1"
-                                                                className="ml-0 mr-0 border-2 border-slate-300"
-                                                                type="checkbox"
-                                                            />
-                                                        </FormSwitch.Label>
-                                                    </FormSwitch>
-                                                </Table.Td>
-                                                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                    <FormSwitch>
-                                                        <FormSwitch.Label htmlFor="show-example-1" className="ml-0 sm:ml-2">
-                                                            {faker.allow_intent}
-                                                            <FormSwitch.Input
-                                                                id="show-example-1"
-                                                                className="ml-3 mr-0 border-2 border-slate-300"
-                                                                type="checkbox"
-                                                            />
-                                                        </FormSwitch.Label>
-                                                    </FormSwitch>
-                                                </Table.Td>
-                                                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                    <div  className="font-medium whitespace-nowrap">
-                                                        {faker.created_at}
-                                                    </div>
-                                                </Table.Td>
-                                                <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                                                    <div className="flex items-center justify-center">
-                                                        <Menu className="h-5">
-                                                            <Menu.Button className="w-5 h-5 text-slate-500">
-                                                                <Lucide
-                                                                    icon="MoreVertical"
-                                                                    className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
-                                                                />
-                                                            </Menu.Button>
-                                                            <Menu.Items className="w-40">
-                                                                <Menu.Item>
-                                                                    <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
-                                                                </Menu.Item>
-                                                                <Menu.Item className="text-danger">
-                                                                    <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
-                                                                </Menu.Item>
-                                                            </Menu.Items>
-                                                        </Menu>
-                                                    </div>
-                                                </Table.Td>
-                                            </Table.Tr>
-
-                                            {/* Expanded row */}
-                                            {expandedRow === fakerKey && faker.submerchant.map((sub, subKey) => (
-                                                <Table.Tr key={`sub-${subKey}`} className="bg-gray-100">
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600"></Table.Td> 
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600"></Table.Td> 
-
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                        <div  className="font-medium whitespace-nowrap">{sub.code}</div>
-                                                    </Table.Td>
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                        <div  className="font-medium whitespace-nowrap">{sub.site}</div>
-                                                    </Table.Td>
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                        <div  className="font-medium whitespace-nowrap">{sub.apikey}</div>
-                                                    </Table.Td>
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                        <div  className="font-medium whitespace-nowrap">{sub.public_api_key}</div>
-                                                    </Table.Td>
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                        <div  className="font-medium whitespace-nowrap">{sub.balance}</div>
-                                                    </Table.Td>
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                        <div  className="font-medium whitespace-nowrap">{sub.payin_range}</div>
-                                                    </Table.Td>
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                        <div  className="font-medium whitespace-nowrap">{sub.payin_commission}</div>
-                                                    </Table.Td>
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                        <div  className="font-medium whitespace-nowrap">{sub.payout_range}</div>
-                                                    </Table.Td>
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                        <div  className="font-medium whitespace-nowrap">{sub.payout_commission}</div>
-                                                    </Table.Td>
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                        <FormSwitch>
-                                                            <FormSwitch.Label>{sub.test_mode}
-                                                                <FormSwitch.Input type="checkbox" />
-                                                            </FormSwitch.Label>
-                                                        </FormSwitch>
-                                                    </Table.Td>
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                        <FormSwitch>
-                                                            <FormSwitch.Label>{sub.allow_intent}
-                                                                <FormSwitch.Input type="checkbox" />
-                                                            </FormSwitch.Label>
-                                                        </FormSwitch>
-                                                    </Table.Td>
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                        <div  className="font-medium whitespace-nowrap">{sub.created_at}</div>
-                                                    </Table.Td>
-                                                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                                                        <Lucide icon="MoreVertical" className="w-5 h-5" />
-                                                    </Table.Td>
-                                                </Table.Tr>
-                                            ))}
-                                        </React.Fragment>
-                                    ))}
-                                </Table.Tbody>
-
-                            </Table>
-                        </div>
-                        <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
-                            <Pagination className="flex-1 w-full mr-auto sm:w-auto">
-                                <Pagination.Link>
-                                    <Lucide icon="ChevronsLeft" className="w-4 h-4" />
-                                </Pagination.Link>
-                                <Pagination.Link>
-                                    <Lucide icon="ChevronLeft" className="w-4 h-4" />
-                                </Pagination.Link>
-                                <Pagination.Link>...</Pagination.Link>
-                                <Pagination.Link>1</Pagination.Link>
-                                <Pagination.Link active>2</Pagination.Link>
-                                <Pagination.Link>3</Pagination.Link>
-                                <Pagination.Link>...</Pagination.Link>
-                                <Pagination.Link>
-                                    <Lucide icon="ChevronRight" className="w-4 h-4" />
-                                </Pagination.Link>
-                                <Pagination.Link>
-                                    <Lucide icon="ChevronsRight" className="w-4 h-4" />
-                                </Pagination.Link>
-                            </Pagination>
-                            <FormSelect className="sm:w-20 rounded-[0.5rem]">
-                                <option>10</option>
-                                <option>25</option>
-                                <option>35</option>
-                                <option>50</option>
-                            </FormSelect>
-                        </div>
+            <CustomTable columns={tableHeaders} 
+                data={merchants.fakeMerchants().map((merchant, index) => ({
+                    sno: index + 1,
+                    code: merchant.code,
+                    confirmed: true,
+                    amount: 0,
+                    status: "active",
+                    merchant_order_id: "",
+                    merchant_code: merchant.code,
+                    photo: merchant.code,
+                    name: merchant.name,
+                    user_submitted_utr: "",
+                    utr: "",
+                    site: merchant.site,
+                    apikey: merchant.apikey,
+                    public_api_key: merchant.public_api_key,
+                    balance: Number(merchant.balance),
+                    payin_range: merchant.payin_range,
+                    payin_commission: merchant.payin_commission,
+                    payout_range: merchant.payout_range,
+                    payout_commission: merchant.payout_commission,
+                    test_mode: merchant.test_mode === "true",
+                    allow_intent: merchant.allow_intent === "true",
+                    created_at: merchant.created_at,
+                    actions: merchant.actions,
+                    method: "",
+                    id: "",
+                    updated_at: "",
+                    submerchant: merchant.submerchant.map((sub) => ({
+                        ...sub,
+                        balance: Number(sub.balance),
+                        test_mode: sub.test_mode === "true",
+                        allow_intent: sub.allow_intent === "true",
+                    }))
+                }))} title={"Merchants"} status={[]} expandedRow={expandedRow ?? 20} handleRowClick={(index: number) => handleRowClick(index)}/>
+   
                     </div>
                 </div>
             </div>
@@ -474,7 +279,7 @@ function Merchant() {
     );
 }
 
-export default Merchant;
+export default Main;
 
 
 

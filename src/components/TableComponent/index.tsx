@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Lucide from "@/components/Base/Lucide";
 import Pagination from "@/components/Base/Pagination";
 import React from "react";
@@ -13,19 +14,74 @@ import { useState } from "react";
 import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 import ModalPopUp from "@/pages/ModalPopUp";
 interface CustomTableProps {
-  columns: string[];
-  data: Array<{ sno: number; code: string; confirmed: boolean; amount: number; status: string; merchant_order_id: string; merchant_code: string; photo: string; name: string; user_submitted_utr: string; utr: string; method: string; id: string; updated_at: string; commission?: number; bankDetails?: string; balance?: number; bankUsedFor?: string; vendors?: string; createdAt?: string; lastScheduledAt?: string; accountName?: string; accountNumber?: string; upiId?: string; orderId?: string; orderStatus?: { textColor: string; icon: string; name: string }; orderDate?: string; referance_date?: string; fromBank?: string; vendor?: string; manager?: string; joinedDate?: string; email?: string; department?: string; position?: string; duration?: number; bank?: string }>;
-  title: string;
-
-
-  setStatus: React.Dispatch<React.SetStateAction<string>>
-
-  status: string[];
-  approve: boolean; // Expecting a boolean prop to control modal reset
-  setApprove: React.Dispatch<React.SetStateAction<boolean>>
-  reject: boolean; // Expecting a boolean prop to control modal reset
-  setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
-}
+  columns?: string[];
+  data: Array<{
+    sno: number;
+    code: string;
+    confirmed: boolean;
+    amount: number;
+    status: string;
+    merchant_order_id: string;
+    merchant_code: string;
+    photo: string;
+    name: string;
+    user_submitted_utr?: string;
+    utr?: string;
+    method?: string;
+    id?: string;
+    updated_at: string;
+    bankDetails?: string;
+    balance?: number;
+    bankUsedFor?: string;
+    vendors?: string;
+    createdAt?: string;
+    lastScheduledAt?: string;
+    accountName?: string;
+    accountNumber?: string;
+    upiId?: string;
+    orderId?: string;
+    orderStatus?: { textColor: string; icon: string; name: string };
+    orderDate?: string;
+    referance_date?: string;
+    fromBank?: string;
+    vendor?: string;
+    manager?: string;
+    joinedDate?: string;
+    email?: string;
+    department?: string;
+    position?: string;
+    site?: string;
+    api_key?: string;
+    public_api_key?: string;
+    payin_range?: string;
+    payin_commission?: string;
+    payout_range?: string;
+    test_mode?: boolean;
+    allow_intent?: boolean;
+    submerchant?: Array<{
+      code: string;
+      site: string;
+      apikey: string;
+      public_api_key: string;
+      balance: number;
+      payin_range: string;
+      payin_commission: string;
+      payout_range: string;
+      payout_commission: string;
+      test_mode: boolean;
+      allow_intent: boolean;
+      created_at: string;
+    }>;
+  }>;
+  title?: string;
+  setStatus?: React.Dispatch<React.SetStateAction<string>>;
+  status?: string[];
+  approve?: boolean; // Expecting a boolean prop to control modal reset
+  setApprove?: React.Dispatch<React.SetStateAction<boolean>>;
+  reject?: boolean; // Expecting a boolean prop to control modal reset
+  setReject?: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
+  expandedRow?: number;
+  handleRowClick?: (index: number) => void;}
 const CustomTable: React.FC<CustomTableProps> = ({
   columns,
   data,
@@ -34,16 +90,16 @@ const CustomTable: React.FC<CustomTableProps> = ({
   approve,
   setApprove,
   reject,
-
   setStatus,
-
-  setReject
+  setReject,
+  expandedRow,
+  handleRowClick,
+  
 }) => {
   interface StatusStyle {
     color: string;
     icon: JSX.Element;
   }
-
   const getStatusStyles = (status: string): StatusStyle => {
     switch (status) {
       case "Image Pending":
@@ -113,14 +169,16 @@ const CustomTable: React.FC<CustomTableProps> = ({
     updated_at: string;
   } | null>(null);
 
-
+  // useEffect(() => {
+  //   handleRowClick(expandedRow);
+  // }, [expandedRow]);
   const openModal = (open: string): void => {
     setIsModalOpen(true);
     setTitleforDelete(open);
-  }
+  };
   const closeModal = (): void => {
     setIsModalOpen(false);
-    setIsModalPopupOpen(false)
+    setIsModalPopupOpen(false);
   };
   interface Verify {
     verify: string;
@@ -130,9 +188,14 @@ const CustomTable: React.FC<CustomTableProps> = ({
     setIsModalPopupOpen(true);
     setTitleforDelete(verify.verify);
   };
+//   const checkData = (): void => {
+//     _.take(data, 10).map((faker) => {
+//       console.log(faker.submerchant,"submertchant data dfgfgngfgh");
+//     });
+//   };
+// checkData();
 
   return (
-
     <div>
       <ModalPopUp
         open={isModalPopupOpen}
@@ -141,8 +204,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
         fields={[]}
         singleField={[]}
         buttonText=""
-        onSubmit={() => { }}
-        onReset={() => { }}
+        onSubmit={() => {}}
+        onReset={() => {}}
         button={TitleforDelete}
         resetRef={React.createRef()}
       />
@@ -150,7 +213,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
         isOpen={isModalOpen}
         onClose={closeModal}
         onVerify={() => handleVerify({ verify: TitleforDelete })}
-      />{details && (
+      />
+      {details && (
         <ModalTransactionDetails
           handleModal={() => setDetails(null)}
           transaction={details}
@@ -164,7 +228,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
               <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 text-slate-500 dark:bg-darkmode-400">
                 <FormCheck.Input type="checkbox" />
               </Table.Td>
-              {columns.map((col, index) => (
+              {columns?.map((col, index) => (
                 <Table.Td
                   key={index}
                   className="py-4 font-medium border-t bg-slate-50 text-slate-500 dark:bg-darkmode-400"
@@ -200,29 +264,35 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         {faker.code}
                       </a>
                     </Table.Td>
-                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" onClick={() => setDetails({
-                      sno: String(faker.sno), // Convert number to string
-                      id: faker.id || "", // Ensure id exists
-                      code: faker.code,
-                      confirmed: String(faker.confirmed), // Convert boolean to string
-                      commission: String(faker.commission || "0"), // Ensure commission exists
-                      amount: String(faker.amount), // Convert number to string
-                      status: faker.status,
-                      merchant_order_id: faker.merchant_order_id,
-                      merchant_code: faker.merchant_code,
-                      name: faker.name,
-                      user_submitted_utr: faker.user_submitted_utr,
-                      utr: faker.utr,
-                      method: faker.method,
-                      duration: faker.duration || 0, // Ensure duration exists
-                      bank: faker.bank || "N/A", // Ensure bank exists
-                      updated_at: faker.updated_at || "", // Ensure updated_at exists
-                    })}>
+                    <Table.Td
+                      className="py-4 border-dashed dark:bg-darkmode-600"
+                      onClick={() =>
+                        setDetails({
+                          sno: String(faker.sno), // Convert number to string
+                          id: faker.id || "", // Ensure id exists
+                          code: faker.code,
+                          confirmed: String(faker.confirmed), // Convert boolean to string
+                          commission: String("0"), // Ensure commission exists
+                          amount: String(faker.amount), // Convert number to string
+                          status: faker.status,
+                          merchant_order_id: faker.merchant_order_id,
+                          merchant_code: faker.merchant_code,
+                          name: faker.name,
+                          user_submitted_utr: faker.user_submitted_utr || "",
+                          utr: faker.utr || "",
+                          method: faker.method || "",
+                          duration: 0, // Ensure duration exists
+                          bank: "", // Ensure bank exists
+                          updated_at: faker.updated_at || "", // Ensure updated_at exists
+                        })
+                      }
+                    >
                       <Lucide
                         icon="AlertCircle"
-                        className="w-5 h-5 stroke-blue-500 font-bold rounded-full " />
+                        className="w-5 h-5 stroke-blue-500 font-bold rounded-full "
+                      />
                     </Table.Td>
-                    {columns.length > 15 && (
+                    {columns && columns.length > 15 && (
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <a href="" className="font-medium whitespace-nowrap">
                           {faker.confirmed}
@@ -236,7 +306,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                       <div
-                        className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(faker.status).color}`}
+                        className={`flex items-center gap-2 font-medium whitespace-nowrap ${
+                          getStatusStyles(faker.status).color
+                        }`}
                       >
                         {getStatusStyles(faker.status).icon as React.ReactNode}
                         {faker.status}
@@ -261,7 +333,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                             alt="Tailwise - Admin Dashboard Template"
                             className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                             src={faker.photo}
-                            content={faker.name} />
+                            content={faker.name}
+                          />
                         </div>
                         <div className="ml-3.5">
                           <a className="font-medium whitespace-nowrap">
@@ -303,26 +376,32 @@ const CustomTable: React.FC<CustomTableProps> = ({
                             alt="Tailwise - Admin Dashboard Template"
                             className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                             src={faker.photo}
-                            content={faker.name} />
+                            content={faker.name}
+                          />
                         </div>
                       </div>
                     </Table.Td>
                     <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                       <div className="flex items-center justify-center">
                         {faker.status === "Dispute" ||
-                          faker.status === "Bank Mismatch" ? (
+                        faker.status === "Bank Mismatch" ? (
                           <Menu className="h-5">
                             <Menu.Button className="w-5 h-5 text-slate-500">
                               <Lucide
                                 icon="MoreVertical"
-                                className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70" />
+                                className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
+                              />
                             </Menu.Button>
 
-                            <Menu.Items className="w-40" onClick={() => setStatus(faker.status)}>
+                            <Menu.Items
+                              className="w-40"
+                              onClick={() => setStatus && setStatus(faker.status)}
+                            >
                               <Menu.Item>
                                 <Lucide
                                   icon="CheckSquare"
-                                  className="w-4 h-4 mr-2" />{" "}
+                                  className="w-4 h-4 mr-2"
+                                />{" "}
                                 Reset
                               </Menu.Item>
 
@@ -337,7 +416,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                             <Menu.Button className="w-5 h-5 text-slate-500">
                               <Lucide
                                 icon="Bell"
-                                className="w-5 h-5 stroke-slate-400/70 fill-green-400/70" />
+                                className="w-5 h-5 stroke-slate-400/70 fill-green-400/70"
+                              />
                             </Menu.Button>
                           </Menu>
                         )}
@@ -346,6 +426,213 @@ const CustomTable: React.FC<CustomTableProps> = ({
                   </Table.Tr>
                 );
               })}
+            {title === "Merchants" &&
+              _.take(data, 10).map((faker, fakerKey) => (
+                <React.Fragment key={fakerKey}>
+                  {/* Main row */}
+                  <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <FormCheck.Input type="checkbox" />
+                    </Table.Td>
+                    <Table.Td>
+                      <div
+                        className="flex mt-2 text-xs text-center bg-blue-500 rounded-full w-7 h-7"
+                        onClick={() =>handleRowClick && handleRowClick(fakerKey)}
+                      >
+                        <Lucide
+                          icon={expandedRow === fakerKey  ? "Minus" : "Plus"}
+                          className="block text-white  mx-auto my-auto stroke-3 justify-center items-center"
+                        />
+                      </div>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <div className="font-medium whitespace-nowrap">
+                        {faker.code}
+                      </div>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <div className="font-medium whitespace-nowrap">
+                        {faker.site}
+                      </div>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <div className="font-medium whitespace-nowrap">
+                        {faker.api_key}
+                      </div>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <div className="font-medium whitespace-nowrap">
+                        {faker.public_api_key}
+                      </div>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <div className="font-medium whitespace-nowrap">
+                        {faker.balance}
+                      </div>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <div className="font-medium whitespace-nowrap">
+                        {faker.payin_range}
+                      </div>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <div className="font-medium whitespace-nowrap">
+                        {faker.payin_commission}
+                      </div>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <div className="font-medium whitespace-nowrap">
+                        {faker.payout_range}
+                      </div>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <div className="font-medium whitespace-nowrap">
+                        {faker.payin_commission}
+                      </div>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <FormSwitch className="dark:bg-darkmode-200 dark:border-red-500 rounded-lg">
+                        <FormSwitch.Label
+                          htmlFor="show-example-1"
+                          className="ml-0"
+                        >
+                          {faker.test_mode}
+                          <FormSwitch.Input
+                            id="show-example-1"
+                            className="ml-0 mr-0 border-2 border-slate-300"
+                            type="checkbox"
+                          />
+                        </FormSwitch.Label>
+                      </FormSwitch>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <FormSwitch>
+                        <FormSwitch.Label
+                          htmlFor="show-example-1"
+                          className="ml-0 sm:ml-2"
+                        >
+                          {faker.allow_intent}
+                          <FormSwitch.Input
+                            id="show-example-1"
+                            className="ml-3 mr-0 border-2 border-slate-300"
+                            type="checkbox"
+                          />
+                        </FormSwitch.Label>
+                      </FormSwitch>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <div className="font-medium whitespace-nowrap">
+                        {faker.createdAt}
+                      </div>
+                    </Table.Td>
+                    <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
+                      <div className="flex items-center justify-center">
+                        <Menu className="h-5">
+                          <Menu.Button className="w-5 h-5 text-slate-500">
+                            <Lucide
+                              icon="MoreVertical"
+                              className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
+                            />
+                          </Menu.Button>
+                          <Menu.Items className="w-40">
+                            <Menu.Item>
+                              <Lucide
+                                icon="CheckSquare"
+                                className="w-4 h-4 mr-2"
+                              />{" "}
+                              Edit
+                            </Menu.Item>
+                            <Menu.Item className="text-danger">
+                              <Lucide icon="Trash2" className="w-4 h-4 mr-2" />{" "}
+                              Delete
+                            </Menu.Item>
+                          </Menu.Items>
+                        </Menu>
+                      </div>
+                    </Table.Td>
+                  </Table.Tr>
+                  {/* Expanded row */}
+                  {expandedRow === fakerKey &&
+                    faker.submerchant &&
+                    faker.submerchant.map((sub, subKey) => (
+                      <Table.Tr key={`sub-${subKey}`} className="bg-gray-100">
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600"></Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600"></Table.Td>
+
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <div className="font-medium whitespace-nowrap">
+                            {sub.code}
+                          </div>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <div className="font-medium whitespace-nowrap">
+                            {sub.site}
+                          </div>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <div className="font-medium whitespace-nowrap">
+                            {sub.apikey}
+                          </div>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <div className="font-medium whitespace-nowrap">
+                            {sub.public_api_key}
+                          </div>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <div className="font-medium whitespace-nowrap">
+                            {sub.balance}
+                          </div>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <div className="font-medium whitespace-nowrap">
+                            {sub.payin_range}
+                          </div>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <div className="font-medium whitespace-nowrap">
+                            {sub.payin_commission}
+                          </div>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <div className="font-medium whitespace-nowrap">
+                            {sub.payout_range}
+                          </div>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <div className="font-medium whitespace-nowrap">
+                            {sub.payout_commission}
+                          </div>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <FormSwitch>
+                            <FormSwitch.Label>
+                              {sub.test_mode}
+                              <FormSwitch.Input type="checkbox" />
+                            </FormSwitch.Label>
+                          </FormSwitch>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <FormSwitch>
+                            <FormSwitch.Label>
+                              {sub.allow_intent}
+                              <FormSwitch.Input type="checkbox" />
+                            </FormSwitch.Label>
+                          </FormSwitch>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <div className="font-medium whitespace-nowrap">
+                            {sub.created_at}
+                          </div>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <Lucide icon="MoreVertical" className="w-5 h-5" />
+                        </Table.Td>
+                      </Table.Tr>
+                    ))}
+                </React.Fragment>
+              ))}
+
             {title === "Bankaccounts" &&
               _.take(data, 10).map((account, index) => (
                 <Table.Tr key={index} className="[&_td]:last:border-b-0">
@@ -489,20 +776,14 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item
-                            onClick={() => openModal("List")}
-                          >
+                          <Menu.Item onClick={() => openModal("List")}>
                             <Lucide icon="Eye" className="w-4 h-4 mr-2" /> List
                           </Menu.Item>
-                          <Menu.Item
-                            onClick={() => openModal("Report")}
-                          >
+                          <Menu.Item onClick={() => openModal("Report")}>
                             <Lucide icon="Download" className="w-4 h-4 mr-2" />{" "}
                             Report
                           </Menu.Item>
-                          <Menu.Item
-                            onClick={() => openModal("Edit")}
-                          >
+                          <Menu.Item onClick={() => openModal("Edit")}>
                             <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
@@ -511,7 +792,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={() => openModal("Delete")}                          >
+                            onClick={() => openModal("Delete")}
+                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -521,6 +803,183 @@ const CustomTable: React.FC<CustomTableProps> = ({
                   </Table.Td>
                 </Table.Tr>
               ))}
+            {/* {title === "Merchants" && _.take(data, 10).map((faker, fakerKey) => (
+              <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
+                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                  <FormCheck.Input type="checkbox" />
+                </Table.Td>
+                <Table.Td className="py-4 border-dashed w-80 dark:bg-darkmode-600">
+                  <div className="flex items-center">
+                    <div className="w-9 h-9 image-fit zoom-in">
+                      <Tippy
+                        as="img"
+                        alt="Tailwise - Admin Dashboard Template"
+                        className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
+                        src={faker.photo}
+                        content={faker.name}
+                      />
+                    </div>
+                    <div className="ml-3.5">
+                      <a
+                        href=""
+                        className="font-medium whitespace-nowrap"
+                      >
+                        {faker.name}
+                      </a>
+
+                    </div>
+                  </div>
+                </Table.Td>
+                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                  <a href="" className="font-medium whitespace-nowrap">
+                    {faker.code}
+                  </a>
+
+                </Table.Td>
+
+                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                  <a href="" className="font-medium whitespace-nowrap">
+                    {faker.site}
+                  </a>
+                </Table.Td>
+                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                  <a href="" className="font-medium whitespace-nowrap">
+                    {faker.api_key}
+                  </a>
+                </Table.Td><Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                  <a href="" className="font-medium whitespace-nowrap">
+                    {faker.public_api_key}
+                  </a>
+                </Table.Td><Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                  <a href="" className="font-medium whitespace-nowrap">
+                    {faker.balance}
+                  </a>
+                </Table.Td>
+                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                  <a href="" className="font-medium whitespace-nowrap">
+                    {faker.payin_range}
+                  </a>
+                </Table.Td>
+                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                    <div className="w-40">
+                      <div className="text-xs text-slate-500">
+                        {_.random(1, 5)}%
+                      </div>
+                      <div className="flex h-1 border rounded-sm bg-slate-50 mt-1.5 dark:bg-darkmode-400">
+                        <div
+                          className={clsx([
+                            "first:rounded-l-sm last:rounded-r-sm border border-primary/20 -m-px bg-primary/40",
+                            [
+                              "w-[35%]",
+                              "w-[45%]",
+                              "w-[55%]",
+                              "w-[65%]",
+                              "w-[75%]",
+                            ][_.random(0, 4)],
+                          ])}
+                        ></div>
+                      </div>
+                    </div>
+                  </Table.Td>
+
+                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                  <a href="" className="font-medium whitespace-nowrap">
+                    {faker.payout_range}
+                  </a>
+                </Table.Td>
+                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                    <div className="w-40">
+                      <div className="text-xs text-slate-500">
+                        {_.random(1, 5)}%
+                      </div>
+                      <div className="flex h-1 border rounded-sm bg-slate-50 mt-1.5 dark:bg-darkmode-400">
+                        <div
+                          className={clsx([
+                            "first:rounded-l-sm last:rounded-r-sm border border-primary/20 -m-px bg-primary/40",
+                            [
+                              "w-[35%]",
+                              "w-[45%]",
+                              "w-[55%]",
+                              "w-[65%]",
+                              "w-[75%]",
+                            ][_.random(0, 4)],
+                          ])}
+                        ></div>
+                      </div>
+                    </div>
+                  </Table.Td>
+                <Table.Td className="py-4 border-dashed  dark:bg-darkmode-600">
+
+                  <FormSwitch className="dark:bg-darkmode-200 dark:border-red-500 rounded-lg">
+                    <FormSwitch.Label
+                      htmlFor="show-example-1 "
+                      className="ml-0 "
+                    >
+                      {faker.test_mode}
+                      <FormSwitch.Input
+                        id="show-example-1"
+                        //   onClick={}
+                        className="ml-0 mr-0 border-2 border-slate-300  "
+                        type="checkbox"
+                      />
+                    </FormSwitch.Label>
+                  </FormSwitch>
+                </Table.Td>
+
+                <Table.Td className="py-4 border-dashed  dark:bg-darkmode-600">
+
+                  <FormSwitch className="">
+                    <FormSwitch.Label
+                      htmlFor="show-example-1"
+                      className="ml-0 sm:ml-2 "
+                    >
+                      {faker.allow_intent}
+                      <FormSwitch.Input
+                        id="show-example-1"
+                        //   onClick={}
+                        className="ml-3 mr-0 border-2 border-slate-300  "
+                        type="checkbox"
+                      />
+                    </FormSwitch.Label></FormSwitch>
+                </Table.Td>
+
+
+                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                  <a href="" className="font-medium whitespace-nowrap">
+                    {faker.createdAt}
+                  </a>
+                </Table.Td>
+                <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
+                  <div className="flex items-center justify-center">
+                    <Menu className="h-5">
+                      <Menu.Button className="w-5 h-5 text-slate-500">
+                        <Lucide
+                          icon="MoreVertical"
+                          className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
+                        />
+                      </Menu.Button>
+                      <Menu.Items className="w-40">
+                        <Menu.Item>
+                          <Lucide
+                            icon="CheckSquare"
+                            className="w-4 h-4 mr-2"
+                          />{" "}
+                          Edit
+                        </Menu.Item>
+                        <Menu.Item className="text-danger">
+                          <Lucide
+                            icon="Trash2"
+                            className="w-4 h-4 mr-2"
+                          />
+                          Delete
+                        </Menu.Item>
+                      </Menu.Items>
+                    </Menu>
+                  </div>
+                </Table.Td>
+
+              </Table.Tr>
+            ))} */}
             {title === "Data Entries" &&
               _.take(data, 10).map((faker, fakerKey) => (
                 <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
@@ -566,7 +1025,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     <div
                       className={clsx([
                         "flex items-center",
-                        faker.orderStatus?.textColor || '',
+                        faker.orderStatus?.textColor || "",
                       ])}
                     >
                       {faker.orderStatus?.icon}
@@ -609,98 +1068,95 @@ const CustomTable: React.FC<CustomTableProps> = ({
                 </Table.Tr>
               ))}
             {title === "Chargebacks" &&
-              _.take(
-                _.orderBy(data, ["sno"], ["desc"]),
-                10
-              ).map((faker, _fakerKey) => (
-                <Table.Tr key={_fakerKey} className="[&_td]:last:border-b-0">
-                  <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <FormCheck.Input type="checkbox" />
-                  </Table.Td>
-                  <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a className="font-medium whitespace-nowrap">
-                      {faker.sno}
-                    </a>
-                  </Table.Td>
-                  <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a className="font-medium whitespace-nowrap">
-                      {faker.code}
-                    </a>
-                  </Table.Td>
-                  <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a className="font-medium whitespace-nowrap">
-                      {faker.merchant_order_id}
-                    </a>
-                  </Table.Td>
-                  <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
-                    <div className="flex items-center">
-                      <div className="w-9 h-9 image-fit zoom-in">
-                        <Tippy
-                          as="img"
-                          alt="Tailwise - Admin Dashboard Template"
-                          className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                          src={faker.photo}
-                          content={faker.name}
-                        />
-                      </div>
-                      <div className="ml-3.5">
-                        <a className="font-medium whitespace-nowrap">
-                          {faker.name}
-                        </a>
-                      </div>
-                    </div>
-                  </Table.Td>
-                  <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a className="font-medium whitespace-nowrap">
-                      {faker.amount}
-                    </a>
-                  </Table.Td>
-                  <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a className="font-medium whitespace-nowrap">
-                      {faker.referance_date}
-                    </a>
-                  </Table.Td>
-                  <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <a className="font-medium whitespace-nowrap">
-                      {faker.createdAt}
-                    </a>
-                  </Table.Td>
-                  <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                    <div className="flex items-center justify-center">
-                      <Menu className="h-5">
-                        <Menu.Button className="w-5 h-5 text-slate-500">
-                          <Lucide
-                            icon="MoreVertical"
-                            className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
+              _.take(_.orderBy(data, ["sno"], ["desc"]), 10).map(
+                (faker, _fakerKey) => (
+                  <Table.Tr key={_fakerKey} className="[&_td]:last:border-b-0">
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <FormCheck.Input type="checkbox" />
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <a className="font-medium whitespace-nowrap">
+                        {faker.sno}
+                      </a>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <a className="font-medium whitespace-nowrap">
+                        {faker.code}
+                      </a>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <a className="font-medium whitespace-nowrap">
+                        {faker.merchant_order_id}
+                      </a>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
+                      <div className="flex items-center">
+                        <div className="w-9 h-9 image-fit zoom-in">
+                          <Tippy
+                            as="img"
+                            alt="Tailwise - Admin Dashboard Template"
+                            className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
+                            src={faker.photo}
+                            content={faker.name}
                           />
-                        </Menu.Button>
-                        <Menu.Items className="w-40">
-                          <Menu.Item
-                            onClick={() => openModal("Edit")}                          >
+                        </div>
+                        <div className="ml-3.5">
+                          <a className="font-medium whitespace-nowrap">
+                            {faker.name}
+                          </a>
+                        </div>
+                      </div>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <a className="font-medium whitespace-nowrap">
+                        {faker.amount}
+                      </a>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <a className="font-medium whitespace-nowrap">
+                        {faker.referance_date}
+                      </a>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <a className="font-medium whitespace-nowrap">
+                        {faker.createdAt}
+                      </a>
+                    </Table.Td>
+                    <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
+                      <div className="flex items-center justify-center">
+                        <Menu className="h-5">
+                          <Menu.Button className="w-5 h-5 text-slate-500">
                             <Lucide
-                              icon="CheckSquare"
-                              className="w-4 h-4 mr-2"
-                            />{" "}
-                            Edit
-                          </Menu.Item>
-                          <Menu.Item
-                            className="text-danger"
-                            onClick={() => openModal("Delete")}                          >
-                            <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
-                            Delete
-                          </Menu.Item>
-                        </Menu.Items>
-                      </Menu>
-                    </div>
-                  </Table.Td>
-                </Table.Tr>
-              ))}
+                              icon="MoreVertical"
+                              className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
+                            />
+                          </Menu.Button>
+                          <Menu.Items className="w-40">
+                            <Menu.Item onClick={() => openModal("Edit")}>
+                              <Lucide
+                                icon="CheckSquare"
+                                className="w-4 h-4 mr-2"
+                              />{" "}
+                              Edit
+                            </Menu.Item>
+                            <Menu.Item
+                              className="text-danger"
+                              onClick={() => openModal("Delete")}
+                            >
+                              <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
+                              Delete
+                            </Menu.Item>
+                          </Menu.Items>
+                        </Menu>
+                      </div>
+                    </Table.Td>
+                  </Table.Tr>
+                )
+              )}
             {title === "Payouts" &&
               _.take(
                 _.orderBy(
-                  _.filter(data, (o) =>
-                    _.includes(status, o.status)
-                  ),
+                  _.filter(data, (o) => _.includes(status, o.status)),
                   ["sno"],
                   ["desc"]
                 ),
@@ -721,27 +1177,33 @@ const CustomTable: React.FC<CustomTableProps> = ({
                       {faker.merchant_order_id}
                     </span>
                   </Table.Td>
-                  <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" onClick={() => setDetails({
-                    sno: String(faker.sno), // Convert number to string
-                    id: faker.id || "", // Ensure id exists
-                    code: faker.code,
-                    confirmed: String(faker.confirmed), // Convert boolean to string
-                    commission: String(faker.commission || "0"), // Ensure commission exists
-                    amount: String(faker.amount), // Convert number to string
-                    status: faker.status,
-                    merchant_order_id: faker.merchant_order_id,
-                    merchant_code: faker.merchant_code,
-                    name: faker.name,
-                    user_submitted_utr: faker.user_submitted_utr,
-                    utr: faker.utr,
-                    method: faker.method,
-                    duration: faker.duration || 0, // Ensure duration exists
-                    bank: faker.bank || "N/A", // Ensure bank exists
-                    updated_at: faker.updated_at || "", // Ensure updated_at exists
-                  })}>
+                  <Table.Td
+                    className="py-4 border-dashed dark:bg-darkmode-600"
+                    onClick={() =>
+                      setDetails({
+                        sno: String(faker.sno), // Convert number to string
+                        id: faker.id || "", // Ensure id exists
+                        code: faker.code,
+                        confirmed: String(faker.confirmed), // Convert boolean to string
+                        commission: String("0"), // Ensure commission exists
+                        amount: String(faker.amount), // Convert number to string
+                        status: faker.status,
+                        merchant_order_id: faker.merchant_order_id,
+                        merchant_code: faker.merchant_code,
+                        name: faker.name,
+                        user_submitted_utr: faker.user_submitted_utr || "", // Ensure user_submitted_utr exists
+                        utr: faker.utr || "", // Ensure utr exists
+                        method: faker.method || "", // Ensure method exists
+                        duration: 0, // Ensure duration exists
+                        bank: "", // Ensure bank exists
+                        updated_at: faker.updated_at || "", // Ensure updated_at exists
+                      })
+                    }
+                  >
                     <Lucide
                       icon="AlertCircle"
-                      className="w-5 h-5 stroke-blue-500 font-bold rounded-full " />
+                      className="w-5 h-5 stroke-blue-500 font-bold rounded-full "
+                    />
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                     <span className="ml-1.5 text-[13px] ">
@@ -758,8 +1220,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
                   </Table.Td>
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                     <div
-                      className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(faker.status).color
-                        }`}
+                      className={`flex items-center gap-2 font-medium whitespace-nowrap ${
+                        getStatusStyles(faker.status).color
+                      }`}
                     >
                       {getStatusStyles(faker.status).icon as React.ReactNode}
                       {faker.status}
@@ -825,11 +1288,14 @@ const CustomTable: React.FC<CustomTableProps> = ({
 
                         {faker.status === "Initiated" ? (
                           <Menu.Items className="w-40">
-                            <Menu.Item onClick={() => setApprove(!approve)}>
+                            <Menu.Item onClick={() =>setApprove && setApprove(!approve)}>
                               <Lucide icon="Check" className="w-4 h-4 mr-2" />{" "}
                               Approve
                             </Menu.Item>
-                            <Menu.Item className="text-danger" onClick={() => setReject(!reject)}>
+                            <Menu.Item
+                              className="text-danger"
+                              onClick={() =>setReject && setReject(!reject)}
+                            >
                               <Lucide icon="X" className="w-4 h-4 mr-2" />{" "}
                               Reject
                             </Menu.Item>
@@ -845,7 +1311,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
                               />{" "}
                               Notify
                             </Menu.Item>
-                            <Menu.Item className="text-danger" onClick={() => setReject(!reject)}>
+                            <Menu.Item
+                              className="text-danger"
+                              onClick={() =>setReject && setReject(!reject)}                            >
                               <Lucide icon="X" className="w-4 h-4 mr-2" />{" "}
                               Reject
                             </Menu.Item>
@@ -927,9 +1395,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item
-                            onClick={() => openModal("Edit")}
-                          >
+                          <Menu.Item onClick={() => openModal("Edit")}>
                             <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
@@ -938,7 +1404,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={() => openModal("Delete")}                          >
+                            onClick={() => openModal("Delete")}
+                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -1040,8 +1507,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item
-                            onClick={() => openModal("Edit")}>                            <Lucide
+                          <Menu.Item onClick={() => openModal("Edit")}>
+                            {" "}
+                            <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
                             />{" "}
@@ -1049,7 +1517,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={() => openModal("Delete")}                          >
+                            onClick={() => openModal("Delete")}
+                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -1098,7 +1567,6 @@ const CustomTable: React.FC<CustomTableProps> = ({
                       {faker.department}
                     </div>
                   </Table.Td>
-
 
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                     <div className="whitespace-nowrap">{faker.joinedDate}</div>
@@ -1193,8 +1661,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item
-                            onClick={() => openModal("Edit")}>
+                          <Menu.Item onClick={() => openModal("Edit")}>
                             <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
@@ -1203,7 +1670,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={() => openModal("Delete")}                          >
+                            onClick={() => openModal("Delete")}
+                          >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
                           </Menu.Item>
@@ -1260,8 +1728,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           />
                         </Menu.Button>
                         <Menu.Items className="w-40">
-                          <Menu.Item onClick={() => openModal("Edit")}
-                          >
+                          <Menu.Item onClick={() => openModal("Edit")}>
                             <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
