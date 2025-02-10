@@ -1,13 +1,14 @@
 import Lucide from "@/components/Base/Lucide";
-import {  Menu, Popover } from "@/components/Base/Headless";
-import {  FormInput, FormSelect } from "@/components/Base/Form";
+import { Menu, Popover } from "@/components/Base/Headless";
+import { FormInput, FormSelect } from "@/components/Base/Form";
 import merchants from "@/fakers/merchants";
 import Button from "@/components/Base/Button";
 import _ from "lodash";
-import { JSX} from "react";
+import { JSX } from "react";
 import { useRef, useState } from "react";
 import Modal from "../Modal/modal";
 import CustomTable from "@/components/TableComponent";
+
 export interface Merchant {
     name: string;
     photo: string;
@@ -24,11 +25,13 @@ export interface Merchant {
     allow_intent: string;
     created_at: string;
     actions: string;
-  }
-  
+}
+
 function Main(): JSX.Element {
     const [newMerchantModal, setNewMerchantModal] = useState(false);
+    const [verification, setVerification] = useState("")
     const [expandedRow, setExpandedRow] = useState<number | null>(null);
+    const [editModal, setEditModal] = useState(false)
     const sendButtonRef = useRef(null);
     const merchantModal = () => {
         setNewMerchantModal(!newMerchantModal)
@@ -36,7 +39,14 @@ function Main(): JSX.Element {
     const handleRowClick = (fakerKey: number): void => {
         setExpandedRow((prevRow) => (prevRow === fakerKey ? null : fakerKey));
     };
+    const handleClose = () => {
+        setVerification(false)
+    }
+    const handleVerify = () => {
+       
+        setVerification("")
 
+    };
     const tableHeaders: string[] = [
         "Sub Merchants",
         "Code",
@@ -52,9 +62,13 @@ function Main(): JSX.Element {
         "Allow Intent",
         "Created at (IST)",
         "Actions",
-      ];
+    ];
     return (
         <div className="grid grid-cols-12 gap-y-10 gap-x-6">
+           
+      
+
+
             <div className="col-span-12">
                 <div className="flex flex-col md:h-10 gap-y-3 md:items-center md:flex-row">
                     <div className="text-base font-medium group-[.mode--light]:text-white">
@@ -62,7 +76,7 @@ function Main(): JSX.Element {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-                        <Modal  handleModal={merchantModal} sendButtonRef={sendButtonRef} title="Add Merchant" forOpen={newMerchantModal} />
+                        <Modal handleModal={merchantModal} sendButtonRef={sendButtonRef} title="Add Merchant" forOpen={newMerchantModal} />
                     </div>
                 </div>
                 <div className="flex flex-col gap-8 mt-3.5">
@@ -96,7 +110,7 @@ function Main(): JSX.Element {
                             </div>
                             <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
                                 <div className="text-base text-slate-500">New Merchants</div>
-                                <div className="mt-1.5 text-2xl font-mediumm">489,223</div>
+                                <div className="mt-1.5 text-2xl font-medium">489,223</div>
                                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                                     <div className="flex items-center border border-danger/10 bg-danger/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-danger">
                                         3%
@@ -109,7 +123,7 @@ function Main(): JSX.Element {
                             </div>
                             <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
                                 <div className="text-base text-slate-500">Login Activity</div>
-                                <div className="mt-1.5 text-2xl font-mediumm">411,259</div>
+                                <div className="mt-1.5 text-2xl font-medium">411,259</div>
                                 <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
                                     <div className="flex items-center border border-success/10 bg-success/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-success">
                                         8%
@@ -236,42 +250,42 @@ function Main(): JSX.Element {
                                 </Popover>
                             </div>
                         </div>
-            <CustomTable columns={tableHeaders} 
-                data={merchants.fakeMerchants().map((merchant, index) => ({
-                    sno: index + 1,
-                    code: merchant.code,
-                    confirmed: true,
-                    amount: 0,
-                    status: "active",
-                    merchant_order_id: "",
-                    merchant_code: merchant.code,
-                    photo: merchant.code,
-                    name: merchant.name,
-                    user_submitted_utr: "",
-                    utr: "",
-                    site: merchant.site,
-                    apikey: merchant.apikey,
-                    public_api_key: merchant.public_api_key,
-                    balance: Number(merchant.balance),
-                    payin_range: merchant.payin_range,
-                    payin_commission: merchant.payin_commission,
-                    payout_range: merchant.payout_range,
-                    payout_commission: merchant.payout_commission,
-                    test_mode: merchant.test_mode === "true",
-                    allow_intent: merchant.allow_intent === "true",
-                    created_at: merchant.created_at,
-                    actions: merchant.actions,
-                    method: "",
-                    id: "",
-                    updated_at: "",
-                    submerchant: merchant.submerchant.map((sub) => ({
-                        ...sub,
-                        balance: Number(sub.balance),
-                        test_mode: sub.test_mode === "true",
-                        allow_intent: sub.allow_intent === "true",
-                    }))
-                }))} title={"Merchants"} status={[]} expandedRow={expandedRow ?? 20} handleRowClick={(index: number) => handleRowClick(index)}/>
-   
+                        <CustomTable columns={tableHeaders}
+                            data={merchants.fakeMerchants().map((merchant, index) => ({
+                                sno: index + 1,
+                                code: merchant.code,
+                                confirmed: true,
+                                amount: 0,
+                                status: "active",
+                                merchant_order_id: "",
+                                merchant_code: merchant.code,
+                                photo: merchant.code,
+                                name: merchant.name,
+                                user_submitted_utr: "",
+                                utr: "",
+                                site: merchant.site,
+                                apikey: merchant.apikey,
+                                public_api_key: merchant.public_api_key,
+                                balance: Number(merchant.balance),
+                                payin_range: merchant.payin_range,
+                                payin_commission: merchant.payin_commission,
+                                payout_range: merchant.payout_range,
+                                payout_commission: merchant.payout_commission,
+                                test_mode: merchant.test_mode === "true",
+                                allow_intent: merchant.allow_intent === "true",
+                                created_at: merchant.created_at,
+                                actions: merchant.actions,
+                                method: "",
+                                id: "",
+                                updated_at: "",
+                                submerchant: merchant.submerchant.map((sub) => ({
+                                    ...sub,
+                                    balance: Number(sub.balance),
+                                    test_mode: sub.test_mode === "true",
+                                    allow_intent: sub.allow_intent === "true",
+                                }))
+                            }))} title={"Merchants"} status={[]} editModal={editModal} setEditModal={setEditModal} setStatus={setVerification} expandedRow={expandedRow ?? 20} handleRowClick={(index: number) => handleRowClick(index)} />
+
                     </div>
                 </div>
             </div>

@@ -19,7 +19,7 @@ interface PayinProps {
 interface Payout {
   method: string;
   id: string;
-  checkdetails : string;
+  
   updated_at: string;
   sno: number;
   code: string;
@@ -39,7 +39,7 @@ const RejectedPayout: React.FC<PayinProps> = () => {
   const tableHeaders = [
     "SNO.",
     "Merchant Order ID",
-    "Check Details",
+    
     "Merchant",
     "Bank Details",
     "Amount",

@@ -19,7 +19,7 @@ interface PayinProps {
 }
 export interface Payins {
   sno: number;
-  checkdetails : string;
+  
   code: string;
   confirmed: boolean;
   amount: number;
@@ -40,7 +40,7 @@ const AllPayin: React.FC<PayinProps> = ({ setStatus }) => {
   const theadData: string[] = [
     "SNO",
     "Code",
-    "Check Details",
+    
     "Confirmed",
     "Amount",
     "Status",

@@ -11,28 +11,30 @@ import React from "react";
 
 interface ModalProps {
     handleModal: () => void;
+    title: string;
     transaction: {
-        sno: string;
-        id:string;
-        code: string;
-        confirmed: string;
-        commission: string;
-        amount: string;
-        status: string;
-        merchant_order_id: string;
-        merchant_code: string;
-        name: string;
-        user_submitted_utr: string;
-        utr: string;
-        method: string;
-        duration: number;
-        bank: string;
-        updated_at: string;
+        sno?: string;
+        id?:string;
+        code?: string;
+        confirmed?: string;
+        commission?: string;
+        amount?: string;
+        status?: string;
+        merchant_order_id?: string;
+        merchant_code?: string;
+        name?: string;
+        user_submitted_utr?: string;
+        utr?: string;
+        method?: string;
+        duration?: number;
+        bank?: string;
+        updated_at?: string;
     };
 }
 
 const ModalTransactionDetails: React.FC<ModalProps> = ({ handleModal, transaction }) => {
     return (
+        
         <Dialog open={true} onClose={handleModal}>
             <Dialog.Panel>
                 <Dialog.Title>
@@ -125,7 +127,6 @@ const ModalTransactionDetails: React.FC<ModalProps> = ({ handleModal, transactio
 };
 
 export default ModalTransactionDetails;
-
 
 
 

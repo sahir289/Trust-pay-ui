@@ -20,6 +20,7 @@ export interface BankAccount {
   lastScheduledAt: string;
   allowIntent: boolean;
   allowQR: boolean;
+  allowPhonePay: boolean;
   showBank: boolean;
   status: string;
 }
@@ -47,6 +48,7 @@ function Main(): JSX.Element {
     "Last Scheduled at (IST)",
     "Allow Intent?",
     "Allow QR?",
+    "Allow PhonePay",
     "Show Bank",
     "Status",
     "Action"
