@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import { Menu } from "@/components/Base/Headless";
 import ReportDonutChart2 from "@/components/ReportDonutChart2";
@@ -5,6 +6,15 @@ import payins from "@/fakers/payins";
 import payouts from "@/fakers/payouts";
 
 function MerchantBoard() {
+  const totalPayins = 5000.00;
+  const totalPayouts = 2000.00;
+  const totalReversePayouts = 1000.00;
+  const totalCommission = 1000.00;
+  const totalSettlements = 1000.00;
+  const totalChargeBacks = 1000.00;
+  const currentBalance = totalPayins - totalPayouts - (totalCommission) - totalSettlements - totalChargeBacks + totalReversePayouts;
+  const netBalance = totalPayins - totalPayouts - (totalCommission) - totalSettlements - totalChargeBacks + totalReversePayouts;
+  
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -70,7 +80,7 @@ function MerchantBoard() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col col-span-12 p-5 md:col-span-6 2box box--stacked">
+          <div className="flex flex-col col-span-12 p-5 md:col-span-6  box box--stacked">
             <div className="flex items-center">
               <div className="flex items-center justify-center w-12 h-12 border rounded-full border-primary/10 bg-primary/10">
                 <Lucide
@@ -97,7 +107,7 @@ function MerchantBoard() {
                     </div>
                     <div className="ml-2.5 text-lg">Deposits</div>
                   </div>
-                  <div className="justify-end ml-2.5 text-lg">₹0.00</div>
+                  <div className="justify-end ml-2.5 text-lg">₹{totalPayins}</div>
                 </div>
                 <div className="flex items-center justify-between mx-2 mt-2 mb-2">
                   <div className="flex items-center">
@@ -109,7 +119,7 @@ function MerchantBoard() {
                     </div>
                     <div className="ml-2.5 text-lg">Withdrawals</div>
                   </div>
-                  <div className="justify-end ml-2.5 text-lg">₹0.00</div>
+                  <div className="justify-end ml-2.5 text-lg">₹{totalPayouts}</div>
                 </div>
                 <div className="flex items-center justify-between mx-2 mt-2 mb-2">
                   <div className="flex items-center">
@@ -121,7 +131,7 @@ function MerchantBoard() {
                     </div>
                     <div className="ml-2.5 text-lg">Reverse Withdrawals</div>
                   </div>
-                  <div className="justify-end ml-2.5 text-lg">₹0.00</div>
+                  <div className="justify-end ml-2.5 text-lg">₹{totalReversePayouts}</div>
                 </div>
                 <div className="flex items-center justify-between mx-2 mt-2 mb-2">
                   <div className="flex items-center">
@@ -133,7 +143,7 @@ function MerchantBoard() {
                     </div>
                     <div className="ml-2.5 text-lg">Commission</div>
                   </div>
-                  <div className="justify-end ml-2.5 text-lg">₹0.00</div>
+                  <div className="justify-end ml-2.5 text-lg">₹{totalCommission}</div>
                 </div>
                 <div className="flex items-center justify-between mx-2 mt-2 mb-2">
                   <div className="flex items-center">
@@ -145,7 +155,7 @@ function MerchantBoard() {
                     </div>
                     <div className="ml-2.5 text-lg">Settlements</div>
                   </div>
-                  <div className="justify-end ml-2.5 text-lg">₹0.00</div>
+                  <div className="justify-end ml-2.5 text-lg">₹{totalSettlements}</div>
                 </div>
                 <div className="flex items-center justify-between mx-2 mt-2 mb-2">
                   <div className="flex items-center">
@@ -157,7 +167,7 @@ function MerchantBoard() {
                     </div>
                     <div className="ml-2.5 text-lg">ChargeBacks</div>
                   </div>
-                  <div className="justify-end ml-2.5 text-lg">₹0.00</div>
+                  <div className="justify-end ml-2.5 text-lg">₹{totalChargeBacks}</div>
                 </div>
               </fieldset>
               <fieldset className="border-2 rounded-lg border-gray-200 my-2">
@@ -172,7 +182,7 @@ function MerchantBoard() {
                   </div>
                   <div className="ml-2.5 text-2xl text-success/90">Current Balance</div>
                 </div>
-                <div className="justify-end ml-2.5 text-2xl text-success/90">₹0.00</div>
+                <div className="justify-end ml-2.5 text-2xl text-success/90">₹{currentBalance}</div>
               </div>
               </fieldset>
               <fieldset className="border-2 rounded-lg border-gray-200 my-2">
@@ -187,7 +197,7 @@ function MerchantBoard() {
                   </div>
                   <div className="ml-2.5 text-info/90 text-4xl">Net Balance</div>
                 </div>
-                <div className="justify-end ml-2.5 text-info/90 text-4xl">₹0.00</div>
+                <div className="justify-end ml-2.5 text-info/90 text-4xl">₹{netBalance}</div>
               </div>
               </fieldset>
             </div>

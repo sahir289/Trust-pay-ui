@@ -1,4 +1,4 @@
-import _ from "lodash";
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Tab } from "@/components/Base/Headless";
 import Modal from "@/pages/Modal/modal";
 import Lucide from "@/components/Base/Lucide";

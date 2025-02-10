@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React from "react";
 import Chart from "@/components/Base/Chart";
 import { ChartData, ChartOptions } from "chart.js/auto";
@@ -55,7 +56,7 @@ function Main({ width = "auto", height = "auto", inputData = [], className = "" 
 
   const data: ChartData = useMemo(() => {
     return {
-      labels: ["Danger", "Warning", "Pending", "Assigned", "Initiated", "Success"],
+      labels: ["Failed", "Dispute", "Pending", "Assigned", "Initiated", "Success"],
       datasets: [
         {
           data: chartData,
