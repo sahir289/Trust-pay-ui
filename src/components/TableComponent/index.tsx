@@ -76,10 +76,10 @@ interface CustomTableProps {
   title?: string;
   setStatus?: React.Dispatch<React.SetStateAction<string>>;
   status?: string[];
-  approve?: boolean; // Expecting a boolean prop to control modal reset
+  approve?: boolean; 
   setApprove?: React.Dispatch<React.SetStateAction<boolean>>;
-  reject?: boolean; // Expecting a boolean prop to control modal reset
-  setReject?: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
+  reject?: boolean; 
+  setReject?: React.Dispatch<React.SetStateAction<boolean>>; 
   expandedRow?: number;
   handleRowClick?: (index: number) => void;}
 const CustomTable: React.FC<CustomTableProps> = ({
@@ -169,9 +169,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
     updated_at: string;
   } | null>(null);
 
-  // useEffect(() => {
-  //   handleRowClick(expandedRow);
-  // }, [expandedRow]);
+  
   const openModal = (open: string): void => {
     setIsModalOpen(true);
     setTitleforDelete(open);
@@ -188,12 +186,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
     setIsModalPopupOpen(true);
     setTitleforDelete(verify.verify);
   };
-//   const checkData = (): void => {
-//     _.take(data, 10).map((faker) => {
-//       console.log(faker.submerchant,"submertchant data dfgfgngfgh");
-//     });
-//   };
-// checkData();
+
 
   return (
     <div>
@@ -268,12 +261,12 @@ const CustomTable: React.FC<CustomTableProps> = ({
                       className="py-4 border-dashed dark:bg-darkmode-600"
                       onClick={() =>
                         setDetails({
-                          sno: String(faker.sno), // Convert number to string
-                          id: faker.id || "", // Ensure id exists
+                          sno: String(faker.sno), 
+                          id: faker.id || "", 
                           code: faker.code,
-                          confirmed: String(faker.confirmed), // Convert boolean to string
-                          commission: String("0"), // Ensure commission exists
-                          amount: String(faker.amount), // Convert number to string
+                          confirmed: String(faker.confirmed), 
+                          commission: String("0"), 
+                          amount: String(faker.amount), 
                           status: faker.status,
                           merchant_order_id: faker.merchant_order_id,
                           merchant_code: faker.merchant_code,
@@ -292,13 +285,18 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         className="w-5 h-5 stroke-blue-500 font-bold rounded-full "
                       />
                     </Table.Td>
-                    {columns && columns.length > 15 && (
+                    {columns && columns.length > 14 && (
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <a href="" className="font-medium whitespace-nowrap">
                           {faker.confirmed}
                         </a>
                       </Table.Td>
                     )}
+                      <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                        <a href="" className="font-medium whitespace-nowrap">
+                          {faker.confirmed}
+                        </a>
+                      </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                       <a className="font-medium whitespace-nowrap">
                         {faker.amount}
@@ -331,7 +329,9 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           <Tippy
                             as="img"
                             alt="Tailwise - Admin Dashboard Template"
-                            className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
+                            className="rounded-full 
+                            shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] 
+                            dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                             src={faker.photo}
                             content={faker.name}
                           />
@@ -374,7 +374,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           <Tippy
                             as="img"
                             alt="Tailwise - Admin Dashboard Template"
-                            className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
+                            className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] 
+                            dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                             src={faker.photo}
                             content={faker.name}
                           />
@@ -389,7 +390,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                             <Menu.Button className="w-5 h-5 text-slate-500">
                               <Lucide
                                 icon="MoreVertical"
-                                className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
+                                className="w-5 h-5 stroke-slate-400/70
+                                 fill-slate-400/70"
                               />
                             </Menu.Button>
 
@@ -416,7 +418,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                             <Menu.Button className="w-5 h-5 text-slate-500">
                               <Lucide
                                 icon="Bell"
-                                className="w-5 h-5 stroke-slate-400/70 fill-green-400/70"
+                                className="w-5 h-5 stroke-slate-400/70 
+                                fill-green-400/70"
                               />
                             </Menu.Button>
                           </Menu>
@@ -436,16 +439,19 @@ const CustomTable: React.FC<CustomTableProps> = ({
                     </Table.Td>
                     <Table.Td>
                       <div
-                        className="flex mt-2 text-xs text-center bg-blue-500 rounded-full w-7 h-7"
+                        className="flex mt-2 text-xs text-center bg-blue-500 
+                        rounded-full w-7 h-7"
                         onClick={() =>handleRowClick && handleRowClick(fakerKey)}
                       >
                         <Lucide
                           icon={expandedRow === fakerKey  ? "Minus" : "Plus"}
-                          className="block text-white  mx-auto my-auto stroke-3 justify-center items-center"
+                          className="block text-white  mx-auto my-auto stroke-3 
+                          justify-center items-center"
                         />
                       </div>
                     </Table.Td>
-                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                    <Table.Td className="py-4 border-dashed 
+                    dark:bg-darkmode-600">
                       <div className="font-medium whitespace-nowrap">
                         {faker.code}
                       </div>
@@ -535,17 +541,20 @@ const CustomTable: React.FC<CustomTableProps> = ({
                             />
                           </Menu.Button>
                           <Menu.Items className="w-40">
-                            <Menu.Item>
-                              <Lucide
-                                icon="CheckSquare"
-                                className="w-4 h-4 mr-2"
-                              />{" "}
-                              Edit
-                            </Menu.Item>
-                            <Menu.Item className="text-danger">
-                              <Lucide icon="Trash2" className="w-4 h-4 mr-2" />{" "}
-                              Delete
-                            </Menu.Item>
+                          <Menu.Item onClick={() => openModal("Edit")}>
+                            <Lucide
+                              icon="CheckSquare"
+                              className="w-4 h-4 mr-2"
+                            />{" "}
+                            Edit
+                          </Menu.Item>
+                          <Menu.Item
+                            className="text-danger"
+                            onClick={() => openModal("Delete")}
+                          >
+                            <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
+                            Delete
+                          </Menu.Item>
                           </Menu.Items>
                         </Menu>
                       </div>
@@ -803,183 +812,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                   </Table.Td>
                 </Table.Tr>
               ))}
-            {/* {title === "Merchants" && _.take(data, 10).map((faker, fakerKey) => (
-              <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
-                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                  <FormCheck.Input type="checkbox" />
-                </Table.Td>
-                <Table.Td className="py-4 border-dashed w-80 dark:bg-darkmode-600">
-                  <div className="flex items-center">
-                    <div className="w-9 h-9 image-fit zoom-in">
-                      <Tippy
-                        as="img"
-                        alt="Tailwise - Admin Dashboard Template"
-                        className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                        src={faker.photo}
-                        content={faker.name}
-                      />
-                    </div>
-                    <div className="ml-3.5">
-                      <a
-                        href=""
-                        className="font-medium whitespace-nowrap"
-                      >
-                        {faker.name}
-                      </a>
-
-                    </div>
-                  </div>
-                </Table.Td>
-                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                  <a href="" className="font-medium whitespace-nowrap">
-                    {faker.code}
-                  </a>
-
-                </Table.Td>
-
-                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                  <a href="" className="font-medium whitespace-nowrap">
-                    {faker.site}
-                  </a>
-                </Table.Td>
-                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                  <a href="" className="font-medium whitespace-nowrap">
-                    {faker.api_key}
-                  </a>
-                </Table.Td><Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                  <a href="" className="font-medium whitespace-nowrap">
-                    {faker.public_api_key}
-                  </a>
-                </Table.Td><Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                  <a href="" className="font-medium whitespace-nowrap">
-                    {faker.balance}
-                  </a>
-                </Table.Td>
-                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                  <a href="" className="font-medium whitespace-nowrap">
-                    {faker.payin_range}
-                  </a>
-                </Table.Td>
-                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <div className="w-40">
-                      <div className="text-xs text-slate-500">
-                        {_.random(1, 5)}%
-                      </div>
-                      <div className="flex h-1 border rounded-sm bg-slate-50 mt-1.5 dark:bg-darkmode-400">
-                        <div
-                          className={clsx([
-                            "first:rounded-l-sm last:rounded-r-sm border border-primary/20 -m-px bg-primary/40",
-                            [
-                              "w-[35%]",
-                              "w-[45%]",
-                              "w-[55%]",
-                              "w-[65%]",
-                              "w-[75%]",
-                            ][_.random(0, 4)],
-                          ])}
-                        ></div>
-                      </div>
-                    </div>
-                  </Table.Td>
-
-                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                  <a href="" className="font-medium whitespace-nowrap">
-                    {faker.payout_range}
-                  </a>
-                </Table.Td>
-                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                    <div className="w-40">
-                      <div className="text-xs text-slate-500">
-                        {_.random(1, 5)}%
-                      </div>
-                      <div className="flex h-1 border rounded-sm bg-slate-50 mt-1.5 dark:bg-darkmode-400">
-                        <div
-                          className={clsx([
-                            "first:rounded-l-sm last:rounded-r-sm border border-primary/20 -m-px bg-primary/40",
-                            [
-                              "w-[35%]",
-                              "w-[45%]",
-                              "w-[55%]",
-                              "w-[65%]",
-                              "w-[75%]",
-                            ][_.random(0, 4)],
-                          ])}
-                        ></div>
-                      </div>
-                    </div>
-                  </Table.Td>
-                <Table.Td className="py-4 border-dashed  dark:bg-darkmode-600">
-
-                  <FormSwitch className="dark:bg-darkmode-200 dark:border-red-500 rounded-lg">
-                    <FormSwitch.Label
-                      htmlFor="show-example-1 "
-                      className="ml-0 "
-                    >
-                      {faker.test_mode}
-                      <FormSwitch.Input
-                        id="show-example-1"
-                        //   onClick={}
-                        className="ml-0 mr-0 border-2 border-slate-300  "
-                        type="checkbox"
-                      />
-                    </FormSwitch.Label>
-                  </FormSwitch>
-                </Table.Td>
-
-                <Table.Td className="py-4 border-dashed  dark:bg-darkmode-600">
-
-                  <FormSwitch className="">
-                    <FormSwitch.Label
-                      htmlFor="show-example-1"
-                      className="ml-0 sm:ml-2 "
-                    >
-                      {faker.allow_intent}
-                      <FormSwitch.Input
-                        id="show-example-1"
-                        //   onClick={}
-                        className="ml-3 mr-0 border-2 border-slate-300  "
-                        type="checkbox"
-                      />
-                    </FormSwitch.Label></FormSwitch>
-                </Table.Td>
-
-
-                <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                  <a href="" className="font-medium whitespace-nowrap">
-                    {faker.createdAt}
-                  </a>
-                </Table.Td>
-                <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                  <div className="flex items-center justify-center">
-                    <Menu className="h-5">
-                      <Menu.Button className="w-5 h-5 text-slate-500">
-                        <Lucide
-                          icon="MoreVertical"
-                          className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
-                        />
-                      </Menu.Button>
-                      <Menu.Items className="w-40">
-                        <Menu.Item>
-                          <Lucide
-                            icon="CheckSquare"
-                            className="w-4 h-4 mr-2"
-                          />{" "}
-                          Edit
-                        </Menu.Item>
-                        <Menu.Item className="text-danger">
-                          <Lucide
-                            icon="Trash2"
-                            className="w-4 h-4 mr-2"
-                          />
-                          Delete
-                        </Menu.Item>
-                      </Menu.Items>
-                    </Menu>
-                  </div>
-                </Table.Td>
-
-              </Table.Tr>
-            ))} */}
+           
             {title === "Data Entries" &&
               _.take(data, 10).map((faker, fakerKey) => (
                 <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
@@ -1095,7 +928,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                           <Tippy
                             as="img"
                             alt="Tailwise - Admin Dashboard Template"
-                            className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
+                            className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] 
+                            dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                             src={faker.photo}
                             content={faker.name}
                           />
@@ -1237,7 +1071,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         <Tippy
                           as="img"
                           alt="Tailwise - Admin Dashboard Template"
-                          className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
+                          className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] 
+                          dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                           src={faker.photo}
                           content={faker.name}
                         />
@@ -1285,7 +1120,6 @@ const CustomTable: React.FC<CustomTableProps> = ({
                             </>
                           )}
                         </Menu.Button>
-
                         {faker.status === "Initiated" ? (
                           <Menu.Items className="w-40">
                             <Menu.Item onClick={() =>setApprove && setApprove(!approve)}>
@@ -1337,7 +1171,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         <Tippy
                           as="img"
                           alt="Tailwise - Admin Dashboard Template"
-                          className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
+                          className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] 
+                          dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                           src={faker.photo}
                           content={faker.name}
                         />
@@ -1361,7 +1196,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         icon="ExternalLink"
                         className="w-3.5 h-3.5 stroke-[1.7]"
                       />
-                      <div className="ml-1.5 text-[13px] whitespace-nowrap underline decoration-dotted decoration-primary/30 underline-offset-[3px]">
+                      <div className="ml-1.5 text-[13px] whitespace-nowrap underline decoration-dotted 
+                      decoration-primary/30 underline-offset-[3px]">
                         {faker.orderId}
                       </div>
                     </a>
@@ -1430,7 +1266,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         <Tippy
                           as="img"
                           alt="Tailwise - Admin Dashboard Template"
-                          className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
+                          className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] 
+                          dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                           src={faker.photo}
                           content={faker.name}
                         />
@@ -1544,7 +1381,8 @@ const CustomTable: React.FC<CustomTableProps> = ({
                         <Tippy
                           as="img"
                           alt="Tailwise - Admin Dashboard Template"
-                          className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
+                          className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] 
+                          dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                           src={faker.photo}
                           content={faker.name}
                         />
@@ -1700,15 +1538,7 @@ const CustomTable: React.FC<CustomTableProps> = ({
                       {faker.name}
                     </div>
                   </Table.Td>
-                  {/* <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <a  className="font-medium whitespace-nowrap">
-                          {faker.position}
-                        </a>
-                        <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                          {faker.department}
-                        </div>
-                      </Table.Td> */}
-
+                 
                   <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                     <div className="whitespace-nowrap">{faker.manager}</div>
                   </Table.Td>
