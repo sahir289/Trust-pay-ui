@@ -1,26 +1,22 @@
 /* eslint-disable no-unused-vars */
 import Lucide from "@/components/Base/Lucide";
 import Pagination from "@/components/Base/Pagination";
-import React, { useRef } from "react";
+import React, { useRef, useState, JSX } from "react";
 import { Menu } from "@/components/Base/Headless";
 import { FormCheck, FormSwitch, FormSelect } from "@/components/Base/Form";
 import Table from "@/components/Base/Table";
 import clsx from "clsx";
 import _ from "lodash";
-import { JSX } from "@fullcalendar/core/preact.js";
 import Tippy from "@/components/Base/Tippy";
 import PasswordVerificationModal from "@/pages/PasswordModal";
-import { useState } from "react";
 import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
 import ModalPopUp from "@/pages/ModalPopUp";
 import ModalMerchantEdit from "@/pages/ModalMerchantEdit/ModalMerchantEdit";
 import RoleDetails from "@/pages/RolesDetails/RolesDetails";
-
 import DesignationDetails from "@/pages/DesignationDetails/DesignationDetails";
 import BankDetailsModal from "@/pages/BankAccounts/BankAccounts";
-import Modal from "@/pages/Modal/modal";
-import DeleteModal from "@/pages/DeleteModal/DeleteModal";
 import VendorDetails from "@/pages/VendorDetails/VendorDetails";
+
 interface ICustomTableProps {
   columns?: string[];
   data: Array<{
@@ -63,9 +59,11 @@ interface ICustomTableProps {
     public_api_key?: string;
     payin_range?: string;
     payin_commission?: string;
+    payout_commission?: string;
     payout_range?: string;
     test_mode?: boolean;
     allow_intent?: boolean;
+    actions?: string;
     submerchant?: Array<{
       code: string;
       site: string;
@@ -84,120 +82,94 @@ interface ICustomTableProps {
   title?: string;
   setStatus?: React.Dispatch<React.SetStateAction<string>>;
   status?: string[];
-  approve?: boolean; // Expecting a boolean prop to control modal reset
+  approve?: boolean;
   setApprove?: React.Dispatch<React.SetStateAction<boolean>>;
-  reject?: boolean; // Expecting a boolean prop to control modal reset
-  setReject?: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
+  reject?: boolean;
+  setReject?: React.Dispatch<React.SetStateAction<boolean>>;
   editModal?: string;
   expandedRow?: number;
   handleRowClick?: (index: number) => void;
   setEditModal?: React.Dispatch<React.SetStateAction<string>>;
-};
-
-
-
-const columns = ["Column1", "Column2", "Column3"]; // Define columns array
-
-// Removed duplicate DataType interfaces
-
-interface DataType {
-  sno: string;
-  id: string;
-  code: string;
-  confirmed: string;
-  commission: string;
-  amount: string;
-  status: string;
-  merchant_order_id: string;
-  merchant_code: string;
-  name: string;
-  user_submitted_utr: string;
-  utr: string;
-  method: string;
-  duration: number;
-  bank: string;
-  updated_at: string;
-  public_api_key?: string; // Add this line
 }
 
 interface DataType {
-  sno: string;
-  id: string;
+  sno: number;
   code: string;
-  confirmed: string;
-  commission: string;
-  amount: string;
+  confirmed: boolean;
+  amount: number;
   status: string;
   merchant_order_id: string;
   merchant_code: string;
+  photo: string;
   name: string;
-  user_submitted_utr: string;
-  utr: string;
-  method: string;
-  duration: number;
-  bank: string;
-  updated_at: string;
+  user_submitted_utr?: string;
+  utr?: string;
+  method?: string;
+  id?: string;
+  updated_at?: string;
+  bankDetails?: string;
+  balance?: number;
+  bankUsedFor?: string;
+  vendors?: string;
+  createdAt?: string;
+  lastScheduledAt?: string;
+  accountName?: string;
+  accountNumber?: string;
+  upiId?: string;
+  orderId?: string;
+  orderStatus?: { textColor: string; icon: string; name: string };
+  orderDate?: string;
+  referance_date?: string;
+  fromBank?: string;
+  vendor?: string;
+  manager?: string;
+  joinedDate?: string;
+  email?: string;
+  department?: string;
+  position?: string;
+  site?: string;
+  api_key?: string;
   public_api_key?: string;
-}
-
-interface DataType {
-  sno: string;
-  id: string;
-  code: string;
-  confirmed: string;
-  commission: string;
-  amount: string;
-  status: string;
-  merchant_order_id: string;
-  merchant_code: string;
-  name: string;
-  user_submitted_utr: string;
-  utr: string;
-  method: string;
-  duration: number;
-  bank: string;
-  updated_at: string;
-  public_api_key?: string;
-}
-
-interface DataType {
-  sno: string;
-  id: string;
-  code: string;
-  confirmed: string;
-  commission: string;
-  amount: string;
-  status: string;
-  merchant_order_id: string;
-  merchant_code: string;
-  name: string;
-  user_submitted_utr: string;
-  utr: string;
-  method: string;
-  duration: number;
-  bank: string;
-  updated_at: string;
-  public_api_key?: string;
+  payin_range?: string;
+  payin_commission?: string;
+  payout_commission?: string;
+  payout_range?: string;
+  test_mode?: boolean;
+  allow_intent?: boolean;
+  actions?: string;
+  vendor_commission?: number;
+  submerchant?: Array<{
+    code: string;
+    site: string;
+    apikey: string;
+    public_api_key: string;
+    balance: number;
+    payin_range: string;
+    payin_commission: string;
+    payout_range: string;
+    payout_commission: string;
+    test_mode: boolean;
+    allow_intent: boolean;
+    created_at: string;
+  }>;
 }
 
 const CustomTable: React.FC<ICustomTableProps> = ({
   data,
   title,
   status,
-  approve,
-  setApprove,
-  reject,
   setStatus,
-  setReject,
   editModal,
   expandedRow,
   setEditModal,
   handleRowClick,
+  columns, // Add columns as a prop
 }) => {
   interface StatusStyle {
     color: string;
     icon: JSX.Element;
   }
+
   const getStatusStyles = (status: string): StatusStyle => {
     switch (status) {
       case "Image Pending":
@@ -211,32 +183,24 @@ const CustomTable: React.FC<ICustomTableProps> = ({
       case "Rejected":
         return {
           color: "text-red-500",
-          icon: (
-            <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
-          ),
+          icon: <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />,
         };
       case "Bank Mismatch":
       case "Duplicate":
       case "Dispute":
         return {
           color: "text-orange-500",
-          icon: (
-            <Lucide icon="FileWarning" className="w-5 h-5 ml-px stroke-[2.5]" />
-          ),
+          icon: <Lucide icon="FileWarning" className="w-5 h-5 ml-px stroke-[2.5]" />,
         };
       case "Assigned":
         return {
           color: "text-blue-500",
-          icon: (
-            <Lucide icon="ListChecks" className="w-5 h-5 ml-px stroke-[2.5]" />
-          ),
+          icon: <Lucide icon="ListChecks" className="w-5 h-5 ml-px stroke-[2.5]" />,
         };
       case "Success":
         return {
           color: "text-green-500",
-          icon: (
-            <Lucide icon="CheckCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
-          ),
+          icon: <Lucide icon="CheckCircle" className="w-5 h-5 ml-px stroke-[2.5]" />,
         };
       default:
         return {
@@ -245,18 +209,17 @@ const CustomTable: React.FC<ICustomTableProps> = ({
         };
     }
   };
-  const [openPopup, setOpenPopup] = useState<string | null>(null);
+
   const [isModalPopupOpen, setIsModalPopupOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [settlement, setSettlement] = useState<boolean>(false);
   const [settlementReject, setSettlementreject] = useState<boolean>(false);
-  const [addData, setAddata] = useState<boolean>(false)
-  const [addMerchant, setAddMerchant] = useState(false)
-  const [secondPopUp, setSecondPopup] = useState(false)
-
-  const [addataReject, setAddataReject] = useState<boolean>(false)
-
+  const [addData, setAddata] = useState<boolean>(false);
+  const [addMerchant, setAddMerchant] = useState(false);
+  const [secondPopUp, setSecondPopup] = useState(false);
+  const [addataReject, setAddataReject] = useState<boolean>(false);
   const [TitleforDelete, setTitleforDelete] = useState<string>("");
+
   const [bankdetails, setBankDetails] = useState<{
     accountName: string;
     bankDetails: string;
@@ -274,6 +237,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
     createdAt: string;
     lastScheduledAt: string;
   } | null>(null);
+
   const [usersDetails, setUsersDetails] = useState<{
     name: string;
     position: string;
@@ -311,17 +275,17 @@ const CustomTable: React.FC<ICustomTableProps> = ({
     updated_at: string;
   } | null>(null);
 
-
   const [roles, setRoles] = useState<{
-    sno: number; // Serial number or index
-    position: string; // Position of the person
-    name: string; // Person's name
-    manager: string; // Manager's name
-    joinedDate: string; // Date they joined
-    status: string; // Status, perhaps active or inactive
-    department?: string; // Optional department field
+    sno: number;
+    position: string;
+    name: string;
+    manager: string;
+    joinedDate: string;
+    status: string;
+    department?: string;
+    photo?: string;
   } | null>(null);
-  
+
   const [merchantDetails, setMerchantDetails] = useState<{
     name: string;
     photo: string;
@@ -339,7 +303,6 @@ const CustomTable: React.FC<ICustomTableProps> = ({
     created_at: string;
     actions: string;
   } | null>(null);
-
 
   const [details, Roles] = useState<{
     sno: string;
@@ -360,40 +323,38 @@ const CustomTable: React.FC<ICustomTableProps> = ({
     updated_at: string;
   } | null>(null);
 
-  // useEffect(() => {
-  //   handleRowClick(expandedRow);
-  // }, [expandedRow]);
   const openModal = (open: string): void => {
     setIsModalOpen(true);
     setTitleforDelete(open);
-
   };
+
   const closeModal = (): void => {
     setIsModalOpen(!isModalOpen);
     setIsModalPopupOpen(!isModalPopupOpen);
   };
-  const secondPop = (): void => {
 
-    setAddMerchant(!addMerchant)
+  const secondPop = (): void => {
+    setAddMerchant(!addMerchant);
   };
+
   const settlementModal = () => {
-    setSettlement(false)
-    setSettlementreject(false)
-    setAddata(false)
-  }
+    setSettlement(false);
+    setSettlementreject(false);
+    setAddata(false);
+  };
 
   const handleVerify = (verify: { verify: string }): void => {
     closeModal();
-    setOpenPopup("ModalPopUp");
     setTitleforDelete(verify.verify);
-    setSecondPopup(true)
-
+    setSecondPopup(true);
   };
+
   const handleRejected = () => {
-    setAddataReject(false)
-  }
-  console.log(addataReject)
-  const resetRef = useRef<| null>(null)
+    setAddataReject(false);
+  };
+
+  const resetRef = useRef<null>(null);
+
   return (
     <div>
       <ModalPopUp
@@ -422,13 +383,13 @@ const CustomTable: React.FC<ICustomTableProps> = ({
         />
       )}
       {
-        editModal === "merchant" && secondPopUp && setEditModal && <ModalMerchantEdit handleModal={() => setEditModal(false)}
-          merchant={merchantDetails} title={"merchant"} />
+        editModal === "merchant" && secondPopUp && setEditModal && merchantDetails && <ModalMerchantEdit handleModal={() => setEditModal("")}
+          transaction={{ ...merchantDetails, submerchant: [] }} title={"merchant"} />
       }
       {editModal === "chargeback" && secondPopUp && (
         <ModalPopUp
           open={true}
-          onClose={() => setEditModal && setEditModal(false)}
+          onClose={() => setEditModal && setEditModal("")}
           title="Update Transaction"
           fields={[]}
           singleField={[
@@ -443,29 +404,39 @@ const CustomTable: React.FC<ICustomTableProps> = ({
         />
       )}
       {editModal === "roles" && secondPopUp && roles && (
-        <RoleDetails handleModal={() => setEditModal && setEditModal(false)}
-          transaction={roles}
+        <RoleDetails handleModal={() => setEditModal && setEditModal("")}
+          transaction={{
+            ...roles,
+            email: "",
+            phone: "",
+            location: "",
+            addressLine1: "",
+            addressLine2: "",
+            isActive: false,
+            photo: roles.photo || "",
+            department: roles.department || "", // Ensure department is always a string
+          }}
           title="Role Details" />
       )}
       {editModal === "usersDetails" && secondPopUp && usersDetails && (
-        <RoleDetails handleModal={() => setEditModal && setEditModal(false)}
+        <RoleDetails handleModal={() => setEditModal && setEditModal("")}
           transaction={{ ...usersDetails, sno: 0, status: "" }}
           title="User Details" />
       )}
       {editModal === "designation" && secondPopUp && roles && (
         <DesignationDetails
-          handleModal={() => setEditModal && setEditModal(false)}
+          handleModal={() => setEditModal && setEditModal("")}
           title="Designation Details"
           transaction={roles} />
       )}
       {editModal === "bankdetails" && secondPopUp === true && bankdetails && (
-        <BankDetailsModal handleModal={() => setEditModal && setEditModal(false)}
+        <BankDetailsModal handleModal={() => setEditModal && setEditModal("")}
           title="Bank Details"
           transaction={bankdetails} />
       )}
       {editModal === "vendors" && secondPopUp === true && (
-        <VendorDetails handleModal={() => setEditModal && setEditModal(false)}
-          vendor={vendorDetails} />
+        <VendorDetails handleModal={() => setEditModal && setEditModal("")}
+          vendor={vendorDetails || { sno: 0, code: '', vendor_commission: 0, created_date: '', created_by: '', status: '', action: '', confirmed: false, amount: 0, merchant_order_id: '', updated_at: '', name: '', method: '' }} />
       )}
       {addData && <ModalPopUp
         open={addData}
@@ -1168,7 +1139,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         commission: "0", // No need to wrap a string in String()
                         amount: String(faker?.amount), // Convert number to string
                         status: faker?.status,
-                        // merchant_order_id: faker?.merchant_order_id,
+                        merchant_order_id: faker?.merchant_order_id || "", // Ensure merchant_order_id exists
+                        merchant_code: faker?.merchant_code || "", // Ensure merchant_code exists
                         name: faker?.name,
                         user_submitted_utr: faker?.user_submitted_utr || "",
                         utr: faker?.utr || "",
@@ -1269,26 +1241,22 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                           <Menu.Items className="w-40">
                             <Menu.Item
                               onClick={() => {
-
-
-
-
                                 setMerchantDetails({
-                                  name: faker?.name ,
-                                  photo: faker?.photo ,
-                                  code: faker?.code ,
+                                  name: faker?.name,
+                                  photo: faker?.photo,
+                                  code: faker?.code,
                                   site: faker?.site || "",
-                                  apikey: faker?.api_key || "" ,
+                                  apikey: faker?.api_key || "",
                                   public_api_key: faker?.public_api_key || "",
-                                  balance: faker?.balance || "",
+                                  balance: String(faker?.balance) || "",
                                   payin_range: faker?.payin_range || "",
                                   payin_commission: faker?.payin_commission || "",
                                   payout_range: faker?.payout_range || "",
                                   payout_commission: faker?.payout_commission || "",
-                                  test_mode: faker?.test_mode || "",
-                                  allow_intent: faker?.allow_intent ,
-                                  created_at: faker?.created_at ,
-                                  actions: faker?.actions ,
+                                  test_mode: String(faker?.test_mode) || "",
+                                  allow_intent: String(faker?.allow_intent),
+                                  created_at: faker?.createdAt || "",
+                                  actions: faker?.actions || "",
                                 });
                               }}
                             >
@@ -1397,25 +1365,22 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                                     if (setStatus) {
                                       setStatus("merchantVerification");
                                     }
-
-
-
                                     setMerchantDetails({
-                                      code: faker.code || "",
-                                      api_key: faker.api_key || "",
-                                      confirmed: faker?.confirmed || 0,
-                                      // commission: faker.commission || "",
-                                      amount: faker?.amount || 0,
-                                      status: faker.status || "",
-                                      public_api_key: faker.public_api_key || "",
-                                      merchant_code: faker.merchant_code || "",
                                       name: faker.name || "",
-                                      user_submitted_utr: faker.user_submitted_utr || "",
-                                      utr: faker.utr || "",
-                                      method: faker.method || "",
-                                      // duration: faker.duration || "",
-                                      // bank: faker?.bank || "",
-                                      updated_at: faker.updated_at || "",
+                                      photo: faker.photo || "",
+                                      code: faker.code || "",
+                                      site: faker.site || "",
+                                      apikey: faker.api_key || "",
+                                      public_api_key: faker.public_api_key || "",
+                                      balance: String(faker.balance) || "",
+                                      payin_range: faker.payin_range || "",
+                                      payin_commission: faker.payin_commission || "",
+                                      payout_range: faker.payout_range || "",
+                                      payout_commission: faker.payout_commission || "",
+                                      test_mode: String(faker.test_mode) || "",
+                                      allow_intent: String(faker.allow_intent) || "",
+                                      created_at: faker.createdAt || "",
+                                      actions: faker.actions || "",
                                     });
                                   }}
                                 >
@@ -1608,20 +1573,21 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                           </Menu.Item>
                           <Menu.Item onClick={() => {
                             openModal("Edit"); setBankDetails({
-                              accountName: account.accountName || "",
-                              bankDetails: account.bankDetails || "",
-                              accountNumber: account.accountNumber || "",
-                              upiId: account.upiId || "",
-                              balance: String(account.balance) || "",
-                              allowIntent: account.allowIntent || "",
-                              allowQR: account.allowQR || "",
-                              showBank: account.showBank || "",
-                              status: account.status === "Active" || account.status === "Inactive" ? account.status : "Inactive",
-                              action: account.action || "",
-                              bankUsedFor: account.bankUsedFor as "Payins" | "Payouts" | "Settlements" || "Payins",
-                              vendors: account.vendors || "",
-                              createdAt: account.createdAt || "",
-                              lastScheduledAt: account.lastScheduledAt || "",
+                              accountName: account?.accountName || "",
+                              bankDetails: account?.bankDetails || "",
+                              accountNumber: account?.accountNumber || "",
+                              upiId: account?.upiId || "",
+                              balance: String(account?.balance) || "",
+                              allowIntent: !!account?.allow_intent,
+                              status: account?.status === "Active" || account?.status === "Inactive" ? account?.status : "Inactive",
+                              bankUsedFor: account?.bankUsedFor as "Payins" | "Payouts" | "Settlements" || "Payins",
+                              vendors: account?.vendors || "",
+                              createdAt: account?.createdAt || "",
+                              lastScheduledAt: account?.lastScheduledAt || "",
+                              limits: "", // Add default value for limits
+                              allowQR: false, // Add default value for allowQR
+                              showBank: false, // Add default value for showBank
+                              action: "", // Add default value for action
                             });
                           }}>
                             <Lucide
@@ -2236,13 +2202,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
 
                         {faker?.status === "Initiated" ? (
                           <Menu.Items className="w-40">
-                            <Menu.Item onClick={() => setApprove && setApprove(true)}>
+                            <Menu.Item
+                            // onClick={() => setApprove && setApprove(true)}
+                            >
                               <Lucide icon="Check" className="w-4 h-4 mr-2" />{" "}
                               Approve
                             </Menu.Item>
                             <Menu.Item
                               className="text-danger"
-                              onClick={() => setReject && setReject(!reject)}
+                            // onClick={() => setReject && setReject(!reject)}
                             >
                               <Lucide icon="X" className="w-4 h-4 mr-2" />{" "}
                               Reject
@@ -2261,7 +2229,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                             </Menu.Item>
                             <Menu.Item
                               className="text-danger"
-                              onClick={() => setReject && setReject(!reject)}                            >
+                            // onClick={() => setReject && setReject(!reject)}
+                            >
                               <Lucide icon="X" className="w-4 h-4 mr-2" />{" "}
                               Reject
                             </Menu.Item>
@@ -2458,14 +2427,14 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         <Menu.Items className="w-40">
                           <Menu.Item onClick={() => {
                             openModal("Edit");
-
                             setVendorDetails({
                               sno: faker.sno,
                               code: faker.code,
-                              created_date: faker.created_date,
-                              created_by: faker.created_by,
+                              vendor_commission: 0,
+                              created_date: faker.createdAt || "",
+                              created_by: "",
                               status: faker.status,
-                              action: faker.action,
+                              action: "",
                               confirmed: faker.confirmed,
                               amount: faker.amount,
                               merchant_order_id: faker.merchant_order_id,
@@ -2571,22 +2540,20 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       <Menu.Items className="w-40">
                         <Menu.Item onClick={() => {
                           setUsersDetails({
-
-                            name: faker.name,
-                            position: faker.position,
-                            photo: faker.photo,
-                            email: faker.email,
-                            phone: faker.phone,
-                            department: faker.department,
-                            location: faker.location,
-                            joinedDate: faker.joinedDate,
-                            manager: faker.manager,
-                            addressLine1: faker.addressLine1,
-                            addressLine2: faker.addressline2,
-                          }
-                          )
+                            name: faker.name || "",
+                            position: faker.position || "",
+                            photo: faker.photo || "",
+                            email: faker.email || "",
+                            phone: "",
+                            department: faker.department || "",
+                            location: "",
+                            joinedDate: faker.joinedDate || "",
+                            manager: faker.manager || "",
+                            addressLine1: "",
+                            addressLine2: "",
+                            isActive: false,
+                          })
                         }}
-
                         >
                           <Lucide
                             icon="CheckSquare"
@@ -2775,10 +2742,6 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                                 joinedDate: faker?.joinedDate ?? "",
                                 status: "Active",  // or whatever status logic you'd want to apply
                               });
-
-
-
-
                             }}
                           >
                             <Lucide

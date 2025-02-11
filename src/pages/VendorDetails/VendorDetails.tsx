@@ -2,44 +2,10 @@ import {
     FormLabel,
 } from "@/components/Base/Form";
 import { Dialog, Menu } from '@/components/Base/Headless';
-
 import Button from "@/components/Base/Button";
 import Lucide from "@/components/Base/Lucide";
 import React from "react";
 import { FormInput } from "@/components/Base/Form";
-
-export interface ModalProps {
-
-    handleModal: () => any;
-  
-    VendorAccount: {
-  
-      sno: number;
-  
-      code: string;
-  
-      vendor_commission: number;
-  
-      created_date: string;
-  
-      created_by: string;
-  
-      status: string;
-  
-      action: string;
-  
-      confirmed: boolean;
-  
-      amount: number;
-  
-      merchant_order_id: string;
-  
-      updated_at: string;
-  
-    };
-  
-  }
-  
 
 export interface VendorAccount {
     sno: number;
@@ -58,7 +24,7 @@ export interface VendorAccount {
 }
 
 export interface ModalProps {
-    handleModal: () => any;
+    handleModal: () => void;
     vendor: VendorAccount;
 }
 

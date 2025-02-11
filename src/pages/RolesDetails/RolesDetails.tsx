@@ -12,6 +12,7 @@ import { FormInput } from "@/components/Base/Form";
 
 // Roles interface definition
 export interface Roles {
+  sno: number; // Add the sno property
   name: string;
   position: string;
   photo: string;
@@ -24,6 +25,7 @@ export interface Roles {
   addressLine1: string;
   addressLine2: string;
   isActive: boolean;
+  status?: string; // Add the status property
 }
 
 interface ModalProps {
@@ -126,7 +128,7 @@ const ModalMerchantEdit: React.FC<ModalProps> = ({ handleModal, transaction }) =
                     <FormInput
                       id="modal-form-3"
                       type="text"
-                      placeholder={transaction.status}
+                      placeholder={transaction?.status}
                     />
                   </div>
                  
