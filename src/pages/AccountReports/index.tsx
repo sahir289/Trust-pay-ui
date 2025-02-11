@@ -35,7 +35,7 @@ function AccountReports() {
             </Button>
           </div>
         </div>
-        <div className="flex w-full flex-row py-10 sm:px-6 ">
+        <div className="flex w-full flex-row py-10 sm:px-6">
           <div className="flex w-full flex-row gap-y-7 md:flex-row px-4 sm:px-2 py-2 sm:py-2  rounded-lg">
             <div className="p-5 w-full flex flex-row mt-3.5 box box--stacked justify-between">
               <div className="mr-2">
@@ -79,7 +79,7 @@ function AccountReports() {
       <div className="grid grid-cols-12 gap-y-10 gap-x-6">
         <div className="col-span-12">
           <div className="mt-3.5">
-            <div className="flex flex-col ">
+            <div className="flex flex-col  border-2 border-slate-600 rounded-lg">
               <div className="flex flex-col py-5 sm:items-center sm:flex-row gap-y-2 mx-6">
                 <div>
                   <div className="relative">
@@ -141,7 +141,7 @@ function AccountReports() {
                   </Popover>
                 </div>
               </div>
-              <div className="overflow-auto mx-4">
+              <div className="overflow-auto mx-4 ">
                 <Table className="border border-slate-200/60 rounded-md">
                   <Table.Thead>
                     <Table.Tr>

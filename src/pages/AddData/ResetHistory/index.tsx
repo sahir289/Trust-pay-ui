@@ -26,7 +26,6 @@ function ResetHistory() {
     "Status",
     "Amount",
     "Date",
-    "Action"
   ];
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -164,7 +163,7 @@ function ResetHistory() {
                 id: "", // or any appropriate value
                 updated_at: "" // or any appropriate value
               }))}  
-              title={"Data Entries"} 
+              title={"Check UTR"} 
               status={[""]}
               setStatus={() => {}}
               approve={false}

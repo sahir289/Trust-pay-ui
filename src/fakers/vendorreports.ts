@@ -1,80 +1,93 @@
 import _ from "lodash";
 
 export interface vendorAccount {
-  date: string;
-  vendorCode: string;
-  payInCount: number;
-  payInAmount: number;
-  payInCommission: number;
-  payOutCount: number;
-  payOutAmount: number;
-  payOutCommission: number;
-  reversedPayOut: number;
-  reversedPayoutAmount: number;
-  reversedPayoutCommission: number;
-  settlementCount: number;
-  settlementAmount: number;
-  currentBalance: number;
-  netBalance: number;
+  sno: number;
+  code: string;
+  vendor_commission: number;
+  created_date: string;
+  created_by: string;
+  status: string;
+  action: string;
+  confirmed: boolean;
+  amount: number;
+  merchant_order_id: string;
+  merchant_code: string;
+  photo: string;
+  name: string;
+  user_submitted_utr: string;
+  utr: string;
+  position?: string;
+  method: string;
+  id: string;
+  updated_at: string;
 }
 
 const fakeVendorAccount = {
   fakeVendorReport(): Array<vendorAccount> {
-    const vendoraccount: vendorAccount[] = [
+    const vendorAccounts: vendorAccount[] = [
       {
-        date: "28/01/2025",
-        vendorCode: "VND001",
-        payInCount: 15,
-        payInAmount: 50000,
-        payInCommission: 500,
-        payOutCount: 10,
-        payOutAmount: 40000,
-        payOutCommission: 400,
-        reversedPayOut: 2,
-        reversedPayoutAmount: 5000,
-        reversedPayoutCommission: 50,
-        settlementCount: 8,
-        settlementAmount: 35000,
-        currentBalance: 15000,
-        netBalance: 20000,
+        sno: 1,
+        code: "VND001",
+        vendor_commission: 500,
+        created_date: "28/01/2025",
+        created_by: "Admin",
+        status: "Active",
+        action: "Approved",
+        confirmed: true,
+        amount: 50000,
+        merchant_order_id: "ORD12345",
+        merchant_code: "MRC001",
+        photo: "https://example.com/photo1.jpg",
+        name: "Vendor One",
+        user_submitted_utr: "UTR001",
+        utr: "UTR001",
+        method: "Bank Transfer",
+        id: "ID001",
+        updated_at: "28/01/2025",
       },
       {
-        date: "28/01/2025",
-        vendorCode: "VND002",
-        payInCount: 20,
-        payInAmount: 75000,
-        payInCommission: 750,
-        payOutCount: 15,
-        payOutAmount: 60000,
-        payOutCommission: 600,
-        reversedPayOut: 3,
-        reversedPayoutAmount: 7000,
-        reversedPayoutCommission: 70,
-        settlementCount: 12,
-        settlementAmount: 50000,
-        currentBalance: 25000,
-        netBalance: 30000,
+        sno: 2,
+        code: "VND002",
+        vendor_commission: 750,
+        created_date: "28/01/2025",
+        created_by: "Admin",
+        status: "Pending",
+        action: "Review",
+        confirmed: false,
+        amount: 75000,
+        merchant_order_id: "ORD12346",
+        merchant_code: "MRC002",
+        photo: "https://example.com/photo2.jpg",
+        name: "Vendor Two",
+        user_submitted_utr: "UTR002",
+        utr: "UTR002",
+        method: "UPI",
+        id: "ID002",
+        updated_at: "28/01/2025",
       },
       {
-        date: "28/01/2025",
-        vendorCode: "VND003",
-        payInCount: 10,
-        payInAmount: 30000,
-        payInCommission: 300,
-        payOutCount: 8,
-        payOutAmount: 25000,
-        payOutCommission: 250,
-        reversedPayOut: 1,
-        reversedPayoutAmount: 2000,
-        reversedPayoutCommission: 20,
-        settlementCount: 6,
-        settlementAmount: 20000,
-        currentBalance: 10000,
-        netBalance: 12000,
+        sno: 3,
+        code: "VND003",
+        vendor_commission: 300,
+        created_date: "28/01/2025",
+        created_by: "Admin",
+        status: "Inactive",
+        action: "Rejected",
+        confirmed: false,
+        amount: 30000,
+        merchant_order_id: "ORD12347",
+        merchant_code: "MRC003",
+        photo: "https://example.com/photo3.jpg",
+        name: "Vendor Three",
+        user_submitted_utr: "UTR003",
+        utr: "UTR003",
+        method: "NEFT",
+        id: "ID003",
+        updated_at: "28/01/2025",
       },
     ];
 
-    return _.shuffle(vendoraccount); // Randomize the order of payouts
+    return _.shuffle(vendorAccounts); // Randomize the order of vendor accounts
   },
 };
 

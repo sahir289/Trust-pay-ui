@@ -23,7 +23,6 @@ function CheckUtrHistory() {
     "Status",
     "Amount",
     "Date",
-    "Action"
   ];
   
   return (
@@ -161,7 +160,7 @@ function CheckUtrHistory() {
                 id: "", // or any appropriate value
                 updated_at: "" // or any appropriate value
               }))}  
-              title={"Data Entries"} 
+              title={"Reset Entry"} 
               status={[""]}
               setStatus={() => {}} 
               approve={false} 

@@ -12,7 +12,7 @@ interface PayinProps {
 
 export interface Payins {
   sno: number;
-  checkdetails : string;
+  
   code: string;
   confirmed: boolean;
   amount: number;

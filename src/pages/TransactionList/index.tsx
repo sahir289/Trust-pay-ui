@@ -16,7 +16,7 @@ function Main() {
   }
   const [approve, setApprove] = useState(false);
   const [reject, setReject] = useState(false);
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState<string>("");
 
   const resetRef = useRef<| null>(null)
   const handleReject = () => {
@@ -30,6 +30,7 @@ function Main() {
     setStatus("")
 
   }
+  console.log(status)
   return (
     <>
       <div className="flex flex-col h-10 w-full px-2">
@@ -37,10 +38,32 @@ function Main() {
           <div className="text-xl font-medium group-[.mode--light]:text-white ">
             Transactions
           </div>
-          <Modal  handleModal={transactionModal} sendButtonRef={transactionRef} forOpen={newTransactionModal} title={title} />
-         
-         
+          <Modal handleModal={transactionModal} sendButtonRef={transactionRef} forOpen={newTransactionModal} title={title} />
+
+
+          {status === "Bank Mismatch" && (
+
+            <ModalPopUp
+              open={true}
+              onClose={handleClose}
+              title="Update Transaction"
+              fields={[
+               
+              ]}
+              singleField={[
+                { id: "bank name", label: "Bank Name", type: "text", placeholder: "Bank Name" }
+
+              ]}
+              buttonText="Success"
+              onSubmit={() => {/* Handle Success */ }}
+              onReset={handleClose}
+          
+              resetRef={resetRef}
+            />
+          )}
+
           {status === "Dispute" && (
+
             <ModalPopUp
               open={true}
               onClose={handleClose}
@@ -56,27 +79,12 @@ function Main() {
               buttonText="Success"
               onSubmit={() => {/* Handle Success */ }}
               onReset={handleClose}
-               button=""
+
               resetRef={resetRef}
             />
           )}
 
-          {status === "Bank Mismatch" && (
-            <ModalPopUp
-              open={true}
-              onClose={handleClose}
-              title="Update Transaction"
-              fields={[]}
-              singleField={[
-                { id: "bankName", label: "Enter Bank Name", type: "text", placeholder: "Enter Bank Name" }
-              ]}
-              buttonText="Approve"
-              onSubmit={() => {/* Handle Approve */ }}
-              onReset={handleClose}
-              button=""
-              resetRef={resetRef}
-            />
-          )}
+
 
           {approve && (
             <ModalPopUp
@@ -94,7 +102,7 @@ function Main() {
               buttonText="Approve"
               onSubmit={() => {/* Handle Approve */ }}
               onReset={handleApprove}
-              button=""
+
               resetRef={resetRef}
             />
           )}
@@ -111,7 +119,7 @@ function Main() {
               buttonText="Reject"
               onSubmit={() => {/* Handle Reject */ }}
               onReset={handleReject}
-              button=""
+
               resetRef={resetRef}
             />
           )}
@@ -146,7 +154,7 @@ function Main() {
                 </Tab.List>
                 <Tab.Panels className="border-b border-l border-r">
                   <Tab.Panel className="p-5 leading-relaxed">
-                    <Payin  setStatus={setStatus}  />
+                    <Payin setStatus={setStatus} />
                   </Tab.Panel>
                   <Tab.Panel className="p-5 leading-relaxed">
                     <Payout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove} />

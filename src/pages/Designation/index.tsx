@@ -28,6 +28,7 @@ export interface User {
 }
 const Main: React.FC = () => {
     const [newUserModal, setNewUserModal] = useState<boolean>(false);
+    const[editModal, setEditModal] = useState<string>("designation")
     const [title] = useState<string>("Designation");
     const userRef = useRef< null>(null);
     const userModal = (): void => {
@@ -76,6 +77,8 @@ const tableHeaders: string[] = [
                 data={users.fakeUsers() as unknown as User[]} 
                 title={"Designation"}  
                 status={[]} 
+                setEditModal={setEditModal}
+                editModal={editModal}
                 setStatus={() => {}} 
                 approve={false} 
                 setApprove={() => {}} 

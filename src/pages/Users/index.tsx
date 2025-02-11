@@ -31,6 +31,7 @@ export interface User {
 }
 function Main() {
   const [newUserModal, setNewUserModal] = useState(false);
+  const [editModal, setEditModal] = useState<string>("")
   const userRef = useRef(null);
   const userModal = () => {
     setNewUserModal(!newUserModal)
@@ -40,7 +41,8 @@ function Main() {
     "user_name",
     "role",
     "last_logged_in",
-    "enabled"
+    "enabled",
+    "actions"
   ];
   
   return (
@@ -138,6 +140,8 @@ function Main() {
                 status={[]} 
                 setStatus={() => {}} 
                 approve={false} 
+                editModal={editModal}
+                 setEditModal={setEditModal}
                 setApprove={() => {}} 
                 reject={false} 
                 setReject={() => {}} 

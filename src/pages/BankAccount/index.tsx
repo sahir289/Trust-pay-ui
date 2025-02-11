@@ -20,12 +20,15 @@ export interface BankAccount {
   lastScheduledAt: string;
   allowIntent: boolean;
   allowQR: boolean;
+  allowPhonePay: boolean;
   showBank: boolean;
   status: string;
 }
 
 function Main(): JSX.Element {
   const [newUserModal, setNewUserModal] = useState<boolean>(false);
+      const [editModal, setEditModal] = useState<string>("");
+  
   const [title] = useState<string>("Add Bank Account");
   const userRef = useRef<HTMLButtonElement | null>(null);
 
@@ -47,6 +50,7 @@ function Main(): JSX.Element {
     "Last Scheduled at (IST)",
     "Allow Intent?",
     "Allow QR?",
+    "Allow PhonePay",
     "Show Bank",
     "Status",
     "Action"
@@ -171,6 +175,8 @@ function Main(): JSX.Element {
             }))} 
               title={"Bankaccounts"} 
               status={[]} 
+              setEditModal={setEditModal}
+              editModal={editModal}
               setStatus={() => {}} 
               approve={false} 
               setApprove={() => {}} 
