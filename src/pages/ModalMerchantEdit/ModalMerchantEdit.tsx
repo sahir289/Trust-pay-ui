@@ -6,7 +6,7 @@ import { Dialog, Menu } from '@/components/Base/Headless';
 
 import Button from "@/components/Base/Button";
 import Lucide from "@/components/Base/Lucide";
-import React, { useState } from "react";
+import React from "react";
 import { FormInput } from "@/components/Base/Form";
 
 // SubMerchant interface definition
@@ -53,7 +53,6 @@ interface ModalProps {
 }
 
 const ModalMerchantEdit: React.FC<ModalProps> = ({ handleModal, transaction }) => {
-    const [showPassword, setShowPassword] = useState(false);
 
     return (
         <Dialog open={true} onClose={handleModal}>

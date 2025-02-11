@@ -27,6 +27,8 @@ export interface BankAccount {
 
 function Main(): JSX.Element {
   const [newUserModal, setNewUserModal] = useState<boolean>(false);
+      const [editModal, setEditModal] = useState<string>("");
+  
   const [title] = useState<string>("Add Bank Account");
   const userRef = useRef<HTMLButtonElement | null>(null);
 
@@ -173,6 +175,8 @@ function Main(): JSX.Element {
             }))} 
               title={"Bankaccounts"} 
               status={[]} 
+              setEditModal={setEditModal}
+              editModal={editModal}
               setStatus={() => {}} 
               approve={false} 
               setApprove={() => {}} 

@@ -817,7 +817,8 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                     </Dialog.Panel>
                   </Dialog>
                 )}
-                {title === "Add Merchant" && <Dialog
+                {title === "Add Merchant" && 
+                <Dialog
                   open={forOpen}
                   onClose={() => {
                     // setNewMerchantModal(false);

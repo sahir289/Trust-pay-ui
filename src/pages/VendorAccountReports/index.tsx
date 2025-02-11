@@ -83,7 +83,7 @@ function AccountReports() {
         
 
 
-      <div className="grid grid-cols-12 gap-y-10 gap-x-6">
+      <div className="grid grid-cols-12 gap-y-10 gap-x-6  border-2 border-slate-600 rounded-lg">
         <div className="col-span-12">
           <div className="mt-3.5">
             <div className="flex flex-col ">
@@ -213,49 +213,61 @@ function AccountReports() {
                             <FormCheck.Input type="checkbox" />
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.date}</span>
+                            <span className="whitespace-nowrap">{faker.sno}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.vendorCode}</span>
+                            <span className="whitespace-nowrap">{faker.code}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.payInCount}</span>
+                            <span className="whitespace-nowrap">{faker.vendor_commission}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.payInAmount}</span>
+                            <span className="whitespace-nowrap">{faker.created_date}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.payInCommission}</span>
+                            <span className="whitespace-nowrap">{faker.created_by}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.payOutCount}</span>
+                            <span className="whitespace-nowrap">{faker.status}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.payOutAmount}</span>
+                            <span className="whitespace-nowrap">{faker.action}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.payOutCommission}</span>
+                            <span className="whitespace-nowrap">{faker.confirmed}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.reversedPayOut}</span>
+                            <span className="whitespace-nowrap">{faker.amount}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.reversedPayoutAmount}</span>
+                            <span className="whitespace-nowrap">{faker.merchant_order_id}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.reversedPayoutCommission}</span>
+                            <span className="whitespace-nowrap">{faker.merchant_code}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.settlementCount}</span>
+                            <span className="whitespace-nowrap">{faker.photo}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.settlementAmount}</span>
+                            <span className="whitespace-nowrap">{faker.name}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.currentBalance}</span>
+                            <span className="whitespace-nowrap">{faker.user_submitted_utr}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.netBalance}</span>
+                            <span className="whitespace-nowrap">{faker.utr}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.position}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.method}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.id}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.updated_at}</span>
                           </Table.Td>
                           <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                             <div className="flex items-center justify-center">

@@ -163,7 +163,7 @@ function AddData() {
                   id: "", // or any appropriate value
                   updated_at: "" // or any appropriate value
                 }))}
-                title={"Data Entries"}
+                title={"Add Data"}
                 status={[""]}
                 setStatus={() => {}}
                 approve={false}

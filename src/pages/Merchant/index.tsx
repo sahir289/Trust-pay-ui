@@ -29,9 +29,8 @@ export interface Merchant {
 
 function Main(): JSX.Element {
     const [newMerchantModal, setNewMerchantModal] = useState(false);
-    const [verification, setVerification] = useState("")
     const [expandedRow, setExpandedRow] = useState<number | null>(null);
-    const [editModal, setEditModal] = useState(false)
+    const [editModal, setEditModal] = useState<boolean>(false)
     const sendButtonRef = useRef(null);
     const merchantModal = () => {
         setNewMerchantModal(!newMerchantModal)
@@ -39,14 +38,7 @@ function Main(): JSX.Element {
     const handleRowClick = (fakerKey: number): void => {
         setExpandedRow((prevRow) => (prevRow === fakerKey ? null : fakerKey));
     };
-    const handleClose = () => {
-        setVerification(false)
-    }
-    const handleVerify = () => {
-       
-        setVerification("")
 
-    };
     const tableHeaders: string[] = [
         "Sub Merchants",
         "Code",
@@ -284,7 +276,7 @@ function Main(): JSX.Element {
                                     test_mode: sub.test_mode === "true",
                                     allow_intent: sub.allow_intent === "true",
                                 }))
-                            }))} title={"Merchants"} status={[]} editModal={editModal} setEditModal={setEditModal} setStatus={setVerification} expandedRow={expandedRow ?? 20} handleRowClick={(index: number) => handleRowClick(index)} />
+                            }))} title={"Merchants"} status={[]} editModal={editModal.toString()} setEditModal={() => setEditModal(!editModal)} setStatus={()=>{}} expandedRow={expandedRow ?? 20} handleRowClick={(index: number) => handleRowClick(index)} />
 
                     </div>
                 </div>

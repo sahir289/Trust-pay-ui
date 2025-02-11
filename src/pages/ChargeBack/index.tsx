@@ -32,6 +32,8 @@ export interface Chargeback {
 function ChargeBack() {
 
   const [newChargeBackModal, setNewChargeBackModal] = useState(false);
+  const [editModal, setEditModal] = useState<string>("")
+
   const chargebackRef = useRef(null);
   const chargebackModal = () => {
     setNewChargeBackModal(!newChargeBackModal)
@@ -168,6 +170,8 @@ function ChargeBack() {
             <div className="overflow-auto">
               <CustomTable 
                 columns={tableHeaders} 
+                setEditModal={setEditModal}
+                editModal={editModal}
                 data={chargebacks.fakeChargeBacks() as unknown as Chargeback[]} 
                 title={"Chargebacks"} 
                 status={[]} 

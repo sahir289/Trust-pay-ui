@@ -30,6 +30,8 @@ export interface User {
 
 function Main() {
   const [newUserModal, setNewUserModal] = useState(false);
+  const [editModal, setEditModal] = useState<string>("")
+
   const tableHeaders = [
     "sno",
     "code",
@@ -135,6 +137,8 @@ function Main() {
                   data={users.fakeUsers() as unknown as User[]} 
                   title={"Vendors"} 
                   status={[""]}
+                  editModal={editModal}
+                  setEditModal={setEditModal}
                   setStatus={() => {}} 
                   approve={false} 
                   setApprove={() => {}} 

@@ -30,7 +30,7 @@ function Main() {
     setStatus("")
 
   }
-console.log(status)
+  console.log(status)
   return (
     <>
       <div className="flex flex-col h-10 w-full px-2">
@@ -41,7 +41,29 @@ console.log(status)
           <Modal handleModal={transactionModal} sendButtonRef={transactionRef} forOpen={newTransactionModal} title={title} />
 
 
+          {status === "Bank Mismatch" && (
+
+            <ModalPopUp
+              open={true}
+              onClose={handleClose}
+              title="Update Transaction"
+              fields={[
+               
+              ]}
+              singleField={[
+                { id: "bank name", label: "Bank Name", type: "text", placeholder: "Bank Name" }
+
+              ]}
+              buttonText="Success"
+              onSubmit={() => {/* Handle Success */ }}
+              onReset={handleClose}
+          
+              resetRef={resetRef}
+            />
+          )}
+
           {status === "Dispute" && (
+
             <ModalPopUp
               open={true}
               onClose={handleClose}
@@ -57,12 +79,12 @@ console.log(status)
               buttonText="Success"
               onSubmit={() => {/* Handle Success */ }}
               onReset={handleClose}
-              button=""
+
               resetRef={resetRef}
             />
           )}
 
-          
+
 
           {approve && (
             <ModalPopUp
@@ -80,7 +102,7 @@ console.log(status)
               buttonText="Approve"
               onSubmit={() => {/* Handle Approve */ }}
               onReset={handleApprove}
-              button=""
+
               resetRef={resetRef}
             />
           )}
@@ -97,7 +119,7 @@ console.log(status)
               buttonText="Reject"
               onSubmit={() => {/* Handle Reject */ }}
               onReset={handleReject}
-              button=""
+
               resetRef={resetRef}
             />
           )}

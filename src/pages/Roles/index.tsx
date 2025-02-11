@@ -29,6 +29,7 @@ import { useState,useRef } from "react";
 import CustomTable from "@/components/TableComponent";
 function Main(): JSX.Element {
     const [newUserModal, setNewUserModal] = useState(false);
+    const[editModal, setEditModal] = useState<string>("")
     const [title] = useState("Add Roles")
     const userRef = useRef(null);
     const userModal = (): void => {
@@ -80,6 +81,8 @@ function Main(): JSX.Element {
                 columns={tableHeaders} 
                 data={users.fakeUsers() as unknown as TableData[]} 
                 title={"Roles"} 
+                setEditModal={setEditModal}
+                editModal={editModal as string}
                 status={[]} 
                 setStatus={() => {}} 
                 approve={false} 
