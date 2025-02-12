@@ -35,7 +35,6 @@ const ModalPopUp: FC<ModalDialogProps> = ({
   resetRef
 }) => {
   return (<>
-    {buttonText === "Success" &&
 
       <Dialog open={open} onClose={onClose} initialFocus={resetRef}>
         <Dialog.Panel className="pt-2 pb-4">
@@ -94,7 +93,7 @@ const ModalPopUp: FC<ModalDialogProps> = ({
           </Dialog.Description>
         </Dialog.Panel>
       </Dialog>
-    }
+    
 
   </>
 
