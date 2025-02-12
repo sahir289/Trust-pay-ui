@@ -30,7 +30,6 @@ function Main() {
     setStatus("")
 
   }
-  console.log(status)
   return (
     <>
       <div className="flex flex-col h-10 w-full px-2">
@@ -88,8 +87,8 @@ function Main() {
 
           {approve && (
             <ModalPopUp
-              open={approve}
-              onClose={() => setApprove(false)}
+              open={true}
+              onClose={handleApprove}
               title="Update Transaction"
               fields={[
                 { id: "method", label: "Method", type: "text", placeholder: "Method" },
@@ -110,7 +109,7 @@ function Main() {
           {reject && (
             <ModalPopUp
               open={reject}
-              onClose={() => setReject(false)}
+              onClose={handleReject}
               title="Update Transaction"
               fields={[]}
               singleField={[

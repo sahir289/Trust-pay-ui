@@ -34,7 +34,7 @@ interface Payout {
   utr: string;
   position?: string;
 }
-const RejectedPayout: React.FC<PayinProps> = () => {
+const RejectedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setReject}) => {
 
   const tableHeaders = [
     "SNO.",
@@ -171,10 +171,10 @@ const RejectedPayout: React.FC<PayinProps> = () => {
               data={payouts.fakePayouts() as unknown as Payout[]} 
               status={["Rejected"]} 
               setStatus={() => {}} 
-              approve={false} 
-              setApprove={() => {}} 
-              reject={false} 
-              setReject={() => {}} 
+              approve={approve} 
+              setApprove={setApprove} 
+              reject={reject} 
+              setReject={setReject} 
             />
           </div>
         </div>

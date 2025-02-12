@@ -276,7 +276,7 @@ function Main(): JSX.Element {
                                     test_mode: sub.test_mode === "true",
                                     allow_intent: sub.allow_intent === "true",
                                 }))
-                            }))} title={"Merchants"} status={[]} editModal={editModal.toString()} setEditModal={() => setEditModal(!editModal)} setStatus={()=>{}} expandedRow={expandedRow ?? 20} handleRowClick={(index: number) => handleRowClick(index)} />
+                            }))} approve={false} setApprove={()=>{}} reject={false} setReject={()=>{}} title={"Merchants"} status={[]} editModal={editModal.toString()} setEditModal={() => setEditModal(!editModal)} setStatus={()=>{}} expandedRow={expandedRow ?? 20} handleRowClick={(index: number) => handleRowClick(index)} />
 
                     </div>
                 </div>
