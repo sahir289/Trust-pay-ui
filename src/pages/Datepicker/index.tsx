@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import clsx from "clsx";
-import _ from "lodash";
 import Table from "@/components/Base/Table";
 import {
   PreviewComponent,
@@ -12,7 +12,7 @@ import { Menu, Dialog } from "@/components/Base/Headless";
 import Litepicker from "@/components/Base/Litepicker";
 import Button from "@/components/Base/Button";
 import Lucide from "@/components/Base/Lucide";
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 
 function Main() {
   const [date, setDate] = useState("");

@@ -1,4 +1,3 @@
-import _ from "lodash";
 import Lucide from "@/components/Base/Lucide";
 import { Tab } from "@/components/Base/Headless";
 import AddData from "./AddDataHistory";

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { selectTheme, getTheme } from "@/stores/themeSlice";
 import { selectPageLoader } from "@/stores/pageLoaderSlice";
 import { useAppSelector } from "@/stores/hooks";
@@ -45,7 +46,8 @@ function Main() {
             r="10"
             stroke="currentColor"
             strokeWidth="4"
-          ></circle>
+          >
+          </circle>
           <path
             className="opacity-75"
             fill="currentColor"

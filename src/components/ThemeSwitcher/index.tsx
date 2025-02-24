@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable no-undef */
 import React from "react";
 import { useAppDispatch, useAppSelector } from "@/stores/hooks";

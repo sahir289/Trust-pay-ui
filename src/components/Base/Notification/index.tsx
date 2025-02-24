@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 import "@/assets/css/vendors/toastify.css";
 import { useRef, createRef, useEffect } from "react";
 import { init, reInit } from "./notification";

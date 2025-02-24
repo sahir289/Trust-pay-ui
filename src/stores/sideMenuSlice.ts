@@ -20,7 +20,7 @@ const initialState: SideMenuState = {
     "DASHBOARDS",
     {
       icon: "LayoutDashboard",
-      pathname: "/layout/dashboard-overview-1",
+      pathname: "/layout/dashboard",
       title: "Dashboard",
     },
     "TRANSACTIONS",

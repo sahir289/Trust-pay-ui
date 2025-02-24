@@ -78,7 +78,7 @@ function Router() {
       element: <Layout />,
       children: [
         {
-          path: "dashboard-overview-1",
+          path: "dashboard",
           element: <DashboardOverview1 />,
         },
         {

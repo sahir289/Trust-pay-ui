@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-unused-vars */
 import users from "@/fakers/users";
 import departments from "@/fakers/departments";
 import products from "@/fakers/products";
