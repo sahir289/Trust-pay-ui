@@ -11,7 +11,10 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [userRole, setUserRole] = useState<string | null>(localStorage.getItem("userRole") || null);
+  const userData = localStorage.getItem("userData");
+  const parsedData = userData ? JSON.parse(userData) : null;
+  const role = parsedData?.designation;
+  const [userRole, setUserRole] = useState<string | null>(role || null);
 
   return (
     <AuthContext.Provider value={{ userRole, setUserRole }}>

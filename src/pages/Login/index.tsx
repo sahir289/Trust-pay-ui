@@ -16,8 +16,8 @@ import { NotificationElement } from "@/components/Base/Notification";
 
 interface CustomJwtPayload {
   user_name: string;
-  designation: string;
-  role: string;
+  designation_name: string;
+  role_name: string;
   code: string[];
   id: string;
   session_id: string;
@@ -26,22 +26,21 @@ interface CustomJwtPayload {
 function Main() {
   const { pathname } = useLocation();
   const token = localStorage.getItem("accessToken");
-  const path = window.location.pathname;
 
   useEffect(() => {
     if (token) {
-      if (path === "/") {
+      if (pathname === "/") {
         navigate("/layout/dashboard");
       }
     } else {
       // if (
       //   !(
-      //     path === "/forgot-password" ||
-      //     path === "/reset-password" ||
-      //     path === "/on-boarding"
+      //     pathname === "/forgot-password" ||
+      //     pathname === "/reset-password" ||
+      //     pathname === "/on-boarding"
       //   )
       // ) {
-      logout();
+        logout();
       // }
     }
   }, [pathname]);
@@ -88,10 +87,10 @@ function Main() {
 
           localStorage.setItem("userData", JSON.stringify({
             name: userData?.user_name,
-            // designation: userData?.designation?.designation,
-            // role: userData?.role.role,
+            designation: userData?.designation_name,
+            role: userData?.role_name,
           }));
-          sessionStorage.setItem("userSession", JSON.stringify(userData?.session_id));
+          sessionStorage.setItem("userSession", JSON.stringify(res?.data?.data?.session_id));
 
           navigate("layout/dashboard");
         }

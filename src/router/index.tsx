@@ -87,8 +87,7 @@ function Router() {
         },
         // {
         //   path: "chat",
-        //   element: <ProtectedRoute allowedRoles={["admin", "user"]} />,
-        //   children: [{ path: "", element: <Chat /> }],
+        //   element: <Chat />
         // },
         {
           path: "bankaccounts",
