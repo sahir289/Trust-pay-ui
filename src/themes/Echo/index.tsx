@@ -498,7 +498,10 @@ function Main() {
                     </Menu.Item> */}
                     <Menu.Item
                       onClick={() => {
-                        navigate("login");
+                        navigate("/");
+                        localStorage.removeItem("accessToken");
+                        localStorage.removeItem("userData");
+                        localStorage.removeItem("merchantCodes");
                       }}
                     >
                       <Lucide icon="Power" className="w-4 h-4 mr-2" />

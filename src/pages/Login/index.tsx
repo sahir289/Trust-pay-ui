@@ -39,7 +39,10 @@ function Main() {
       //     path === "/on-boarding"
       //   )
       // ) {
-        navigate("/"); //For Verify Email
+        navigate("/");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("userData");
+        localStorage.removeItem("merchantCodes");
       // }
     }
   }, [pathname]);
