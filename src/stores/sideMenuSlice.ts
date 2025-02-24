@@ -29,6 +29,34 @@ const initialState: SideMenuState = {
       pathname: "/layout/transaction-list",
       title: "Transactions",
     },
+    "USERS",
+    {
+      icon: "Users",
+      pathname: "/layout/users",
+      title: "Users",
+    },
+    "Clients",
+    {
+      icon: "CreditCard",
+      pathname: "/layout/merchants",
+      title: "Merchants",
+    },
+    {
+      icon: "Store",
+      pathname: "/layout/vendors",
+      title: "Vendors",
+    },
+    "ACCOUNT REPORTS",
+    {
+      icon: "SquareUser",
+      pathname: "/layout/account-reports",
+      title: "Account Report",
+    },
+    {
+      icon: "SquareUser",
+      pathname: "/layout/vendor-account-reports",
+      title: "Vendor Account Report",
+    },
     "SETTLEMENTS & CHARGEBACKS",
     {
       icon: "NotebookText",
@@ -46,22 +74,7 @@ const initialState: SideMenuState = {
       pathname: "/layout/bankaccounts",
       title: "Bank Accounts",
     },
-    "USERS",
-    {
-      icon: "Users",
-      pathname: "/layout/users",
-      title: "Users",
-    },
-    {
-      icon: "CreditCard",
-      pathname: "/layout/merchants",
-      title: "Merchants",
-    },
-    {
-      icon: "Store",
-      pathname: "/layout/vendors",
-      title: "Vendors",
-    },
+   
     "ROLES & RESPONSIBILITIES",
     {
       icon: "CircleUserRound",
@@ -79,17 +92,7 @@ const initialState: SideMenuState = {
       pathname: "/layout/add-data",
       title: "Data Entries",
     },
-    "ACCOUNT REPORTS",
-    {
-      icon: "SquareUser",
-      pathname: "/layout/account-reports",
-      title: "Account Report",
-    },
-    {
-      icon: "SquareUser",
-      pathname: "/layout/vendor-account-reports",
-      title: "Vendor Account Report",
-    },
+   
     "CHAT SUPPORT",
     {
       icon: "MailOpen",
