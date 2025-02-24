@@ -17,15 +17,17 @@ import { NotificationElement } from "@/components/Base/Notification";
 interface CustomJwtPayload {
   user_name: string;
   designation: string;
+  role: string;
   code: string[];
   id: string;
+  session_id: string;
 }
 
 function Main() {
   const { pathname } = useLocation();
   const token = localStorage.getItem("accessToken");
-
   const path = window.location.pathname;
+
   useEffect(() => {
     if (token) {
       if (path === "/") {
@@ -39,10 +41,7 @@ function Main() {
       //     path === "/on-boarding"
       //   )
       // ) {
-        navigate("/");
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("userData");
-        localStorage.removeItem("merchantCodes");
+      logout();
       // }
     }
   }, [pathname]);
@@ -72,22 +71,27 @@ function Main() {
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (loginObj.username.trim() === ""){
+    if (loginObj.username.trim() === "") {
       setNotificationMessage("UserName is required!");
       basicNonStickyNotificationToggle();
     }
-    else if (loginObj.password.trim() === ""){
+    else if (loginObj.password.trim() === "") {
       setNotificationMessage("Password is required!");
       basicNonStickyNotificationToggle();
     }
     else {
       delete (loginObj as { rememberMe?: boolean }).rememberMe;
-      await postApi('/login', loginObj, false).then((res) => {
+      await postApi('/auth/login', loginObj, false).then((res) => {
         if (res?.data?.data?.accessToken) {
           localStorage.setItem("accessToken", res?.data?.data?.accessToken);
           const userData = jwtDecode<CustomJwtPayload>(res?.data?.data?.accessToken);
 
-          localStorage.setItem("userData", JSON.stringify({ name: userData?.user_name, designation: userData?.designation }))
+          localStorage.setItem("userData", JSON.stringify({
+            name: userData?.user_name,
+            // designation: userData?.designation?.designation,
+            // role: userData?.role.role,
+          }));
+          sessionStorage.setItem("userSession", JSON.stringify(userData?.session_id));
 
           navigate("layout/dashboard");
         }
@@ -107,6 +111,18 @@ function Main() {
       })
     }
   };
+
+  const logout = async () => {
+    const session_id = sessionStorage.getItem("UserSession");
+    if (session_id) {
+      await postApi('/auth/logout', { session_id }, true);
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userData");
+      sessionStorage.removeItem("userSession");
+      navigate("/");
+    }
+  };
+
   return (
     <>
       <div className="container grid lg:h-screen grid-cols-12 lg:max-w-[1550px] 2xl:max-w-[1750px] py-10 px-5 sm:py-14 sm:px-10 md:px-36 lg:py-0 lg:pl-14 lg:pr-12 xl:px-24">

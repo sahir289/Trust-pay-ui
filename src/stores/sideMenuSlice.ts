@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { icons } from "@/components/Base/Lucide";
@@ -90,12 +91,12 @@ const initialState: SideMenuState = {
       pathname: "/layout/vendor-account-reports",
       title: "Vendor Account Report",
     },
-    "CHAT SUPPORT",
-    {
-      icon: "MailOpen",
-      pathname: "/layout/chat",
-      title: "Chat",
-    },
+    // "CHAT SUPPORT",
+    // {
+    //   icon: "MailOpen",
+    //   pathname: "/layout/chat",
+    //   title: "Chat",
+    // },
   ],
 };
 

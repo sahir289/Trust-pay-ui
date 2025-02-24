@@ -22,6 +22,7 @@ import { Menu } from "@/components/Base/Headless";
 import SwitchAccount from "@/components/SwitchAccount";
 import NotificationsPanel from "@/components/NotificationsPanel";
 import ActivitiesPanel from "@/components/ActivitiesPanel";
+import { postApi } from "@/stores/api";
 
 function Main() {
   const dispatch = useAppDispatch();
@@ -75,6 +76,17 @@ function Main() {
       compactLayout();
     };
   }, [sideMenuStore, location]);
+
+  const logout = async () => {
+    const session_id = sessionStorage.getItem("UserSession");
+    if (session_id) {
+      await postApi('/auth/logout', { session_id }, true);
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userData");
+      sessionStorage.removeItem("userSession");
+      navigate("/");
+    }
+  };
 
   return (
     <div
@@ -291,12 +303,7 @@ function Main() {
                       Profile Info
                     </Menu.Item> */}
                     <Menu.Item
-                      onClick={() => {
-                        navigate("/");
-                        localStorage.removeItem("accessToken");
-                        localStorage.removeItem("userData");
-                        localStorage.removeItem("merchantCodes");
-                      }}
+                      onClick={() => {logout}}
                     >
                       <Lucide icon="Power" className="w-4 h-4 mr-2" />
                       Logout
