@@ -15,9 +15,6 @@ export interface VendorAccount {
     created_by: string;
     status: string;
     action: string;
-    confirmed: boolean;
-    amount: number;
-    merchant_order_id: string;
     updated_at: string;
     name: string;
     method: string;
@@ -65,10 +62,6 @@ const ModalVendor: React.FC<ModalProps> = ({ handleModal, vendor }) => {
                         <div className="col-span-12 sm:col-span-6">
                             <FormLabel htmlFor="vendor-method">Payment Method</FormLabel>
                             <FormInput id="vendor-method" type="text" placeholder={vendor.method} />
-                        </div>
-                        <div className="col-span-12 sm:col-span-6">
-                            <FormLabel htmlFor="vendor-amount">Amount</FormLabel>
-                            <FormInput id="vendor-amount" type="text" placeholder={vendor.amount.toString()} />
                         </div>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ export interface BankAccount {
   accountNumber: string;
   upiId: string;
   limits: string;
-  balance: string;
+  balance: number;
   bankUsedFor: string;
   vendors: string;
   createdAt: string;
@@ -139,39 +139,7 @@ function Main(): JSX.Element {
             </div>
             <CustomTable 
               columns={tableHeaders} 
-              data={bankaccounts.fakeBankAccounts().map((account, index) => ({
-              sno: index + 1,
-              code: '',
-              confirmed: false,
-              amount: 0,
-              merchant_order_id: '',
-              merchant_code: '',
-              photo: '',
-              name: account.accountName,
-              user: "",
-              payin_merchant_commission: "0",
-              payin_vendor_commission: "0", 
-              user_submitted_utr: '',
-              utr: '',
-              accountName: account.accountName,
-              bankDetails: account.bankDetails,
-              accountNumber: account.accountNumber,
-              upiId: account.upiId,
-              limits: account.limits,
-              balance: parseFloat(account.balance),
-              bankUsedFor: account.bankUsedFor,
-              vendors: account.vendors,
-              createdAt: account.createdAt,
-              lastScheduledAt: account.lastScheduledAt,
-              allowIntent: account.allowIntent,
-              allowQR: account.allowQR,
-              showBank: account.showBank,
-              status: account.status,
-              method: '',
-              id: '',
-                position: '',
-                updated_at: ''
-            }))} 
+              data={bankaccounts.fakeBankAccounts() as BankAccount[]} 
               title={"Bankaccounts"} 
               status={[]} 
               setEditModal={setEditModal}

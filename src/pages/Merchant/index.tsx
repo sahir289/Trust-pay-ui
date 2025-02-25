@@ -11,18 +11,18 @@ import CustomTable from "@/components/TableComponent";
 
 export interface Merchant {
     name: string;
-    photo: string;
+    // photo: string;
     code: string;
     site: string;
     apikey: string;
     public_api_key: string;
-    balance: string;
+    balance: number;
     payin_range: string;
     payin_commission: string;
     payout_range: string;
     payout_commission: string;
-    test_mode: string;
-    allow_intent: string;
+    test_mode: boolean;
+    allow_intent: boolean;
     created_at: string;
     actions: string;
 }
@@ -236,43 +236,7 @@ function Main(): JSX.Element {
                         </div>
                         <CustomTable 
                             columns={tableHeaders}
-                            data={merchants.fakeMerchants().map((merchant, index) => ({
-                                sno: index + 1,
-                                code: merchant.code,
-                                confirmed: true,
-                                amount: 0,
-                                status: "active",
-                                merchant_order_id: "",
-                                merchant_code: merchant.code,
-                                photo: merchant.code,
-                                name: merchant.name,
-                                user_submitted_utr: "",
-                                utr: "",
-                                site: merchant.site,
-                                apikey: merchant.apikey,
-                                public_api_key: merchant.public_api_key,
-                                balance: Number(merchant.balance),
-                                payin_range: merchant.payin_range,
-                                payin_commission: merchant.payin_commission,
-                                payout_range: merchant.payout_range,
-                                payout_commission: merchant.payout_commission,
-                                test_mode: merchant.test_mode === "true",
-                                allow_intent: merchant.allow_intent === "true",
-                                created_at: merchant.created_at,
-                                actions: merchant.actions,
-                                method: "",
-                                id: "",
-                                updated_at: "",
-                                user: "",
-                                payin_merchant_commission: "0",
-                                payin_vendor_commission: "0", 
-                                submerchant: merchant.submerchant.map((sub) => ({
-                                    ...sub,
-                                    balance: Number(sub.balance),
-                                    test_mode: sub.test_mode === "true",
-                                    allow_intent: sub.allow_intent === "true",
-                                }))
-                            }))} 
+                            data={merchants.fakeMerchants() as Merchant[]} 
                             approve={false} 
                             setApprove={() => { }} 
                             reject={false} 

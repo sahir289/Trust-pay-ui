@@ -20,21 +20,21 @@ import VendorDetails from "@/pages/VendorDetails/VendorDetails";
 
 interface ICustomTableProps {
   columns?: string[];
-  data: Array<{
-    sno: number;
-    code: string;
-    confirmed: boolean;
-    amount: number;
-    status: string;
-    merchant_order_id: string;
-    merchant_code: string;
-    photo: string;
-    name: string;
+  data?: Array<{
+    sno?: number;
+    code?: string;
+    confirmed?: string;
+    amount?: string;
+    status?: string;
+    merchant_order_id?: string;
+    merchant_code?: string;
+    photo?: string;
+    name?: string;
     user_submitted_utr?: string;
     utr?: string;
     method?: string;
     id?: string;
-    updated_at: string;
+    updated_at?: string;
     bankDetails?: string;
     balance?: number;
     bankUsedFor?: string;
@@ -45,7 +45,7 @@ interface ICustomTableProps {
     accountNumber?: string;
     upiId?: string;
     orderId?: string;
-    orderStatus?: { textColor: string; icon: string; name: string };
+    orderStatus?: { textColor?: string; icon?: string; name?: string };
     orderDate?: string;
     referance_date?: string;
     fromBank?: string;
@@ -61,33 +61,33 @@ interface ICustomTableProps {
     payin_range?: string;
     payin_commission?: string;
     payout_commission?: string;
-    payin_merchant_commission: string;
-    payin_vendor_commission: string;
-    user: string;
+    payin_merchant_commission?: string;
+    payin_vendor_commission?: string;
+    user?: string;
     payout_range?: string;
     test_mode?: boolean;
     allow_intent?: boolean;
     actions?: string;
     submerchant?: Array<{
-      code: string;
-      site: string;
-      apikey: string;
-      public_api_key: string;
-      balance: number;
-      payin_range: string;
-      payin_commission: string;
-      payout_range: string;
-      payout_commission: string;
-      test_mode: boolean;
-      allow_intent: boolean;
-      created_at: string;
+      code?: string;
+      site?: string;
+      apikey?: string;
+      public_api_key?: string;
+      balance?: number;
+      payin_range?: string;
+      payin_commission?: string;
+      payout_range?: string;
+      payout_commission?: string;
+      test_mode?: boolean;
+      allow_intent?: boolean;
+      created_at?: string;
     }>;
   }>;
   title?: string;
   setStatus?: React.Dispatch<React.SetStateAction<string>>;
-  status: string[];
+  status?: string[];
   approve?: boolean;
-  setApprove: React.Dispatch<React.SetStateAction<boolean>>;
+  setApprove?: React.Dispatch<React.SetStateAction<boolean>>;
   reject?: boolean;
   setReject?: React.Dispatch<React.SetStateAction<boolean>>;
   editModal?: string;
@@ -97,15 +97,15 @@ interface ICustomTableProps {
 }
 
 interface DataType {
-  sno: number;
-  code: string;
-  confirmed: boolean;
-  amount: number;
-  status: string;
-  merchant_order_id: string;
-  merchant_code: string;
-  photo: string;
-  name: string;
+  sno?: number;
+  code?: string;
+  confirmed?: string;
+  amount?: string;
+  status?: string;
+  merchant_order_id?: string;
+  merchant_code?: string;
+  photo?: string;
+  name?: string;
   user_submitted_utr?: string;
   user_submitted_image?: string;
   utr?: string;
@@ -122,7 +122,7 @@ interface DataType {
   accountNumber?: string;
   upiId?: string;
   orderId?: string;
-  orderStatus?: { textColor: string; icon: string; name: string };
+  orderStatus?: { textColor?: string; icon?: string; name?: string };
   orderDate?: string;
   referance_date?: string;
   fromBank?: string;
@@ -138,27 +138,27 @@ interface DataType {
   payin_range?: string;
   payin_commission?: string;
   payout_commission?: string;
-  payin_merchant_commission: string;
-  payin_vendor_commission: string;
-  user: string;
+  payin_merchant_commission?: string;
+  payin_vendor_commission?: string;
+  user?: string;
   payout_range?: string;
   test_mode?: boolean;
   allow_intent?: boolean;
   actions?: string;
   vendor_commission?: number;
   submerchant?: Array<{
-    code: string;
-    site: string;
-    apikey: string;
-    public_api_key: string;
-    balance: number;
-    payin_range: string;
-    payin_commission: string;
-    payout_range: string;
-    payout_commission: string;
-    test_mode: boolean;
-    allow_intent: boolean;
-    created_at: string;
+    code?: string;
+    site?: string;
+    apikey?: string;
+    public_api_key?: string;
+    balance?: number;
+    payin_range?: string;
+    payin_commission?: string;
+    payout_range?: string;
+    payout_commission?: string;
+    test_mode?: boolean;
+    allow_intent?: boolean;
+    created_at?: string;
   }>;
 }
 
@@ -273,8 +273,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
     created_by: string;
     status: string;
     action: string;
-    confirmed: boolean;
-    amount: number;
+    confirmed: string;
+    amount: string;
     merchant_order_id: string;
     merchant_code: string;
     photo: string;
@@ -457,7 +457,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
 
       {editModal === "vendors" && secondPopUp === true && (
         <VendorDetails handleModal={() => setEditModal && setEditModal("")}
-          vendor={vendorDetails || { sno: 0, code: '', vendor_commission: 0, created_date: '', created_by: '', status: '', action: '', confirmed: false, amount: 0, merchant_order_id: '', updated_at: '', name: '', method: '' }} />
+          vendor={vendorDetails || { sno: 0, code: '', vendor_commission: 0, created_date: '', created_by: '', status: '', action: '', updated_at: '', name: '', method: '' }} />
       )}
 
       {addData && <ModalPopUp
@@ -694,15 +694,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       Roles({
                         sno: String(payin?.sno), // Convert number to string
                         id: payin?.id || "", // Ensure id exists
-                        code: payin?.code,
+                        code: payin?.code || "", // Ensure code is always a string
                         confirmed: String(payin?.confirmed), // Convert boolean to string
                         payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
                         payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
                         amount: String(payin?.amount), // Convert number to string
-                        status: payin?.status,
-                        merchant_order_id: payin?.merchant_order_id,
-                        merchant_code: payin?.merchant_code,
-                        name: payin?.user,
+                        status: payin?.status || "",
+                        merchant_order_id: payin?.merchant_order_id || "",
+                        merchant_code: payin?.merchant_code || "",
+                        name: payin?.user || "",
                         user_submitted_utr: payin?.user_submitted_utr || "",
                         utr: payin?.utr || "",
                         method: payin?.method || "",
@@ -721,15 +721,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         Roles({
                           sno: String(payin?.sno), // Convert number to string
                           id: payin?.id || "", // Ensure id exists
-                          code: payin?.code,
+                          code: payin?.code || "",
                           confirmed: String(payin?.confirmed), // Convert boolean to string
                           payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
                           payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
                           amount: String(payin?.amount), // Convert number to string
-                          status: payin?.status,
-                          merchant_order_id: payin?.merchant_order_id,
-                          merchant_code: payin?.merchant_code,
-                          name: payin?.user,
+                          status: payin?.status || "",
+                          merchant_order_id: payin?.merchant_order_id || "",
+                          merchant_code: payin?.merchant_code || "",
+                          name: payin?.user || "",
                           user_submitted_utr: payin?.user_submitted_utr || "",
                           utr: payin?.utr || "",
                           method: payin?.method || "",
@@ -748,15 +748,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         Roles({
                           sno: String(payin?.sno), // Convert number to string
                           id: payin?.id || "", // Ensure id exists
-                          code: payin?.code,
+                          code: payin?.code || "",
                           confirmed: String(payin?.confirmed), // Convert boolean to string
                           payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
                           payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
                           amount: String(payin?.amount), // Convert number to string
-                          status: payin?.status,
-                          merchant_order_id: payin?.merchant_order_id,
-                          merchant_code: payin?.merchant_code,
-                          name: payin?.user,
+                          status: payin?.status || "",
+                          merchant_order_id: payin?.merchant_order_id || "",
+                          merchant_code: payin?.merchant_code || "",
+                          name: payin?.user || "",
                           user_submitted_utr: payin?.user_submitted_utr || "",
                           utr: payin?.utr || "",
                           method: payin?.method || "",
@@ -775,15 +775,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         Roles({
                           sno: String(payin?.sno), // Convert number to string
                           id: payin?.id || "", // Ensure id exists
-                          code: payin?.code,
+                          code: payin?.code || "",
                           confirmed: String(payin?.confirmed), // Convert boolean to string
                           payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
                           payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
                           amount: String(payin?.amount), // Convert number to string
-                          status: payin?.status,
-                          merchant_order_id: payin?.merchant_order_id,
-                          merchant_code: payin?.merchant_code,
-                          name: payin?.user,
+                          status: payin?.status || "",
+                          merchant_order_id: payin?.merchant_order_id || "",
+                          merchant_code: payin?.merchant_code || "",
+                          name: payin?.user || "",
                           user_submitted_utr: payin?.user_submitted_utr || "",
                           utr: payin?.utr || "",
                           method: payin?.method || "",
@@ -799,10 +799,10 @@ const CustomTable: React.FC<ICustomTableProps> = ({
 
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                       <div
-                        className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(payin?.status).color
+                        className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(payin?.status || "").color
                           }`}
                       >
-                        {getStatusStyles(payin?.status).icon as React.ReactNode}
+                        {getStatusStyles(payin?.status || "").icon as React.ReactNode}
                         {payin?.status}
                       </div>
                     </Table.Td>
@@ -812,15 +812,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         Roles({
                           sno: String(payin?.sno), // Convert number to string
                           id: payin?.id || "", // Ensure id exists
-                          code: payin?.code,
+                          code: payin?.code || "",
                           confirmed: String(payin?.confirmed), // Convert boolean to string
                           payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
                           payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
                           amount: String(payin?.amount), // Convert number to string
-                          status: payin?.status,
-                          merchant_order_id: payin?.merchant_order_id,
-                          merchant_code: payin?.merchant_code,
-                          name: payin?.user,
+                          status: payin?.status || "",
+                          merchant_order_id: payin?.merchant_order_id || "",
+                          merchant_code: payin?.merchant_code || "",
+                          name: payin?.user || "",
                           user_submitted_utr: payin?.user_submitted_utr || "",
                           utr: payin?.utr || "",
                           method: payin?.method || "",
@@ -839,15 +839,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         Roles({
                           sno: String(payin?.sno), // Convert number to string
                           id: payin?.id || "", // Ensure id exists
-                          code: payin?.code,
+                          code: payin?.code || "",
                           confirmed: String(payin?.confirmed), // Convert boolean to string
                           payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
                           payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
                           amount: String(payin?.amount), // Convert number to string
-                          status: payin?.status,
-                          merchant_order_id: payin?.merchant_order_id,
-                          merchant_code: payin?.merchant_code,
-                          name: payin?.user,
+                          status: payin?.status || "",
+                          merchant_order_id: payin?.merchant_order_id || "",
+                          merchant_code: payin?.merchant_code || "",
+                          name: payin?.user || "",
                           user_submitted_utr: payin?.user_submitted_utr || "",
                           utr: payin?.utr || "",
                           method: payin?.method || "",
@@ -867,15 +867,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         Roles({
                           sno: String(payin?.sno), // Convert number to string
                           id: payin?.id || "", // Ensure id exists
-                          code: payin?.code,
+                          code: payin?.code || "",
                           confirmed: String(payin?.confirmed), // Convert boolean to string
                           payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
                           payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
                           amount: String(payin?.amount), // Convert number to string
-                          status: payin?.status,
-                          merchant_order_id: payin?.merchant_order_id,
-                          merchant_code: payin?.merchant_code,
-                          name: payin?.user,
+                          status: payin?.status || "",
+                          merchant_order_id: payin?.merchant_order_id || "",
+                          merchant_code: payin?.merchant_code || "",
+                          name: payin?.user || "",
                           user_submitted_utr: payin?.user_submitted_utr || "",
                           utr: payin?.utr || "",
                           method: payin?.method || "",
@@ -895,15 +895,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         Roles({
                           sno: String(payin?.sno), // Convert number to string
                           id: payin?.id || "", // Ensure id exists
-                          code: payin?.code,
+                          code: payin?.code || "",
                           confirmed: String(payin?.confirmed), // Convert boolean to string
                           payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
                           payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
                           amount: String(payin?.amount), // Convert number to string
-                          status: payin?.status,
-                          merchant_order_id: payin?.merchant_order_id,
-                          merchant_code: payin?.merchant_code,
-                          name: payin?.user,
+                          status: payin?.status || "",
+                          merchant_order_id: payin?.merchant_order_id || "",
+                          merchant_code: payin?.merchant_code || "",
+                          name: payin?.user || "",
                           user_submitted_utr: payin?.user_submitted_utr || "",
                           utr: payin?.utr || "",
                           method: payin?.method || "",
@@ -940,7 +940,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
 
                             <Menu.Items
                               className="w-40"
-                              onClick={() => setStatus && setStatus(payin?.status)}
+                              onClick={() => setStatus && setStatus(payin?.status || "")}
                             >
                               <Menu.Item>
                                 <Lucide
@@ -996,15 +996,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       Roles({
                         sno: String(faker?.sno), // Convert number to string
                         id: faker?.id || "", // Ensure id exists
-                        code: faker?.code,
+                        code: faker?.code || "",
                         confirmed: String(faker?.confirmed), // Convert boolean to string
                         payin_merchant_commission: String("0"), // Ensure commission exists
                         payin_vendor_commission: String("0"), // Ensure commission exists
                         amount: String(faker?.amount), // Convert number to string
-                        status: faker?.status,
+                        status: faker?.status || "",
                         merchant_order_id: faker?.merchant_order_id || "", // Ensure merchant_order_id exists
                         merchant_code: faker?.merchant_code || "", // Ensure merchant_code exists
-                        name: faker?.name,
+                        name: faker?.name || "",
                         user_submitted_utr: faker?.user_submitted_utr || "",
                         utr: faker?.utr || "",
                         method: faker?.method || "",
@@ -1093,9 +1093,9 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                             <Menu.Item
                               onClick={() => {
                                 setMerchantDetails({
-                                  name: faker?.name,
-                                  photo: faker?.photo,
-                                  code: faker?.code,
+                                  name: faker?.name || "",
+                                  photo: faker?.photo || "",
+                                  code: faker?.code || "",
                                   site: faker?.site || "",
                                   apikey: faker?.api_key || "",
                                   public_api_key: faker?.public_api_key || "",
@@ -1639,7 +1639,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                             alt="Tailwise - Admin Dashboard Template"
                             className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                             src={faker?.photo}
-                            content={faker?.name}
+                            content={faker?.name || ""}
                           />
                         </div>
                         <div className="ml-3.5">
@@ -1735,7 +1735,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                             alt="Tailwise - Admin Dashboard Template"
                             className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                             src={faker?.photo}
-                            content={faker?.name}
+                            content={faker?.name || ""}
                           />
                         </div>
                         <div className="ml-3.5">
@@ -1804,7 +1804,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                             alt="Tailwise - Admin Dashboard Template"
                             className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                             src={faker?.photo}
-                            content={faker?.name}
+                            content={faker?.name || ""}
                           />
                         </div>
                         <div className="ml-3.5">
@@ -1880,7 +1880,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                             alt="Tailwise - Admin Dashboard Template"
                             className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                             src={faker?.photo}
-                            content={faker?.name}
+                            content={faker?.name || ""}
                           />
                         </div>
                         <div className="ml-3.5">
@@ -1954,15 +1954,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     Roles({
                       sno: String(faker?.sno), // Convert number to string
                       id: faker?.id || "", // Ensure id exists
-                      code: faker?.code,
+                      code: faker?.code || "",
                       confirmed: String(faker?.confirmed), // Convert boolean to string
                       payin_merchant_commission: String("0"), // Ensure commission exists
                       payin_vendor_commission: String("0"), // Ensure commission exists
                       amount: String(faker?.amount), // Convert number to string
-                      status: faker?.status,
-                      merchant_order_id: faker?.merchant_order_id,
-                      merchant_code: faker?.merchant_code,
-                      name: faker?.name,
+                      status: faker?.status || "",
+                      merchant_order_id: faker?.merchant_order_id || "",
+                      merchant_code: faker?.merchant_code || "",
+                      name: faker?.name || "",
                       user_submitted_utr: faker?.user_submitted_utr || "",
                       utr: faker?.utr || "",
                       method: faker?.method || "",
@@ -1980,15 +1980,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     Roles({
                       sno: String(faker?.sno), // Convert number to string
                       id: faker?.id || "", // Ensure id exists
-                      code: faker?.code,
+                      code: faker?.code || "",
                       confirmed: String(faker?.confirmed), // Convert boolean to string
                       payin_merchant_commission: String("0"), // Ensure commission exists
                       payin_vendor_commission: String("0"), // Ensure commission exists
                       amount: String(faker?.amount), // Convert number to string
-                      status: faker?.status,
-                      merchant_order_id: faker?.merchant_order_id,
-                      merchant_code: faker?.merchant_code,
-                      name: faker?.name,
+                      status: faker?.status || "",
+                      merchant_order_id: faker?.merchant_order_id || "",
+                      merchant_code: faker?.merchant_code || "",
+                      name: faker?.name || "",
                       user_submitted_utr: faker?.user_submitted_utr || "",
                       utr: faker?.utr || "",
                       method: faker?.method || "",
@@ -2004,15 +2004,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     Roles({
                       sno: String(faker?.sno), // Convert number to string
                       id: faker?.id || "", // Ensure id exists
-                      code: faker?.code,
+                      code: faker?.code || "",
                       confirmed: String(faker?.confirmed), // Convert boolean to string
                       payin_merchant_commission: String("0"), // Ensure commission exists
                       payin_vendor_commission: String("0"), // Ensure commission exists
                       amount: String(faker?.amount), // Convert number to string
-                      status: faker?.status,
-                      merchant_order_id: faker?.merchant_order_id,
-                      merchant_code: faker?.merchant_code,
-                      name: faker?.name,
+                      status: faker?.status || "",
+                      merchant_order_id: faker?.merchant_order_id || "",
+                      merchant_code: faker?.merchant_code || "",
+                      name: faker?.name || "",
                       user_submitted_utr: faker?.user_submitted_utr || "",
                       utr: faker?.utr || "",
                       method: faker?.method || "",
@@ -2022,10 +2022,10 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     });
                   }}>
                     <div
-                      className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(faker?.status).color
+                      className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(faker?.status || "").color
                         }`}
                     >
-                      {getStatusStyles(faker?.status).icon as React.ReactNode}
+                      {getStatusStyles(faker?.status || "").icon as React.ReactNode}
                       {faker?.status}
                     </div>
                   </Table.Td>
@@ -2034,15 +2034,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     Roles({
                       sno: String(faker?.sno), // Convert number to string
                       id: faker?.id || "", // Ensure id exists
-                      code: faker?.code,
+                      code: faker?.code || "",
                       confirmed: String(faker?.confirmed), // Convert boolean to string
                       payin_merchant_commission: String("0"), // Ensure commission exists
                       payin_vendor_commission: String("0"), // Ensure commission exists
                       amount: String(faker?.amount), // Convert number to string
-                      status: faker?.status,
-                      merchant_order_id: faker?.merchant_order_id,
-                      merchant_code: faker?.merchant_code,
-                      name: faker?.name,
+                      status: faker?.status || "",
+                      merchant_order_id: faker?.merchant_order_id || "",
+                      merchant_code: faker?.merchant_code || "",
+                      name: faker?.name || "",
                       user_submitted_utr: faker?.user_submitted_utr || "",
                       utr: faker?.utr || "",
                       method: faker?.method || "",
@@ -2060,15 +2060,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     Roles({
                       sno: String(faker?.sno), // Convert number to string
                       id: faker?.id || "", // Ensure id exists
-                      code: faker?.code,
+                      code: faker?.code || "",
                       confirmed: String(faker?.confirmed), // Convert boolean to string
                       payin_merchant_commission: String("0"), // Ensure commission exists
                       payin_vendor_commission: String("0"), // Ensure commission exists
                       amount: String(faker?.amount), // Convert number to string
-                      status: faker?.status,
-                      merchant_order_id: faker?.merchant_order_id,
-                      merchant_code: faker?.merchant_code,
-                      name: faker?.name,
+                      status: faker?.status || "",
+                      merchant_order_id: faker?.merchant_order_id || "",
+                      merchant_code: faker?.merchant_code || "",
+                      name: faker?.name || "",
                       user_submitted_utr: faker?.user_submitted_utr || "",
                       utr: faker?.utr || "",
                       method: faker?.method || "",
@@ -2087,15 +2087,15 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     Roles({
                       sno: String(faker?.sno), // Convert number to string
                       id: faker?.id || "", // Ensure id exists
-                      code: faker?.code,
+                      code: faker?.code || "",
                       confirmed: String(faker?.confirmed), // Convert boolean to string
                       payin_merchant_commission: String("0"), // Ensure commission exists
                       payin_vendor_commission: String("0"), // Ensure commission exists
                       amount: String(faker?.amount), // Convert number to string
-                      status: faker?.status,
-                      merchant_order_id: faker?.merchant_order_id,
-                      merchant_code: faker?.merchant_code,
-                      name: faker?.name,
+                      status: faker?.status || "",
+                      merchant_order_id: faker?.merchant_order_id || "",
+                      merchant_code: faker?.merchant_code || "",
+                      name: faker?.name || "",
                       user_submitted_utr: faker?.user_submitted_utr || "",
                       utr: faker?.utr || "",
                       method: faker?.method || "",
@@ -2132,7 +2132,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         {faker?.status === "Initiated" ? (
                           <Menu.Items className="w-40">
                             <Menu.Item
-                              onClick={() => setApprove(!approve)}
+                              onClick={() => setApprove && setApprove(!approve)}
                             >
                               <Lucide icon="Check" className="w-4 h-4 mr-2" />{" "}
                               Approve
@@ -2256,7 +2256,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                           alt="Tailwise - Admin Dashboard Template"
                           className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                           src={faker?.photo}
-                          content={faker?.name}
+                          content={faker?.name || ""}
                         />
                       </div>
                       <div className="ml-3.5">
@@ -2334,25 +2334,25 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                           <Menu.Item onClick={() => {
                             openModal("Edit");
                             setVendorDetails({
-                              sno: faker.sno,
-                              code: faker.code,
+                              sno: faker.sno || 0,
+                              code: faker.code || "",
                               vendor_commission: 0,
                               created_date: faker.createdAt || "",
                               created_by: "",
-                              status: faker.status,
+                              status: faker.status || "",
                               action: "",
-                              confirmed: faker.confirmed,
-                              amount: faker.amount,
-                              merchant_order_id: faker.merchant_order_id,
-                              merchant_code: faker.merchant_code,
-                              photo: faker.photo,
-                              name: faker.name,
+                              confirmed: faker.confirmed || "",
+                              amount: faker.amount || "",
+                              merchant_order_id: faker.merchant_order_id || "",
+                              merchant_code: faker.merchant_code || "",
+                              photo: faker.photo || "",
+                              name: faker.name || "",
                               user_submitted_utr: faker.user_submitted_utr || "",
                               utr: faker.utr || "",
                               position: faker.position,
                               method: faker.method ?? "",
                               id: faker.id || "",
-                              updated_at: faker.updated_at
+                              updated_at: faker.updated_at || ""
                             });
                           }}
                           >
@@ -2393,7 +2393,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                           alt="Tailwise - Admin Dashboard Template"
                           className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                           src={faker?.photo}
-                          content={faker?.name}
+                          content={faker?.name || ""}
                         />
                       </div>
                       <div className="ml-3.5">

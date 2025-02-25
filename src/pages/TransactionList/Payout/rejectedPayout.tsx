@@ -24,19 +24,14 @@ interface Payout {
   updated_at: string;
   sno: number;
   code: string;
-  confirmed: boolean;
-  amount: number;
+  amount: string;
   status: string;
   merchant_order_id: string;
   merchant_code: string;
   photo: string;
   name: string;
   user: string;
-  payin_merchant_commission: string;
-  payin_vendor_commission: string;
-  user_submitted_utr: string;
   utr: string;
-  position?: string;
 }
 
 const RejectedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setReject}) => {

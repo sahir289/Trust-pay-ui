@@ -7,23 +7,25 @@ import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import CustomTable from "../../../components/TableComponent";
 
+
 import {
   FormInput,
   FormSelect,
 
 } from "@/components/Base/Form";
-// import _ from "lodash";
+
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   payins: Payins[];
 }
+
 export interface Payins {
   sno: number;
   code: string;
-  confirmed: boolean;
+  confirmed: string;
   payin_merchant_commission: string;
   payin_vendor_commission: string;
-  amount: number;
+  amount: string;
   status: string;
   merchant_order_id: string;
   merchant_code: string;

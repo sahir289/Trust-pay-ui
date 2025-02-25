@@ -16,10 +16,11 @@ interface PayinProps {
 export interface Payins {
   sno: number;
   code: string;
-  confirmed: boolean;
+  confirmed: string;
   payin_merchant_commission: string;
   payin_vendor_commission: string;
-  amount: number;
+  amount: string;
+  status: string;
   merchant_order_id: string;
   merchant_code: string;
   photo: string;
@@ -30,7 +31,6 @@ export interface Payins {
   method: string;
   id: string;
   updated_at: string;
-  status: string;
 }
 
 const DroppedPayin: React.FC<PayinProps> = ({setStatus, payins}) => {

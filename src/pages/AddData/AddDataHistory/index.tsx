@@ -9,13 +9,13 @@ import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import CustomTable from "@/components/TableComponent";
 export interface Transaction {
-  category: string;
+  // category: string;
   orderId: string;
-  user:string;
-  products:string[];
-  orderStatus: string;
+  // user:string;
+  // products:string[];
+  // orderStatus: string;
   orderDate: string;
-  amount: number;
+  amount: string;
 }
 function AddData() {
 
@@ -142,30 +142,7 @@ function AddData() {
             </div>
               <CustomTable
                 columns={transactionTableHeaders}
-                data={transactions.fakeTransactions().map((transaction, index) => ({
-                  sno: index + 1,
-                  code: transaction.orderId,
-                  confirmed: true, // or any appropriate value
-                  amount: Number(`${transaction.amount}`), // convert to number
-                  status: transaction.orderStatus.name, // convert to string
-                  merchant_order_id: transaction.orderId,
-                  merchant_code: "M123", // or any appropriate value
-                  photo: transaction.user.photo, // or any appropriate value
-                  name: transaction.user.name, // convert to string
-                  user_submitted_utr: "", // or any appropriate value
-                  utr: "", // or any appropriate value
-                  category: transaction.category,
-                  orderId: transaction.orderId,
-                  user: "",
-                  payin_merchant_commission: "0",
-                  payin_vendor_commission: "0", 
-                  products: transaction.products,
-                  orderStatus: transaction.orderStatus,
-                  orderDate: transaction.orderDate,
-                  method: "", // or any appropriate value
-                  id: "", // or any appropriate value
-                  updated_at: "" // or any appropriate value
-                }))}
+                data={transactions.fakeTransactions() as Transaction[]}
                 title={"Add Data"}
                 status={[""]}
                 setStatus={() => {}}
