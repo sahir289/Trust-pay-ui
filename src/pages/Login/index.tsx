@@ -90,7 +90,7 @@ function Main() {
             designation: userData?.designation_name,
             role: userData?.role_name,
           }));
-          sessionStorage.setItem("userSession", JSON.stringify(res?.data?.data?.session_id));
+          sessionStorage.setItem("userSession", JSON.stringify(res?.data?.data?.sessionId));
 
           navigate("layout/dashboard");
         }

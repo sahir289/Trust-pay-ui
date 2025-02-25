@@ -282,7 +282,7 @@ function Main() {
                       Profile Info
                     </Menu.Item> */}
                     <Menu.Item
-                      onClick={() => {logout}}
+                      onClick={() => {logout()}}
                     >
                       <Lucide icon="Power" className="w-4 h-4 mr-2" />
                       Logout

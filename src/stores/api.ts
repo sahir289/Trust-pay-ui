@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable no-undef */
 import axios, { AxiosError } from "axios";
 import { parseErrorFromAxios } from "../utils/helper";
@@ -8,7 +9,7 @@ const apiConfig = (flag = false) => {
     if (localStorage.getItem("accessToken")) {
         return {
             headers: {
-                Authorization: `bearer ${localStorage.getItem("accessToken")}`,
+                "x-auth-token": `${localStorage.getItem("accessToken")}`,
                 "Content-Type": flag ? "multipart/form-data" : "application/json",
             },
             method: "PUT,DELETE,POST,GET,OPTION",

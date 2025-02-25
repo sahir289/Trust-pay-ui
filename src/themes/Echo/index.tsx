@@ -80,7 +80,7 @@ function Main() {
   }, [sideMenuStore, location]);
 
   const logout = async () => {
-    const session_id = sessionStorage.getItem("UserSession");
+    const session_id = sessionStorage.getItem("userSession");
     if (session_id) {
       await postApi('/auth/logout', { session_id }, true);
       localStorage.removeItem("accessToken");
@@ -509,7 +509,7 @@ function Main() {
                       Profile Info
                     </Menu.Item> */}
                     <Menu.Item
-                      onClick={() => {logout}}
+                      onClick={() => {logout()}}
                     >
                       <Lucide icon="Power" className="w-4 h-4 mr-2" />
                       Logout

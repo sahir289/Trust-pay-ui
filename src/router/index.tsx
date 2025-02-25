@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { useRoutes, Navigate } from "react-router-dom";
-import { useAuth } from "../components/context/AuthContext";
+import { useRoutes } from "react-router-dom";
+// import { useAuth } from "../components/context/AuthContext";
 import ProtectedRoute from "../components/ProtectedRoute";
 import DashboardOverview1 from "../pages/DashboardOverview1";
 import Users from "../pages/Users";
@@ -24,7 +24,6 @@ import Unauthorized from "../pages/Unauthorized";
 import { Role } from "@/constants";
 
 function Router() {
-  const { userRole } = useAuth();
 
   const routes = [
     {
@@ -33,7 +32,7 @@ function Router() {
     },
     {
       path: "layout",
-      element: userRole ? <Layout /> : <Navigate to="/" />,
+      element: <Layout />,
       children: [
         {
           path: "dashboard",
