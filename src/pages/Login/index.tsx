@@ -1,13 +1,127 @@
+/* eslint-disable no-undef */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { FormCheck, FormInput, FormLabel } from "@/components/Base/Form";
 import Tippy from "@/components/Base/Tippy";
 import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
 import clsx from "clsx";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import React, { useState, useRef, useEffect } from "react";
+import { postApi } from "../../stores/api";
+import { jwtDecode } from "jwt-decode";
+import Lucide from "@/components/Base/Lucide";
+import Notification from "@/components/Base/Notification";
+import { NotificationElement } from "@/components/Base/Notification";
+
+interface CustomJwtPayload {
+  user_name: string;
+  designation: string;
+  role: string;
+  code: string[];
+  id: string;
+  session_id: string;
+}
 
 function Main() {
+  const { pathname } = useLocation();
+  const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    if (token) {
+      if (pathname === "/") {
+        navigate("/layout/dashboard");
+      }
+    } else {
+      // if (
+      //   !(
+      //     pathname === "/forgot-password" ||
+      //     pathname === "/reset-password" ||
+      //     pathname === "/on-boarding"
+      //   )
+      // ) {
+        logout();
+      // }
+    }
+  }, [pathname]);
+
+  // Basic non sticky notification
+  const basicNonStickyNotification = useRef<NotificationElement>();
+  const basicNonStickyNotificationToggle = () => {
+    // Show notification
+    basicNonStickyNotification.current?.showToast();
+  };
+
   const navigate = useNavigate();
+
+  const INITIAL_LOGIN_OBJ = {
+    username: "",
+    password: "",
+    rememberMe: false,
+  };
+
+  const [loginObj, setLoginObj] = useState(INITIAL_LOGIN_OBJ);
+  const [notificationMessage, setNotificationMessage] = useState("");
+
+  const updateFormValue = ({ updateType, value }: { updateType: string; value: string | boolean }) => {
+    setLoginObj({ ...loginObj, [updateType]: value });
+  };
+
+  const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (loginObj.username.trim() === "") {
+      setNotificationMessage("UserName is required!");
+      basicNonStickyNotificationToggle();
+    }
+    else if (loginObj.password.trim() === "") {
+      setNotificationMessage("Password is required!");
+      basicNonStickyNotificationToggle();
+    }
+    else {
+      delete (loginObj as { rememberMe?: boolean }).rememberMe;
+      await postApi('/auth/login', loginObj, false).then((res) => {
+        if (res?.data?.data?.accessToken) {
+          localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+          const userData = jwtDecode<CustomJwtPayload>(res?.data?.data?.accessToken);
+
+          localStorage.setItem("userData", JSON.stringify({
+            name: userData?.user_name,
+            designation: userData?.designation,
+            role: userData?.role,
+          }));
+          sessionStorage.setItem("userSession", JSON.stringify(res?.data?.data?.sessionId));
+
+          navigate("layout/dashboard");
+        }
+        else {
+          if (res?.error?.error?.status === 404) {
+            setNotificationMessage(res?.error?.message === "User not found" ? "Wrong credentials" : res?.error?.message);
+            basicNonStickyNotificationToggle();
+          }
+          else {
+            setNotificationMessage("Fail to login");
+            basicNonStickyNotificationToggle();
+          }
+        }
+      }).catch((err) => {
+        setNotificationMessage(err?.response?.data?.error?.message);
+        basicNonStickyNotificationToggle();
+      })
+    }
+  };
+
+  const logout = async () => {
+    const session_id = sessionStorage.getItem("UserSession");
+    if (session_id) {
+      await postApi('/auth/logout', { session_id }, true);
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userData");
+      sessionStorage.removeItem("userSession");
+      navigate("/");
+    }
+  };
+
   return (
     <>
       <div className="container grid lg:h-screen grid-cols-12 lg:max-w-[1550px] 2xl:max-w-[1750px] py-10 px-5 sm:py-14 sm:px-10 md:px-36 lg:py-0 lg:pl-14 lg:pr-12 xl:px-24">
@@ -36,51 +150,54 @@ function Main() {
                 </a>
               </div>
               <div className="mt-6">
-                <FormLabel>Email*</FormLabel>
-                <FormInput
-                  type="text"
-                  className="block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80"
-                  placeholder={users.fakeUsers()[0]?.email}
-                />
-                <FormLabel className="mt-4">Password*</FormLabel>
-                <FormInput
-                  type="password"
-                  className="block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80"
-                  placeholder="************"
-                />
-                <div className="flex mt-4 text-xs text-slate-500 sm:text-sm">
-                  <div className="flex items-center mr-auto">
-                    <FormCheck.Input
-                      id="remember-me"
-                      type="checkbox"
-                      className="mr-2.5 border"
-                    />
-                    <label
-                      className="cursor-pointer select-none"
-                      htmlFor="remember-me"
-                    >
-                      Remember me
-                    </label>
+                <form onSubmit={submitForm} className="mt-6 space-y-4">
+                  <FormLabel>UserName<span className="text-danger">*</span></FormLabel>
+                  <FormInput
+                    type="text"
+                    className="block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80"
+                    placeholder={"Enter your username"}
+                    value={loginObj.username}
+                    onChange={(e) => updateFormValue({ updateType: 'username', value: e.target.value })}
+                    required
+                  />
+                  <FormLabel className="mt-4">Password<span className="text-danger">*</span></FormLabel>
+                  <FormInput
+                    type="password"
+                    className="block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80"
+                    placeholder="************"
+                    value={loginObj.password}
+                    onChange={(e) => updateFormValue({ updateType: 'password', value: e.target.value })}
+                    required
+                  />
+                  <div className="flex mt-4 text-xs text-slate-500 sm:text-sm">
+                    <div className="flex items-center mr-auto">
+                      <FormCheck.Input
+                        id="remember-me"
+                        type="checkbox"
+                        className="mr-2.5 border"
+                        checked={loginObj.rememberMe}
+                        onChange={(e) => updateFormValue({ updateType: 'rememberMe', value: e.target.value })}
+                      />
+                      <label
+                        className="cursor-pointer select-none"
+                        htmlFor="remember-me"
+                      >
+                        Remember me
+                      </label>
+                    </div>
+                    <a href="">Forgot Password?</a>
                   </div>
-                  <a href="">Forgot Password?</a>
-                </div>
-                <div className="mt-5 text-center xl:mt-8 xl:text-left">
-                  <Button
-                    variant="primary"
-                    rounded
-                    onClick={() => navigate("/layout/dashboard-overview-1")}
-                    className="bg-gradient-to-r from-theme-1/70 to-theme-2/70 w-full py-3.5 xl:mr-3 dark:border-darkmode-400"
-                  >
-                    Sign In
-                  </Button>
-                  <Button
-                    variant="outline-secondary"
-                    rounded
-                    className="bg-white/70 w-full py-3.5 mt-3 dark:bg-darkmode-400"
-                  >
-                    Sign Up
-                  </Button>
-                </div>
+                  <div className="mt-5 text-center xl:mt-8 xl:text-left">
+                    <Button
+                      variant="primary"
+                      rounded
+                      className="bg-gradient-to-r from-theme-1/70 to-theme-2/70 w-full py-3.5 xl:mr-3 dark:border-darkmode-400"
+                    // loading={loading ? <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} /> : ""}
+                    >
+                      Sign In
+                    </Button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -93,7 +210,8 @@ function Main() {
             "after:bg-white after:hidden after:lg:block after:content-[''] after:absolute after:right-0 after:inset-y-0 after:bg-gradient-to-b after:from-white after:to-slate-100/80 after:w-[800%] after:rounded-[0_1.2rem_1.2rem_0/0_1.7rem_1.7rem_0] dark:after:bg-darkmode-600 dark:after:from-darkmode-600 dark:after:to-darkmode-600",
             "before:content-[''] before:hidden before:lg:block before:absolute before:right-0 before:inset-y-0 before:my-6 before:bg-gradient-to-b before:from-white/10 before:to-slate-50/10 before:bg-white/50 before:w-[800%] before:-mr-4 before:rounded-[0_1.2rem_1.2rem_0/0_1.7rem_1.7rem_0] dark:before:from-darkmode-300 dark:before:to-darkmode-300",
           ])}
-        ></div>
+        >
+        </div>
         <div
           className={clsx([
             "h-full col-span-7 2xl:col-span-8 lg:relative",
@@ -157,6 +275,25 @@ function Main() {
           </div>
         </div>
       </div>
+      {notificationMessage}
+      {notificationMessage && (
+        <div className="text-center">
+          {/* BEGIN: Basic Non Sticky Notification Content */}
+          <Notification getRef={(el) => {
+            basicNonStickyNotification.current = el;
+          }}
+            options={{
+              duration: 3000,
+            }}
+            className="flex flex-col sm:flex-row"
+          >
+            <Lucide icon="X" className="text-danger" />
+            <div className="font-medium ml-4 mr-4">
+              <div className="font-medium">{notificationMessage}</div>
+            </div>
+          </Notification>
+        </div>
+      )}
       <ThemeSwitcher />
     </>
   );

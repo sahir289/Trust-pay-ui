@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { createSlice } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import { icons } from "@/components/Base/Lucide";
@@ -20,7 +21,7 @@ const initialState: SideMenuState = {
     "DASHBOARDS",
     {
       icon: "LayoutDashboard",
-      pathname: "/layout/dashboard-overview-1",
+      pathname: "/layout/dashboard",
       title: "Dashboard",
     },
     "TRANSACTIONS",
@@ -63,14 +64,30 @@ const initialState: SideMenuState = {
       pathname: "/layout/chargeback",
       title: "ChargeBacks",
     },
-    "BANK ACCOUNTS",
+    "BANK Details",
     {
       icon: "Landmark",
       pathname: "/layout/bankaccounts",
-      title: "Bank Accounts",
+      title: "Bank Details",
     },
-   
-    "ROLES & RESPONSIBILITIES",
+    "USERS",
+    {
+      icon: "Users",
+      pathname: "/layout/users",
+      title: "Users",
+    },
+    "CLIENTS",
+    {
+      icon: "CreditCard",
+      pathname: "/layout/merchants",
+      title: "Merchants",
+    },
+    {
+      icon: "Store",
+      pathname: "/layout/vendors",
+      title: "Vendors",
+    },
+    "ROLES & DESIGNATIONS",
     {
       icon: "CircleUserRound",
       pathname: "/layout/roles",
@@ -79,7 +96,7 @@ const initialState: SideMenuState = {
     {
       icon: "UserCog",
       pathname: "/layout/designation",
-      title: "Designation",
+      title: "Designations",
     },
     "DATA ENTRIES",
     {
@@ -87,13 +104,18 @@ const initialState: SideMenuState = {
       pathname: "/layout/add-data",
       title: "Data Entries",
     },
-   
-    "CHAT SUPPORT",
+    "ACCOUNT REPORTS",
     {
-      icon: "MailOpen",
-      pathname: "/layout/chat",
-      title: "Chat",
+      icon: "SquareUser",
+      pathname: "/layout/reports",
+      title: "Account Report",
     },
+    // "CHAT SUPPORT",
+    // {
+    //   icon: "MailOpen",
+    //   pathname: "/layout/chat",
+    //   title: "Chat",
+    // },
   ],
 };
 

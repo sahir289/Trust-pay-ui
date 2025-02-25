@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-/* eslint-disable no-console */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import Hurricane from "../themes/Hurricane";

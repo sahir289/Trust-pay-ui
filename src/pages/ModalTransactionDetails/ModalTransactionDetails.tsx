@@ -34,28 +34,26 @@ interface ModalProps {
 
 const ModalTransactionDetails: React.FC<ModalProps> = ({ handleModal, transaction }) => {
     return (
-        
         <Dialog open={true} onClose={handleModal}>
             <Dialog.Panel>
                 <Dialog.Title>
-                    <h2 className="mr-auto text-base font-medium">{transaction.sno}. Transaction Detail</h2>
+                    <h2 className="mr-auto text-base font-medium">Transaction Detail</h2>
                     <Lucide icon="X" className="w-5 h-5 ml-px stroke-[3]" onClick={handleModal} />
                 </Dialog.Title>
 
-                <div className="col-span-12 sm:col-span-6 mx-5 my-6 flex justify-between">
+                <div className="col-span-12 sm:col-span-6 mx-5 my-4 flex justify-between">
                     <FormLabel>Transaction Id:</FormLabel>
                     <FormLabel>{transaction.id}</FormLabel>
                 </div>
-                <fieldset className="border-2 rounded-lg border-gray-200 mx-5 my-2 pb-4">
+                <fieldset className="border-2 rounded-lg border-gray-200 mx-5">
                     <legend className="ml-5 pt-1 px-1">Merchant Details</legend>
-                    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
+                    <Dialog.Description className="grid grid-cols-12 gap-4">
                         <div className="col-span-12 sm:col-span-6">
                             <FormLabel>Code: {transaction.merchant_code}</FormLabel>
                         </div>
                         <div className="col-span-12 sm:col-span-6">
                             <FormLabel>Name: {transaction.name}</FormLabel>
-                        </div>
-                        
+                        </div> 
                     </Dialog.Description>
                 </fieldset>
 
@@ -102,8 +100,6 @@ const ModalTransactionDetails: React.FC<ModalProps> = ({ handleModal, transactio
                         <div className="col-span-12 sm:col-span-6">
                             <FormLabel>Duration: {transaction.duration}</FormLabel>
                         </div>
-                    </Dialog.Description>
-                    <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
                         <div className="col-span-12 sm:col-span-6">
                             <FormLabel>Bank: {transaction.bank}</FormLabel>
                         </div>

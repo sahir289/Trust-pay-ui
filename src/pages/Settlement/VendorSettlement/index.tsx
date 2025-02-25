@@ -22,12 +22,12 @@ import CustomTable from "@/components/TableComponent";
 
 function VendorSettlement() {
   const tableHeaders: string[] = [
-    "Customer Name",
-    "Transaction ID",
-    "Status",
+    "SNO.",
     "Amount",
-    "Date",
-    "Action"
+    "Status",
+    "Vendor",
+    "Bank Details",
+    "Action",
   ];
 
   return (

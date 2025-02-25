@@ -20,6 +20,7 @@ export interface Transaction {
 function AddData() {
 
   const transactionTableHeaders: string[] = [
+    "SNO.",
     "Customer Name",
     "Transaction ID",
     "Status",

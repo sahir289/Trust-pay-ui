@@ -41,19 +41,11 @@ const DroppedPayin: React.FC<PayinProps> = () => {
   // const [selectedUser, setSelectedUser] = useState("1");
   const theadData: string[] = [
     "SNO",
-    "Code",
-    
-    "Confirmed",
     "Amount",
     "Status",
-    "Merchant Order ID",
     "Merchant",
-    "User",
     "User Submitted UTR",
     "UTR",
-    "Method",
-    "Payin ID",
-    "Updated AT",
     "Image",
     "Action"
   ];

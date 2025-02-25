@@ -203,6 +203,15 @@ const slideDown = (
   }, duration);
 };
 
+import { AxiosError } from "axios";
+
+const parseErrorFromAxios = (err: AxiosError<{ error?: { message?: string }; message?: string }>) => {
+  return {
+    error: err,
+    message: err?.response?.data?.error?.message || err?.response?.data?.message || err?.message || "Unknown Error",
+  };
+}
+
 export {
   cutText,
   formatDate,
@@ -218,4 +227,5 @@ export {
   stringToHTML,
   slideUp,
   slideDown,
+  parseErrorFromAxios,
 };

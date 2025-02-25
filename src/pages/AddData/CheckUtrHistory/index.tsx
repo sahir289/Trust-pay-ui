@@ -18,6 +18,7 @@ export interface Transaction {
 }
 function CheckUtrHistory() {
   const transactionTableHeaders: string[] = [
+    "SNO.",
     "Customer Name",
     "Transaction ID",
     "Status",

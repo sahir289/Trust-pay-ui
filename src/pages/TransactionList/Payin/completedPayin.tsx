@@ -41,25 +41,15 @@ const CompletedPayin: React.FC<PayinProps> = () => {
   // const [selectedUser, setSelectedUser] = useState("1");
   const theadData: string[] = [
     "SNO",
-    "Code",
-    
-    "Confirmed",
-    "Commission",
     "Amount",
+    "Commission",
     "Status",
-    "Merchant Order ID",
     "Merchant",
-    "User",
     "User Submitted UTR",
     "UTR",
-    "Method",
-    "Payin ID",
-    "Updated AT",
     "Image",
     "Action"
   ];
-
-
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">

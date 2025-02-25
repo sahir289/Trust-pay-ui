@@ -16,10 +16,10 @@ interface PayinProps {
   approve: boolean; // Expecting a boolean prop to control modal reset
   setApprove: React.Dispatch<React.SetStateAction<boolean>>
 }
+
 interface Payout {
   method: string;
   id: string;
-  
   updated_at: string;
   sno: number;
   code: string;
@@ -34,26 +34,17 @@ interface Payout {
   utr: string;
   position?: string;
 }
-const AllPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setReject}) => {
 
+const AllPayout: React.FC<PayinProps> = ({ approve, setApprove, reject, setReject }) => {
   const tableHeaders: string[] = [
     "SNO.",
-    "Merchant Order ID",
-    
-    "Merchant",
-    "Bank Details",
     "Amount",
     "Status",
-    "UTR",
-    "User",
-    "Method",
+    "Merchant",
     "Vendor",
-    "From Bank",
-    "Payout ID",
-    "Last Updated",
+    "Bank Details",
     "Action",
   ];
-
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -166,7 +157,7 @@ const AllPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setReject
                 </Popover>
               </div>
             </div>
-            <CustomTable columns={tableHeaders} approve={approve} setApprove={setApprove} reject={reject} setReject={setReject} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Success", "Rejected", "Initiated"]} setStatus={() => {}} />
+            <CustomTable columns={tableHeaders} approve={approve} setApprove={setApprove} reject={reject} setReject={setReject} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Success", "Rejected", "Initiated"]} setStatus={() => { }} />
           </div>
         </div>
       </div>

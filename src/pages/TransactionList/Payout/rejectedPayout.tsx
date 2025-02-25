@@ -10,16 +10,17 @@ import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import payouts from "@/fakers/payouts";
 import CustomTable from "../../../components/TableComponent";
+
 interface PayinProps {
   reject: boolean; // Expecting a boolean prop to control modal reset
   setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
   approve: boolean; // Expecting a boolean prop to control modal reset
   setApprove: React.Dispatch<React.SetStateAction<boolean>>
 }
+
 interface Payout {
   method: string;
   id: string;
-  
   updated_at: string;
   sno: number;
   code: string;
@@ -34,24 +35,16 @@ interface Payout {
   utr: string;
   position?: string;
 }
-const RejectedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setReject}) => {
 
+const RejectedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setReject}) => {
   const tableHeaders = [
     "SNO.",
-    "Merchant Order ID",
-    
-    "Merchant",
-    "Bank Details",
     "Amount",
     "Status",
-    "UTR",
-    "User",
-    "Method",
+    "Merchant",
     "Vendor",
-    "From Bank",
-    "Payout ID",
-    "Last Updated",
-    "Action"
+    "Bank Details",
+    "Action",
   ];
 
   return (

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-undef */
 import "@/assets/css/vendors/simplebar.css";
 import "@/assets/css/themes/dagger.css";
 import { Transition } from "react-transition-group";
@@ -16,10 +18,11 @@ import users from "@/fakers/users";
 import clsx from "clsx";
 import SimpleBar from "simplebar";
 import { Menu } from "@/components/Base/Headless";
-import QuickSearch from "@/components/QuickSearch";
+// import QuickSearch from "@/components/QuickSearch";
 import SwitchAccount from "@/components/SwitchAccount";
 import NotificationsPanel from "@/components/NotificationsPanel";
 import ActivitiesPanel from "@/components/ActivitiesPanel";
+import { postApi } from "@/stores/api";
 
 function Main() {
   const dispatch = useAppDispatch();
@@ -28,7 +31,7 @@ function Main() {
     localStorage.setItem("compactMenu", val.toString());
     dispatch(setCompactMenuStore(val));
   };
-  const [quickSearch, setQuickSearch] = useState(false);
+  // const [quickSearch, setQuickSearch] = useState(false);
   const [switchAccount, setSwitchAccount] = useState(false);
   const [notificationsPanel, setNotificationsPanel] = useState(false);
   const [activitiesPanel, setActivitiesPanel] = useState(false);
@@ -73,6 +76,17 @@ function Main() {
       compactLayout();
     };
   }, [sideMenuStore, location]);
+
+  const logout = async () => {
+    const session_id = sessionStorage.getItem("UserSession");
+    if (session_id) {
+      await postApi('/auth/logout', { session_id }, true);
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("userData");
+      sessionStorage.removeItem("userSession");
+      navigate("/");
+    }
+  };
 
   return (
     <div
@@ -141,7 +155,7 @@ function Main() {
                 className="p-2 rounded-full hover:bg-slate-100"
                 onClick={(e) => {
                   e.preventDefault();
-                  setQuickSearch(true);
+                  // setQuickSearch(true);
                 }}
               >
                 <Lucide icon="Search" className="w-[18px] h-[18px]" />
@@ -154,13 +168,13 @@ function Main() {
               <Breadcrumb light className="flex-1 hidden xl:block">
                 <Breadcrumb.Link
                   className="dark:before:bg-chevron-white"
-                  to="/layout/dashboard-overview-1"
+                  to="/layout/dashboard"
                 >
                   Dashboard
                 </Breadcrumb.Link>
                 <Breadcrumb.Link
                   className="dark:before:bg-chevron-white"
-                  to="/layout/dashboard-overview-1"
+                  to="/layout/dashboard"
                   active={true}
                 >
                   Analytics
@@ -168,7 +182,7 @@ function Main() {
               </Breadcrumb>
               {/* END: Breadcrumb */}
               {/* BEGIN: Search */}
-              <div
+              {/* <div
                 className="relative justify-center flex-1 hidden xl:flex"
                 onClick={() => setQuickSearch(true)}
               >
@@ -181,12 +195,12 @@ function Main() {
               <QuickSearch
                 quickSearch={quickSearch}
                 setQuickSearch={setQuickSearch}
-              />
+              /> */}
               {/* END: Search */}
               {/* BEGIN: Notification & User Menu */}
               <div className="flex items-center flex-1">
                 <div className="flex items-center gap-1 ml-auto">
-                  <a
+                  {/* <a
                     href=""
                     className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-darkmode-400"
                     onClick={(e) => {
@@ -195,7 +209,7 @@ function Main() {
                     }}
                   >
                     <Lucide icon="LayoutGrid" className="w-[18px] h-[18px]" />
-                  </a>
+                  </a> */}
                   <a
                     href=""
                     className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-darkmode-400"
@@ -206,7 +220,7 @@ function Main() {
                   >
                     <Lucide icon="Expand" className="w-[18px] h-[18px]" />
                   </a>
-                  <a
+                  {/* <a
                     href=""
                     className="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-darkmode-400"
                     onClick={(e) => {
@@ -215,7 +229,7 @@ function Main() {
                     }}
                   >
                     <Lucide icon="Bell" className="w-[18px] h-[18px]" />
-                  </a>
+                  </a> */}
                 </div>
                 <Menu className="ml-5">
                   <Menu.Button className="overflow-hidden rounded-full w-[36px] h-[36px] border-[3px] border-slate-200/70 image-fit">
@@ -225,7 +239,7 @@ function Main() {
                     />
                   </Menu.Button>
                   <Menu.Items className="w-56 mt-1">
-                    <Menu.Item
+                    {/* <Menu.Item
                       onClick={() => {
                         setSwitchAccount(true);
                       }}
@@ -233,8 +247,8 @@ function Main() {
                       <Lucide icon="ToggleLeft" className="w-4 h-4 mr-2" />
                       Switch Account
                     </Menu.Item>
-                    <Menu.Divider />
-                    <Menu.Item
+                    <Menu.Divider /> */}
+                    {/* <Menu.Item
                       onClick={() => {
                         navigate("settings?page=connected-services");
                       }}
@@ -249,7 +263,7 @@ function Main() {
                     >
                       <Lucide icon="Inbox" className="w-4 h-4 mr-2" />
                       Email Settings
-                    </Menu.Item>
+                    </Menu.Item> */}
                     <Menu.Item
                       onClick={() => {
                         navigate("settings?page=security");
@@ -259,18 +273,16 @@ function Main() {
                       Reset Password
                     </Menu.Item>
                     <Menu.Divider />
-                    <Menu.Item
+                    {/* <Menu.Item
                       onClick={() => {
                         navigate("settings");
                       }}
                     >
                       <Lucide icon="Users" className="w-4 h-4 mr-2" />
                       Profile Info
-                    </Menu.Item>
+                    </Menu.Item> */}
                     <Menu.Item
-                      onClick={() => {
-                        navigate("login");
-                      }}
+                      onClick={() => {logout()}}
                     >
                       <Lucide icon="Power" className="w-4 h-4 mr-2" />
                       Logout

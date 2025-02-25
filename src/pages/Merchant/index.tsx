@@ -42,9 +42,6 @@ function Main(): JSX.Element {
     const tableHeaders: string[] = [
         "Sub Merchants",
         "Code",
-        "Site",
-        "API Key",
-        "Public API Key",
         "Balance",
         "PayIn Range",
         "PayIn Commission",
@@ -52,15 +49,10 @@ function Main(): JSX.Element {
         "PayOut Commission",
         "Test Mode",
         "Allow Intent",
-        "Created at (IST)",
         "Actions",
     ];
     return (
         <div className="grid grid-cols-12 gap-y-10 gap-x-6">
-           
-      
-
-
             <div className="col-span-12">
                 <div className="flex flex-col md:h-10 gap-y-3 md:items-center md:flex-row">
                     <div className="text-base font-medium group-[.mode--light]:text-white">
@@ -242,7 +234,8 @@ function Main(): JSX.Element {
                                 </Popover>
                             </div>
                         </div>
-                        <CustomTable columns={tableHeaders}
+                        <CustomTable 
+                            columns={tableHeaders}
                             data={merchants.fakeMerchants().map((merchant, index) => ({
                                 sno: index + 1,
                                 code: merchant.code,
@@ -276,8 +269,19 @@ function Main(): JSX.Element {
                                     test_mode: sub.test_mode === "true",
                                     allow_intent: sub.allow_intent === "true",
                                 }))
-                            }))} approve={false} setApprove={()=>{}} reject={false} setReject={()=>{}} title={"Merchants"} status={[]} editModal={editModal.toString()} setEditModal={() => setEditModal(!editModal)} setStatus={()=>{}} expandedRow={expandedRow ?? 20} handleRowClick={(index: number) => handleRowClick(index)} />
-
+                            }))} 
+                            approve={false} 
+                            setApprove={() => { }} 
+                            reject={false} 
+                            setReject={() => { }} 
+                            title={"Merchants"} 
+                            status={[]} 
+                            editModal={editModal.toString()} 
+                            setEditModal={() => setEditModal(!editModal)} 
+                            setStatus={() => { }} 
+                            expandedRow={expandedRow ?? 20} 
+                            handleRowClick={(index: number) => handleRowClick(index)}
+                        />
                     </div>
                 </div>
             </div>

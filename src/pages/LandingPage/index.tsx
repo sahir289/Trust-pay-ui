@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import "@/assets/css/pages/landing-page.css";
 import Lucide, { icons } from "@/components/Base/Lucide";
 import { Menu } from "@/components/Base/Headless";
@@ -125,7 +126,7 @@ function Main() {
         {
           name: "E-Commerce",
           pathname: "/",
-          image: "dashboard-overview-1",
+          image: "dashboard",
         },
         {
           name: "CRM",
