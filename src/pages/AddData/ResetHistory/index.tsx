@@ -21,6 +21,7 @@ export interface Transaction {
 function ResetHistory() {
 
   const transactionTableHeaders: string[] = [
+    "SNO.",
     "Customer Name",
     "Transaction ID",
     "Status",

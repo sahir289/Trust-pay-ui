@@ -36,18 +36,14 @@ function Main(): JSX.Element {
     setNewUserModal((prev) => !prev);
   };
 
-
   const tableHeaders: string[] = [
+    "SNO.",
     "Account Name",
-    "Bank Details",
-    "Account Number",
     "UPI ID",
     "Limits",
     "Balance",
     "Bank Used For",
     "Vendors",
-    "Created at(IST)",
-    "Last Scheduled at (IST)",
     "Allow Intent?",
     "Allow QR?",
     "Allow PhonePay",
