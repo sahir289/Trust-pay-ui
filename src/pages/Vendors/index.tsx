@@ -2,7 +2,6 @@
 import Lucide from "@/components/Base/Lucide";
 import { FormInput,} from "@/components/Base/Form";
 import users from "@/fakers/users";
-import _ from "lodash";
 import Modal from "../Modal/modal";
 import CustomTable from "@/components/TableComponent";
 import { useState,useRef } from "react";
@@ -20,6 +19,9 @@ export interface User {
   merchant_code: string;
   photo: string;
   name: string;
+  user: string;
+  payin_merchant_commission: string;
+  payin_vendor_commission: string;
   user_submitted_utr: string;
   utr: string;
   position?: string;

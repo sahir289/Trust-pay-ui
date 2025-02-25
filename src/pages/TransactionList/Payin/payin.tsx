@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React, { useEffect } from "react";
+import React from "react";
 import { Tab } from "@/components/Base/Headless";
 import AllPayin from "./allPayin";
 import CompletedPayin from "./completedPayin";
 import InProgressPayin from "./inProgressPayin";
 import DroppedPayin from "./droppedPayin";
 import Lucide from "@/components/Base/Lucide";
-import { getApi } from "@/stores/api";
+
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   payins: Payins[];
@@ -16,12 +16,15 @@ export interface Payins {
   sno: number;
   code: string;
   confirmed: boolean;
+  payin_merchant_commission: string;
+  payin_vendor_commission: string;
   amount: number;
   status: string;
   merchant_order_id: string;
   merchant_code: string;
   photo: string;
   name: string;
+  user: string;
   user_submitted_utr: string;
   utr: string;
   method: string;
@@ -29,26 +32,7 @@ export interface Payins {
   updated_at: string;
 }
 
-const Payin: React.FC<PayinProps> = ({ setStatus }) => {
-  const [payins, setPayins] = React.useState<Payins[]>([]);
-  const [params, setParams] = React.useState<{ [key: string]: string }>({});
-
-  useEffect(() => {
-    getPayinData();
-  }, [params]);
-
-  const getPayinData = async () => {
-    if (!params) {
-      setParams({
-        page: "1",
-        limit: "10",
-      })
-    }
-    const response = await getApi('/payIn', params, true);
-    if (response?.data?.data) {
-      setPayins(response?.data?.data);
-    }
-  }
+const Payin: React.FC<PayinProps> = ({ setStatus, payins }) => {
   return (
     <div className="flex flex-col p-5 ">
      <>

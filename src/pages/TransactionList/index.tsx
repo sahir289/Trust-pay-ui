@@ -1,12 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Tab } from "@/components/Base/Headless";
-import Payin from "./Payin/payin";
+import Payin, { Payins } from "./Payin/payin";
 import Payout from "./Payout/payout";
 import Modal from "@/pages/Modal/modal";
 
 import Lucide from "@/components/Base/Lucide";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ModalPopUp from "../ModalPopUp";
+import { getApi } from "@/stores/api";
+import React from "react";
+
 function Main() {
   const [newTransactionModal, setNewTransactionModal] = useState(false);
   const [title, setTitle] = useState("Payins")
@@ -30,6 +36,28 @@ function Main() {
     setStatus("")
 
   }
+
+
+  const [payins, setPayins] = React.useState<Payins[]>([]);
+  const [params, setParams] = React.useState<{ [key: string]: string }>({});
+
+  useEffect(() => {
+    getPayinData();
+  }, [params]);
+
+  const getPayinData = async () => {
+    if (!params) {
+      setParams({
+        page: "1",
+        limit: "10",
+      })
+    }
+    const response = await getApi('/payIn', params, true);
+    if (response?.data?.data) {
+      setPayins(response?.data?.data);
+    }
+  }
+
   return (
     <>
       <div className="flex flex-col h-10 w-full px-2">
@@ -141,7 +169,7 @@ function Main() {
                 </Tab.List>
                 <Tab.Panels className="border-b border-l border-r">
                   <Tab.Panel className="p-5 leading-relaxed">
-                    <Payin setStatus={setStatus} />
+                    <Payin setStatus={setStatus} payins={payins} />
                   </Tab.Panel>
                   <Tab.Panel className="p-5 leading-relaxed">
                     <Payout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove} />

@@ -158,7 +158,9 @@ function VendorSettlement() {
                   utr: "", // or any appropriate value
                   category: transaction.category,
                   orderId: transaction.orderId,
-                  user: transaction.user,
+                  user: "",
+                  payin_merchant_commission: "0",
+                  payin_vendor_commission: "0", 
                   products: transaction.products,
                   orderStatus: transaction.orderStatus,
                   orderDate: transaction.orderDate,
