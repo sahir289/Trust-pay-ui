@@ -19,7 +19,6 @@ interface PayinProps {
 }
 export interface Payins {
   sno: number;
-  
   code: string;
   confirmed: boolean;
   amount: number;
@@ -39,19 +38,11 @@ const AllPayin: React.FC<PayinProps> = ({ setStatus }) => {
   // const [selectedUser, setSelectedUser] = useState("1");
   const theadData: string[] = [
     "SNO",
-    "Code",
-    
-    "Confirmed",
     "Amount",
     "Status",
-    "Merchant Order ID",
     "Merchant",
-    "User",
     "User Submitted UTR",
     "UTR",
-    "Method",
-    "Payin ID",
-    "Updated AT",
     "Image",
     "Action"
   ];
@@ -62,8 +53,6 @@ const AllPayin: React.FC<PayinProps> = ({ setStatus }) => {
           <div className="flex flex-col">
             <div className="flex flex-col py-5 sm:items-center sm:flex-row gap-y-2 mx-3">
               <div>
-
-
                 <div className="relative">
                   <Lucide
                     icon="Search"
@@ -168,17 +157,16 @@ const AllPayin: React.FC<PayinProps> = ({ setStatus }) => {
                 </Popover>
               </div>
             </div>
-            <CustomTable 
-            
-              columns={theadData} 
-              data={payins.fakePayins() as unknown as Payins[]} 
-              title={"Payins"} 
-              status={['Pending', 'Duplicate', 'Dispute', 'Bank Mismatch', 'Image Pending', 'Assigned', 'Initiated', 'Success', 'Dropped', 'Failled']} 
+            <CustomTable
+              columns={theadData}
+              data={payins.fakePayins() as unknown as Payins[]}
+              title={"Payins"}
+              status={['Pending', 'Duplicate', 'Dispute', 'Bank Mismatch', 'Image Pending', 'Assigned', 'Initiated', 'Success', 'Dropped', 'Failled']}
               setStatus={setStatus}
-              approve={false} 
-              setApprove={() => {}} 
-              reject={false} 
-              setReject={() => {}} 
+              approve={false}
+              setApprove={() => { }}
+              reject={false}
+              setReject={() => { }}
             />
           </div>
         </div>

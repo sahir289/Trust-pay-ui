@@ -1,4 +1,3 @@
-import _ from "lodash";
 export interface subMerchant {
   name: string;
   code: string;

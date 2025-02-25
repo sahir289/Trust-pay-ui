@@ -20,12 +20,12 @@ export interface Transaction {
 function MerchantSettlement() {
   // const [selectedUser, setSelectedUser] = useState("1");
   const tableHeaders: string[] = [
-    "Customer Name",
-    "Transaction ID",
-    "Status",
+    "SNO.",
     "Amount",
-    "Date",
-    "Action"
+    "Status",
+    "Merchant",
+    "Bank Details",
+    "Action",
   ];
 
   return (

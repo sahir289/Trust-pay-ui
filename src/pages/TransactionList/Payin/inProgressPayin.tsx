@@ -17,10 +17,8 @@ interface PayinProps {
 export interface Payins {
   sno: number;
   code: string;
-  
   confirmed: boolean;
   amount: number;
-
   merchant_order_id: string;
   merchant_code: string;
   photo: string;
@@ -37,19 +35,11 @@ const InProgressPayin: React.FC<PayinProps> = ({setStatus}) => {
   const statusArray: string[] = ['Pending', 'Duplicate', 'Dispute', 'Bank Mismatch', 'Image Pending', 'Assigned', 'Initiated'];
   const theadData: string[] = [
     "SNO",
-    "Code",
-    
-    "Confirmed",
     "Amount",
     "Status",
-    "Merchant Order ID",
     "Merchant",
-    "User",
     "User Submitted UTR",
     "UTR",
-    "Method",
-    "Payin ID",
-    "Updated AT",
     "Image",
     "Action"
   ];
