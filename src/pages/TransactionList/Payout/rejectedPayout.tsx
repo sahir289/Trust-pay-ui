@@ -31,6 +31,9 @@ interface Payout {
   merchant_code: string;
   photo: string;
   name: string;
+  user: string;
+  payin_merchant_commission: string;
+  payin_vendor_commission: string;
   user_submitted_utr: string;
   utr: string;
   position?: string;

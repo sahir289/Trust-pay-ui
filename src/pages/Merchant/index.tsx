@@ -263,6 +263,9 @@ function Main(): JSX.Element {
                                 method: "",
                                 id: "",
                                 updated_at: "",
+                                user: "",
+                                payin_merchant_commission: "0",
+                                payin_vendor_commission: "0", 
                                 submerchant: merchant.submerchant.map((sub) => ({
                                     ...sub,
                                     balance: Number(sub.balance),
