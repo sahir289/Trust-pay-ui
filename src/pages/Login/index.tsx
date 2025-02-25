@@ -16,8 +16,8 @@ import { NotificationElement } from "@/components/Base/Notification";
 
 interface CustomJwtPayload {
   user_name: string;
-  designation_name: string;
-  role_name: string;
+  designation: string;
+  role: string;
   code: string[];
   id: string;
   session_id: string;
@@ -87,8 +87,8 @@ function Main() {
 
           localStorage.setItem("userData", JSON.stringify({
             name: userData?.user_name,
-            designation: userData?.designation_name,
-            role: userData?.role_name,
+            designation: userData?.designation,
+            role: userData?.role,
           }));
           sessionStorage.setItem("userSession", JSON.stringify(res?.data?.data?.sessionId));
 
