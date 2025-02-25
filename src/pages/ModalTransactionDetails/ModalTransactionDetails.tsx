@@ -14,10 +14,11 @@ interface ModalProps {
     title: string;
     transaction: {
         sno?: string;
-        id?:string;
+        id?: string;
         code?: string;
         confirmed?: string;
-        commission?: string;
+        payin_merchant_commission?: string;
+        payin_vendor_commission?: string;
         amount?: string;
         status?: string;
         merchant_order_id?: string;
@@ -53,7 +54,7 @@ const ModalTransactionDetails: React.FC<ModalProps> = ({ handleModal, transactio
                         </div>
                         <div className="col-span-12 sm:col-span-6">
                             <FormLabel>Name: {transaction.name}</FormLabel>
-                        </div> 
+                        </div>
                     </Dialog.Description>
                 </fieldset>
 
@@ -64,7 +65,10 @@ const ModalTransactionDetails: React.FC<ModalProps> = ({ handleModal, transactio
                             <FormLabel>Confirmed: {transaction.confirmed}</FormLabel>
                         </div>
                         <div className="col-span-12 sm:col-span-6">
-                            <FormLabel>Commission: {transaction.commission}</FormLabel>
+                            <FormLabel>Merchant Commission: {transaction.payin_merchant_commission ? transaction.payin_merchant_commission : 0}</FormLabel>
+                        </div>
+                        <div className="col-span-12 sm:col-span-6">
+                            <FormLabel>Vendor Commission: {transaction.payin_vendor_commission ? transaction.payin_vendor_commission : 0}</FormLabel>
                         </div>
                         <div className="col-span-12 sm:col-span-6">
                             <FormLabel>Amount: {transaction.amount}</FormLabel>
@@ -75,12 +79,11 @@ const ModalTransactionDetails: React.FC<ModalProps> = ({ handleModal, transactio
                     </Dialog.Description>
                 </fieldset>
 
-               
                 <fieldset className="border-2 rounded-lg border-gray-200 mx-5 my-2">
                     <legend className="ml-5 pt-1 px-2">UTR Details</legend>
                     <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
                         <div className="col-span-12 sm:col-span-6">
-                            <FormLabel>USR: {transaction.user_submitted_utr}</FormLabel>
+                            <FormLabel>User Submitted UTR: {transaction.user_submitted_utr}</FormLabel>
                         </div>
                         <div className="col-span-12 sm:col-span-6">
                             <FormLabel>UTR: {transaction.utr}</FormLabel>

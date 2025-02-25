@@ -1,7 +1,7 @@
 import React from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
-import payins from "@/fakers/payins";
+// import payins from "@/fakers/payins";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
@@ -14,19 +14,22 @@ import {
 } from "@/components/Base/Form";
 // import _ from "lodash";
 interface PayinProps {
-
-  setStatus: React.Dispatch<React.SetStateAction<string>>
+  setStatus: React.Dispatch<React.SetStateAction<string>>;
+  payins: Payins[];
 }
 export interface Payins {
   sno: number;
   code: string;
   confirmed: boolean;
+  payin_merchant_commission: string;
+  payin_vendor_commission: string;
   amount: number;
   status: string;
   merchant_order_id: string;
   merchant_code: string;
   photo: string;
   name: string;
+  user: string;
   user_submitted_utr: string;
   utr: string;
   method: string;
@@ -34,11 +37,12 @@ export interface Payins {
   updated_at: string;
 }
 
-const AllPayin: React.FC<PayinProps> = ({ setStatus }) => {
+const AllPayin: React.FC<PayinProps> = ({ setStatus, payins }) => {
   // const [selectedUser, setSelectedUser] = useState("1");
   const theadData: string[] = [
     "SNO",
     "Amount",
+    "Requested Amount",
     "Status",
     "Merchant",
     "User Submitted UTR",
@@ -46,6 +50,7 @@ const AllPayin: React.FC<PayinProps> = ({ setStatus }) => {
     "Image",
     "Action"
   ];
+
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -159,9 +164,9 @@ const AllPayin: React.FC<PayinProps> = ({ setStatus }) => {
             </div>
             <CustomTable
               columns={theadData}
-              data={payins.fakePayins() as unknown as Payins[]}
+              data={payins as unknown as Payins[]}
               title={"Payins"}
-              status={['Pending', 'Duplicate', 'Dispute', 'Bank Mismatch', 'Image Pending', 'Assigned', 'Initiated', 'Success', 'Dropped', 'Failled']}
+              status={['PENDING', 'DUPLICATE', 'DISPUTE', 'BANK_MISMATCH', 'IMAGE_PENDING', 'ASSIGNED', 'INITIATED', 'SUCCESS', 'DROPPED', 'FAILED']}
               setStatus={setStatus}
               approve={false}
               setApprove={() => { }}

@@ -23,7 +23,7 @@ interface Params {
     [key: string]: string | number | boolean | object | undefined;
 }
 
-export const getApi = async (url: string, params: Params = {}) => {
+export const getApi = async (url: string, params: Params = {}, flag: boolean) => {
     try {
         // this is the temporary solution for getting all merchants in dropdowns.
         // will improves this in future.
@@ -33,7 +33,7 @@ export const getApi = async (url: string, params: Params = {}) => {
         // }
         const response = await axios.get(`${endPoint}${url}`, {
             params: params,
-            ...apiConfig(),
+            ...apiConfig(flag),
         });
         return {
             data: response.data,

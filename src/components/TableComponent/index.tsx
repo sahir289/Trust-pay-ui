@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable no-unused-vars */
 import Lucide from "@/components/Base/Lucide";
 import Pagination from "@/components/Base/Pagination";
@@ -60,6 +61,9 @@ interface ICustomTableProps {
     payin_range?: string;
     payin_commission?: string;
     payout_commission?: string;
+    payin_merchant_commission: string;
+    payin_vendor_commission: string;
+    user: string;
     payout_range?: string;
     test_mode?: boolean;
     allow_intent?: boolean;
@@ -103,6 +107,7 @@ interface DataType {
   photo: string;
   name: string;
   user_submitted_utr?: string;
+  user_submitted_image?: string;
   utr?: string;
   method?: string;
   id?: string;
@@ -133,6 +138,9 @@ interface DataType {
   payin_range?: string;
   payin_commission?: string;
   payout_commission?: string;
+  payin_merchant_commission: string;
+  payin_vendor_commission: string;
+  user: string;
   payout_range?: string;
   test_mode?: boolean;
   allow_intent?: boolean;
@@ -176,32 +184,32 @@ const CustomTable: React.FC<ICustomTableProps> = ({
 
   const getStatusStyles = (status: string): StatusStyle => {
     switch (status) {
-      case "Image Pending":
-      case "Pending":
+      case "IMAGE_PENDING":
+      case "PENDING":
         return {
           color: "text-yellow-500",
           icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" />,
         };
-      case "Failed":
-      case "Dropped":
-      case "Rejected":
+      case "FAILED":
+      case "DROPPED":
+      case "REJECTED":
         return {
           color: "text-red-500",
           icon: <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />,
         };
-      case "Bank Mismatch":
-      case "Duplicate":
-      case "Dispute":
+      case "BANK_MISMATCH":
+      case "DUPLICATE":
+      case "DISPUTE":
         return {
           color: "text-orange-500",
           icon: <Lucide icon="FileWarning" className="w-5 h-5 ml-px stroke-[2.5]" />,
         };
-      case "Assigned":
+      case "ASSIGNED":
         return {
           color: "text-blue-500",
           icon: <Lucide icon="ListChecks" className="w-5 h-5 ml-px stroke-[2.5]" />,
         };
-      case "Success":
+      case "SUCCESS":
         return {
           color: "text-green-500",
           icon: <Lucide icon="CheckCircle" className="w-5 h-5 ml-px stroke-[2.5]" />,
@@ -313,7 +321,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
     id: string;
     code: string;
     confirmed: string;
-    commission: string;
+    payin_merchant_commission: string;
+    payin_vendor_commission: string;
     amount: string;
     status: string;
     merchant_order_id: string;
@@ -677,208 +686,250 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                   ["desc"]
                 ),
                 10
-              ).map((faker: DataType, fakerKey) => {
+              ).map((payin: DataType, index) => {
                 return (
-                  <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0"
+                  <Table.Tr key={index} className="[&_td]:last:border-b-0"
                   >
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600" onClick={() => {
                       Roles({
-                        sno: String(faker?.sno), // Convert number to string
-                        id: faker?.id || "", // Ensure id exists
-                        code: faker?.code,
-                        confirmed: String(faker?.confirmed), // Convert boolean to string
-                        commission: String("0"), // Ensure commission exists
-                        amount: String(faker?.amount), // Convert number to string
-                        status: faker?.status,
-                        merchant_order_id: faker?.merchant_order_id,
-                        merchant_code: faker?.merchant_code,
-                        name: faker?.name,
-                        user_submitted_utr: faker?.user_submitted_utr || "",
-                        utr: faker?.utr || "",
-                        method: faker?.method || "",
+                        sno: String(payin?.sno), // Convert number to string
+                        id: payin?.id || "", // Ensure id exists
+                        code: payin?.code,
+                        confirmed: String(payin?.confirmed), // Convert boolean to string
+                        payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
+                        payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
+                        amount: String(payin?.amount), // Convert number to string
+                        status: payin?.status,
+                        merchant_order_id: payin?.merchant_order_id,
+                        merchant_code: payin?.merchant_code,
+                        name: payin?.user,
+                        user_submitted_utr: payin?.user_submitted_utr || "",
+                        utr: payin?.utr || "",
+                        method: payin?.method || "",
                         duration: 0, // Ensure duration exists
                         bank: "", // Ensure bank exists
-                        updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                        updated_at: payin?.updated_at || "", // Ensure updated_at exists
                       });
                     }}>
                       <a className="font-medium whitespace-nowrap">
-                        {faker?.sno}
+                        {payin?.sno}
                       </a>
                     </Table.Td>
+
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600"
                       onClick={() => {
                         Roles({
-                          sno: String(faker?.sno), // Convert number to string
-                          id: faker?.id || "", // Ensure id exists
-                          code: faker?.code,
-                          confirmed: String(faker?.confirmed), // Convert boolean to string
-                          commission: String("0"), // Ensure commission exists
-                          amount: String(faker?.amount), // Convert number to string
-                          status: faker?.status,
-                          merchant_order_id: faker?.merchant_order_id,
-                          merchant_code: faker?.merchant_code,
-                          name: faker?.name,
-                          user_submitted_utr: faker?.user_submitted_utr || "",
-                          utr: faker?.utr || "",
-                          method: faker?.method || "",
+                          sno: String(payin?.sno), // Convert number to string
+                          id: payin?.id || "", // Ensure id exists
+                          code: payin?.code,
+                          confirmed: String(payin?.confirmed), // Convert boolean to string
+                          payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
+                          payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
+                          amount: String(payin?.amount), // Convert number to string
+                          status: payin?.status,
+                          merchant_order_id: payin?.merchant_order_id,
+                          merchant_code: payin?.merchant_code,
+                          name: payin?.user,
+                          user_submitted_utr: payin?.user_submitted_utr || "",
+                          utr: payin?.utr || "",
+                          method: payin?.method || "",
                           duration: 0, // Ensure duration exists
                           bank: "", // Ensure bank exists
-                          updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                          updated_at: payin?.updated_at || "", // Ensure updated_at exists
                         });
                       }}>
                       <a className="font-medium whitespace-nowrap">
-                        {faker?.confirmed}
+                        ₹ {payin?.confirmed ? payin?.confirmed : 0}
                       </a>
                     </Table.Td>
-                    {columns && columns.length > 8 && <Table.Td className="py-4 border-dashed dark:bg-darkmode-600"
+
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600"
                       onClick={() => {
                         Roles({
-                          sno: String(faker?.sno), // Convert number to string
-                          id: faker?.id || "", // Ensure id exists
-                          code: faker?.code,
-                          confirmed: String(faker?.confirmed), // Convert boolean to string
-                          commission: String("0"), // Ensure commission exists
-                          amount: String(faker?.amount), // Convert number to string
-                          status: faker?.status,
-                          merchant_order_id: faker?.merchant_order_id,
-                          merchant_code: faker?.merchant_code,
-                          name: faker?.name,
-                          user_submitted_utr: faker?.user_submitted_utr || "",
-                          utr: faker?.utr || "",
-                          method: faker?.method || "",
+                          sno: String(payin?.sno), // Convert number to string
+                          id: payin?.id || "", // Ensure id exists
+                          code: payin?.code,
+                          confirmed: String(payin?.confirmed), // Convert boolean to string
+                          payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
+                          payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
+                          amount: String(payin?.amount), // Convert number to string
+                          status: payin?.status,
+                          merchant_order_id: payin?.merchant_order_id,
+                          merchant_code: payin?.merchant_code,
+                          name: payin?.user,
+                          user_submitted_utr: payin?.user_submitted_utr || "",
+                          utr: payin?.utr || "",
+                          method: payin?.method || "",
                           duration: 0, // Ensure duration exists
                           bank: "", // Ensure bank exists
-                          updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                          updated_at: payin?.updated_at || "", // Ensure updated_at exists
                         });
                       }}>
                       <a className="font-medium whitespace-nowrap">
-                        {faker?.confirmed}
+                        ₹ {payin?.amount}
+                      </a>
+                    </Table.Td>
+
+                    {columns && columns.length > 9 && <Table.Td className="py-4 border-dashed dark:bg-darkmode-600"
+                      onClick={() => {
+                        Roles({
+                          sno: String(payin?.sno), // Convert number to string
+                          id: payin?.id || "", // Ensure id exists
+                          code: payin?.code,
+                          confirmed: String(payin?.confirmed), // Convert boolean to string
+                          payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
+                          payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
+                          amount: String(payin?.amount), // Convert number to string
+                          status: payin?.status,
+                          merchant_order_id: payin?.merchant_order_id,
+                          merchant_code: payin?.merchant_code,
+                          name: payin?.user,
+                          user_submitted_utr: payin?.user_submitted_utr || "",
+                          utr: payin?.utr || "",
+                          method: payin?.method || "",
+                          duration: 0, // Ensure duration exists
+                          bank: "", // Ensure bank exists
+                          updated_at: payin?.updated_at || "", // Ensure updated_at exists
+                        });
+                      }}>
+                      <a className="font-medium whitespace-nowrap">
+                        {payin?.confirmed}
                       </a>
                     </Table.Td>}
+
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                       <div
-                        className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(faker?.status).color
+                        className={`flex items-center gap-2 font-medium whitespace-nowrap ${getStatusStyles(payin?.status).color
                           }`}
                       >
-                        {getStatusStyles(faker?.status).icon as React.ReactNode}
-                        {faker?.status}
+                        {getStatusStyles(payin?.status).icon as React.ReactNode}
+                        {payin?.status}
                       </div>
                     </Table.Td>
+
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600"
                       onClick={() => {
                         Roles({
-                          sno: String(faker?.sno), // Convert number to string
-                          id: faker?.id || "", // Ensure id exists
-                          code: faker?.code,
-                          confirmed: String(faker?.confirmed), // Convert boolean to string
-                          commission: String("0"), // Ensure commission exists
-                          amount: String(faker?.amount), // Convert number to string
-                          status: faker?.status,
-                          merchant_order_id: faker?.merchant_order_id,
-                          merchant_code: faker?.merchant_code,
-                          name: faker?.name,
-                          user_submitted_utr: faker?.user_submitted_utr || "",
-                          utr: faker?.utr || "",
-                          method: faker?.method || "",
+                          sno: String(payin?.sno), // Convert number to string
+                          id: payin?.id || "", // Ensure id exists
+                          code: payin?.code,
+                          confirmed: String(payin?.confirmed), // Convert boolean to string
+                          payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
+                          payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
+                          amount: String(payin?.amount), // Convert number to string
+                          status: payin?.status,
+                          merchant_order_id: payin?.merchant_order_id,
+                          merchant_code: payin?.merchant_code,
+                          name: payin?.user,
+                          user_submitted_utr: payin?.user_submitted_utr || "",
+                          utr: payin?.utr || "",
+                          method: payin?.method || "",
                           duration: 0, // Ensure duration exists
                           bank: "", // Ensure bank exists
-                          updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                          updated_at: payin?.updated_at || "", // Ensure updated_at exists
                         });
                       }}>
                       <a className="font-medium whitespace-nowrap">
-                        {faker?.merchant_code}
+                        {payin?.merchant_code}
                       </a>
                     </Table.Td>
+
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600"
                       onClick={() => {
                         Roles({
-                          sno: String(faker?.sno), // Convert number to string
-                          id: faker?.id || "", // Ensure id exists
-                          code: faker?.code,
-                          confirmed: String(faker?.confirmed), // Convert boolean to string
-                          commission: String("0"), // Ensure commission exists
-                          amount: String(faker?.amount), // Convert number to string
-                          status: faker?.status,
-                          merchant_order_id: faker?.merchant_order_id,
-                          merchant_code: faker?.merchant_code,
-                          name: faker?.name,
-                          user_submitted_utr: faker?.user_submitted_utr || "",
-                          utr: faker?.utr || "",
-                          method: faker?.method || "",
+                          sno: String(payin?.sno), // Convert number to string
+                          id: payin?.id || "", // Ensure id exists
+                          code: payin?.code,
+                          confirmed: String(payin?.confirmed), // Convert boolean to string
+                          payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
+                          payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
+                          amount: String(payin?.amount), // Convert number to string
+                          status: payin?.status,
+                          merchant_order_id: payin?.merchant_order_id,
+                          merchant_code: payin?.merchant_code,
+                          name: payin?.user,
+                          user_submitted_utr: payin?.user_submitted_utr || "",
+                          utr: payin?.utr || "",
+                          method: payin?.method || "",
                           duration: 0, // Ensure duration exists
                           bank: "", // Ensure bank exists
-                          updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                          updated_at: payin?.updated_at || "", // Ensure updated_at exists
                         });
                       }}
                     >
                       <a className="font-medium whitespace-nowrap">
-                        {faker?.user_submitted_utr}
+                        {payin?.user_submitted_utr}
                       </a>
                     </Table.Td>
+
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600"
                       onClick={() => {
                         Roles({
-                          sno: String(faker?.sno), // Convert number to string
-                          id: faker?.id || "", // Ensure id exists
-                          code: faker?.code,
-                          confirmed: String(faker?.confirmed), // Convert boolean to string
-                          commission: String("0"), // Ensure commission exists
-                          amount: String(faker?.amount), // Convert number to string
-                          status: faker?.status,
-                          merchant_order_id: faker?.merchant_order_id,
-                          merchant_code: faker?.merchant_code,
-                          name: faker?.name,
-                          user_submitted_utr: faker?.user_submitted_utr || "",
-                          utr: faker?.utr || "",
-                          method: faker?.method || "",
+                          sno: String(payin?.sno), // Convert number to string
+                          id: payin?.id || "", // Ensure id exists
+                          code: payin?.code,
+                          confirmed: String(payin?.confirmed), // Convert boolean to string
+                          payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
+                          payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
+                          amount: String(payin?.amount), // Convert number to string
+                          status: payin?.status,
+                          merchant_order_id: payin?.merchant_order_id,
+                          merchant_code: payin?.merchant_code,
+                          name: payin?.user,
+                          user_submitted_utr: payin?.user_submitted_utr || "",
+                          utr: payin?.utr || "",
+                          method: payin?.method || "",
                           duration: 0, // Ensure duration exists
                           bank: "", // Ensure bank exists
-                          updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                          updated_at: payin?.updated_at || "", // Ensure updated_at exists
                         });
                       }}
                     >
                       <a className="font-medium whitespace-nowrap">
-                        {faker?.utr}
+                        {payin?.utr}
                       </a>
                     </Table.Td>
-                    <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600"
+
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600"
                       onClick={() => {
                         Roles({
-                          sno: String(faker?.sno), // Convert number to string
-                          id: faker?.id || "", // Ensure id exists
-                          code: faker?.code,
-                          confirmed: String(faker?.confirmed), // Convert boolean to string
-                          commission: String("0"), // Ensure commission exists
-                          amount: String(faker?.amount), // Convert number to string
-                          status: faker?.status,
-                          merchant_order_id: faker?.merchant_order_id,
-                          merchant_code: faker?.merchant_code,
-                          name: faker?.name,
-                          user_submitted_utr: faker?.user_submitted_utr || "",
-                          utr: faker?.utr || "",
-                          method: faker?.method || "",
+                          sno: String(payin?.sno), // Convert number to string
+                          id: payin?.id || "", // Ensure id exists
+                          code: payin?.code,
+                          confirmed: String(payin?.confirmed), // Convert boolean to string
+                          payin_merchant_commission: String(payin?.payin_merchant_commission), // Ensure commission exists
+                          payin_vendor_commission: String(payin?.payin_vendor_commission), // Ensure commission exists
+                          amount: String(payin?.amount), // Convert number to string
+                          status: payin?.status,
+                          merchant_order_id: payin?.merchant_order_id,
+                          merchant_code: payin?.merchant_code,
+                          name: payin?.user,
+                          user_submitted_utr: payin?.user_submitted_utr || "",
+                          utr: payin?.utr || "",
+                          method: payin?.method || "",
                           duration: 0, // Ensure duration exists
                           bank: "", // Ensure bank exists
-                          updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                          updated_at: payin?.updated_at || "", // Ensure updated_at exists
                         });
                       }}
                     >
                       <div className="flex items-center">
                         <div className="w-9 h-9 image-fit zoom-in">
-                          <Tippy
+                          {payin?.user_submitted_image ? <Tippy
                             as="img"
                             alt="Tailwise - Admin Dashboard Template"
                             className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
-                            src={faker?.photo}
-                            content={faker?.name}
-                          />
+                            src={payin?.user_submitted_image}
+                            content={"User Submitted Image"}
+                          /> : null}
                         </div>
                       </div>
                     </Table.Td>
+                    
                     <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                       <div className="flex items-center justify-center">
-                        {faker?.status === "Dispute" ||
-                          faker?.status === "Bank Mismatch" ? (
+                        {payin?.status === "DISPUTE" ||
+                          payin?.status === "BANK_MISMATCH" ? (
                           <Menu className="h-5">
                             <Menu.Button className="w-5 h-5 text-slate-500">
                               <Lucide
@@ -889,7 +940,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
 
                             <Menu.Items
                               className="w-40"
-                              onClick={() => setStatus && setStatus(faker?.status)}
+                              onClick={() => setStatus && setStatus(payin?.status)}
                             >
                               <Menu.Item>
                                 <Lucide
@@ -947,7 +998,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         id: faker?.id || "", // Ensure id exists
                         code: faker?.code,
                         confirmed: String(faker?.confirmed), // Convert boolean to string
-                        commission: "0", // No need to wrap a string in String()
+                        payin_merchant_commission: String("0"), // Ensure commission exists
+                        payin_vendor_commission: String("0"), // Ensure commission exists
                         amount: String(faker?.amount), // Convert number to string
                         status: faker?.status,
                         merchant_order_id: faker?.merchant_order_id || "", // Ensure merchant_order_id exists
@@ -1904,7 +1956,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       id: faker?.id || "", // Ensure id exists
                       code: faker?.code,
                       confirmed: String(faker?.confirmed), // Convert boolean to string
-                      commission: String("0"), // Ensure commission exists
+                      payin_merchant_commission: String("0"), // Ensure commission exists
+                      payin_vendor_commission: String("0"), // Ensure commission exists
                       amount: String(faker?.amount), // Convert number to string
                       status: faker?.status,
                       merchant_order_id: faker?.merchant_order_id,
@@ -1929,7 +1982,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       id: faker?.id || "", // Ensure id exists
                       code: faker?.code,
                       confirmed: String(faker?.confirmed), // Convert boolean to string
-                      commission: String("0"), // Ensure commission exists
+                      payin_merchant_commission: String("0"), // Ensure commission exists
+                      payin_vendor_commission: String("0"), // Ensure commission exists
                       amount: String(faker?.amount), // Convert number to string
                       status: faker?.status,
                       merchant_order_id: faker?.merchant_order_id,
@@ -1952,7 +2006,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       id: faker?.id || "", // Ensure id exists
                       code: faker?.code,
                       confirmed: String(faker?.confirmed), // Convert boolean to string
-                      commission: String("0"), // Ensure commission exists
+                      payin_merchant_commission: String("0"), // Ensure commission exists
+                      payin_vendor_commission: String("0"), // Ensure commission exists
                       amount: String(faker?.amount), // Convert number to string
                       status: faker?.status,
                       merchant_order_id: faker?.merchant_order_id,
@@ -1981,7 +2036,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       id: faker?.id || "", // Ensure id exists
                       code: faker?.code,
                       confirmed: String(faker?.confirmed), // Convert boolean to string
-                      commission: String("0"), // Ensure commission exists
+                      payin_merchant_commission: String("0"), // Ensure commission exists
+                      payin_vendor_commission: String("0"), // Ensure commission exists
                       amount: String(faker?.amount), // Convert number to string
                       status: faker?.status,
                       merchant_order_id: faker?.merchant_order_id,
@@ -2006,7 +2062,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       id: faker?.id || "", // Ensure id exists
                       code: faker?.code,
                       confirmed: String(faker?.confirmed), // Convert boolean to string
-                      commission: String("0"), // Ensure commission exists
+                      payin_merchant_commission: String("0"), // Ensure commission exists
+                      payin_vendor_commission: String("0"), // Ensure commission exists
                       amount: String(faker?.amount), // Convert number to string
                       status: faker?.status,
                       merchant_order_id: faker?.merchant_order_id,
@@ -2032,7 +2089,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       id: faker?.id || "", // Ensure id exists
                       code: faker?.code,
                       confirmed: String(faker?.confirmed), // Convert boolean to string
-                      commission: String("0"), // Ensure commission exists
+                      payin_merchant_commission: String("0"), // Ensure commission exists
+                      payin_vendor_commission: String("0"), // Ensure commission exists
                       amount: String(faker?.amount), // Convert number to string
                       status: faker?.status,
                       merchant_order_id: faker?.merchant_order_id,
