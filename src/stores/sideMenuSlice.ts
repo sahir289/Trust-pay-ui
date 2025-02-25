@@ -46,16 +46,11 @@ const initialState: SideMenuState = {
       pathname: "/layout/vendors",
       title: "Vendors",
     },
-    "ACCOUNT REPORTS",
+    "REPORTS",
     {
       icon: "SquareUser",
-      pathname: "/layout/account-reports",
-      title: "Account Report",
-    },
-    {
-      icon: "SquareUser",
-      pathname: "/layout/vendor-account-reports",
-      title: "Vendor Account Report",
+      pathname: "/layout/reports",
+      title: "Report",
     },
     "SETTLEMENTS & CHARGEBACKS",
     {

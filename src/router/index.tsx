@@ -16,7 +16,7 @@ import Departments from "../pages/Departments";
 import AddUser from "../pages/AddUser";
 import ProfileOverview from "../pages/ProfileOverview";
 import Settings from "../pages/Settings";
-import VendorAccountReports from "../pages/VendorAccountReports";
+import Reports from "../pages/Reports";
 import Categories from "../pages/Categories";
 import AddProduct from "../pages/AddProduct";
 import ProductList from "../pages/ProductList";
@@ -66,7 +66,6 @@ import AddData from "../pages/AddData";
 import Designation from "../pages/Designation"
 import Layout from "../themes";
 import Bankaccount from "../pages/BankAccount";
-import AccountReports from "@/pages/AccountReports";
 function Router() {
   const routes = [
     {
@@ -139,12 +138,8 @@ function Router() {
           element: <Settings />,
         },
         {
-          path: "vendor-account-reports",
-          element: <VendorAccountReports />,
-        },
-        {
-          path: "account-reports",
-          element: <AccountReports />,
+          path: "reports",
+          element: <Reports />,
         },
         {
           path: "categories",

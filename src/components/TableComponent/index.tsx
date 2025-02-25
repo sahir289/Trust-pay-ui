@@ -14,8 +14,8 @@ import ModalPopUp from "@/pages/ModalPopUp";
 import ModalMerchantEdit from "@/pages/ModalMerchantEdit/ModalMerchantEdit";
 import RoleDetails from "@/pages/RolesDetails/RolesDetails";
 import DesignationDetails from "@/pages/DesignationDetails/DesignationDetails";
-import BankDetailsModal from "@/pages/BankAccounts/BankAccounts";
 import VendorDetails from "@/pages/VendorDetails/VendorDetails";
+import BankDetailsModal from "@/pages/BankAccounts/BankAccountsModal";
 
 interface ICustomTableProps {
   columns?: string[];

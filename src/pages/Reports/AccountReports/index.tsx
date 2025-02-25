@@ -1,25 +1,26 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
-
+import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
 import { useState } from "react";
-import "react-datepicker/dist/react-datepicker.css";
-
 import { Menu, Popover } from "@/components/Base/Headless";
-
-
 import Pagination from "@/components/Base/Pagination";
 import fakeReportAccount from "@/fakers/accountreports";
-import Litepicker from "@/components/Base/Litepicker";
+import axios from 'axios';
 
 function AccountReports() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+const accountsData = ()=>{
+    const data = axios.get('http://localhost:8090/v1/reports/get-all-merchants')
+    console.log(data)
 
 
-
+}
+accountsData()
   return (
 
     <>
@@ -41,94 +42,51 @@ function AccountReports() {
             </Button>
           </div>
         </div>
-        <div className="flex w-full flex-row py-10 sm:px-6 ">
+        <div className="flex w-full flex-row py-10 sm:px-6">
           <div className="flex w-full flex-row gap-y-7 md:flex-row px-4 sm:px-2 py-2 sm:py-2  rounded-lg">
-
-
             <div className="p-5 w-full flex flex-row mt-3.5 box box--stacked justify-between">
               <div className="mr-2">
                 <label className="my-4 px-2">Merchant Codes</label>
                 <FormInput
                   type="text"
-                  placeholder="Vendor Codes"
+                  placeholder="Merchant Codes"
                   className="py-3 mt-3 mx-1 h-13"
-                /></div>
-
-              <div className="flex  mt-3 mx-1">
-
-
-
-                <Litepicker
+                />
+                </div>
+              <div className="flex gap-3 mt-3 mx-1">
+                <input
+                  type="date"
                   placeholder="Start Date"
                   value={startDate}
-                  onChange={(e) => {
-                    setStartDate(e.target.value);
-                  }}
-                  options={{
-                    autoApply: false,
-                    singleMode: false,
-                    numberOfColumns: 2,
-                    numberOfMonths: 2,
-                    showWeekNumbers: true,
-                    dropdowns: {
-                      minYear: 1990,
-                      maxYear: null,
-                      months: true,
-                      years: true,
-                    },
-                  }}
-                  className="sm:w-56 rounded-[0.5rem] group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent dark:group-[.mode--light]:!bg-darkmode-900/30 dark:!box"
-                />
+                  className="py-3 my-2 rounded-lg dark:bg-darkmode-600"
+                  onChange={(e) => setStartDate(e.target.value)}
 
-                <Litepicker
-                  placeholder="Start Date"
-                  value={endDate}
-                  onChange={(e) => {
-                    setEndDate(e.target.value);
-                  }}
-                  options={{
-                    autoApply: false,
-                    singleMode: false,
-                    numberOfColumns: 2,
-                    numberOfMonths: 2,
-                    showWeekNumbers: true,
-                    dropdowns: {
-                      minYear: 1990,
-                      maxYear: null,
-                      months: true,
-                      years: true,
-                    },
-                  }}
-                  className=" sm:w-56 rounded-[0.5rem] group-[.mode--light]:!bg-white/[0.12] group-[.mode--light]:!text-slate-200 group-[.mode--light]:!border-transparent dark:group-[.mode--light]:!bg-darkmode-900/30 dark:!box"
                 />
-               
+                <input
+                  type="date"
+                  placeholder="End Date"
+                  value={endDate}
+                  className="py-3 my-2 rounded-lg dark:bg-darkmode-600"
+                  onChange={(e) => setEndDate(e.target.value)}
+                />
                 <div className="flex gap-3 ">
                   <Button
                     rounded
                     variant="primary"
-                    className="px-1 w-40 my-2 border-primary/50 rounded-lg"
+                    className="px-4 w-35 my-2 border-primary/50 rounded-lg"
                   >
                     Download Now
                   </Button>
-
                 </div>
               </div>
             </div>
-            <div>
-            </div>
-
           </div>
-
         </div>
-
       </div>
-
-
-
       <div className="grid grid-cols-12 gap-y-10 gap-x-6">
         <div className="col-span-12">
           <div className="mt-3.5">
-            <div className="flex flex-col ">
+            <div className="flex flex-col  border-2 border-slate-600 rounded-lg">
               <div className="flex flex-col py-5 sm:items-center sm:flex-row gap-y-2 mx-6">
                 <div>
                   <div className="relative">
@@ -146,29 +104,20 @@ function AccountReports() {
                 <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 sm:ml-auto ">
 
                   <Popover className="inline-block">
-                    {({ close }) => (
+                    {({ close }: { close: () => void }) => (
                       <>
 
                         <Popover.Panel placement="bottom-end">
                           <div className="p-2">
                             <div>
                               <div className="text-left text-slate-500">User</div>
-                                {/* <TomSelect
-                                className="flex-1 mt-2"
-                                value={selectedUser}
-                                onChange={(value: string) => {
-                                  setSelectedUser(value);
-                                }}
-                                options={{
-                                  placeholder: "Search user",
-                                }}
-                                >
-                                {users.fakeUsers().map((user, userKey) => (
-                                  <option key={userKey} value={userKey}>
-                                  {user.name}
+                              <FormSelect className="flex-1 mt-2">
+                                {users.fakeUsers().map((faker, fakerKey) => (
+                                  <option key={fakerKey} value={fakerKey}>
+                                    {faker.name}
                                   </option>
                                 ))}
-                                </TomSelect> */}
+                              </FormSelect>
                             </div>
                             <div className="mt-3">
                               <div className="text-left text-slate-500">
@@ -199,7 +148,7 @@ function AccountReports() {
                   </Popover>
                 </div>
               </div>
-              <div className="overflow-auto mx-4">
+              <div className="overflow-auto mx-4 ">
                 <Table className="border border-slate-200/60 rounded-md">
                   <Table.Thead>
                     <Table.Tr>
