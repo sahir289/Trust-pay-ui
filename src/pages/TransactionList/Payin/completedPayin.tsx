@@ -3,7 +3,6 @@ import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 // import TomSelect from "@/components/Base/TomSelect";
 import { FormInput, FormSelect } from "@/components/Base/Form";
-import payins from "@/fakers/payins";
 import users from "@/fakers/users";
 import CustomTable from "../../../components/TableComponent";
 
@@ -12,36 +11,35 @@ import Button from "@/components/Base/Button";
 // import { useState } from "react";
 // import _ from "lodash";
 interface PayinProps {
-  // resetModal: boolean; // Expecting a boolean prop to control modal reset
-  // setResetModal: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for resetModal
-  // approve: boolean; // Expecting a boolean prop to control modal reset
-  // setApprove: React.Dispatch<React.SetStateAction<boolean>>
-  // setStatus : React.Dispatch<React.SetStateAction<string>>
-  // status: string
+  setStatus: React.Dispatch<React.SetStateAction<string>>;
+  payins: Payins[];
 }
-
 export interface Payins {
   sno: number;
   code: string;
-  
   confirmed: boolean;
+  payin_merchant_commission: string;
+  payin_vendor_commission: string;
   amount: number;
   status: string;
   merchant_order_id: string;
   merchant_code: string;
   photo: string;
   name: string;
+  user: string;
   user_submitted_utr: string;
   utr: string;
   method: string;
   id: string;
   updated_at: string;
 }
-const CompletedPayin: React.FC<PayinProps> = () => {
-  // const [selectedUser, setSelectedUser] = useState("1");
+
+const CompletedPayin: React.FC<PayinProps> = ({setStatus, payins}) => {
+  const statusArray: string[] = ['SUCCESS'];
   const theadData: string[] = [
     "SNO",
     "Amount",
+    "Requested Amount",
     "Commission",
     "Status",
     "Merchant",
@@ -165,11 +163,11 @@ const CompletedPayin: React.FC<PayinProps> = () => {
               </div>
             </div>
             <CustomTable 
+              setStatus={setStatus} 
               columns={theadData} 
-              data={payins.fakePayins() as unknown as Payins[]} 
+              data={payins as unknown as Payins[]} 
               title={"Payins"} 
-              status={["Success"]} 
-              setStatus={() => {}} 
+              status={statusArray}
               approve={false} 
               setApprove={() => {}} 
               reject={false} 

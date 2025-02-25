@@ -1,21 +1,23 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import React, { useEffect } from "react";
 import { Tab } from "@/components/Base/Headless";
 import AllPayin from "./allPayin";
 import CompletedPayin from "./completedPayin";
 import InProgressPayin from "./inProgressPayin";
 import DroppedPayin from "./droppedPayin";
 import Lucide from "@/components/Base/Lucide";
+import { getApi } from "@/stores/api";
 interface PayinProps {
- 
   setStatus: React.Dispatch<React.SetStateAction<string>>;
+  payins: Payins[];
 }
 
 export interface Payins {
   sno: number;
-  
   code: string;
   confirmed: boolean;
   amount: number;
+  status: string;
   merchant_order_id: string;
   merchant_code: string;
   photo: string;
@@ -28,7 +30,25 @@ export interface Payins {
 }
 
 const Payin: React.FC<PayinProps> = ({ setStatus }) => {
+  const [payins, setPayins] = React.useState<Payins[]>([]);
+  const [params, setParams] = React.useState<{ [key: string]: string }>({});
 
+  useEffect(() => {
+    getPayinData();
+  }, [params]);
+
+  const getPayinData = async () => {
+    if (!params) {
+      setParams({
+        page: "1",
+        limit: "10",
+      })
+    }
+    const response = await getApi('/payIn', params, true);
+    if (response?.data?.data) {
+      setPayins(response?.data?.data);
+    }
+  }
   return (
     <div className="flex flex-col p-5 ">
      <>
@@ -73,16 +93,16 @@ const Payin: React.FC<PayinProps> = ({ setStatus }) => {
         </Tab.List>
         <Tab.Panels className="border-b border-l border-r">
           <Tab.Panel className="py-5 leading-relaxed">
-            <AllPayin  setStatus={setStatus}  />
+            <AllPayin setStatus={setStatus} payins={payins} />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
-            <CompletedPayin/>
+            <CompletedPayin setStatus={setStatus} payins={payins} />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
-            <InProgressPayin   setStatus={setStatus}  />
+            <InProgressPayin setStatus={setStatus} payins={payins} />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
-            <DroppedPayin />
+            <DroppedPayin setStatus={setStatus} payins={payins} />
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group></>

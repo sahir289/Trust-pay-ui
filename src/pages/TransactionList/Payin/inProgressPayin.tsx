@@ -2,27 +2,27 @@ import React from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import { FormInput, FormSelect } from "@/components/Base/Form";
-import payins from "@/fakers/payins";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 // import _ from "lodash";
 import CustomTable from "../../../components/TableComponent";
 interface PayinProps {
- 
- 
-  setStatus: React.Dispatch<React.SetStateAction<string>>
-
+  setStatus: React.Dispatch<React.SetStateAction<string>>;
+  payins: Payins[];
 }
 export interface Payins {
   sno: number;
   code: string;
   confirmed: boolean;
+  payin_merchant_commission: string;
+  payin_vendor_commission: string;
   amount: number;
   merchant_order_id: string;
   merchant_code: string;
   photo: string;
   name: string;
+  user: string;
   user_submitted_utr: string;
   utr: string;
   method: string;
@@ -31,11 +31,12 @@ export interface Payins {
   status: string;
 }
 
-const InProgressPayin: React.FC<PayinProps> = ({setStatus}) => {
-  const statusArray: string[] = ['Pending', 'Duplicate', 'Dispute', 'Bank Mismatch', 'Image Pending', 'Assigned', 'Initiated'];
+const InProgressPayin: React.FC<PayinProps> = ({setStatus, payins}) => {
+  const statusArray: string[] = ['PENDING', 'DUPLICATE', 'DISPUTE', 'BANK_MISMATCH', 'IMAGE_PENDING', 'ASSIGNED', 'INITIATED'];
   const theadData: string[] = [
     "SNO",
     "Amount",
+    "Requested Amount",
     "Status",
     "Merchant",
     "User Submitted UTR",
@@ -158,7 +159,7 @@ const InProgressPayin: React.FC<PayinProps> = ({setStatus}) => {
             <CustomTable 
               setStatus={setStatus} 
               columns={theadData} 
-              data={payins.fakePayins() as unknown as Payins[]} 
+              data={payins as unknown as Payins[]} 
               title={"Payins"} 
               status={statusArray} 
               approve={false} 

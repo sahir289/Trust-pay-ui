@@ -38,10 +38,7 @@ function Main() {
             Transactions
           </div>
           <Modal handleModal={transactionModal} sendButtonRef={transactionRef} forOpen={newTransactionModal} title={title} />
-
-
           {status === "Bank Mismatch" && (
-
             <ModalPopUp
               open={true}
               onClose={handleClose}
@@ -56,7 +53,6 @@ function Main() {
               buttonText="Success"
               onSubmit={() => {/* Handle Success */ }}
               onReset={handleClose}
-          
               resetRef={resetRef}
             />
           )}
@@ -78,13 +74,9 @@ function Main() {
               buttonText="Success"
               onSubmit={() => {/* Handle Success */ }}
               onReset={handleClose}
-
               resetRef={resetRef}
             />
           )}
-
-
-
           {approve && (
             <ModalPopUp
               open={true}
@@ -101,11 +93,9 @@ function Main() {
               buttonText="Approve"
               onSubmit={() => {/* Handle Approve */ }}
               onReset={handleApprove}
-
               resetRef={resetRef}
             />
           )}
-
           {reject && (
             <ModalPopUp
               open={reject}
@@ -118,7 +108,6 @@ function Main() {
               buttonText="Reject"
               onSubmit={() => {/* Handle Reject */ }}
               onReset={handleReject}
-
               resetRef={resetRef}
             />
           )}
@@ -127,7 +116,6 @@ function Main() {
 
       <div className="grid grid-cols-12 gap-y-10 gap-x-6 mt-2">
         <div className="col-span-12">
-
           <div className="relative flex flex-col col-span-12 lg:col-span-12 xl:col-span-12 gap-y-7">
             <div className="flex flex-col p-5 box box--stacked">
               <Tab.Group>
