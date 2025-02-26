@@ -30,7 +30,7 @@ function Main() {
   useEffect(() => {
     if (token) {
       if (pathname === "/") {
-        navigate("/layout/dashboard");
+        navigate("/auth/dashboard");
       }
     } else {
       // if (
@@ -92,7 +92,7 @@ function Main() {
           }));
           sessionStorage.setItem("userSession", JSON.stringify(res?.data?.data?.sessionId));
 
-          navigate("layout/dashboard");
+          navigate("auth/dashboard");
         }
         else {
           if (res?.error?.error?.status === 404) {
