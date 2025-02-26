@@ -377,13 +377,13 @@ function Main() {
               <Breadcrumb light className="flex-1 hidden xl:block">
                 <Breadcrumb.Link
                   className="dark:before:bg-chevron-white"
-                  to="/layout/dashboard"
+                  to="/auth/dashboard"
                 >
                   Dashboard
                 </Breadcrumb.Link>
                 <Breadcrumb.Link
                   className="dark:before:bg-chevron-white"
-                  to="/layout/dashboard"
+                  to="/auth/dashboard"
                   active={true}
                 >
                   Analytics
