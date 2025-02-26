@@ -1,6 +1,6 @@
 import { useMemo } from "react";
-import { selectDarkMode } from "@/stores/darkModeSlice";
-import { useAppSelector } from "@/stores/hooks";
+import { selectDarkMode } from "@/redux-toolkit/darkModeSlice";
+import { useAppSelector } from "@/redux-toolkit/hooks";
 
 interface LoadingIconProps extends React.ComponentPropsWithoutRef<"span"> {
   icon:

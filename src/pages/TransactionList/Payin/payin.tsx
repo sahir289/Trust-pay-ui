@@ -7,7 +7,7 @@ import CompletedPayin from "./completedPayin";
 import InProgressPayin from "./inProgressPayin";
 import DroppedPayin from "./droppedPayin";
 import Lucide from "@/components/Base/Lucide";
-import { getApi } from "@/stores/api";
+import { getApi } from "@/redux-toolkit/api";
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;

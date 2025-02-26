@@ -16,6 +16,8 @@ export default [
         el: "readonly",
         DOMParser: 'readonly',
         console: "readonly",
+        localStorage: "readonly",
+        any: "readonly",
       },
     },
     plugins: {

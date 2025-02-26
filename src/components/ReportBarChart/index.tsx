@@ -2,9 +2,9 @@ import React from "react";
 import Chart, { ChartElement } from "@/components/Base/Chart";
 import { ChartData, ChartOptions } from "chart.js/auto";
 import { getColor } from "@/utils/colors";
-import { selectColorScheme } from "@/stores/colorSchemeSlice";
-import { selectDarkMode } from "@/stores/darkModeSlice";
-import { useAppSelector } from "@/stores/hooks";
+import { selectColorScheme } from "@/redux-toolkit/colorSchemeSlice";
+import { selectDarkMode } from "@/redux-toolkit/darkModeSlice";
+import { useAppSelector } from "@/redux-toolkit/hooks";
 import { useMemo, useEffect, useRef } from "react";
 
 interface MainProps extends React.ComponentPropsWithoutRef<"canvas"> {

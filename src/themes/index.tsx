@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { selectTheme, getTheme } from "@/stores/themeSlice";
-import { selectPageLoader } from "@/stores/pageLoaderSlice";
-import { useAppSelector } from "@/stores/hooks";
+import { selectTheme, getTheme } from "@/redux-toolkit/themeSlice";
+import { selectPageLoader } from "@/redux-toolkit/pageLoaderSlice";
+import { useAppSelector } from "@/redux-toolkit/hooks";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import { Transition } from "@headlessui/react";
 
