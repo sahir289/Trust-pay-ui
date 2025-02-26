@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
-// import { Moon, Sun } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import Button from "@/components/Base/Button";
 
 
@@ -29,12 +29,12 @@ const NotFound = () => {
 
   return (
    <div className="flex flex-col items-center justify-center min-h-screen color dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-all">
-      {/* <button
+      <button
         onClick={() => setDarkMode(!darkMode)}
         className="absolute top-5 right-5 p-2 bg-gray-200 dark:bg-gray-800 rounded-full shadow-md hover:scale-105 transition"
       >
         {darkMode ? <Sun className="text-yellow-400" /> : <Moon className="text-gray-800" />}
-      </button> */}
+      </button>
       <h1 className="text-6xl font-bold">404</h1>
       <p className="text-xl mt-2">Oops! Page Not Found</p>
       <p className="text-gray-500 dark:text-gray-400 mt-1">
