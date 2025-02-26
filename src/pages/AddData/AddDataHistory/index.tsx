@@ -145,6 +145,7 @@ function AddData() {
                 data={transactions.fakeTransactions() as Transaction[]}
                 title={"Add Data"}
                 status={[""]}
+                setParams={() => {}}
                 setStatus={() => {}}
                 approve={false}
                 setApprove={() => {}}

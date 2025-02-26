@@ -1,62 +1,34 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Tab } from "@/components/Base/Headless";
-import Payin, { Payins } from "./Payin/payin";
+import Payin from "./Payin/payin";
 import Payout from "./Payout/payout";
 import Modal from "@/pages/Modal/modal";
-
 import Lucide from "@/components/Base/Lucide";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ModalPopUp from "../ModalPopUp";
-import { getApi } from "@/stores/api";
-import React from "react";
 
 function Main() {
   const [newTransactionModal, setNewTransactionModal] = useState(false);
-  const [title, setTitle] = useState("Payins")
+  const [title, setTitle] = useState("Payins");
   const transactionRef = useRef(null);
   const transactionModal = () => {
-    setNewTransactionModal(!newTransactionModal)
-  }
+    setNewTransactionModal(!newTransactionModal);
+  };
   const [approve, setApprove] = useState(false);
   const [reject, setReject] = useState(false);
   const [status, setStatus] = useState<string>("");
 
-  const resetRef = useRef<| null>(null)
+  const resetRef = useRef<null>(null);
   const handleReject = () => {
-    setReject(!reject)
-  }
+    setReject(!reject);
+  };
 
   const handleApprove = () => {
-    setApprove(false)
-  }
+    setApprove(false);
+  };
   const handleClose = () => {
-    setStatus("")
-
-  }
-
-
-  const [payins, setPayins] = React.useState<Payins[]>([]);
-  const [params, setParams] = React.useState<{ [key: string]: string }>({});
-
-  useEffect(() => {
-    getPayinData();
-  }, [params]);
-
-  const getPayinData = async () => {
-    if (!params) {
-      setParams({
-        page: "1",
-        limit: "10",
-      })
-    }
-    const response = await getApi('/payIn', params, true);
-    if (response?.data?.data) {
-      setPayins(response?.data?.data);
-    }
-  }
+    setStatus("");
+  };
 
   return (
     <>
@@ -65,42 +37,66 @@ function Main() {
           <div className="text-xl font-medium group-[.mode--light]:text-white ">
             Transactions
           </div>
-          <Modal handleModal={transactionModal} sendButtonRef={transactionRef} forOpen={newTransactionModal} title={title} />
+          <Modal
+            handleModal={transactionModal}
+            sendButtonRef={transactionRef}
+            forOpen={newTransactionModal}
+            title={title}
+          />
           {status === "Bank Mismatch" && (
             <ModalPopUp
               open={true}
               onClose={handleClose}
               title="Update Transaction"
-              fields={[
-               
-              ]}
+              fields={[]}
               singleField={[
-                { id: "bank name", label: "Bank Name", type: "text", placeholder: "Bank Name" }
-
+                {
+                  id: "bank name",
+                  label: "Bank Name",
+                  type: "text",
+                  placeholder: "Bank Name",
+                },
               ]}
               buttonText="Success"
-              onSubmit={() => {/* Handle Success */ }}
+              onSubmit={() => {
+                /* Handle Success */
+              }}
               onReset={handleClose}
               resetRef={resetRef}
             />
           )}
 
           {status === "Dispute" && (
-
             <ModalPopUp
               open={true}
               onClose={handleClose}
               title="Update Transaction"
               fields={[
-                { id: "amount", label: "Amount", type: "text", placeholder: "Amount" },
-                { id: "confirmAmount", label: "Confirm Amount", type: "text", placeholder: "Confirm Amount" },
+                {
+                  id: "amount",
+                  label: "Amount",
+                  type: "text",
+                  placeholder: "Amount",
+                },
+                {
+                  id: "confirmAmount",
+                  label: "Confirm Amount",
+                  type: "text",
+                  placeholder: "Confirm Amount",
+                },
               ]}
               singleField={[
-                { id: "merchantOrderId", label: "Merchant Order ID", type: "text", placeholder: "Merchant Order ID" }
-
+                {
+                  id: "merchantOrderId",
+                  label: "Merchant Order ID",
+                  type: "text",
+                  placeholder: "Merchant Order ID",
+                },
               ]}
               buttonText="Success"
-              onSubmit={() => {/* Handle Success */ }}
+              onSubmit={() => {
+                /* Handle Success */
+              }}
               onReset={handleClose}
               resetRef={resetRef}
             />
@@ -111,15 +107,31 @@ function Main() {
               onClose={handleApprove}
               title="Update Transaction"
               fields={[
-                { id: "method", label: "Method", type: "text", placeholder: "Method" },
-                { id: "selectBank", label: "Select Bank", type: "text", placeholder: "Select Bank" },
+                {
+                  id: "method",
+                  label: "Method",
+                  type: "text",
+                  placeholder: "Method",
+                },
+                {
+                  id: "selectBank",
+                  label: "Select Bank",
+                  type: "text",
+                  placeholder: "Select Bank",
+                },
               ]}
               singleField={[
-                { id: "utrNumber", label: "UTR Number", type: "text", placeholder: "UTR Number" }
-
+                {
+                  id: "utrNumber",
+                  label: "UTR Number",
+                  type: "text",
+                  placeholder: "UTR Number",
+                },
               ]}
               buttonText="Approve"
-              onSubmit={() => {/* Handle Approve */ }}
+              onSubmit={() => {
+                /* Handle Approve */
+              }}
               onReset={handleApprove}
               resetRef={resetRef}
             />
@@ -131,10 +143,17 @@ function Main() {
               title="Update Transaction"
               fields={[]}
               singleField={[
-                { id: "rejectReason", label: "Reject Reason", type: "text", placeholder: "Reject Reason" }
+                {
+                  id: "rejectReason",
+                  label: "Reject Reason",
+                  type: "text",
+                  placeholder: "Reject Reason",
+                },
               ]}
               buttonText="Reject"
-              onSubmit={() => {/* Handle Reject */ }}
+              onSubmit={() => {
+                /* Handle Reject */
+              }}
               onReset={handleReject}
               resetRef={resetRef}
             />
@@ -149,37 +168,51 @@ function Main() {
               <Tab.Group>
                 <Tab.List variant="tabs">
                   <Tab>
-                    <Tab.Button className="w-full py-2 flex items-center justify-center" as="button" onClick={() => setTitle("Payins")}>
+                    <Tab.Button
+                      className="w-full py-2 flex items-center justify-center"
+                      as="button"
+                      onClick={() => setTitle("Payins")}
+                    >
                       <Lucide
                         icon="BadgeIndianRupee"
                         className="w-5 h-5 ml-px stroke-[2.5]"
-                      />&nbsp;
-                      Payins
+                      />
+                      &nbsp; Payins
                     </Tab.Button>
                   </Tab>
                   <Tab>
-                    <Tab.Button className="w-full py-2 flex items-center justify-center" as="button" onClick={() => setTitle("Payouts")}>
+                    <Tab.Button
+                      className="w-full py-2 flex items-center justify-center"
+                      as="button"
+                      onClick={() => setTitle("Payouts")}
+                    >
                       <Lucide
                         icon="ArrowRightCircle"
                         className="w-5 h-5 ml-px stroke-[2.5]"
-                      />&nbsp;
-                      Payouts
+                      />
+                      &nbsp; Payouts
                     </Tab.Button>
                   </Tab>
                 </Tab.List>
                 <Tab.Panels className="border-b border-l border-r">
                   <Tab.Panel className="p-5 leading-relaxed">
-                    <Payin setStatus={setStatus} payins={payins} />
+                    <Payin setStatus={setStatus} />
                   </Tab.Panel>
                   <Tab.Panel className="p-5 leading-relaxed">
-                    <Payout reject={reject} setReject={setReject} approve={approve} setApprove={setApprove} />
+                    <Payout
+                      reject={reject}
+                      setReject={setReject}
+                      approve={approve}
+                      setApprove={setApprove}
+                    />
                   </Tab.Panel>
                 </Tab.Panels>
               </Tab.Group>
             </div>
           </div>
         </div>
-      </div></>
+      </div>
+    </>
   );
 }
 

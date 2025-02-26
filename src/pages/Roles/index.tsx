@@ -73,6 +73,7 @@ function Main(): JSX.Element {
                 editModal={editModal as string}
                 status={[]} 
                 setStatus={() => {}} 
+                setParams={() => {}}
                 approve={false} 
                 setApprove={() => {}} 
                 reject={false} 

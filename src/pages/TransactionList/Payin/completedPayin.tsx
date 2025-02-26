@@ -12,6 +12,7 @@ import Button from "@/components/Base/Button";
 // import _ from "lodash";
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
+  setParams: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   payins: Payins[];
 }
 export interface Payins {
@@ -34,7 +35,7 @@ export interface Payins {
   updated_at: string;
 }
 
-const CompletedPayin: React.FC<PayinProps> = ({setStatus, payins}) => {
+const CompletedPayin: React.FC<PayinProps> = ({setStatus, payins, setParams}) => {
   const statusArray: string[] = ['SUCCESS'];
   const theadData: string[] = [
     "SNO",
@@ -168,6 +169,7 @@ const CompletedPayin: React.FC<PayinProps> = ({setStatus, payins}) => {
               data={payins as unknown as Payins[]} 
               title={"Payins"} 
               status={statusArray}
+              setParams={setParams}
               approve={false} 
               setApprove={() => {}} 
               reject={false} 

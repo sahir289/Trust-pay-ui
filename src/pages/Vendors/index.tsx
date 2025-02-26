@@ -129,6 +129,7 @@ function Main() {
                   editModal={editModal}
                   setEditModal={setEditModal}
                   setStatus={() => {}} 
+                  setParams={() => {}}
                   approve={false} 
                   setApprove={() => {}} 
                   reject={false} 

@@ -1,13 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
-// import payins from "@/fakers/payins";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import CustomTable from "../../../components/TableComponent";
-
-
 import {
   FormInput,
   FormSelect,
@@ -16,6 +14,8 @@ import {
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
+  setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
+  params: Record<string, string>;
   payins: Payins[];
 }
 
@@ -39,8 +39,8 @@ export interface Payins {
   updated_at: string;
 }
 
-const AllPayin: React.FC<PayinProps> = ({ setStatus, payins }) => {
-  // const [selectedUser, setSelectedUser] = useState("1");
+const AllPayin: React.FC<PayinProps> = ({ setStatus, payins, params, setParams }) => {
+
   const theadData: string[] = [
     "SNO",
     "Amount",
@@ -170,6 +170,8 @@ const AllPayin: React.FC<PayinProps> = ({ setStatus, payins }) => {
               title={"Payins"}
               status={['PENDING', 'DUPLICATE', 'DISPUTE', 'BANK_MISMATCH', 'IMAGE_PENDING', 'ASSIGNED', 'INITIATED', 'SUCCESS', 'DROPPED', 'FAILED']}
               setStatus={setStatus}
+              params={params}
+              setParams={setParams}
               approve={false}
               setApprove={() => { }}
               reject={false}

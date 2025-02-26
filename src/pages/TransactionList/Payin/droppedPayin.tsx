@@ -11,6 +11,7 @@ import CustomTable from "../../../components/TableComponent";
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
+  setParams: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   payins: Payins[];
 }
 export interface Payins {
@@ -33,7 +34,7 @@ export interface Payins {
   updated_at: string;
 }
 
-const DroppedPayin: React.FC<PayinProps> = ({setStatus, payins}) => {
+const DroppedPayin: React.FC<PayinProps> = ({setStatus, payins, setParams}) => {
   const statusArray: string[] = ['DROPPED','FAILED'];
   const theadData: string[] = [
     "SNO",
@@ -165,6 +166,7 @@ const DroppedPayin: React.FC<PayinProps> = ({setStatus, payins}) => {
               data={payins as unknown as Payins[]} 
               title={"Payins"} 
               status={statusArray} 
+              setParams={setParams}
               approve={false} 
               setApprove={() => {}} 
               reject={false} 

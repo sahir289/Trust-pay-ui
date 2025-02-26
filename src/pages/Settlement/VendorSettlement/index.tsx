@@ -149,6 +149,7 @@ function VendorSettlement() {
                 title={"Vendors Settlements"}
                 status={[]}
                 setStatus={() => {}}
+                setParams={() => {}}
                 approve={false}
                 setApprove={() => {}}
                 reject={false}

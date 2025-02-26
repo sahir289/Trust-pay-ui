@@ -154,7 +154,7 @@ const CompletedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, set
                 </Popover>
               </div>
             </div>
-            <CustomTable approve={approve} setApprove={setApprove} reject={reject} setReject={setReject} setStatus={() => {}} columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Success"]} />
+            <CustomTable approve={approve} setApprove={setApprove} reject={reject} setReject={setReject} setStatus={() => {}} setParams={() => {}} columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Success"]} />
           </div>
         </div>
       </div>

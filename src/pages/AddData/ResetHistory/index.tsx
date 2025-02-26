@@ -145,6 +145,7 @@ function ResetHistory() {
               data={transactions.fakeTransactions() as Transaction[]}  
               title={"Check UTR"} 
               status={[""]}
+              setParams={() => {}}
               setStatus={() => {}}
               approve={false}
               setApprove={() => {}}

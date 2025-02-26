@@ -169,6 +169,7 @@ function ChargeBack() {
                 title={"Chargebacks"} 
                 status={[]} 
                 setStatus={() => {}} 
+                setParams={() => {}}
                 approve={false} 
                 setApprove={() => {}} 
                 reject={false} 

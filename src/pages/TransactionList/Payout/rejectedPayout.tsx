@@ -162,6 +162,7 @@ const RejectedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setR
               data={payouts.fakePayouts() as unknown as Payout[]} 
               status={["Rejected"]} 
               setStatus={() => {}} 
+              setParams={() => {}}
               approve={approve} 
               setApprove={setApprove} 
               reject={reject} 

@@ -9,6 +9,7 @@ import Button from "@/components/Base/Button";
 import CustomTable from "../../../components/TableComponent";
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
+  setParams: React.Dispatch<React.SetStateAction<Record<string, string>>>;
   payins: Payins[];
 }
 export interface Payins {
@@ -31,7 +32,7 @@ export interface Payins {
   updated_at: string;
 }
 
-const InProgressPayin: React.FC<PayinProps> = ({setStatus, payins}) => {
+const InProgressPayin: React.FC<PayinProps> = ({setStatus, payins, setParams}) => {
   const statusArray: string[] = ['PENDING', 'DUPLICATE', 'DISPUTE', 'BANK_MISMATCH', 'IMAGE_PENDING', 'ASSIGNED', 'INITIATED'];
   const theadData: string[] = [
     "SNO",
@@ -162,6 +163,7 @@ const InProgressPayin: React.FC<PayinProps> = ({setStatus, payins}) => {
               data={payins as unknown as Payins[]} 
               title={"Payins"} 
               status={statusArray} 
+              setParams={setParams}
               approve={false} 
               setApprove={() => {}} 
               reject={false} 

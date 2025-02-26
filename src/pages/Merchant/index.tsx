@@ -246,6 +246,7 @@ function Main(): JSX.Element {
                             editModal={editModal.toString()} 
                             setEditModal={() => setEditModal(!editModal)} 
                             setStatus={() => { }} 
+                            setParams={() => {}}
                             expandedRow={expandedRow ?? 20} 
                             handleRowClick={(index: number) => handleRowClick(index)}
                         />

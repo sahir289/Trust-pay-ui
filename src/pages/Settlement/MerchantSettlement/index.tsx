@@ -145,6 +145,7 @@ function MerchantSettlement() {
               title={"Merchants Settlements"} 
               status={[]} 
               setStatus={() => {}} 
+              setParams={() => {}}
               approve={false} 
               setApprove={() => {}} 
               reject={false} 

@@ -142,6 +142,7 @@ function CheckUtrHistory() {
               data={transactions.fakeTransactions() as Transaction[]}  
               title={"Reset Entry"} 
               status={[""]}
+              setParams={() => {}}
               setStatus={() => {}} 
               approve={false} 
               setApprove={() => {}} 

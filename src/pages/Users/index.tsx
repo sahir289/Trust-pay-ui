@@ -129,6 +129,7 @@ function Main() {
                 title={"Users"} 
                 status={[]} 
                 setStatus={() => {}} 
+                setParams={() => {}}
                 approve={false} 
                 editModal={editModal}
                  setEditModal={setEditModal}

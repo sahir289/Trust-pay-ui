@@ -70,6 +70,7 @@ const tableHeaders: string[] = [
                 setEditModal={setEditModal}
                 editModal={editModal}
                 setStatus={() => {}} 
+                setParams={() => {}}
                 approve={false} 
                 setApprove={() => {}} 
                 reject={false} 

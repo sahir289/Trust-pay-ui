@@ -145,13 +145,12 @@ function Main(): JSX.Element {
               setEditModal={setEditModal}
               editModal={editModal}
               setStatus={() => {}} 
+              setParams={() => {}}
               approve={false} 
               setApprove={() => {}} 
               reject={false}
               setReject={() => {}} 
             />
-            
-         
           </div>
         </div>
       </div>

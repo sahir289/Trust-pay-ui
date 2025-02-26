@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-unused-vars */
 import { Slideover } from "@/components/Base/Headless";
 import { Menu } from "@/components/Base/Headless";
 import Lucide from "@/components/Base/Lucide";
