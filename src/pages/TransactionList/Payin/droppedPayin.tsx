@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
@@ -11,7 +12,9 @@ import CustomTable from "../../../components/TableComponent";
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
-  setParams: React.Dispatch<React.SetStateAction<Record<string, string>>>;
+  setId: React.Dispatch<React.SetStateAction<string>>;
+  setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
+  params: Record<string, any>;
   payins: Payins[];
 }
 export interface Payins {
@@ -34,7 +37,7 @@ export interface Payins {
   updated_at: string;
 }
 
-const DroppedPayin: React.FC<PayinProps> = ({setStatus, payins, setParams}) => {
+const DroppedPayin: React.FC<PayinProps> = ({setStatus, setId, payins, params, setParams}) => {
   const statusArray: string[] = ['DROPPED','FAILED'];
   const theadData: string[] = [
     "SNO",
@@ -161,11 +164,13 @@ const DroppedPayin: React.FC<PayinProps> = ({setStatus, payins, setParams}) => {
             </div>
 
             <CustomTable 
-              setStatus={setStatus} 
+              setStatus={setStatus}
+              setId={setId}
               columns={theadData} 
               data={payins as unknown as Payins[]} 
               title={"Payins"} 
               status={statusArray} 
+              params={params}
               setParams={setParams}
               approve={false} 
               setApprove={() => {}} 

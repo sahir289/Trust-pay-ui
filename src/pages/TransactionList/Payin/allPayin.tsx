@@ -14,8 +14,9 @@ import {
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
+  setId: React.Dispatch<React.SetStateAction<string>>;
   setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
-  params: Record<string, string>;
+  params: Record<string, any>;
   payins: Payins[];
 }
 
@@ -39,7 +40,7 @@ export interface Payins {
   updated_at: string;
 }
 
-const AllPayin: React.FC<PayinProps> = ({ setStatus, payins, params, setParams }) => {
+const AllPayin: React.FC<PayinProps> = ({ setStatus, setId, payins, params, setParams }) => {
 
   const theadData: string[] = [
     "SNO",
@@ -170,6 +171,7 @@ const AllPayin: React.FC<PayinProps> = ({ setStatus, payins, params, setParams }
               title={"Payins"}
               status={['PENDING', 'DUPLICATE', 'DISPUTE', 'BANK_MISMATCH', 'IMAGE_PENDING', 'ASSIGNED', 'INITIATED', 'SUCCESS', 'DROPPED', 'FAILED']}
               setStatus={setStatus}
+              setId={setId}
               params={params}
               setParams={setParams}
               approve={false}

@@ -6,6 +6,10 @@ import Modal from "@/pages/Modal/modal";
 import Lucide from "@/components/Base/Lucide";
 import { useRef, useState } from "react";
 import ModalPopUp from "../ModalPopUp";
+import Notification, {
+  NotificationElement,
+} from "@/components/Base/Notification";
+import { postApi } from "@/redux-toolkit/api";
 
 function Main() {
   const [newTransactionModal, setNewTransactionModal] = useState(false);
@@ -17,6 +21,15 @@ function Main() {
   const [approve, setApprove] = useState(false);
   const [reject, setReject] = useState(false);
   const [status, setStatus] = useState<string>("");
+  const [id, setId] = useState<string>("");
+  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationStatus, setNotificationStatus] = useState("");
+  // Basic non sticky notification
+  const basicNonStickyNotification = useRef<NotificationElement>();
+  const basicNonStickyNotificationToggle = () => {
+    // Show notification
+    basicNonStickyNotification.current?.showToast();
+  };
 
   const resetRef = useRef<null>(null);
   const handleReject = () => {
@@ -26,8 +39,40 @@ function Main() {
   const handleApprove = () => {
     setApprove(false);
   };
+
   const handleClose = () => {
     setStatus("");
+  };
+
+  const handleSubmit = async (data: Record<string, string>) => {
+    let url = "";
+    let apiData = {};
+
+    if (status === "BANK_MISMATCH") {
+      url = `/payIn/update-deposit-status/${id}`;
+      apiData = { type: "PAYIN", ...data};
+    } else if (status === "DISPUTE") {
+      url = `/payIn/dispute-duplicate/${id}`;
+      apiData = { ...data };
+    }
+
+    await postApi(`${url}`, apiData)
+      .then((res) => {
+        if (res?.data?.data?.message) {
+          setNotificationMessage(res?.data?.data?.message);
+          setNotificationStatus("SUCCESS");
+          basicNonStickyNotificationToggle();
+        } else {
+          setNotificationStatus("ERROR");
+          setNotificationMessage(res?.data?.error?.message);
+          basicNonStickyNotificationToggle();
+        }
+      })
+      .catch((err) => {
+        setNotificationStatus("ERROR");
+        setNotificationMessage(err?.response?.data?.error?.message);
+        basicNonStickyNotificationToggle();
+      });
   };
 
   return (
@@ -43,7 +88,8 @@ function Main() {
             forOpen={newTransactionModal}
             title={title}
           />
-          {status === "Bank Mismatch" && (
+
+          {status === "BANK_MISMATCH" && (
             <ModalPopUp
               open={true}
               onClose={handleClose}
@@ -51,22 +97,20 @@ function Main() {
               fields={[]}
               singleField={[
                 {
-                  id: "bank name",
+                  id: "nick_name",
                   label: "Bank Name",
                   type: "text",
                   placeholder: "Bank Name",
                 },
               ]}
               buttonText="Success"
-              onSubmit={() => {
-                /* Handle Success */
-              }}
+              onSubmit={handleSubmit}
               onReset={handleClose}
               resetRef={resetRef}
             />
           )}
 
-          {status === "Dispute" && (
+          {status === "DISPUTE" && (
             <ModalPopUp
               open={true}
               onClose={handleClose}
@@ -79,7 +123,7 @@ function Main() {
                   placeholder: "Amount",
                 },
                 {
-                  id: "confirmAmount",
+                  id: "confirmed",
                   label: "Confirm Amount",
                   type: "text",
                   placeholder: "Confirm Amount",
@@ -94,9 +138,7 @@ function Main() {
                 },
               ]}
               buttonText="Success"
-              onSubmit={() => {
-                /* Handle Success */
-              }}
+              onSubmit={handleSubmit}
               onReset={handleClose}
               resetRef={resetRef}
             />
@@ -196,7 +238,7 @@ function Main() {
                 </Tab.List>
                 <Tab.Panels className="border-b border-l border-r">
                   <Tab.Panel className="p-5 leading-relaxed">
-                    <Payin setStatus={setStatus} />
+                    <Payin setStatus={setStatus} setId={setId} />
                   </Tab.Panel>
                   <Tab.Panel className="p-5 leading-relaxed">
                     <Payout
@@ -212,6 +254,28 @@ function Main() {
           </div>
         </div>
       </div>
+      {notificationMessage && (
+        <div className="text-center">
+          <Notification
+            getRef={(el) => {
+              basicNonStickyNotification.current = el;
+            }}
+            options={{
+              duration: 3000,
+            }}
+            className="flex flex-col sm:flex-row"
+          >
+            {notificationStatus === "SUCCESS" ? (
+              <Lucide icon="BadgeCheck" className="text-primary" />
+            ) : (
+              <Lucide icon="X" className="text-danger" />
+            )}
+            <div className="font-medium ml-4 mr-4">
+              <div className="font-medium">{notificationMessage}</div>
+            </div>
+          </Notification>
+        </div>
+      )}
     </>
   );
 }

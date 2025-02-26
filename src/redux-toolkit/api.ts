@@ -23,7 +23,7 @@ interface Params {
     [key: string]: string | number | boolean | object | undefined;
 }
 
-export const getApi = async (url: string, params: Params = {}, flag: boolean) => {
+export const getApi = async (url: string, params: Params = {}, flag?: boolean) => {
     try {
         // this is the temporary solution for getting all merchants in dropdowns.
         // will improves this in future.
@@ -47,7 +47,7 @@ export const getApi = async (url: string, params: Params = {}, flag: boolean) =>
     }
 };
 
-export const postApi = async (url: string, apiData: Record<string, unknown>, flag: boolean) => {
+export const postApi = async (url: string, apiData: Record<string, unknown>, flag?: boolean) => {
     try {
         const response = await axios.post(
             `${endPoint}${url}`,
@@ -66,7 +66,7 @@ export const postApi = async (url: string, apiData: Record<string, unknown>, fla
     }
 };
 
-export const putApi = async (url: string, apiData: Record<string, unknown>, flag: boolean) => {
+export const putApi = async (url: string, apiData: Record<string, unknown>, flag?: boolean) => {
     try {
         const response = await axios.put(
             `${endPoint}${url}`,
@@ -85,7 +85,7 @@ export const putApi = async (url: string, apiData: Record<string, unknown>, flag
     }
 };
 
-export const patchApi = async (url: string, apiData: Record<string, unknown>, flag: boolean) => {
+export const patchApi = async (url: string, apiData: Record<string, unknown>, flag?: boolean) => {
     try {
         const response = await axios.patch(
             `${endPoint}${url}`,

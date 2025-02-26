@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { twMerge } from "tailwind-merge";
 import { Menu as HeadlessMenu, Transition } from "@headlessui/react";
 import React, { Fragment, ComponentProps } from "react";
