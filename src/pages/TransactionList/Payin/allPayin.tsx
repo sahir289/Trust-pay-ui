@@ -11,13 +11,14 @@ import {
   FormSelect,
 
 } from "@/components/Base/Form";
+// import { useAppSelector } from "@/redux-toolkit/hooks";
+// import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   setId: React.Dispatch<React.SetStateAction<string>>;
   setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   params: Record<string, any>;
-  payins: Payins[];
 }
 
 export interface Payins {
@@ -40,7 +41,7 @@ export interface Payins {
   updated_at: string;
 }
 
-const AllPayin: React.FC<PayinProps> = ({ setStatus, setId, payins, params, setParams }) => {
+const AllPayin: React.FC<PayinProps> = ({ setStatus, setId, params, setParams }) => {
 
   const theadData: string[] = [
     "SNO",
@@ -53,6 +54,9 @@ const AllPayin: React.FC<PayinProps> = ({ setStatus, setId, payins, params, setP
     "Image",
     "Action"
   ];
+
+  // const payins = useAppSelector(getAllPayinData);
+  const payins: any[] = [];
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">

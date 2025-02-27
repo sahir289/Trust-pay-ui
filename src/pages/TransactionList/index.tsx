@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Tab } from "@/components/Base/Headless";
-import Payin from "./Payin/payin";
+import PayinComponent from "./Payin/payin";
 import Payout from "./Payout/payout";
 import Modal from "@/pages/Modal/modal";
 import Lucide from "@/components/Base/Lucide";
@@ -238,7 +238,7 @@ function Main() {
                 </Tab.List>
                 <Tab.Panels className="border-b border-l border-r">
                   <Tab.Panel className="p-5 leading-relaxed">
-                    <Payin setStatus={setStatus} setId={setId} />
+                    <PayinComponent setStatus={setStatus} setId={setId} />
                   </Tab.Panel>
                   <Tab.Panel className="p-5 leading-relaxed">
                     <Payout

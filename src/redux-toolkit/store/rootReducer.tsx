@@ -9,11 +9,11 @@ const rootReducer = combineReducers({
   user: userReducer,
   payIn: payInReducer,
   theme: themeReducer,
-//   darkMode: darkModeReducer,
-//   colorScheme: colorSchemeReducer,
-//   sideMenu: sideMenuReducer,
-//   compactMenu: compactMenuReducer,
-//   pageLoader: pageLoaderReducer,
+  // darkMode: darkModeReducer,
+  // colorScheme: colorSchemeReducer,
+  // sideMenu: sideMenuReducer,
+  // compactMenu: compactMenuReducer,
+  // pageLoader: pageLoaderReducer,
 });
 
 export default rootReducer;
