@@ -9,7 +9,7 @@ import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 // import { useState } from "react";
 import CustomTable from "../../../components/TableComponent";
-// import { useAppSelector } from "@/redux-toolkit/hooks";
+// import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 // import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
 
 interface PayinProps {

@@ -9,7 +9,7 @@ import CustomTable from "../../../components/TableComponent";
 
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
-// import { useAppSelector } from "@/redux-toolkit/hooks";
+// import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 // import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
 // import { useState } from "react";
 // import _ from "lodash";

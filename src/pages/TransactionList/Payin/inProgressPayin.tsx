@@ -8,7 +8,7 @@ import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 // import _ from "lodash";
 import CustomTable from "../../../components/TableComponent";
-// import { useAppSelector } from "@/redux-toolkit/hooks";
+// import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 // import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;

@@ -1,17 +1,17 @@
 /* eslint-disable no-undef */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "./store";
-import Hurricane from "../themes/Hurricane";
-import Ravage from "../themes/Ravage";
-import Echo from "../themes/Echo";
-import Hook from "../themes/Hook";
-import Razor from "../themes/Razor";
-import Havoc from "../themes/Havoc";
-import Dagger from "../themes/Dagger";
-import Shuriken from "../themes/Shuriken";
-import Raze from "../themes/Raze";
-import Exort from "../themes/Exort";
-import Viper from "../themes/Viper";
+import { RootState } from "../../store/store";
+import Hurricane from "../../../themes/Hurricane";
+import Ravage from "../../../themes/Ravage";
+import Echo from "../../../themes/Echo";
+import Hook from "../../../themes/Hook";
+import Razor from "../../../themes/Razor";
+import Havoc from "../../../themes/Havoc";
+import Dagger from "../../../themes/Dagger";
+import Shuriken from "../../../themes/Shuriken";
+import Raze from "../../../themes/Raze";
+import Exort from "../../../themes/Exort";
+import Viper from "../../../themes/Viper";
 
 export const themes = [
   {

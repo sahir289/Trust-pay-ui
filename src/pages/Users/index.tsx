@@ -7,8 +7,8 @@ import _ from "lodash";
 import Modal from "../Modal/modal";
 import { useRef, useState } from "react";
 import CustomTable from "@/components/TableComponent";
-import { useAppDispatch, useAppSelector } from "@/redux-toolkit/hooks";
-import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
+import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
+// import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
 import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
 import { addUser, getUsers } from "@/redux-toolkit/slices/user/userSlice";
 export interface User {
@@ -36,8 +36,8 @@ function Main() {
     const userList = await getAllUsers();
     dispatch(getUsers(userList));
   };
-  const users = useAppSelector(selectAllUsers);
-  console.log(users, "userss==")
+  // const users = useAppSelector(selectAllUsers);
+  // console.log(users, "userss==")
 
   const tableHeaders = [
     "admin_name",

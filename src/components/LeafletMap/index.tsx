@@ -1,9 +1,9 @@
 import LeafletMapLoader, { Init } from "@/components/Base/LeafletMapLoader";
 import { getColor } from "@/utils/colors";
-import { selectDarkMode } from "@/redux-toolkit/darkModeSlice";
-import { useAppSelector } from "@/redux-toolkit/hooks";
+import { selectDarkMode } from "@/redux-toolkit/slices/common/darkMode/darkModeSlice";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import location from "@/assets/json/location.json";
-import { selectColorScheme } from "@/redux-toolkit/colorSchemeSlice";
+import { selectColorScheme } from "@/redux-toolkit/slices/common/colorScheme/colorSchemeSlice";
 
 type MainProps = {
   width?: number | "auto";

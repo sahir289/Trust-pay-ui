@@ -2,7 +2,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from "./store";
+import { RootState } from "../../../store/store";
 
 export const colorSchemes = [
   "default",
