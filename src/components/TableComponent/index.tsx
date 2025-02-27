@@ -21,7 +21,7 @@ import VendorDetails from "@/pages/VendorDetails/VendorDetails";
 import Notification, {
   NotificationElement,
 } from "@/components/Base/Notification";
-import { postApi } from "@/redux-toolkit/api";
+import { updatePayins } from "@/redux-toolkit/slices/payin/payinAPI";
 
 interface ICustomTableProps {
   columns?: string[];
@@ -402,10 +402,9 @@ const CustomTable: React.FC<ICustomTableProps> = ({
   };
 
   const notify = async (id: string | any) => {
-    await postApi(
-      `/payIn/update-payment-notified-status/${id}`,
-      { type: "PAYIN" }
-    )
+    const url = `/update-payment-notified-status/${id}`;
+    const apiData = { type: "PAYIN"};
+    await updatePayins(`${url}`, apiData)
       .then((res) => {
         if (res?.data?.data?.message) {
           setNotificationMessage(res?.data?.data?.message);

@@ -9,7 +9,7 @@ import ModalPopUp from "../ModalPopUp";
 import Notification, {
   NotificationElement,
 } from "@/components/Base/Notification";
-import { postApi } from "@/redux-toolkit/api";
+import { updatePayins } from "@/redux-toolkit/slices/payin/payinAPI";
 
 function Main() {
   const [newTransactionModal, setNewTransactionModal] = useState(false);
@@ -49,14 +49,14 @@ function Main() {
     let apiData = {};
 
     if (status === "BANK_MISMATCH") {
-      url = `/payIn/update-deposit-status/${id}`;
+      url = `/update-deposit-status/${id}`;
       apiData = { type: "PAYIN", ...data};
     } else if (status === "DISPUTE") {
-      url = `/payIn/dispute-duplicate/${id}`;
+      url = `/dispute-duplicate/${id}`;
       apiData = { ...data };
     }
 
-    await postApi(`${url}`, apiData)
+    await updatePayins(`${url}`, apiData)
       .then((res) => {
         if (res?.data?.data?.message) {
           setNotificationMessage(res?.data?.data?.message);
@@ -82,6 +82,7 @@ function Main() {
           <div className="text-xl font-medium group-[.mode--light]:text-white ">
             Transactions
           </div>
+          
           <Modal
             handleModal={transactionModal}
             sendButtonRef={transactionRef}
@@ -202,7 +203,6 @@ function Main() {
           )}
         </div>
       </div>
-
       <div className="grid grid-cols-12 gap-y-10 gap-x-6 mt-2">
         <div className="col-span-12">
           <div className="relative flex flex-col col-span-12 lg:col-span-12 xl:col-span-12 gap-y-7">
