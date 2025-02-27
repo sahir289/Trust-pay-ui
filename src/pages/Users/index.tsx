@@ -16,19 +16,6 @@ export interface User {
   created_by: string;
   status: string;
   action: string;
-  confirmed: boolean;
-  amount: number;
-  merchant_order_id: string;
-  merchant_code: string;
-  photo: string;
-  name: string;
-  user: string;
-  payin_merchant_commission: string;
-  payin_vendor_commission: string;
-  user_submitted_utr: string;
-  utr: string;
-  position?: string;
-  method: string;
   id: string;
   updated_at: string;
 }
@@ -142,6 +129,7 @@ function Main() {
                 title={"Users"} 
                 status={[]} 
                 setStatus={() => {}} 
+                setParams={() => {}}
                 approve={false} 
                 editModal={editModal}
                  setEditModal={setEditModal}

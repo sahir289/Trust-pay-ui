@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { twMerge } from "tailwind-merge";
 import Button from "../Button";
+import React from "react";
 
 type PaginationProps = React.PropsWithChildren &
   React.ComponentPropsWithoutRef<"nav">;
@@ -18,15 +20,15 @@ interface LinkProps
   active?: boolean;
 }
 
-Pagination.Link = ({ className, active, children }: LinkProps) => {
+Pagination.Link = ({ className, active, children, onClick }: LinkProps & { onClick?: () => void }) => {
   return (
     <li className="flex-1 sm:flex-initial">
       <Button
         as="a"
+        onClick={onClick}
         className={twMerge([
           "min-w-0 sm:min-w-[40px] font-normal flex items-center justify-center text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3 h-full",
-          active &&
-            "rounded-[0.5rem] bg-white font-medium dark:bg-darkmode-400",
+          active && "rounded-[0.5rem] bg-white font-medium dark:bg-darkmode-400",
           !active && "shadow-none border-transparent",
           className,
         ])}

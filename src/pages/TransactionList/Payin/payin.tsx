@@ -1,24 +1,26 @@
+/* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React from "react";
+import React, { useEffect } from "react";
 import { Tab } from "@/components/Base/Headless";
 import AllPayin from "./allPayin";
 import CompletedPayin from "./completedPayin";
 import InProgressPayin from "./inProgressPayin";
 import DroppedPayin from "./droppedPayin";
 import Lucide from "@/components/Base/Lucide";
+import { getApi } from "@/redux-toolkit/api";
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
-  payins: Payins[];
+  setId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface Payins {
   sno: number;
   code: string;
-  confirmed: boolean;
+  confirmed: string;
   payin_merchant_commission: string;
   payin_vendor_commission: string;
-  amount: number;
+  amount: string;
   status: string;
   merchant_order_id: string;
   merchant_code: string;
@@ -32,7 +34,26 @@ export interface Payins {
   updated_at: string;
 }
 
-const Payin: React.FC<PayinProps> = ({ setStatus, payins }) => {
+const Payin: React.FC<PayinProps> = ({ setStatus, setId }) => {
+
+    const [payins, setPayins] = React.useState<Payins[]>([]);
+    const [params, setParams] = React.useState<{ [key: string]: string }>({
+      page: "1",
+      limit: "10",
+    });
+
+  useEffect(() => {
+    getPayinData();
+  }, [JSON.stringify(params)]);  
+
+  const getPayinData = async () => {
+    const queryString = new URLSearchParams(params).toString();
+    const response = await getApi(`/payIn?${queryString}`, {}, true);
+    if (response?.data?.data) {
+      setPayins(response?.data?.data);
+    }
+  };
+
   return (
     <div className="flex flex-col p-5 ">
      <>
@@ -77,16 +98,16 @@ const Payin: React.FC<PayinProps> = ({ setStatus, payins }) => {
         </Tab.List>
         <Tab.Panels className="border-b border-l border-r">
           <Tab.Panel className="py-5 leading-relaxed">
-            <AllPayin setStatus={setStatus} payins={payins} />
+            <AllPayin setStatus={setStatus} setId={setId} payins={payins} params={params} setParams={setParams} />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
-            <CompletedPayin setStatus={setStatus} payins={payins} />
+            <CompletedPayin setStatus={setStatus} setId={setId} payins={payins} params={params} setParams={setParams} />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
-            <InProgressPayin setStatus={setStatus} payins={payins} />
+            <InProgressPayin setStatus={setStatus} setId={setId} payins={payins} params={params} setParams={setParams} />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
-            <DroppedPayin setStatus={setStatus} payins={payins} />
+            <DroppedPayin setStatus={setStatus} setId={setId} payins={payins} params={params} setParams={setParams} />
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group></>

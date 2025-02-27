@@ -6,12 +6,12 @@ import { Transition } from "react-transition-group";
 import Breadcrumb from "@/components/Base/Breadcrumb";
 import { useState, useEffect, createRef } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { selectSideMenu } from "@/stores/sideMenuSlice";
+import { selectSideMenu } from "@/redux-toolkit/sideMenuSlice";
 import {
   selectCompactMenu,
   setCompactMenu as setCompactMenuStore,
-} from "@/stores/compactMenuSlice";
-import { useAppDispatch, useAppSelector } from "@/stores/hooks";
+} from "@/redux-toolkit/compactMenuSlice";
+import { useAppDispatch, useAppSelector } from "@/redux-toolkit/hooks";
 import { FormattedMenu, linkTo, nestedMenu, enter, leave } from "./side-menu";
 import Lucide from "@/components/Base/Lucide";
 import users from "@/fakers/users";
@@ -22,7 +22,7 @@ import { Menu } from "@/components/Base/Headless";
 import SwitchAccount from "@/components/SwitchAccount";
 import NotificationsPanel from "@/components/NotificationsPanel";
 import ActivitiesPanel from "@/components/ActivitiesPanel";
-import { postApi } from "@/stores/api";
+import { postApi } from "@/redux-toolkit/api";
 
 function Main() {
   const dispatch = useAppDispatch();
@@ -395,13 +395,13 @@ function Main() {
               <Breadcrumb light className="flex-1 hidden xl:block">
                 <Breadcrumb.Link
                   className="dark:before:bg-chevron-white"
-                  to="/layout/dashboard"
+                  to="/auth/dashboard"
                 >
                   Dashboard
                 </Breadcrumb.Link>
                 <Breadcrumb.Link
                   className="dark:before:bg-chevron-white"
-                  to="/layout/dashboard"
+                  to="/auth/dashboard"
                   active={true}
                 >
                   Analytics

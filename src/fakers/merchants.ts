@@ -4,13 +4,13 @@ export interface subMerchant {
   site: string;
   apikey: string;
   public_api_key: string;
-  balance: string;
+  balance: number;
   payin_range: string;
   payin_commission: string;
   payout_range: string;
   payout_commission: string;
-  test_mode: string;
-  allow_intent: string;
+  test_mode: boolean;
+  allow_intent: boolean;
   created_at: string;
   actions: string;
 }
@@ -20,13 +20,13 @@ export interface Merchant {
   site: string;
   apikey: string;
   public_api_key: string;
-  balance: string;
+  balance: number;
   payin_range: string;
   payin_commission: string;
   payout_range: string;
   payout_commission: string;
-  test_mode: string;
-  allow_intent: string;
+  test_mode: boolean;
+  allow_intent: boolean;
   created_at: string;
   actions: string;
   submerchant: subMerchant[];
@@ -42,13 +42,13 @@ const fakersMerchant = {
         site: "https://NoahCentineo@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
-        balance: "₹0",
+        balance: 0,
         payin_range: "₹1 - ₹10",
         payin_commission: "5%",
         payout_range: "₹1 - ₹10",
         payout_commission: "5%",
-        test_mode: "",
-        allow_intent: "",
+        test_mode: false,
+        allow_intent: false,
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
         submerchant: [
@@ -58,13 +58,13 @@ const fakersMerchant = {
             site: "https://heav@gmail.com",
             apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
             public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
-            balance: "$0",
+            balance: 0,
             payin_range: "$1 - $10",
             payin_commission: "$1 - $10",
             payout_range: "$1 - $10",
             payout_commission: "$1 - $10",
-            test_mode: "",
-            allow_intent: "",
+            test_mode: false,
+            allow_intent: false,
             created_at: "28/01/2025 at 05:01:23 PM",
             actions: "",
           },
@@ -74,13 +74,13 @@ const fakersMerchant = {
             site: "https://heav@gmail.com",
             apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
             public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
-            balance: "$0",
+            balance: 0,
             payin_range: "$1 - $10",
             payin_commission: "$1 - $10",
             payout_range: "$1 - $10",
             payout_commission: "$1 - $10",
-            test_mode: "",
-            allow_intent: "",
+            test_mode: false,
+            allow_intent: false,
             created_at: "28/01/2025 at 05:01:23 PM",
             actions: "",
           }
@@ -93,16 +93,16 @@ const fakersMerchant = {
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
-        balance: "₹0",
+        balance: 0,
         payin_range: "₹1 - ₹10",
         payin_commission: "5%",
         payout_range: "₹1 - ₹10",
         payout_commission: "5%",
-        test_mode: "",
-        allow_intent: "",
+        test_mode: false,
+        allow_intent: false,
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
-        submerchant:[]
+        submerchant: []
       },
       {
         name: "Leonardo DiCaprio",
@@ -110,16 +110,16 @@ const fakersMerchant = {
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
-        balance: "₹0",
+        balance: 0,
         payin_range: "₹1 - ₹10",
         payin_commission: "5%",
         payout_range: "₹1 - ₹10",
         payout_commission: "5%",
-        test_mode: "",
-        allow_intent: "",
+        test_mode: false,
+        allow_intent: false,
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
-        submerchant:[]
+        submerchant: []
       },
       {
         name: "Angelina Jolie",
@@ -127,16 +127,16 @@ const fakersMerchant = {
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
-        balance: "₹0",
+        balance: 0,
         payin_range: "₹1 - ₹10",
         payin_commission: "5%",
         payout_range: "₹1 - ₹10",
         payout_commission: "5%",
-        test_mode: "",
-        allow_intent: "",
+        test_mode: false,
+        allow_intent: false,
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
-        submerchant:[]
+        submerchant: []
       },
       {
         name: "Brad Pitt",
@@ -144,16 +144,16 @@ const fakersMerchant = {
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
-        balance: "₹0",
+        balance: 0,
         payin_range: "₹1 - ₹10",
         payin_commission: "5%",
         payout_range: "₹1 - ₹10",
         payout_commission: "5%",
-        test_mode: "",
-        allow_intent: "",
+        test_mode: false,
+        allow_intent: false,
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
-        submerchant:[]
+        submerchant: []
       },
       {
         name: "Jennifer Lawrence",
@@ -161,16 +161,16 @@ const fakersMerchant = {
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
-        balance: "₹0",
+        balance: 0,
         payin_range: "₹1 - ₹10",
         payin_commission: "5%",
         payout_range: "₹1 - ₹10",
         payout_commission: "5%",
-        test_mode: "",
-        allow_intent: "",
+        test_mode: false,
+        allow_intent: false,
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
-        submerchant:[]
+        submerchant: []
       },
       {
         name: "Johnny Depp",
@@ -178,16 +178,16 @@ const fakersMerchant = {
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
-        balance: "₹0",
+        balance: 0,
         payin_range: "₹1 - ₹10",
         payin_commission: "5%",
         payout_range: "₹1 - ₹10",
         payout_commission: "5%",
-        test_mode: "",
-        allow_intent: "",
+        test_mode: false,
+        allow_intent: false,
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
-        submerchant:[]
+        submerchant: []
       },
       {
         name: "Cate Blanchett",
@@ -195,16 +195,16 @@ const fakersMerchant = {
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
-        balance: "₹0",
+        balance: 0,
         payin_range: "₹1 - ₹10",
         payin_commission: "5%",
         payout_range: "₹1 - ₹10",
         payout_commission: "5%",
-        test_mode: "",
-        allow_intent: "",
+        test_mode: false,
+        allow_intent: false,
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
-        submerchant:[]
+        submerchant: []
       },
       {
         name: "Denzel Washington",
@@ -212,16 +212,16 @@ const fakersMerchant = {
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
-        balance: "₹0",
+        balance: 0,
         payin_range: "₹1 - ₹10",
         payin_commission: "5%",
         payout_range: "₹1 - ₹10",
         payout_commission: "5%",
-        test_mode: "",
-        allow_intent: "",
+        test_mode: false,
+        allow_intent: false,
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
-        submerchant:[]
+        submerchant: []
       },
       {
         name: "Julia Roberts",
@@ -229,16 +229,16 @@ const fakersMerchant = {
         site: "https://heav@gmail.com",
         apikey: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         public_api_key: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
-        balance: "₹0",
+        balance: 0,
         payin_range: "₹1 - ₹10",
         payin_commission: "5%",
         payout_range: "₹1 - ₹10",
         payout_commission: "5%",
-        test_mode: "",
-        allow_intent: "",
+        test_mode: false,
+        allow_intent: false,
         created_at: "28/01/2025 at 05:01:23 PM",
         actions: "",
-        submerchant:[]
+        submerchant: []
       },
     ];
 

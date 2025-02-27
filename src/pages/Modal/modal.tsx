@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable no-undef */
 import { PreviewComponent, Preview } from "@/components/Base/PreviewComponent";
 import {
@@ -31,6 +32,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
   };
   const [showPassword, setShowPassword] = useState(false);
   const [generalReportFilter, setGeneralReportFilter] = useState<string>();
+  
   return (
     <div className="">
       <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">

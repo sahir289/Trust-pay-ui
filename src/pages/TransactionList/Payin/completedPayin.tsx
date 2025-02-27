@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
@@ -12,15 +13,18 @@ import Button from "@/components/Base/Button";
 // import _ from "lodash";
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
+  setId: React.Dispatch<React.SetStateAction<string>>;
+  setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
+  params: Record<string, any>;
   payins: Payins[];
 }
 export interface Payins {
   sno: number;
   code: string;
-  confirmed: boolean;
+  confirmed: string;
   payin_merchant_commission: string;
   payin_vendor_commission: string;
-  amount: number;
+  amount: string;
   status: string;
   merchant_order_id: string;
   merchant_code: string;
@@ -34,7 +38,7 @@ export interface Payins {
   updated_at: string;
 }
 
-const CompletedPayin: React.FC<PayinProps> = ({setStatus, payins}) => {
+const CompletedPayin: React.FC<PayinProps> = ({setStatus, setId, payins, params, setParams}) => {
   const statusArray: string[] = ['SUCCESS'];
   const theadData: string[] = [
     "SNO",
@@ -164,10 +168,13 @@ const CompletedPayin: React.FC<PayinProps> = ({setStatus, payins}) => {
             </div>
             <CustomTable 
               setStatus={setStatus} 
+              setId={setId}
               columns={theadData} 
               data={payins as unknown as Payins[]} 
               title={"Payins"} 
               status={statusArray}
+              params={params}
+              setParams={setParams}
               approve={false} 
               setApprove={() => {}} 
               reject={false} 

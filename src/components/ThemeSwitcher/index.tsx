@@ -1,17 +1,17 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable no-undef */
 import React from "react";
-import { useAppDispatch, useAppSelector } from "@/stores/hooks";
-import { selectColorScheme } from "@/stores/colorSchemeSlice";
+import { useAppDispatch, useAppSelector } from "@/redux-toolkit/hooks";
+import { selectColorScheme } from "@/redux-toolkit/colorSchemeSlice";
 import {
   setColorScheme,
   colorSchemes,
   ColorSchemes,
-} from "@/stores/colorSchemeSlice";
+} from "@/redux-toolkit/colorSchemeSlice";
 import { useLocation } from "react-router-dom";
-import { selectTheme, setTheme, themes, Themes } from "@/stores/themeSlice";
-import { selectDarkMode, setDarkMode } from "@/stores/darkModeSlice";
-import { setPageLoader } from "@/stores/pageLoaderSlice";
+import { selectTheme, setTheme, themes, Themes } from "@/redux-toolkit/themeSlice";
+import { selectDarkMode, setDarkMode } from "@/redux-toolkit/darkModeSlice";
+import { setPageLoader } from "@/redux-toolkit/pageLoaderSlice";
 import { Slideover } from "@/components/Base/Headless";
 import Lucide from "@/components/Base/Lucide";
 import { useState, useEffect } from "react";

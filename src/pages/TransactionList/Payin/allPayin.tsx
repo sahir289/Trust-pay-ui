@@ -1,29 +1,32 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
-// import payins from "@/fakers/payins";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import CustomTable from "../../../components/TableComponent";
-
 import {
   FormInput,
   FormSelect,
 
 } from "@/components/Base/Form";
-// import _ from "lodash";
+
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
+  setId: React.Dispatch<React.SetStateAction<string>>;
+  setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
+  params: Record<string, any>;
   payins: Payins[];
 }
+
 export interface Payins {
   sno: number;
   code: string;
-  confirmed: boolean;
+  confirmed: string;
   payin_merchant_commission: string;
   payin_vendor_commission: string;
-  amount: number;
+  amount: string;
   status: string;
   merchant_order_id: string;
   merchant_code: string;
@@ -37,8 +40,8 @@ export interface Payins {
   updated_at: string;
 }
 
-const AllPayin: React.FC<PayinProps> = ({ setStatus, payins }) => {
-  // const [selectedUser, setSelectedUser] = useState("1");
+const AllPayin: React.FC<PayinProps> = ({ setStatus, setId, payins, params, setParams }) => {
+
   const theadData: string[] = [
     "SNO",
     "Amount",
@@ -168,6 +171,9 @@ const AllPayin: React.FC<PayinProps> = ({ setStatus, payins }) => {
               title={"Payins"}
               status={['PENDING', 'DUPLICATE', 'DISPUTE', 'BANK_MISMATCH', 'IMAGE_PENDING', 'ASSIGNED', 'INITIATED', 'SUCCESS', 'DROPPED', 'FAILED']}
               setStatus={setStatus}
+              setId={setId}
+              params={params}
+              setParams={setParams}
               approve={false}
               setApprove={() => { }}
               reject={false}

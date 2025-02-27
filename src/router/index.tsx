@@ -21,6 +21,7 @@ import Layout from "../themes";
 import Bankaccount from "../pages/BankAccount";
 import Unauthorized from "../pages/Unauthorized";
 import { Role } from "@/constants";
+import NotFound from "@/pages/NotFound";
 
 function Router() {
 
@@ -30,7 +31,7 @@ function Router() {
       element: <Login />,
     },
     {
-      path: "layout",
+      path: "auth",
       element: <Layout />,
       children: [
         {
@@ -111,6 +112,11 @@ function Router() {
       path: "/unauthorized",
       element: <Unauthorized />,
     },
+    {
+      path: "/*",
+      element: <NotFound />,
+    },
+    
   ];
 
   return useRoutes(routes);
