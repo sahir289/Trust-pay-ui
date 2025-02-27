@@ -12,36 +12,18 @@ import Notification, {
 } from "@/components/Base/Notification";
 import { getAllPayins } from "@/redux-toolkit/slices/payin/payinAPI";
 import LoadingIcon from "@/components/Base/LoadingIcon";
-import { useAppDispatch, useAppSelector } from "@/redux-toolkit/hooks";
+import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
+// import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
 import { getPayins } from "@/redux-toolkit/slices/payin/payinSlice";
-import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
+import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   setId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export interface Payins {
-  sno: number;
-  code: string;
-  confirmed: string;
-  payin_merchant_commission: string;
-  payin_vendor_commission: string;
-  amount: string;
-  status: string;
-  merchant_order_id: string;
-  merchant_code: string;
-  photo: string;
-  name: string;
-  user: string;
-  user_submitted_utr: string;
-  utr: string;
-  method: string;
-  id: string;
-  updated_at: string;
-}
-const Payin: React.FC<PayinProps> = ({ setStatus, setId }) => {
-  // const [payins, setPayins] = React.useState<Payins[]>([]);
+const PayinComponent: React.FC<PayinProps> = ({ setStatus, setId }) => {
+  const [payinData, setPayinData] = React.useState<Payin[]>([]);
   const [params, setParams] = React.useState<{ [key: string]: string }>({
     page: "1",
     limit: "10",
@@ -60,28 +42,22 @@ const Payin: React.FC<PayinProps> = ({ setStatus, setId }) => {
     getPayinData();
   }, [JSON.stringify(params)]);
 
-  const payins = useAppSelector(getAllPayinData);
-  console.log(payins);
-
   const getPayinData = async () => {
     const queryString = new URLSearchParams(params).toString();
-    await getAllPayins(queryString)
-      .then((res) => {
-        if (res?.data?.length > 0) {
-          // setPayins(res?.data);
-          dispatch(getPayins(res?.data));
-        } else {
-          setNotificationStatus("ERROR");
-          setNotificationMessage("No Payins Found!");
-          basicNonStickyNotificationToggle();
-        }
-      })
-      .catch((err) => {
-        setNotificationStatus("ERROR");
-        setNotificationMessage(err?.response?.data?.error?.message);
-        basicNonStickyNotificationToggle();
-      });
+    const payins = await getAllPayins(queryString);
+    if (payins?.data?.length > 0) {
+      console.log(payins?.data, "getPayinData");
+      setPayinData(payins?.data);
+      dispatch(getPayins(payinData));
+    } else {
+      setNotificationStatus("ERROR");
+      setNotificationMessage("No Payins Found!");
+      basicNonStickyNotificationToggle();
+    }
   };
+
+  // const payins = useAppSelector(getAllPayinData);
+  // console.log(payins);
 
   return (
     <>
@@ -137,7 +113,6 @@ const Payin: React.FC<PayinProps> = ({ setStatus, setId }) => {
                 <AllPayin
                   setStatus={setStatus}
                   setId={setId}
-                  payins={payins}
                   params={params}
                   setParams={setParams}
                 />
@@ -146,7 +121,6 @@ const Payin: React.FC<PayinProps> = ({ setStatus, setId }) => {
                 <CompletedPayin
                   setStatus={setStatus}
                   setId={setId}
-                  payins={payins}
                   params={params}
                   setParams={setParams}
                 />
@@ -155,7 +129,6 @@ const Payin: React.FC<PayinProps> = ({ setStatus, setId }) => {
                 <InProgressPayin
                   setStatus={setStatus}
                   setId={setId}
-                  payins={payins}
                   params={params}
                   setParams={setParams}
                 />
@@ -164,7 +137,6 @@ const Payin: React.FC<PayinProps> = ({ setStatus, setId }) => {
                 <DroppedPayin
                   setStatus={setStatus}
                   setId={setId}
-                  payins={payins}
                   params={params}
                   setParams={setParams}
                 />
@@ -199,4 +171,4 @@ const Payin: React.FC<PayinProps> = ({ setStatus, setId }) => {
   );
 };
 
-export default Payin;
+export default PayinComponent;

@@ -9,13 +9,14 @@ import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 // import { useState } from "react";
 import CustomTable from "../../../components/TableComponent";
+// import { useAppSelector } from "@/redux-toolkit/hooks";
+// import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   setId: React.Dispatch<React.SetStateAction<string>>;
   setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   params: Record<string, any>;
-  payins: Payins[];
 }
 export interface Payins {
   sno: number;
@@ -37,7 +38,7 @@ export interface Payins {
   updated_at: string;
 }
 
-const DroppedPayin: React.FC<PayinProps> = ({setStatus, setId, payins, params, setParams}) => {
+const DroppedPayin: React.FC<PayinProps> = ({setStatus, setId, params, setParams}) => {
   const statusArray: string[] = ['DROPPED','FAILED'];
   const theadData: string[] = [
     "SNO",
@@ -50,6 +51,9 @@ const DroppedPayin: React.FC<PayinProps> = ({setStatus, setId, payins, params, s
     "Image",
     "Action"
   ];
+
+  // const payins = useAppSelector(getAllPayinData);
+  const payins: any[] = [];
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
