@@ -2,12 +2,12 @@ import { combineReducers } from "@reduxjs/toolkit";
 import authReducer from "../slices/auth/authSlice";
 import userReducer from "../slices/user/userSlice";
 import themeReducer from "../slices/theme/themeSlice";
-import payinReducer from "../slices/payin/payinSlice";
+import payInReducer from "../slices/payin/payinSlice";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
-  payin: payinReducer,
+  payIn: payInReducer,
   theme: themeReducer,
 //   darkMode: darkModeReducer,
 //   colorScheme: colorSchemeReducer,

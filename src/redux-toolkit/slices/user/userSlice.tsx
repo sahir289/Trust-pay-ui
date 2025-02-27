@@ -1,29 +1,33 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserState } from "./userTypes";
+import { User, UserState } from "./userTypes";
 
 const initialState: UserState = {
-  user: null,
   token: null,
   isAuthenticated: false,
+  users: [],
 };
 
-const authSlice = createSlice({
+const userSlice = createSlice({
   name: "users",
   initialState,
   reducers: {
-    loginSuccess: (state, action: PayloadAction<{ user: any; token: string }>) => {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
-      state.isAuthenticated = true;
+    getUsers: (state, action: PayloadAction<User[]>) => {
+        console.log(state, "state here")
+      state.users = action.payload;
     },
-    logout: (state) => {
-      state.user = null;
-      state.token = null;
-      state.isAuthenticated = false;
+    addUser: (state, action: PayloadAction<User>) => {
+      state.users.push(action.payload);
+    },
+    updateUser: (state, action: PayloadAction<User>) => {
+      const updatedUser = action.payload;
+      const index = state.users.findIndex((user) => user.id === updatedUser.id);
+      if (index !== -1) {
+        state.users[index] = updatedUser;
+      }
     },
   },
 });
 
-export const { loginSuccess, logout } = authSlice.actions;
-export default authSlice.reducer;
+export const { getUsers, addUser, updateUser } = userSlice.actions;
+export default userSlice.reducer;

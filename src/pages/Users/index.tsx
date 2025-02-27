@@ -3,12 +3,16 @@
 /* eslint-disable no-unused-vars */
 import Lucide from "@/components/Base/Lucide";
 import {  FormInput } from "@/components/Base/Form";
-import users from "@/fakers/users";
 import _ from "lodash";
 import Modal from "../Modal/modal";
 import { useRef, useState } from "react";
 import CustomTable from "@/components/TableComponent";
+import { useAppDispatch, useAppSelector } from "@/redux-toolkit/hooks";
+import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
+import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
+import { addUser, getUsers } from "@/redux-toolkit/slices/user/userSlice";
 export interface User {
+  id: string;
   sno: number;
   code: string;
   vendor_commission: number;
@@ -16,7 +20,6 @@ export interface User {
   created_by: string;
   status: string;
   action: string;
-  id: string;
   updated_at: string;
 }
 function Main() {
@@ -26,6 +29,16 @@ function Main() {
   const userModal = () => {
     setNewUserModal(!newUserModal)
   }
+
+  const dispatch = useAppDispatch();
+  
+  const fetchUsers = async () => {
+    const userList = await getAllUsers();
+    dispatch(getUsers(userList));
+  };
+  const users = useAppSelector(selectAllUsers);
+  console.log(users, "userss==")
+
   const tableHeaders = [
     "admin_name",
     "user_name",
@@ -34,6 +47,15 @@ function Main() {
     "enabled",
     "actions"
   ];
+  const handleCreateUser = async () => {
+    const newUser = await createUser({
+      email: "test@example.com",
+      password: "password123",
+      first_name: "John",
+    });
+    dispatch(addUser(newUser));
+  };
+  console.log(handleCreateUser)
   
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -125,7 +147,7 @@ function Main() {
             <div className="overflow-auto xl:overflow-visible">
               <CustomTable 
                 columns={tableHeaders} 
-                data={users.fakeUsers() as unknown as User[]} 
+                data={fetchUsers() as unknown as User[]} 
                 title={"Users"} 
                 status={[]} 
                 setStatus={() => {}} 
