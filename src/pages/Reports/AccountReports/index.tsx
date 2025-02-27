@@ -5,22 +5,58 @@ import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
-import { useState } from "react";
-import { Menu, Popover } from "@/components/Base/Headless";
-import Pagination from "@/components/Base/Pagination";
-import fakeReportAccount from "@/fakers/accountreports";
-import axios from 'axios';
-
+import { useEffect, useState } from "react";
+import {  Menu, Popover } from "@/components/Base/Headless";
+import { getApi } from "@/stores/api";
+import React from "react";
+type User = {
+  sno: number | null;
+  upi_short_code: string | null;
+  amount: string | null;
+  status: string | null;
+  is_notified: boolean | null;
+  merchant_order_id: string | null;
+  user: string | null;
+  currency: string | null;
+  bank_acc_id: string | null;
+  merchant_id: boolean | null;
+  bank_response_id: string | null;
+  payin_merchant_commission: string | null;
+  payin_vendor_commission: string | null;
+  user_submitted_utr: string | null;
+  duration: string | null;
+  is_url_expires: string | null;
+  expiration_date: string | null;
+};
 function AccountReports() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-const accountsData = ()=>{
-    const data = axios.get('http://localhost:8090/v1/reports/get-all-merchants')
-    console.log(data)
+  const [reportData, setReportData] = useState<User[]>([]);
+  const [params, setParams] = React.useState<{ [key: string]: string }>({});
 
-
-}
-accountsData()
+  useEffect(() => {
+    async function fetchReports() {
+      try {
+        if (!params) {
+          setParams({
+            page: "1",
+            limit: "10",
+          });
+        }
+        const response = await getApi("/reports/get-all-merchants", params, true);
+        if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          setReportData(response.data.data); 
+        } else {
+          setReportData([]); 
+        }
+      } catch (error) {
+        console.error("Error fetching report data:", error);
+        setReportData([]); 
+      }
+    }
+  
+    fetchReports();
+  }, [params]);
   return (
 
     <>
@@ -52,7 +88,7 @@ accountsData()
                   placeholder="Merchant Codes"
                   className="py-3 mt-3 mx-1 h-13"
                 />
-                </div>
+              </div>
               <div className="flex gap-3 mt-3 mx-1">
                 <input
                   type="date"
@@ -150,157 +186,152 @@ accountsData()
               </div>
               <div className="overflow-auto mx-4 ">
                 <Table className="border border-slate-200/60 rounded-md">
-                  <Table.Thead>
-                    <Table.Tr>
-                      <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        <FormCheck.Input type="checkbox" />
-                      </Table.Td>
+                <Table.Thead>
+                      <Table.Tr>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Date
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Vendor Code
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Pay-In Count
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Pay-In Amount
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Pay-In Commission
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Pay-Out Count
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Pay-Out Amount
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Pay-Out Commission
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Reversed Pay-Out
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Reversed Pay-Out Amount
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Reversed Pay-Out Commission
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Settlement Count
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Settlement Amount
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Current Balance
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Net Balance
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium text-center border-t w-36 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Action
-                      </Table.Td>
-                    </Table.Tr>
-                  </Table.Thead>
+                          <FormCheck.Input type="checkbox" />
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          S.No
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          UPI Short Code
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          Amount
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          Status
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          Is Notified
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          Merchant Order ID
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          User
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          Currency
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          Bank Account ID
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          Merchant ID
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          Bank Response ID
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          Payin Merchant Commission
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          Payin Vendor Commission
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          User Submitted UTR
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          Duration
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          URL Expiration Status
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          Expiration Date
+                        </Table.Td>
+                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
+                          Actions
+                        </Table.Td>
+                       
+                      </Table.Tr>
+                    </Table.Thead>
 
                   <Table.Tbody>
-                    {_.take(fakeReportAccount.fakeAccountReport(), 10).map(
-                      (faker, fakerKey) => (
-                        <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <FormCheck.Input type="checkbox" />
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.date}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.vendorCode}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.payInCount}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.payInAmount}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.payInCommission}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.payOutCount}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.payOutAmount}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.payOutCommission}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.reversedPayOut}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.reversedPayoutAmount}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.reversedPayoutCommission}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.settlementCount}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.settlementAmount}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.currentBalance}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.netBalance}</span>
-                          </Table.Td>
-                          <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                            <div className="flex items-center justify-center">
-                              <Menu className="h-5">
-                                <Menu.Button className="w-5 h-5 text-slate-500">
-                                  <Lucide icon="MoreVertical" className="w-5 h-5" />
-                                </Menu.Button>
-                                <Menu.Items className="w-40">
-                                  <Menu.Item>
-                                    <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
-                                  </Menu.Item>
-                                  <Menu.Item className="text-danger">
-                                    <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
-                                  </Menu.Item>
-                                </Menu.Items>
-                              </Menu>
-                            </div>
-                          </Table.Td>
-                        </Table.Tr>
-                      )
-                    )}
+                    {reportData.map((item, fakerKey) => (
+                      <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <FormCheck.Input type="checkbox" />
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.sno}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.upi_short_code}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.amount}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.status}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.is_notified ? "Notified" : "Not Notified"}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.currency}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.merchant_order_id}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.user}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.bank_acc_id}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.merchant_id}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.bank_response_id || "N/A"}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.payin_merchant_commission || "N/A"}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.payin_vendor_commission || "N/A"}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.user_submitted_utr || "N/A"}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.duration || "N/A"}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.is_url_expires ? "Expired" : "Not Expired"}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{item?.expiration_date}</span>
+                        </Table.Td>
+                        <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
+                          <div className="flex items-center justify-center">
+                            <Menu className="h-5">
+                              <Menu.Button className="w-5 h-5 text-slate-500">
+                                <Lucide icon="MoreVertical" className="w-5 h-5" />
+                              </Menu.Button>
+                              <Menu.Items className="w-40">
+                                <Menu.Item>
+                                  <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
+                                </Menu.Item>
+                                <Menu.Item className="text-danger">
+                                  <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
+                                </Menu.Item>
+                              </Menu.Items>
+                            </Menu>
+                          </div>
+                        </Table.Td>
+                      </Table.Tr>
+                    ))}
                   </Table.Tbody>
+
+
                 </Table>
               </div>
               <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
-                <Pagination className="flex-1 w-full mr-auto sm:w-auto">
-                  <Pagination.Link>
-                    <Lucide icon="ChevronsLeft" className="w-4 h-4" />
-                  </Pagination.Link>
-                  <Pagination.Link>
-                    <Lucide icon="ChevronLeft" className="w-4 h-4" />
-                  </Pagination.Link>
-                  <Pagination.Link>...</Pagination.Link>
-                  <Pagination.Link>1</Pagination.Link>
-                  <Pagination.Link active>2</Pagination.Link>
-                  <Pagination.Link>3</Pagination.Link>
-                  <Pagination.Link>...</Pagination.Link>
-                  <Pagination.Link>
-                    <Lucide icon="ChevronRight" className="w-4 h-4" />
-                  </Pagination.Link>
-                  <Pagination.Link>
-                    <Lucide icon="ChevronsRight" className="w-4 h-4" />
-                  </Pagination.Link>
-                </Pagination>
+               
                 <FormSelect className="sm:w-20 rounded-[0.5rem]">
                   <option>10</option>
                   <option>25</option>

@@ -7,20 +7,63 @@ import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
-import { useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Menu, Popover } from "@/components/Base/Headless";
 // import TomSelect from "@/components/Base/TomSelect";
-import Pagination from "@/components/Base/Pagination";
-import fakeVendorAccount from "@/fakers/vendorreports";
+
+import React from "react";
+import { getApi } from "@/stores/api";
+type User = {
+  id: string | null;
+  upi_id: ReactNode;
+  upi_params: ReactNode;
+  acc_no: ReactNode;
+  ifsc: ReactNode;
+  bank_name: ReactNode;
+  is_qr: any;
+  is_bank: any;
+  min_payin: ReactNode;
+  is_enabled: any;
+  payin_count: ReactNode;
+  balance: ReactNode;
+  today_balance: ReactNode;
+  bank_used_for: ReactNode;
+  updated_by: string | null;
+};
 
 function VendorAccountReports() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  // const [selectedUser, setSelectedUser] = useState("1");
-  return (
+  const [reportData, setReportData] = useState<User[]>([]);
+  const [params, setParams] = React.useState<{ [key: string]: string }>({});
 
+  // const [selectedUser, setSelectedUser] = useState("1");
+  useEffect(() => {
+    async function fetchReports() {
+      try {
+        if (!params) {
+          setParams({
+            page: "1",
+            limit: "10",
+          });
+        }
+        const response = await getApi("/reports/get-all-vendors", params, true);
+        if (response.data && response.data.data && Array.isArray(response.data.data)) {
+          setReportData(response.data.data);
+        } else {
+          setReportData([]);
+        }
+      } catch (error) {
+        console.error("Error fetching report data:", error);
+        setReportData([]);
+      }
+    }
+
+    fetchReports();
+  }, [params]);
+  return (
     <>
-  <div className="col-span-12">
+      <div className="col-span-12">
         <div className="flex flex-col md:h-10 mt-4 gap-y-3 md:items-center md:flex-row mx-6">
           <div className="text-base text-xl font-medium group-[.mode--light]:text-white">
             Vendor Account Reports
@@ -48,7 +91,7 @@ function VendorAccountReports() {
                   placeholder="Vendor Codes"
                   className="py-3 mt-3 mx-1 h-13"
                 />
-                </div>
+              </div>
               <div className="flex gap-3 mt-3 mx-1">
                 <input
                   type="date"
@@ -79,8 +122,8 @@ function VendorAccountReports() {
           </div>
         </div>
       </div>
-        
-        
+
+
 
 
       <div className="grid grid-cols-12 gap-y-10 gap-x-6  border-2 border-slate-600 rounded-lg">
@@ -155,49 +198,49 @@ function VendorAccountReports() {
                         <FormCheck.Input type="checkbox" />
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Date
+                        ID
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Vendor Code
+                        UPI ID
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Pay-In Count
+                        UPI Params
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Pay-In Amount
+                        Account No
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Pay-In Commission
+                        IFSC
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Pay-Out Count
+                        Bank Name
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Pay-Out Amount
+                        QR Enabled
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Pay-Out Commission
+                        Bank Enabled
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Reversed Pay-Out
+                        Min Payin
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Reversed Pay-Out Amount
+                        Status
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Reversed Pay-Out Commission
+                        Payin Count
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Settlement Count
+                        Balance
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Settlement Amount
+                        Today’s Balance
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Current Balance
+                        Bank Used For
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Net Balance
+                        Updated By
                       </Table.Td>
                       <Table.Td className="py-4 font-medium text-center border-t w-36 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                         Action
@@ -205,113 +248,83 @@ function VendorAccountReports() {
                     </Table.Tr>
                   </Table.Thead>
 
+
                   <Table.Tbody>
-                    {_.take(fakeVendorAccount.fakeVendorReport(), 10).map(
-                      (faker, fakerKey) => (
-                        <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <FormCheck.Input type="checkbox" />
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.sno}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.code}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.vendor_commission}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.created_date}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.created_by}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.status}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.action}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.confirmed}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.amount}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.merchant_order_id}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.merchant_code}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.photo}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.name}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.user_submitted_utr}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.utr}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.position}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.method}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.id}</span>
-                          </Table.Td>
-                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.updated_at}</span>
-                          </Table.Td>
-                          <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                            <div className="flex items-center justify-center">
-                              <Menu className="h-5">
-                                <Menu.Button className="w-5 h-5 text-slate-500">
-                                  <Lucide icon="MoreVertical" className="w-5 h-5" />
-                                </Menu.Button>
-                                <Menu.Items className="w-40">
-                                  <Menu.Item>
-                                    <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
-                                  </Menu.Item>
-                                  <Menu.Item className="text-danger">
-                                    <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
-                                  </Menu.Item>
-                                </Menu.Items>
-                              </Menu>
-                            </div>
-                          </Table.Td>
-                        </Table.Tr>
-                      )
-                    )}
+                    {reportData.map((user, userKey) => (
+                      <Table.Tr key={userKey} className="[&_td]:last:border-b-0">
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <FormCheck.Input type="checkbox" />
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.id}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.upi_id}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.upi_params}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.acc_no}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.ifsc}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.bank_name}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.is_qr ? "Yes" : "No"}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.is_bank ? "Yes" : "No"}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.min_payin}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.is_enabled ? "Enabled" : "Disabled"}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.payin_count}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.balance}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.today_balance}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.bank_used_for}</span>
+                        </Table.Td>
+                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                          <span className="whitespace-nowrap">{user.updated_by}</span>
+                        </Table.Td>
+                        <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
+                          <div className="flex items-center justify-center">
+                            <Menu className="h-5">
+                              <Menu.Button className="w-5 h-5 text-slate-500">
+                                <Lucide icon="MoreVertical" className="w-5 h-5" />
+                              </Menu.Button>
+                              <Menu.Items className="w-40">
+                                <Menu.Item>
+                                  <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
+                                </Menu.Item>
+                                <Menu.Item className="text-danger">
+                                  <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
+                                </Menu.Item>
+                              </Menu.Items>
+                            </Menu>
+                          </div>
+                        </Table.Td>
+                      </Table.Tr>
+                    ))}
                   </Table.Tbody>
+
                 </Table>
               </div>
               <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
-                <Pagination className="flex-1 w-full mr-auto sm:w-auto">
-                  <Pagination.Link>
-                    <Lucide icon="ChevronsLeft" className="w-4 h-4" />
-                  </Pagination.Link>
-                  <Pagination.Link>
-                    <Lucide icon="ChevronLeft" className="w-4 h-4" />
-                  </Pagination.Link>
-                  <Pagination.Link>...</Pagination.Link>
-                  <Pagination.Link>1</Pagination.Link>
-                  <Pagination.Link active>2</Pagination.Link>
-                  <Pagination.Link>3</Pagination.Link>
-                  <Pagination.Link>...</Pagination.Link>
-                  <Pagination.Link>
-                    <Lucide icon="ChevronRight" className="w-4 h-4" />
-                  </Pagination.Link>
-                  <Pagination.Link>
-                    <Lucide icon="ChevronsRight" className="w-4 h-4" />
-                  </Pagination.Link>
-                </Pagination>
+
                 <FormSelect className="sm:w-20 rounded-[0.5rem]">
                   <option>10</option>
                   <option>25</option>
