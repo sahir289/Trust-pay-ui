@@ -62,7 +62,7 @@ function Main() {
     });
     dispatch(addUser(newUser));
   };
-  // console.log(handleCreateUser, "handleCreateUser")
+  console.log(handleCreateUser, "handleCreateUser")
   
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
