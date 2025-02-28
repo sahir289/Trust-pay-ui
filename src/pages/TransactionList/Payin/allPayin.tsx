@@ -11,8 +11,8 @@ import {
   FormSelect,
 
 } from "@/components/Base/Form";
-// import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-// import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
@@ -49,14 +49,14 @@ const AllPayin: React.FC<PayinProps> = ({ setStatus, setId, params, setParams })
     "Requested Amount",
     "Status",
     "Merchant",
+    "Vendor",
     "User Submitted UTR",
     "UTR",
     "Image",
     "Action"
   ];
 
-  // const payins = useAppSelector(getAllPayinData);
-  const payins: any[] = [];
+  const payins = useAppSelector(getAllPayinData);
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">

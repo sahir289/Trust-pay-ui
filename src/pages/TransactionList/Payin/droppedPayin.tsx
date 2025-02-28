@@ -2,15 +2,13 @@
 import React from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
-// import TomSelect from "@/components/Base/TomSelect";
 import { FormInput, FormSelect } from "@/components/Base/Form";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
-// import { useState } from "react";
 import CustomTable from "../../../components/TableComponent";
-// import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-// import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
@@ -46,14 +44,14 @@ const DroppedPayin: React.FC<PayinProps> = ({setStatus, setId, params, setParams
     "Requested Amount",
     "Status",
     "Merchant",
+    "Vendor",
     "User Submitted UTR",
     "UTR",
     "Image",
     "Action"
   ];
 
-  // const payins = useAppSelector(getAllPayinData);
-  const payins: any[] = [];
+  const payins = useAppSelector(getAllPayinData);
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">

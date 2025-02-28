@@ -2,7 +2,7 @@
 import { RootState } from "../../store/store";
 
 // Select the entire list of payins
-export const getAllPayinData = (state: RootState) => state.payin;
+export const getAllPayinData = (state: RootState) => state.payin.payin;
 
 // Select a specific payin by ID
 export const getPayinById = (id: string) => (state: RootState) =>

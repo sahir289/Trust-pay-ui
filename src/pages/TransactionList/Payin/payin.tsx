@@ -13,9 +13,7 @@ import Notification, {
 import { getAllPayins } from "@/redux-toolkit/slices/payin/payinAPI";
 import LoadingIcon from "@/components/Base/LoadingIcon";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
-// import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
 import { getPayins } from "@/redux-toolkit/slices/payin/payinSlice";
-import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
@@ -23,8 +21,7 @@ interface PayinProps {
 }
 
 const PayinComponent: React.FC<PayinProps> = ({ setStatus, setId }) => {
-  const [payinData, setPayinData] = React.useState<Payin[]>([]);
-  const [params, setParams] = React.useState<{ [key: string]: string }>({
+  const [params, setParams] = useState<{ [key: string]: string }>({
     page: "1",
     limit: "10",
   });
@@ -46,18 +43,13 @@ const PayinComponent: React.FC<PayinProps> = ({ setStatus, setId }) => {
     const queryString = new URLSearchParams(params).toString();
     const payins = await getAllPayins(queryString);
     if (payins?.data?.length > 0) {
-      console.log(payins?.data, "getPayinData");
-      setPayinData(payins?.data);
-      dispatch(getPayins(payinData));
+      dispatch(getPayins(payins?.data));
     } else {
       setNotificationStatus("ERROR");
       setNotificationMessage("No Payins Found!");
       basicNonStickyNotificationToggle();
     }
   };
-
-  // const payins = useAppSelector(getAllPayinData);
-  // console.log(payins);
 
   return (
     <>
