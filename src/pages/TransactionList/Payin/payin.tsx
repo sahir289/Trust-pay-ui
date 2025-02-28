@@ -14,6 +14,7 @@ import { getAllPayins } from "@/redux-toolkit/slices/payin/payinAPI";
 import LoadingIcon from "@/components/Base/LoadingIcon";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { getPayins } from "@/redux-toolkit/slices/payin/payinSlice";
+import { Status } from "@/constants";
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
@@ -45,7 +46,7 @@ const PayinComponent: React.FC<PayinProps> = ({ setStatus, setId }) => {
     if (payins?.data?.length > 0) {
       dispatch(getPayins(payins?.data));
     } else {
-      setNotificationStatus("ERROR");
+      setNotificationStatus(Status.ERROR);
       setNotificationMessage("No Payins Found!");
       basicNonStickyNotificationToggle();
     }
@@ -148,7 +149,7 @@ const PayinComponent: React.FC<PayinProps> = ({ setStatus, setId }) => {
             }}
             className="flex flex-col sm:flex-row"
           >
-            {notificationStatus === "SUCCESS" ? (
+            {notificationStatus === Status.SUCCESS ? (
               <Lucide icon="BadgeCheck" className="text-primary" />
             ) : (
               <Lucide icon="X" className="text-danger" />

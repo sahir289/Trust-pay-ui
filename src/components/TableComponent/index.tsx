@@ -25,6 +25,7 @@ import { updatePayins } from "@/redux-toolkit/slices/payin/payinAPI";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
 import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
+import { Status } from "@/constants";
 
 interface ICustomTableProps {
   columns?: string[];
@@ -86,9 +87,9 @@ const CustomTable: React.FC<ICustomTableProps> = ({
             <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
           ),
         };
-      case "BANK_MISMATCH":
+      case Status.BANK_MISMATCH:
       case "DUPLICATE":
-      case "DISPUTE":
+      case Status.DISPUTE:
         return {
           color: "text-orange-500",
           icon: (
@@ -102,7 +103,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
             <Lucide icon="ListChecks" className="w-5 h-5 ml-px stroke-[2.5]" />
           ),
         };
-      case "SUCCESS":
+      case Status.SUCCESS:
         return {
           color: "text-green-500",
           icon: (
@@ -288,10 +289,10 @@ const CustomTable: React.FC<ICustomTableProps> = ({
     const res = await updatePayins(`${url}`, apiData);
     if (res?.data?.data?.message) {
       setNotificationMessage(res?.data?.data?.message);
-      setNotificationStatus("SUCCESS");
+      setNotificationStatus(Status.SUCCESS);
       basicNonStickyNotificationToggle();
     } else {
-      setNotificationStatus("ERROR");
+      setNotificationStatus(Status.ERROR);
       setNotificationMessage(res?.data?.error?.message);
       basicNonStickyNotificationToggle();
     }
@@ -812,8 +813,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
 
                       <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                         <div className="flex items-center justify-center">
-                          {payin?.status === "DISPUTE" ||
-                          payin?.status === "BANK_MISMATCH" ? (
+                          {payin?.status === Status.DISPUTE ||
+                          payin?.status === Status.BANK_MISMATCH ? (
                             <Menu className="h-5">
                               <Menu.Button className="w-5 h-5 text-slate-500">
                                 <Lucide
@@ -828,7 +829,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                                   setStatus && setStatus(payin?.status);
                                   setId &&
                                     setId(
-                                      payin?.status === "BANK_MISMATCH"
+                                      payin?.status === Status.BANK_MISMATCH
                                         ? payin?.merchant_order_id
                                         : payin?.id
                                     );
@@ -2519,7 +2520,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
             }}
             className="flex flex-col sm:flex-row"
           >
-            {notificationStatus === "SUCCESS" ? (
+            {notificationStatus === Status.SUCCESS ? (
               <Lucide icon="BadgeCheck" className="text-primary" />
             ) : (
               <Lucide icon="X" className="text-danger" />
