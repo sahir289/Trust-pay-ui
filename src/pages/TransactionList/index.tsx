@@ -10,6 +10,7 @@ import Notification, {
   NotificationElement,
 } from "@/components/Base/Notification";
 import { updatePayins } from "@/redux-toolkit/slices/payin/payinAPI";
+import { Status } from "@/constants";
 
 function Main() {
   const [newTransactionModal, setNewTransactionModal] = useState(false);
@@ -48,10 +49,10 @@ function Main() {
     let url = "";
     let apiData = {};
 
-    if (status === "BANK_MISMATCH") {
+    if (status === Status.BANK_MISMATCH) {
       url = `/update-deposit-status/${id}`;
       apiData = { type: "PAYIN", ...data };
-    } else if (status === "DISPUTE") {
+    } else if (status === Status.DISPUTE) {
       url = `/dispute-duplicate/${id}`;
       apiData = { ...data };
     }
@@ -59,10 +60,10 @@ function Main() {
     const res = await updatePayins(`${url}`, apiData);
     if (res?.data?.data?.message) {
       setNotificationMessage(res?.data?.data?.message);
-      setNotificationStatus("SUCCESS");
+      setNotificationStatus(Status.SUCCESS);
       basicNonStickyNotificationToggle();
     } else {
-      setNotificationStatus("ERROR");
+      setNotificationStatus(Status.ERROR);
       setNotificationMessage(res?.data?.error?.message);
       basicNonStickyNotificationToggle();
     }
@@ -83,7 +84,7 @@ function Main() {
             title={title}
           />
 
-          {status === "BANK_MISMATCH" && (
+          {status === Status.BANK_MISMATCH && (
             <ModalPopUp
               open={true}
               onClose={handleClose}
@@ -104,7 +105,7 @@ function Main() {
             />
           )}
 
-          {status === "DISPUTE" && (
+          {status === Status.DISPUTE && (
             <ModalPopUp
               open={true}
               onClose={handleClose}
@@ -258,7 +259,7 @@ function Main() {
             }}
             className="flex flex-col sm:flex-row"
           >
-            {notificationStatus === "SUCCESS" ? (
+            {notificationStatus === Status.SUCCESS ? (
               <Lucide icon="BadgeCheck" className="text-primary" />
             ) : (
               <Lucide icon="X" className="text-danger" />

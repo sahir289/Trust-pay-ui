@@ -9,6 +9,8 @@ import Button from "@/components/Base/Button";
 import CustomTable from "../../../components/TableComponent";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
+import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
+import { Columns, Status } from "@/constants";
 
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
@@ -16,40 +18,9 @@ interface PayinProps {
   setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   params: Record<string, any>;
 }
-export interface Payins {
-  sno: number;
-  code: string;
-  confirmed: string;
-  payin_merchant_commission: string;
-  payin_vendor_commission: string;
-  amount: string;
-  status: string;
-  merchant_order_id: string;
-  merchant_code: string;
-  photo: string;
-  name: string;
-  user: string;
-  user_submitted_utr: string;
-  utr: string;
-  method: string;
-  id: string;
-  updated_at: string;
-}
 
 const DroppedPayin: React.FC<PayinProps> = ({setStatus, setId, params, setParams}) => {
-  const statusArray: string[] = ['DROPPED','FAILED'];
-  const theadData: string[] = [
-    "SNO",
-    "Amount",
-    "Requested Amount",
-    "Status",
-    "Merchant",
-    "Vendor",
-    "User Submitted UTR",
-    "UTR",
-    "Image",
-    "Action"
-  ];
+  const statusArray: string[] = [Status.DROPPED, Status.FAILED];
 
   const payins = useAppSelector(getAllPayinData);
 
@@ -168,8 +139,8 @@ const DroppedPayin: React.FC<PayinProps> = ({setStatus, setId, params, setParams
             <CustomTable 
               setStatus={setStatus}
               setId={setId}
-              columns={theadData} 
-              data={payins as unknown as Payins[]} 
+              columns={Columns.PAYIN}
+              data={payins as Payin[]} 
               title={"Payins"} 
               status={statusArray} 
               params={params}
