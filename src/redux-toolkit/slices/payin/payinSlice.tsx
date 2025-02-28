@@ -11,7 +11,6 @@ const payinSlice = createSlice({
   reducers: {
     // Replace entire payin list
     getPayins: (state, action: PayloadAction<Payin[]>) => {
-      console.log(state.payin, action, "getPayins");
       state.payin = action.payload;
     },
 

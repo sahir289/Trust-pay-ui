@@ -1,39 +1,28 @@
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
     FormLabel,
-
 } from "@/components/Base/Form";
 import { Dialog } from '@/components/Base/Headless';
 
 import Button from "@/components/Base/Button";
 import Lucide from "@/components/Base/Lucide";
 import React from "react";
+import { getPayinById } from "@/redux-toolkit/slices/payin/payinSelectors";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 
 interface ModalProps {
     handleModal: () => void;
     title: string;
-    transaction: {
-        sno?: string;
-        id?: string;
-        code?: string;
-        confirmed?: string;
-        payin_merchant_commission?: string;
-        payin_vendor_commission?: string;
-        amount?: string;
-        status?: string;
-        merchant_order_id?: string;
-        merchant_code?: string;
-        name?: string;
-        user_submitted_utr?: string;
-        utr?: string;
-        method?: string;
-        duration?: number;
-        bank?: string;
-        updated_at?: string;
-    };
+    transaction: any;
+    id?: string;
+    type?: string;
 }
 
-const ModalTransactionDetails: React.FC<ModalProps> = ({ handleModal, transaction }) => {
+const ModalTransactionDetails: React.FC<ModalProps> = ({ handleModal, transaction, id, type }) => {
+    if (type === "PAYIN") {
+        transaction = useAppSelector(getPayinById(id ?? ''));
+    }
+    
     return (
         <Dialog open={true} onClose={handleModal}>
             <Dialog.Panel>

@@ -50,29 +50,22 @@ function Main() {
 
     if (status === "BANK_MISMATCH") {
       url = `/update-deposit-status/${id}`;
-      apiData = { type: "PAYIN", ...data};
+      apiData = { type: "PAYIN", ...data };
     } else if (status === "DISPUTE") {
       url = `/dispute-duplicate/${id}`;
       apiData = { ...data };
     }
 
-    await updatePayins(`${url}`, apiData)
-      .then((res) => {
-        if (res?.data?.data?.message) {
-          setNotificationMessage(res?.data?.data?.message);
-          setNotificationStatus("SUCCESS");
-          basicNonStickyNotificationToggle();
-        } else {
-          setNotificationStatus("ERROR");
-          setNotificationMessage(res?.data?.error?.message);
-          basicNonStickyNotificationToggle();
-        }
-      })
-      .catch((err) => {
-        setNotificationStatus("ERROR");
-        setNotificationMessage(err?.response?.data?.error?.message);
-        basicNonStickyNotificationToggle();
-      });
+    const res = await updatePayins(`${url}`, apiData);
+    if (res?.data?.data?.message) {
+      setNotificationMessage(res?.data?.data?.message);
+      setNotificationStatus("SUCCESS");
+      basicNonStickyNotificationToggle();
+    } else {
+      setNotificationStatus("ERROR");
+      setNotificationMessage(res?.data?.error?.message);
+      basicNonStickyNotificationToggle();
+    }
   };
 
   return (
@@ -82,7 +75,7 @@ function Main() {
           <div className="text-xl font-medium group-[.mode--light]:text-white ">
             Transactions
           </div>
-          
+
           <Modal
             handleModal={transactionModal}
             sendButtonRef={transactionRef}
