@@ -18,6 +18,7 @@ export default [
         console: "readonly",
         localStorage: "readonly",
         any: "readonly",
+        URLSearchParams: "readonly",
       },
     },
     plugins: {

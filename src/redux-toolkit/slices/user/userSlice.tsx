@@ -13,7 +13,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     getUsers: (state, action: PayloadAction<User[]>) => {
-        console.log(state, "state here")
       state.users = action.payload;
     },
     addUser: (state, action: PayloadAction<User>) => {

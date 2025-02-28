@@ -1,11 +1,10 @@
 import api from "../../services/api"; // Assuming this is your axios instance
-import { User } from "./userTypes";
+import { ApiResponse, User } from "./userTypes";
 
-export const getAllUsers = async (): Promise<User[]> => {
+export const getAllUsers = async (queryString: string): Promise<User[]> => {
   try {
-    const response = await api.get<User[]>("/users");
-    console.log(response, "respoooo");
-    return response.data;
+    const response = await api.get<ApiResponse<User[]>> (`/users?${queryString}`);
+    return response.data.data;
   } catch (error) {
     console.error("Failed to fetch users:", error);
     throw error;
