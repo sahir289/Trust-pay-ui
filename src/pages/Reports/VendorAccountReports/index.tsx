@@ -12,7 +12,8 @@ import { Menu, Popover } from "@/components/Base/Headless";
 // import TomSelect from "@/components/Base/TomSelect";
 
 import React from "react";
-import { getApi } from "@/stores/api";
+import { getApi } from "@/redux-toolkit/api";
+// import { getApi } from "@/stores/api";
 type User = {
   id: string | null;
   upi_id: ReactNode;
@@ -47,7 +48,7 @@ function VendorAccountReports() {
             limit: "10",
           });
         }
-        const response = await getApi("/reports/get-all-vendors", params, true);
+        const response = await getApi ("/reports/get-all-vendors", params, true);
         if (response.data && response.data.data && Array.isArray(response.data.data)) {
           setReportData(response.data.data);
         } else {
