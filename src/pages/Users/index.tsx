@@ -40,12 +40,11 @@ function Main() {
   // console.log(users, "userss==")
 
   const tableHeaders = [
-    "admin_name",
-    "user_name",
-    "role",
-    "last_logged_in",
-    "enabled",
-    "actions"
+    { label: "Name", key: "first_name", type: "text" },
+    { label: "User Name", key: "user_name", type: "text" },
+    { label: "Created At", key: "created_at", type: "text" },
+    { label: "Created By", key: "created_by", type: "text" },
+    { label: "Is Enable", key: "is_enabled", type: "toggle" },
   ];
   const handleCreateUser = async () => {
     const newUser = await createUser({
