@@ -37,6 +37,7 @@ function VendorAccountReports() {
   const [endDate, setEndDate] = useState('');
   const [reportData, setReportData] = useState<User[]>([]);
   const [params, setParams] = React.useState<{ [key: string]: string }>({});
+  const [vendorCode, setVendorCode] = useState('')
 
   // const [selectedUser, setSelectedUser] = useState("1");
   useEffect(() => {
@@ -48,7 +49,7 @@ function VendorAccountReports() {
             limit: "10",
           });
         }
-        const response = await getApi ("/reports/get-all-vendors", params, true);
+        const response = await getApi("/reports/get-vendors-reports", params, true);
         if (response.data && response.data.data && Array.isArray(response.data.data)) {
           setReportData(response.data.data);
         } else {
@@ -62,6 +63,15 @@ function VendorAccountReports() {
 
     fetchReports();
   }, [params]);
+
+  const handleVendorCode = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    setVendorCode(e.target.value)
+  }
+  async function getVendor() {
+    const response = await getApi(`/reports/get-vendors-reports?code=${vendorCode}`, {}, true);
+    console.log(response, "response12")
+  }
+
   return (
     <>
       <div className="col-span-12">
@@ -91,6 +101,8 @@ function VendorAccountReports() {
                   type="text"
                   placeholder="Vendor Codes"
                   className="py-3 mt-3 mx-1 h-13"
+                  onChange={handleVendorCode}
+                  value={vendorCode}
                 />
               </div>
               <div className="flex gap-3 mt-3 mx-1">
@@ -114,6 +126,7 @@ function VendorAccountReports() {
                     rounded
                     variant="primary"
                     className="px-4 w-35 my-2 border-primary/50 rounded-lg"
+                    onClick={getVendor}
                   >
                     Download Now
                   </Button>

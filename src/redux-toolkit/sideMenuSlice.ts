@@ -39,7 +39,7 @@ const initialState: SideMenuState = {
     "Clients",
     {
       icon: "CreditCard",
-      pathname: "/layout/merchants",
+      pathname: "/auth/merchants",
       title: "Merchants",
     },
     {
@@ -50,7 +50,7 @@ const initialState: SideMenuState = {
     "REPORTS",
     {
       icon: "SquareUser",
-      pathname: "/layout/reports",
+      pathname: "/auth/reports",
       title: "Report",
     },
     "SETTLEMENTS & CHARGEBACKS",

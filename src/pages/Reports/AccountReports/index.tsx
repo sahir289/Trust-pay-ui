@@ -34,6 +34,7 @@ function AccountReports() {
   const [endDate, setEndDate] = useState('');
   const [reportData, setReportData] = useState<User[]>([]);
   const [params, setParams] = React.useState<{ [key: string]: string }>({});
+  const [merchantCode, setmerchantCode] = useState('')
 
   useEffect(() => {
     async function fetchReports() {
@@ -44,7 +45,7 @@ function AccountReports() {
             limit: "10",
           });
         }
-        const response = await getApi("/reports/get-all-merchants", params, true);
+        const response = await getApi("/reports/get-merchants-reports", params, true);
         if (response.data && response.data.data && Array.isArray(response.data.data)) {
           setReportData(response.data.data); 
         } else {
@@ -58,6 +59,14 @@ function AccountReports() {
   
     fetchReports();
   }, [params]);
+
+   const handleMerchantCode = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+     setmerchantCode(e.target.value)
+   }
+    async function getMerchant() {
+      const response = await getApi(`/reports/get-merchants-reports?code=${merchantCode}`, {}, true);
+      console.log(response, "response12")
+    }
   return (
 
     <>
@@ -88,6 +97,8 @@ function AccountReports() {
                   type="text"
                   placeholder="Merchant Codes"
                   className="py-3 mt-3 mx-1 h-13"
+                  onChange={handleMerchantCode}
+                  value={merchantCode}
                 />
               </div>
               <div className="flex gap-3 mt-3 mx-1">
@@ -111,6 +122,7 @@ function AccountReports() {
                     rounded
                     variant="primary"
                     className="px-4 w-35 my-2 border-primary/50 rounded-lg"
+                    onClick={getMerchant}
                   >
                     Download Now
                   </Button>

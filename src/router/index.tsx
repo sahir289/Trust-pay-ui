@@ -52,12 +52,12 @@ function Router() {
         {
           path: "merchants",
           element: <ProtectedRoute allowedRoles={[Role.ADMIN, Role.TRANSACTIONS, Role.OPERATIONS, Role.MERCHANT_ADMIN, Role.MERCHANT, Role.SUB_MERCHANT]} />,
-          children: [{ path: "", element: <Merchant /> }],
+          children: [{ path: "/auth/merchants", element: <Merchant /> }],
         },
         {
           path: "reports",
           element: <ProtectedRoute allowedRoles={[Role.ADMIN, Role.TRANSACTIONS, Role.MERCHANT_ADMIN, Role.MERCHANT, Role.SUB_MERCHANT, Role.VENDOR]} />,
-          children: [{ path: "", element: <Reports /> }],
+          children: [{ path: "/auth/reports", element: <Reports /> }],
         },
         {
           path: "transaction-list",
@@ -67,7 +67,7 @@ function Router() {
         {
           path: "settlement",
           element: <ProtectedRoute allowedRoles={[Role.ADMIN, Role.TRANSACTIONS, Role.OPERATIONS, Role.MERCHANT_ADMIN, Role.MERCHANT, Role.SUB_MERCHANT, Role.MERCHANT_OPERATIONS, Role.VENDOR, Role.VENDOR_OPERATIONS]} />,
-          children: [{ path: "", element: <Settlement /> }],
+          children: [{ path: "auth/settlements", element: <Settlement /> }],
         },
         {
           path: "chargeback",
