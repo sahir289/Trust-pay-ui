@@ -10,6 +10,11 @@ export interface User {
   updated_at: string;
 }
 
+export interface ApiResponse<T> {
+  data: T;
+  message?: string;
+  status?: string;
+}
 export interface UserState {
   token: string | null;
   isAuthenticated: boolean;
