@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Tab } from "@/components/Base/Headless";
-import Payin from "./Payin/payin";
+import PayinComponent from "./Payin/payin";
 import Payout from "./Payout/payout";
 import Modal from "@/pages/Modal/modal";
 import Lucide from "@/components/Base/Lucide";
@@ -9,7 +9,8 @@ import ModalPopUp from "../ModalPopUp";
 import Notification, {
   NotificationElement,
 } from "@/components/Base/Notification";
-import { postApi } from "@/redux-toolkit/api";
+import { updatePayins } from "@/redux-toolkit/slices/payin/payinAPI";
+import { Status } from "@/constants";
 
 function Main() {
   const [newTransactionModal, setNewTransactionModal] = useState(false);
@@ -48,31 +49,24 @@ function Main() {
     let url = "";
     let apiData = {};
 
-    if (status === "BANK_MISMATCH") {
-      url = `/payIn/update-deposit-status/${id}`;
-      apiData = { type: "PAYIN", ...data};
-    } else if (status === "DISPUTE") {
-      url = `/payIn/dispute-duplicate/${id}`;
+    if (status === Status.BANK_MISMATCH) {
+      url = `/update-deposit-status/${id}`;
+      apiData = { type: "PAYIN", ...data };
+    } else if (status === Status.DISPUTE) {
+      url = `/dispute-duplicate/${id}`;
       apiData = { ...data };
     }
 
-    await postApi(`${url}`, apiData)
-      .then((res) => {
-        if (res?.data?.data?.message) {
-          setNotificationMessage(res?.data?.data?.message);
-          setNotificationStatus("SUCCESS");
-          basicNonStickyNotificationToggle();
-        } else {
-          setNotificationStatus("ERROR");
-          setNotificationMessage(res?.data?.error?.message);
-          basicNonStickyNotificationToggle();
-        }
-      })
-      .catch((err) => {
-        setNotificationStatus("ERROR");
-        setNotificationMessage(err?.response?.data?.error?.message);
-        basicNonStickyNotificationToggle();
-      });
+    const res = await updatePayins(`${url}`, apiData);
+    if (res?.data?.data?.message) {
+      setNotificationMessage(res?.data?.data?.message);
+      setNotificationStatus(Status.SUCCESS);
+      basicNonStickyNotificationToggle();
+    } else {
+      setNotificationStatus(Status.ERROR);
+      setNotificationMessage(res?.data?.error?.message);
+      basicNonStickyNotificationToggle();
+    }
   };
 
   return (
@@ -82,6 +76,7 @@ function Main() {
           <div className="text-xl font-medium group-[.mode--light]:text-white ">
             Transactions
           </div>
+
           <Modal
             handleModal={transactionModal}
             sendButtonRef={transactionRef}
@@ -89,7 +84,7 @@ function Main() {
             title={title}
           />
 
-          {status === "BANK_MISMATCH" && (
+          {status === Status.BANK_MISMATCH && (
             <ModalPopUp
               open={true}
               onClose={handleClose}
@@ -110,7 +105,7 @@ function Main() {
             />
           )}
 
-          {status === "DISPUTE" && (
+          {status === Status.DISPUTE && (
             <ModalPopUp
               open={true}
               onClose={handleClose}
@@ -202,7 +197,6 @@ function Main() {
           )}
         </div>
       </div>
-
       <div className="grid grid-cols-12 gap-y-10 gap-x-6 mt-2">
         <div className="col-span-12">
           <div className="relative flex flex-col col-span-12 lg:col-span-12 xl:col-span-12 gap-y-7">
@@ -238,7 +232,7 @@ function Main() {
                 </Tab.List>
                 <Tab.Panels className="border-b border-l border-r">
                   <Tab.Panel className="p-5 leading-relaxed">
-                    <Payin setStatus={setStatus} setId={setId} />
+                    <PayinComponent setStatus={setStatus} setId={setId} />
                   </Tab.Panel>
                   <Tab.Panel className="p-5 leading-relaxed">
                     <Payout
@@ -265,7 +259,7 @@ function Main() {
             }}
             className="flex flex-col sm:flex-row"
           >
-            {notificationStatus === "SUCCESS" ? (
+            {notificationStatus === Status.SUCCESS ? (
               <Lucide icon="BadgeCheck" className="text-primary" />
             ) : (
               <Lucide icon="X" className="text-danger" />

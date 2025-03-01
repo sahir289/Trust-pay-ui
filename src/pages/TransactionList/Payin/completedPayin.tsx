@@ -2,56 +2,37 @@
 import React from "react";
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
-// import TomSelect from "@/components/Base/TomSelect";
 import { FormInput, FormSelect } from "@/components/Base/Form";
 import users from "@/fakers/users";
 import CustomTable from "../../../components/TableComponent";
-
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
-// import { useState } from "react";
-// import _ from "lodash";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
+import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
+import { Columns, Status } from "@/constants";
+
 interface PayinProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   setId: React.Dispatch<React.SetStateAction<string>>;
   setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   params: Record<string, any>;
-  payins: Payins[];
-}
-export interface Payins {
-  sno: number;
-  code: string;
-  confirmed: string;
-  payin_merchant_commission: string;
-  payin_vendor_commission: string;
-  amount: string;
-  status: string;
-  merchant_order_id: string;
-  merchant_code: string;
-  photo: string;
-  name: string;
-  user: string;
-  user_submitted_utr: string;
-  utr: string;
-  method: string;
-  id: string;
-  updated_at: string;
 }
 
-const CompletedPayin: React.FC<PayinProps> = ({setStatus, setId, payins, params, setParams}) => {
-  const statusArray: string[] = ['SUCCESS'];
-  const theadData: string[] = [
-    "SNO",
-    "Amount",
-    "Requested Amount",
-    "Commission",
-    "Status",
-    "Merchant",
-    "User Submitted UTR",
-    "UTR",
-    "Image",
-    "Action"
-  ];
+const CompletedPayin: React.FC<PayinProps> = ({
+  setStatus,
+  setId,
+  params,
+  setParams,
+}) => {
+  const statusArray: string[] = [Status.SUCCESS];
+  const theadData: string[] = [...Columns.PAYIN]; // Ensure it's a mutable array
+  const indexToInsert = 3; // Change this to the desired index
+  const newElement = "Commission";
+
+  theadData.splice(indexToInsert, 0, newElement);
+
+  const payins = useAppSelector(getAllPayinData);
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -64,7 +45,6 @@ const CompletedPayin: React.FC<PayinProps> = ({setStatus, setId, payins, params,
                   <Lucide
                     icon="Search"
                     className="absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 stroke-[1.3] text-slate-500"
-                    
                   />
                   <FormInput
                     type="text"
@@ -83,7 +63,6 @@ const CompletedPayin: React.FC<PayinProps> = ({setStatus, setId, payins, params,
                     <Lucide
                       icon="Download"
                       className="stroke-[1.3] w-4 h-4 mr-2"
-                    
                     />
                     Export
                     <Lucide
@@ -166,25 +145,25 @@ const CompletedPayin: React.FC<PayinProps> = ({setStatus, setId, payins, params,
                 </Popover>
               </div>
             </div>
-            <CustomTable 
-              setStatus={setStatus} 
+            <CustomTable
+              setStatus={setStatus}
               setId={setId}
-              columns={theadData} 
-              data={payins as unknown as Payins[]} 
-              title={"Payins"} 
+              columns={theadData}
+              data={payins as Payin[]}
+              title={"Payins"}
               status={statusArray}
               params={params}
               setParams={setParams}
-              approve={false} 
-              setApprove={() => {}} 
-              reject={false} 
-              setReject={() => {}} 
+              approve={false}
+              setApprove={() => {}}
+              reject={false}
+              setReject={() => {}}
             />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default CompletedPayin;

@@ -6,12 +6,13 @@ import { Transition } from "react-transition-group";
 import Breadcrumb from "@/components/Base/Breadcrumb";
 import React, { useState, useEffect, createRef } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { selectSideMenu } from "@/redux-toolkit/sideMenuSlice";
+import { selectSideMenu } from "@/redux-toolkit/slices/common/sideMenu/sideMenuSlice";
 import {
   selectCompactMenu,
   setCompactMenu as setCompactMenuStore,
-} from "@/redux-toolkit/compactMenuSlice";
-import { useAppDispatch, useAppSelector } from "@/redux-toolkit/hooks";
+} from "@/redux-toolkit/slices/common/compactMenu/compactMenuSlice";
+import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { FormattedMenu, linkTo, nestedMenu, enter, leave } from "./side-menu";
 import Lucide from "@/components/Base/Lucide";
 import users from "@/fakers/users";

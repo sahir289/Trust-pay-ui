@@ -1,8 +1,8 @@
 import Chart from "@/components/Base/Chart";
 import { ChartData, ChartOptions } from "chart.js/auto";
 import { getColor } from "@/utils/colors";
-import { selectDarkMode } from "@/redux-toolkit/darkModeSlice";
-import { useAppSelector } from "@/redux-toolkit/hooks";
+import { selectDarkMode } from "@/redux-toolkit/slices/common/darkMode/darkModeSlice";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { useMemo } from "react";
 import { randomNumbers } from "@/utils/helper";
 

@@ -21,73 +21,15 @@ import BankDetailsModal from "@/pages/BankAccounts/BankAccountsModal";
 import Notification, {
   NotificationElement,
 } from "@/components/Base/Notification";
-import { postApi } from "@/redux-toolkit/api";
+import { updatePayins } from "@/redux-toolkit/slices/payin/payinAPI";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
+import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
+import { Status } from "@/constants";
 
 interface ICustomTableProps {
   columns?: string[];
-  data?: Array<{
-    sno?: number;
-    code?: string;
-    confirmed?: string;
-    amount?: string;
-    status?: string;
-    merchant_order_id?: string;
-    merchant_code?: string;
-    photo?: string;
-    name?: string;
-    user_submitted_utr?: string;
-    utr?: string;
-    method?: string;
-    id?: string;
-    updated_at?: string;
-    bankDetails?: string;
-    balance?: number;
-    bankUsedFor?: string;
-    vendors?: string;
-    createdAt?: string;
-    lastScheduledAt?: string;
-    accountName?: string;
-    accountNumber?: string;
-    upiId?: string;
-    orderId?: string;
-    orderStatus?: { textColor?: string; icon?: string; name?: string };
-    orderDate?: string;
-    referance_date?: string;
-    fromBank?: string;
-    vendor?: string;
-    manager?: string;
-    joinedDate?: string;
-    email?: string;
-    department?: string;
-    position?: string;
-    site?: string;
-    api_key?: string;
-    public_api_key?: string;
-    payin_range?: string;
-    payin_commission?: string;
-    payout_commission?: string;
-    payin_merchant_commission?: string;
-    payin_vendor_commission?: string;
-    user?: string;
-    payout_range?: string;
-    test_mode?: boolean;
-    allow_intent?: boolean;
-    actions?: string;
-    submerchant?: Array<{
-      code?: string;
-      site?: string;
-      apikey?: string;
-      public_api_key?: string;
-      balance?: number;
-      payin_range?: string;
-      payin_commission?: string;
-      payout_range?: string;
-      payout_commission?: string;
-      test_mode?: boolean;
-      allow_intent?: boolean;
-      created_at?: string;
-    }>;
-  }>;
+  data?: any[];
   title?: string;
   setStatus?: React.Dispatch<React.SetStateAction<string | any>>;
   setId?: React.Dispatch<React.SetStateAction<string | any>>;
@@ -102,72 +44,7 @@ interface ICustomTableProps {
   expandedRow?: number;
   handleRowClick?: (index: number) => void;
   setEditModal?: React.Dispatch<React.SetStateAction<string>>;
-}
-
-interface DataType {
-  sno?: number;
-  code?: string;
-  confirmed?: string;
-  amount?: string;
-  status?: string;
-  merchant_order_id?: string;
-  merchant_code?: string;
-  photo?: string;
-  name?: string;
-  user_submitted_utr?: string;
-  user_submitted_image?: string;
-  utr?: string;
-  method?: string;
-  id?: string;
-  updated_at?: string;
-  bankDetails?: string;
-  balance?: number;
-  bankUsedFor?: string;
-  vendors?: string;
-  createdAt?: string;
-  lastScheduledAt?: string;
-  accountName?: string;
-  accountNumber?: string;
-  upiId?: string;
-  orderId?: string;
-  orderStatus?: { textColor?: string; icon?: string; name?: string };
-  orderDate?: string;
-  referance_date?: string;
-  fromBank?: string;
-  vendor?: string;
-  manager?: string;
-  joinedDate?: string;
-  email?: string;
-  department?: string;
-  position?: string;
-  site?: string;
-  api_key?: string;
-  public_api_key?: string;
-  payin_range?: string;
-  payin_commission?: string;
-  payout_commission?: string;
-  payin_merchant_commission?: string;
-  payin_vendor_commission?: string;
-  user?: string;
-  payout_range?: string;
-  test_mode?: boolean;
-  allow_intent?: boolean;
-  actions?: string;
-  vendor_commission?: number;
-  submerchant?: Array<{
-    code?: string;
-    site?: string;
-    apikey?: string;
-    public_api_key?: string;
-    balance?: number;
-    payin_range?: string;
-    payin_commission?: string;
-    payout_range?: string;
-    payout_commission?: string;
-    test_mode?: boolean;
-    allow_intent?: boolean;
-    created_at?: string;
-  }>;
+  passId?: string;
 }
 
 const CustomTable: React.FC<ICustomTableProps> = ({
@@ -210,9 +87,9 @@ const CustomTable: React.FC<ICustomTableProps> = ({
             <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
           ),
         };
-      case "BANK_MISMATCH":
+      case Status.BANK_MISMATCH:
       case "DUPLICATE":
-      case "DISPUTE":
+      case Status.DISPUTE:
         return {
           color: "text-orange-500",
           icon: (
@@ -226,7 +103,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
             <Lucide icon="ListChecks" className="w-5 h-5 ml-px stroke-[2.5]" />
           ),
         };
-      case "SUCCESS":
+      case Status.SUCCESS:
         return {
           color: "text-green-500",
           icon: (
@@ -252,12 +129,17 @@ const CustomTable: React.FC<ICustomTableProps> = ({
   const [TitleforDelete, setTitleforDelete] = useState<string>("");
   const [notificationMessage, setNotificationMessage] = useState("");
   const [notificationStatus, setNotificationStatus] = useState("");
+  const [id, passId] = useState<string>("");
+  const [type, setType] = useState<string>("");
+  // console.log(id)
   // Basic non sticky notification
   const basicNonStickyNotification = useRef<NotificationElement>();
   const basicNonStickyNotificationToggle = () => {
     // Show notification
     basicNonStickyNotification.current?.showToast();
   };
+
+  const payins = useAppSelector(getAllPayinData);
 
   const [bankdetails, setBankDetails] = useState<{
     accountName: string;
@@ -344,23 +226,23 @@ const CustomTable: React.FC<ICustomTableProps> = ({
   } | null>(null);
 
   const [details, Roles] = useState<{
-    sno: string;
-    id: string;
-    code: string;
-    confirmed: string;
-    payin_merchant_commission: string;
-    payin_vendor_commission: string;
-    amount: string;
-    status: string;
-    merchant_order_id: string;
-    merchant_code: string;
-    name: string;
-    user_submitted_utr: string;
-    utr: string;
-    method: string;
-    duration: number;
-    bank: string;
-    updated_at: string;
+    sno?: string;
+    id?: string;
+    code?: string;
+    confirmed?: string;
+    payin_merchant_commission?: string;
+    payin_vendor_commission?: string;
+    amount?: string;
+    status?: string;
+    merchant_order_id?: string;
+    merchant_code?: string;
+    name?: string;
+    user_submitted_utr?: string;
+    utr?: string;
+    method?: string;
+    duration?: number;
+    bank?: string;
+    updated_at?: string;
   } | null>(null);
 
   const openModal = (open: string): void => {
@@ -402,26 +284,18 @@ const CustomTable: React.FC<ICustomTableProps> = ({
   };
 
   const notify = async (id: string | any) => {
-    await postApi(
-      `/payIn/update-payment-notified-status/${id}`,
-      { type: "PAYIN" }
-    )
-      .then((res) => {
-        if (res?.data?.data?.message) {
-          setNotificationMessage(res?.data?.data?.message);
-          setNotificationStatus("SUCCESS");
-          basicNonStickyNotificationToggle();
-        } else {
-          setNotificationStatus("ERROR");
-          setNotificationMessage(res?.data?.error?.message);
-          basicNonStickyNotificationToggle();
-        }
-      })
-      .catch((err) => {
-        setNotificationStatus("ERROR");
-        setNotificationMessage(err?.response?.data?.error?.message);
-        basicNonStickyNotificationToggle();
-      });
+    const url = `/update-payment-notified-status/${id}`;
+    const apiData = { type: "PAYIN" };
+    const res = await updatePayins(`${url}`, apiData);
+    if (res?.data?.data?.message) {
+      setNotificationMessage(res?.data?.data?.message);
+      setNotificationStatus(Status.SUCCESS);
+      basicNonStickyNotificationToggle();
+    } else {
+      setNotificationStatus(Status.ERROR);
+      setNotificationMessage(res?.data?.error?.message);
+      basicNonStickyNotificationToggle();
+    }
   };
 
   return (
@@ -450,6 +324,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
             handleModal={() => Roles(null)}
             transaction={details}
             title={"transaction"}
+            id={id}
+            type={type}
           />
         )}
 
@@ -785,40 +661,20 @@ const CustomTable: React.FC<ICustomTableProps> = ({
               {title === "Payins" &&
                 _.take(
                   _.orderBy(
-                    _.filter(data, (o) => _.includes(status, o.status)),
+                    _.filter(payins, (o) => _.includes(status, o.status)),
                     ["sno"],
                     ["desc"]
                   ),
                   params?.limit
-                ).map((payin: DataType, index) => {
+                ).map((payin: Payin, index) => {
                   return (
                     <Table.Tr key={index} className="[&_td]:last:border-b-0">
                       <Table.Td
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
-                          Roles({
-                            sno: String(payin?.sno), // Convert number to string
-                            id: payin?.id || "", // Ensure id exists
-                            code: payin?.code || "", // Ensure code is always a string
-                            confirmed: String(payin?.confirmed), // Convert boolean to string
-                            payin_merchant_commission: String(
-                              payin?.payin_merchant_commission
-                            ), // Ensure commission exists
-                            payin_vendor_commission: String(
-                              payin?.payin_vendor_commission
-                            ), // Ensure commission exists
-                            amount: String(payin?.amount), // Convert number to string
-                            status: payin?.status || "",
-                            merchant_order_id: payin?.merchant_order_id || "",
-                            merchant_code: payin?.merchant_code || "",
-                            name: payin?.user || "",
-                            user_submitted_utr: payin?.user_submitted_utr || "",
-                            utr: payin?.utr || "",
-                            method: payin?.method || "",
-                            duration: 0, // Ensure duration exists
-                            bank: "", // Ensure bank exists
-                            updated_at: payin?.updated_at || "", // Ensure updated_at exists
-                          });
+                          Roles({});
+                          setType("PAYIN");
+                          passId(payin?.id ?? "");
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
@@ -829,62 +685,22 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       <Table.Td
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
-                          Roles({
-                            sno: String(payin?.sno), // Convert number to string
-                            id: payin?.id || "", // Ensure id exists
-                            code: payin?.code || "",
-                            confirmed: String(payin?.confirmed), // Convert boolean to string
-                            payin_merchant_commission: String(
-                              payin?.payin_merchant_commission
-                            ), // Ensure commission exists
-                            payin_vendor_commission: String(
-                              payin?.payin_vendor_commission
-                            ), // Ensure commission exists
-                            amount: String(payin?.amount), // Convert number to string
-                            status: payin?.status || "",
-                            merchant_order_id: payin?.merchant_order_id || "",
-                            merchant_code: payin?.merchant_code || "",
-                            name: payin?.user || "",
-                            user_submitted_utr: payin?.user_submitted_utr || "",
-                            utr: payin?.utr || "",
-                            method: payin?.method || "",
-                            duration: 0, // Ensure duration exists
-                            bank: "", // Ensure bank exists
-                            updated_at: payin?.updated_at || "", // Ensure updated_at exists
-                          });
+                          Roles({});
+                          setType("PAYIN");
+                          passId(payin?.id ?? "");
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
-                          ₹ {payin?.confirmed ? payin?.confirmed : 0}
+                          ₹ {payin?.bank_response?.amount ? payin?.bank_response?.amount : 0}
                         </a>
                       </Table.Td>
 
                       <Table.Td
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
-                          Roles({
-                            sno: String(payin?.sno), // Convert number to string
-                            id: payin?.id || "", // Ensure id exists
-                            code: payin?.code || "",
-                            confirmed: String(payin?.confirmed), // Convert boolean to string
-                            payin_merchant_commission: String(
-                              payin?.payin_merchant_commission
-                            ), // Ensure commission exists
-                            payin_vendor_commission: String(
-                              payin?.payin_vendor_commission
-                            ), // Ensure commission exists
-                            amount: String(payin?.amount), // Convert number to string
-                            status: payin?.status || "",
-                            merchant_order_id: payin?.merchant_order_id || "",
-                            merchant_code: payin?.merchant_code || "",
-                            name: payin?.user || "",
-                            user_submitted_utr: payin?.user_submitted_utr || "",
-                            utr: payin?.utr || "",
-                            method: payin?.method || "",
-                            duration: 0, // Ensure duration exists
-                            bank: "", // Ensure bank exists
-                            updated_at: payin?.updated_at || "", // Ensure updated_at exists
-                          });
+                          Roles({});
+                          setType("PAYIN");
+                          passId(payin?.id ?? "");
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
@@ -892,38 +708,16 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         </a>
                       </Table.Td>
 
-                      {columns && columns.length > 9 && (
+                      {columns && columns.length > 10 && (
                         <Table.Td
                           className="py-4 border-dashed dark:bg-darkmode-600"
                           onClick={() => {
-                            Roles({
-                              sno: String(payin?.sno), // Convert number to string
-                              id: payin?.id || "", // Ensure id exists
-                              code: payin?.code || "",
-                              confirmed: String(payin?.confirmed), // Convert boolean to string
-                              payin_merchant_commission: String(
-                                payin?.payin_merchant_commission
-                              ), // Ensure commission exists
-                              payin_vendor_commission: String(
-                                payin?.payin_vendor_commission
-                              ), // Ensure commission exists
-                              amount: String(payin?.amount), // Convert number to string
-                              status: payin?.status || "",
-                              merchant_order_id: payin?.merchant_order_id || "",
-                              merchant_code: payin?.merchant_code || "",
-                              name: payin?.user || "",
-                              user_submitted_utr:
-                                payin?.user_submitted_utr || "",
-                              utr: payin?.utr || "",
-                              method: payin?.method || "",
-                              duration: 0, // Ensure duration exists
-                              bank: "", // Ensure bank exists
-                              updated_at: payin?.updated_at || "", // Ensure updated_at exists
-                            });
+                            Roles({});
                           }}
                         >
                           <a className="font-medium whitespace-nowrap">
-                            {payin?.confirmed}
+                            Merchant: {payin?.payin_merchant_commission}
+                            Vendor: {payin?.payin_vendor_commission}
                           </a>
                         </Table.Td>
                       )}
@@ -945,62 +739,35 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       <Table.Td
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
-                          Roles({
-                            sno: String(payin?.sno), // Convert number to string
-                            id: payin?.id || "", // Ensure id exists
-                            code: payin?.code || "",
-                            confirmed: String(payin?.confirmed), // Convert boolean to string
-                            payin_merchant_commission: String(
-                              payin?.payin_merchant_commission
-                            ), // Ensure commission exists
-                            payin_vendor_commission: String(
-                              payin?.payin_vendor_commission
-                            ), // Ensure commission exists
-                            amount: String(payin?.amount), // Convert number to string
-                            status: payin?.status || "",
-                            merchant_order_id: payin?.merchant_order_id || "",
-                            merchant_code: payin?.merchant_code || "",
-                            name: payin?.user || "",
-                            user_submitted_utr: payin?.user_submitted_utr || "",
-                            utr: payin?.utr || "",
-                            method: payin?.method || "",
-                            duration: 0, // Ensure duration exists
-                            bank: "", // Ensure bank exists
-                            updated_at: payin?.updated_at || "", // Ensure updated_at exists
-                          });
+                          Roles({});
+                          setType("PAYIN");
+                          passId(payin?.id ?? "");
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
-                          {payin?.merchant_code}
+                          {payin?.merchant?.code}
                         </a>
                       </Table.Td>
 
                       <Table.Td
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
-                          Roles({
-                            sno: String(payin?.sno), // Convert number to string
-                            id: payin?.id || "", // Ensure id exists
-                            code: payin?.code || "",
-                            confirmed: String(payin?.confirmed), // Convert boolean to string
-                            payin_merchant_commission: String(
-                              payin?.payin_merchant_commission
-                            ), // Ensure commission exists
-                            payin_vendor_commission: String(
-                              payin?.payin_vendor_commission
-                            ), // Ensure commission exists
-                            amount: String(payin?.amount), // Convert number to string
-                            status: payin?.status || "",
-                            merchant_order_id: payin?.merchant_order_id || "",
-                            merchant_code: payin?.merchant_code || "",
-                            name: payin?.user || "",
-                            user_submitted_utr: payin?.user_submitted_utr || "",
-                            utr: payin?.utr || "",
-                            method: payin?.method || "",
-                            duration: 0, // Ensure duration exists
-                            bank: "", // Ensure bank exists
-                            updated_at: payin?.updated_at || "", // Ensure updated_at exists
-                          });
+                          Roles({});
+                          setType("PAYIN");
+                          passId(payin?.id ?? "");
+                        }}
+                      >
+                        <a className="font-medium whitespace-nowrap">
+                          {payin?.vendor}
+                        </a>
+                      </Table.Td>
+
+                      <Table.Td
+                        className="py-4 border-dashed dark:bg-darkmode-600"
+                        onClick={() => {
+                          Roles({});
+                          setType("PAYIN");
+                          passId(payin?.id ?? "");
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
@@ -1011,62 +778,22 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       <Table.Td
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
-                          Roles({
-                            sno: String(payin?.sno), // Convert number to string
-                            id: payin?.id || "", // Ensure id exists
-                            code: payin?.code || "",
-                            confirmed: String(payin?.confirmed), // Convert boolean to string
-                            payin_merchant_commission: String(
-                              payin?.payin_merchant_commission
-                            ), // Ensure commission exists
-                            payin_vendor_commission: String(
-                              payin?.payin_vendor_commission
-                            ), // Ensure commission exists
-                            amount: String(payin?.amount), // Convert number to string
-                            status: payin?.status || "",
-                            merchant_order_id: payin?.merchant_order_id || "",
-                            merchant_code: payin?.merchant_code || "",
-                            name: payin?.user || "",
-                            user_submitted_utr: payin?.user_submitted_utr || "",
-                            utr: payin?.utr || "",
-                            method: payin?.method || "",
-                            duration: 0, // Ensure duration exists
-                            bank: "", // Ensure bank exists
-                            updated_at: payin?.updated_at || "", // Ensure updated_at exists
-                          });
+                          Roles({});
+                          setType("PAYIN");
+                          passId(payin?.id ?? "");
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
-                          {payin?.utr}
+                          {payin?.bank_response?.utr}
                         </a>
                       </Table.Td>
 
                       <Table.Td
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
-                          Roles({
-                            sno: String(payin?.sno), // Convert number to string
-                            id: payin?.id || "", // Ensure id exists
-                            code: payin?.code || "",
-                            confirmed: String(payin?.confirmed), // Convert boolean to string
-                            payin_merchant_commission: String(
-                              payin?.payin_merchant_commission
-                            ), // Ensure commission exists
-                            payin_vendor_commission: String(
-                              payin?.payin_vendor_commission
-                            ), // Ensure commission exists
-                            amount: String(payin?.amount), // Convert number to string
-                            status: payin?.status || "",
-                            merchant_order_id: payin?.merchant_order_id || "",
-                            merchant_code: payin?.merchant_code || "",
-                            name: payin?.user || "",
-                            user_submitted_utr: payin?.user_submitted_utr || "",
-                            utr: payin?.utr || "",
-                            method: payin?.method || "",
-                            duration: 0, // Ensure duration exists
-                            bank: "", // Ensure bank exists
-                            updated_at: payin?.updated_at || "", // Ensure updated_at exists
-                          });
+                          Roles({});
+                          setType("PAYIN");
+                          passId(payin?.id ?? "");
                         }}
                       >
                         <div className="flex items-center">
@@ -1086,8 +813,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
 
                       <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                         <div className="flex items-center justify-center">
-                          {payin?.status === "DISPUTE" ||
-                          payin?.status === "BANK_MISMATCH" ? (
+                          {payin?.status === Status.DISPUTE ||
+                          payin?.status === Status.BANK_MISMATCH ? (
                             <Menu className="h-5">
                               <Menu.Button className="w-5 h-5 text-slate-500">
                                 <Lucide
@@ -1100,7 +827,12 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                                 className="w-40"
                                 onClick={() => {
                                   setStatus && setStatus(payin?.status);
-                                  setId && setId(payin?.status === "BANK_MISMATCH" ? payin?.merchant_order_id : payin?.id);
+                                  setId &&
+                                    setId(
+                                      payin?.status === Status.BANK_MISMATCH
+                                        ? payin?.merchant_order_id
+                                        : payin?.id
+                                    );
                                 }}
                               >
                                 <Menu.Item>
@@ -1312,7 +1044,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     {/* Expanded row */}
                     {expandedRow === fakerKey &&
                       faker?.submerchant &&
-                      faker?.submerchant.map((sub, subKey) => (
+                      faker?.submerchant.map((sub: any, subKey: any) => (
                         <Table.Tr key={`sub-${subKey}`} className="bg-gray-100">
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600"></Table.Td>
 
@@ -2788,7 +2520,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
             }}
             className="flex flex-col sm:flex-row"
           >
-            {notificationStatus === "SUCCESS" ? (
+            {notificationStatus === Status.SUCCESS ? (
               <Lucide icon="BadgeCheck" className="text-primary" />
             ) : (
               <Lucide icon="X" className="text-danger" />

@@ -7,10 +7,11 @@ import {
   setColorScheme,
   colorSchemes,
   ColorSchemes,
-} from "@/redux-toolkit/colorSchemeSlice";
-import { setPageLoader } from "@/redux-toolkit/pageLoaderSlice";
-import { selectColorScheme } from "@/redux-toolkit/colorSchemeSlice";
-import { useAppDispatch, useAppSelector } from "@/redux-toolkit/hooks";
+  selectColorScheme
+} from "@/redux-toolkit/slices/common/colorScheme/colorSchemeSlice";
+import { setPageLoader } from "@/redux-toolkit/slices/common/pageLoader/pageLoaderSlice";
+import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector"
 import ReportDonutChart7 from "@/components/ReportDonutChart7";
 import { Link, useNavigate } from "react-router-dom";
 import Tippy from "@/components/Base/Tippy";
@@ -18,7 +19,7 @@ import users from "@/fakers/users";
 import messages from "@/fakers/messages";
 import activities from "@/fakers/activities";
 import Button from "@/components/Base/Button";
-import { themes, Themes } from "@/redux-toolkit/themeSlice";
+import { themes, Themes } from "@/redux-toolkit/slices/theme/themeSlice";
 import React, { useState } from "react";
 import clsx from "clsx";
 import _ from "lodash";

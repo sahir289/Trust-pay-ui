@@ -1,5 +1,5 @@
 import { NavigateFunction } from "react-router-dom";
-import { Menu } from "@/redux-toolkit/sideMenuSlice";
+import { Menu } from "@/redux-toolkit/slices/common/sideMenu/sideMenuSlice";
 import { slideUp, slideDown } from "@/utils/helper";
 
 interface Location {
