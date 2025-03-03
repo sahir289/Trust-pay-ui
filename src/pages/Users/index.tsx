@@ -1,7 +1,9 @@
 import Lucide from "@/components/Base/Lucide";
 import {  FormInput } from "@/components/Base/Form";
 import _ from "lodash";
-import Modal from "../Modal/modal";
+import * as yup from "yup";
+import Modal from "../Modal/modals";
+
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import CustomTable from "@/components/TableComponent";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
@@ -27,6 +29,22 @@ function Main() {
     page: "1",
     limit: "10",
   });
+    const [formFields, setFormFields] = useState([
+      { name: "merchant", label: "Merchant 123", type: "text", placeholder: "Enter Merchant", validation: yup.string().required("Merchant is required") },
+      { name: "merchant1", label: "Merchant 3", type: "text", placeholder: "Enter Merchant", validation: yup.string().required("Merchant is required") },
+      { name: "method", label: "Method", type: "select", options: [{ value: "upi", label: "UPI" }, { value: "bank", label: "Bank Transfer" }], validation: yup.string().required("Method is required") },
+      { name: "oneTime", label: "One-time Payment?", type: "switch", validation: yup.boolean() },
+    ]);
+
+    const existingMerchant = {
+      merchant: "John's Store",
+      merchant1: "John's Storqqqqqqe",
+      merchant2: "John's Storesssss",
+      amount: 500,
+      method: "upi",
+      oneTime: true,
+    };
+
   const userRef = useRef(null);
   const userModal = () => {
     setNewUserModal(!newUserModal)
@@ -73,8 +91,10 @@ function Main() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
+              <Modal handleModal={userModal} forOpen={true} title="Edit Merchant" formFields={formFields} existingData={existingMerchant} />
+            {/* <Modal   handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title="Add User" /> */}
 
-            <Modal   handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title="Add User" />
+            {/* <Modal handleModal={userModal} forOpen={true} title="Add Merchant" formFields={formFields}/> */}
           </div>
         </div>
 
