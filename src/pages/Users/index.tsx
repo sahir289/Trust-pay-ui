@@ -4,7 +4,7 @@ import _ from "lodash";
 import * as yup from "yup";
 import Modal from "../Modal/modals";
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CustomTable from "@/components/TableComponent";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
@@ -25,31 +25,42 @@ export interface User {
 function Main() {
   const [newUserModal, setNewUserModal] = useState(false);
   const [editModal, setEditModal] = useState<string>("")
+
   const [params, setParams] = React.useState<{ [key: string]: string }>({
     page: "1",
     limit: "10",
   });
-    const [formFields, setFormFields] = useState([
-      { name: "merchant", label: "Merchant 123", type: "text", placeholder: "Enter Merchant", validation: yup.string().required("Merchant is required") },
-      { name: "merchant1", label: "Merchant 3", type: "text", placeholder: "Enter Merchant", validation: yup.string().required("Merchant is required") },
-      { name: "method", label: "Method", type: "select", options: [{ value: "upi", label: "UPI" }, { value: "bank", label: "Bank Transfer" }], validation: yup.string().required("Method is required") },
-      { name: "oneTime", label: "One-time Payment?", type: "switch", validation: yup.boolean() },
-    ]);
 
-    const existingMerchant = {
-      merchant: "John's Store",
-      merchant1: "John's Storqqqqqqe",
-      merchant2: "John's Storesssss",
-      amount: 500,
-      method: "upi",
-      oneTime: true,
+  // const existingMerchant = {
+  //   first_name: "John's Store",
+  //   last_name: 500,
+  //   user_name: "upi",
+  //   email: true,
+  // };
+
+    const formFields = {
+      User_Details: [
+        { name: "first_name", label: "First Name", type: "text", placeholder: "Enter First Name", validation: yup.string().required("First Name is required") },
+        { name: "last_name", label: "Last Name", type: "text", placeholder: "Enter Last Name", validation: yup.string().required("Last Name is required") },
+        { name: "user_name", label: "Username", type: "text", placeholder: "Enter Username", validation: yup.string().required("Username is required") },
+        { name: "email", label: "Email", type: "text", placeholder: "Enter Email", validation: yup.string().email("Invalid Email").required("Email is required") },
+        { name: "contact_no", label: "Contact Number", type: "text", placeholder: "Enter Contact Number", validation: yup.string().matches(/^\d+$/, "Must be a valid number").required("Contact number is required") },
+      ],
+      User_Info: [
+        { name: "designation_id", label: "Designation ID", type: "text", placeholder: "Enter Designation ID", validation: yup.string().required("Designation ID is required") },
+        { name: "role_id", label: "Role ID", type: "text", placeholder: "Enter Role ID", validation: yup.string().required("Role ID is required") },
+        { name: "password", label: "Password", type: "password", placeholder: "Enter Password", validation: yup.string().min(5, "Password must be at least 5 characters").required("Password is required") },
+        { name: "code", label: "Code", type: "text", placeholder: "Enter Code", validation: yup.string().required("Code is required") },
+        { name: "is_enabled", label: "Is Enabled?", type: "switch", validation: yup.boolean() },
+      ]
     };
 
-  const userRef = useRef(null);
+   
+  // const userRef = useRef(null);
   const userModal = () => {
     setNewUserModal(!newUserModal)
   }
-
+  
   const dispatch = useAppDispatch();
   const allUsers = useAppSelector(selectAllUsers);
   console.log(allUsers)
@@ -65,12 +76,10 @@ function Main() {
   }, [JSON.stringify(params), fetchUsers]);
   
   const tableHeaders = [
-    "admin_name",
+    "name",
     "user_name",
     "role",
-    "last_logged_in",
-    "enabled",
-    "actions"
+    "enabled"
   ];
   const handleCreateUser = async () => {
     const newUser = await createUser({
@@ -89,12 +98,9 @@ function Main() {
           <div className="text-base font-medium group-[.mode--light]:text-white">
             Users
           </div>
-
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-              <Modal handleModal={userModal} forOpen={true} title="Edit Merchant" formFields={formFields} existingData={existingMerchant} />
-            {/* <Modal   handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title="Add User" /> */}
-
-            {/* <Modal handleModal={userModal} forOpen={true} title="Add Merchant" formFields={formFields}/> */}
+          <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields}/>
+          {/* <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields} existingData={existingMerchant}/> */}
           </div>
         </div>
 
