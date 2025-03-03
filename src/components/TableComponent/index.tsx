@@ -26,9 +26,9 @@ import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
 import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
 import { Status } from "@/constants";
-
+import CommonTable from "./CommonTable"; // Adjust the path based on your project structure
 interface ICustomTableProps {
-  columns?: string[];
+  columns?: any[];
   data?: any[];
   title?: string;
   setStatus?: React.Dispatch<React.SetStateAction<string | any>>;
@@ -658,7 +658,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
-              {title === "Payins" &&
+               {title === "Payins" &&
                 _.take(
                   _.orderBy(
                     _.filter(payins, (o) => _.includes(status, o.status)),
@@ -873,10 +873,9 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     </Table.Tr>
                   );
                 })}
-              {title === "Merchants" &&
+               {title === "Merchants" &&
                 _.take(data, 10).map((faker, fakerKey) => (
                   <React.Fragment key={fakerKey}>
-                    {/* Main row */}
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                       {faker?.submerchant && faker.submerchant.length > 0 ? (
                         <Table.Td>
@@ -1041,7 +1040,6 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         </div>
                       </Table.Td>
                     </Table.Tr>
-                    {/* Expanded row */}
                     {expandedRow === fakerKey &&
                       faker?.submerchant &&
                       faker?.submerchant.map((sub: any, subKey: any) => (
@@ -2073,14 +2071,14 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         </div>
                       </div>
                     </Table.Td>
-                    {/* <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <a  className="font-medium whitespace-nowrap">
                           {faker?.position}
                         </a>
                         <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
                           {faker?.department}
                         </div>
-                      </Table.Td> */}
+                      </Table.Td> 
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                       <div className="w-40">
                         <div className="text-xs text-slate-500">
@@ -2435,6 +2433,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                 ))}
             </Table.Tbody>
           </Table>
+
+          <CommonTable columns={columns || []} data={data || []} />
         </div>
         <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
           <Pagination className="flex-1 w-full sm:w-auto">
