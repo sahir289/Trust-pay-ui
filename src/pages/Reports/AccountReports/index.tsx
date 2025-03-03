@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import users from "@/fakers/users";
+import Papa from 'papaparse';
 import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
@@ -63,12 +64,71 @@ function AccountReports() {
    const handleMerchantCode = (e: { target: { value: React.SetStateAction<string>; }; }) => {
      setmerchantCode(e.target.value)
    }
-    async function getMerchant() {
-      const response = await getApi(`/reports/get-merchants-reports?code=${merchantCode}`, {}, true);
-      console.log(response, "response12")
+    const downloadCSV = async () => {
+      const response = await getApi(`/reports/get-merchants-reports?code=${merchantCode}&startDate=${startDate}&endDate=${endDate}`, {}, true);
+      console.log(response, "response");
+    
+      let formatSetting: { Date: any; 'Merchant Code': any; 'PayIn Count': any; 'Payin Amount': any; 'PayIn Commission': any; 'PayOut Count': any; 'PayOut Amount': any; 'PayOut Commission': any; 'Reversed PayOut Count': any; 'Reversed PayOut Amount': any; 'Reversed PayOut Commission': any; 'Settlement Count': any; 'Settlement Amount': any; 'Lien Count': any; 'Lien Amount': any; 'Current Balance': any; 'Net Balance': any; }[] = [];
+    
+      response.data.data.forEach((el: {
+        created_at: string;
+        code: string;
+        total_payin_count: number;
+        total_payin_amount: number;
+        total_payin_commission: number;
+        total_payout_count: number;
+        total_payout_amount: number;
+        total_payout_commission: number;
+        total_reverse_payout_count: number;
+        total_reverse_payout_amount: number;
+        total_reverse_payout_commission: number;
+        total_settlement_count: number;
+        total_settlement_amount: number;
+        total_chargeback_count: number;
+        total_chargeback_amount: number;
+        net_balance: string;
+        current_balance: string;
+}) => {
+        formatSetting.push({
+          'Date': el.created_at || '',
+          'Merchant Code': el.code || '',
+          'PayIn Count': el.total_payin_count || 0,
+          'Payin Amount': el.total_payin_amount || 0,
+          'PayIn Commission': el.total_payin_commission || 0,
+          'PayOut Count': el.total_payout_count || 0,
+          'PayOut Amount': el.total_payout_amount || 0,
+          'PayOut Commission': el.total_payout_commission || 0,
+          'Reversed PayOut Count': el.total_reverse_payout_count || 0,
+          'Reversed PayOut Amount': el.total_reverse_payout_amount || 0,
+          'Reversed PayOut Commission': el.total_reverse_payout_commission || 0,
+          'Settlement Count': el.total_settlement_count || 0,
+          'Settlement Amount': el.total_settlement_amount || 0,
+          'Lien Count': el.total_chargeback_count || 0,
+          'Lien Amount': el.total_chargeback_amount || 0,
+          'Current Balance': el.current_balance || '',
+          'Net Balance': el.net_balance || '',
+        });
+      });
+    
+  const csv = Papa.unparse(formatSetting, {
+    delimiter: ',', // Ensures commas separate fields
+    newline: '\r\n', // Ensures proper line breaks for CSV format
+    quotes: true, // Quotes around fields (useful for data with commas or special characters)
+  });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      if (link.download !== undefined) {
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'merchant_reports.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
     }
+    
   return (
-
     <>
       <div className="col-span-12">
         <div className="flex flex-col md:h-10 mt-4 gap-y-3 md:items-center md:flex-row mx-6">
@@ -122,7 +182,7 @@ function AccountReports() {
                     rounded
                     variant="primary"
                     className="px-4 w-35 my-2 border-primary/50 rounded-lg"
-                    onClick={getMerchant}
+                    onClick={downloadCSV}
                   >
                     Download Now
                   </Button>
