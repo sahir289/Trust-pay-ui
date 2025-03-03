@@ -67,7 +67,7 @@ function Router() {
         {
           path: "settlement",
           element: <ProtectedRoute allowedRoles={[Role.ADMIN, Role.TRANSACTIONS, Role.OPERATIONS, Role.MERCHANT_ADMIN, Role.MERCHANT, Role.SUB_MERCHANT, Role.MERCHANT_OPERATIONS, Role.VENDOR, Role.VENDOR_OPERATIONS]} />,
-          children: [{ path: "auth/settlements", element: <Settlement /> }],
+          children: [{ path: "", element: <Settlement /> }],
         },
         {
           path: "chargeback",
