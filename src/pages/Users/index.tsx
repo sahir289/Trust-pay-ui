@@ -2,8 +2,9 @@ import Lucide from "@/components/Base/Lucide";
 import {  FormInput } from "@/components/Base/Form";
 import _ from "lodash";
 import Modal from "../Modal/modal";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import CustomTable from "@/components/TableComponent";
+import { useCallback, useEffect, useRef, useState } from "react";
+// import CustomTable from "@/components/TableComponent";
+import CustomTables from "@/components/TableComponent/CommonTable";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
 import { addUser, getUsers } from "@/redux-toolkit/slices/user/userSlice";
@@ -22,11 +23,6 @@ export interface User {
 }
 function Main() {
   const [newUserModal, setNewUserModal] = useState(false);
-  const [editModal, setEditModal] = useState<string>("")
-  const [params, setParams] = React.useState<{ [key: string]: string }>({
-    page: "1",
-    limit: "10",
-  });
   const userRef = useRef(null);
   const userModal = () => {
     setNewUserModal(!newUserModal)
@@ -37,21 +33,22 @@ function Main() {
   console.log(allUsers)
 
   const fetchUsers = useCallback(async () => {
-    const queryString = new URLSearchParams(params).toString();
-    const userList = await getAllUsers(queryString);
+    // tempory disabled this functionality
+    // const queryString = new URLSearchParams(params).toString();
+    const userList = await getAllUsers("");
     dispatch(getUsers(userList));
-  }, [dispatch, params]); 
+  }, [dispatch]); 
 
   useEffect(() => {
     fetchUsers();
-  }, [JSON.stringify(params), fetchUsers]);
+  }, [fetchUsers]);
   
   const tableHeaders = [
-    { label: "Name", key: "first_name", type: "text" },
-    { label: "User Name", key: "user_name", type: "text" },
-    { label: "Created At", key: "created_at", type: "text" },
-    { label: "Created By", key: "created_by", type: "text" },
-    { label: "Is Enable", key: "is_enabled", type: "toggle" },
+    { label: "Name", key: "first_name", type: "text" as const },
+    { label: "User Name", key: "user_name", type: "text" as const },
+    { label: "Created At", key: "created_at", type: "text" as const },
+    { label: "Created By", key: "created_by", type: "text" as const },
+    { label: "Is Enable", key: "is_enabled", type: "toggle" as const },
   ];
   const handleCreateUser = async () => {
     const newUser = await createUser({
@@ -151,21 +148,12 @@ function Main() {
               </div>
             </div>
             <div className="overflow-auto xl:overflow-visible">
-              <CustomTable 
+
+              <CustomTables 
                 columns={tableHeaders} 
                 data={allUsers as unknown as User[]} 
-                title={"Users"} 
-                status={[]} 
-                setStatus={() => {}} 
-                params={params}
-                setParams={setParams}
-                approve={false} 
-                editModal={editModal}
-                setEditModal={setEditModal}
-                setApprove={() => {}} 
-                reject={false} 
-                setReject={() => {}} 
               />
+              
             </div>
           </div>
         </div>

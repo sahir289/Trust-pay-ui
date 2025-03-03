@@ -27,12 +27,6 @@ import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
 import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
 import { Status } from "@/constants";
 import CommonTable from "./CommonTable"; // Adjust the path based on your project structure
-
-interface Column {
-  label: string;
-  key: string;
-  type?: "text" | "image" | "status" | "checkbox" | "expand";
-}
 interface ICustomTableProps {
   columns?: any[];
   data?: any[];
@@ -646,7 +640,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
 
         <div className="overflow-auto">
           <Table className="border-b border-slate-200/60">
-            {/* <Table.Thead>
+            <Table.Thead>
               <Table.Tr>
                 {title === "Payouts" && (
                   <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 text-slate-500 dark:bg-darkmode-400">
@@ -662,9 +656,9 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                   </Table.Td>
                 ))}
               </Table.Tr>
-            </Table.Thead> */}
+            </Table.Thead>
             <Table.Tbody>
-              {/* {title === "Payins" &&
+               {title === "Payins" &&
                 _.take(
                   _.orderBy(
                     _.filter(payins, (o) => _.includes(status, o.status)),
@@ -878,8 +872,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       </Table.Td>
                     </Table.Tr>
                   );
-                })} */}
-              {/* {title === "Merchants" &&
+                })}
+               {title === "Merchants" &&
                 _.take(data, 10).map((faker, fakerKey) => (
                   <React.Fragment key={fakerKey}>
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
@@ -1166,9 +1160,9 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         </Table.Tr>
                       ))}
                   </React.Fragment>
-                ))} */}
+                ))}
 
-              {/* {title === "Bankaccounts" &&
+              {title === "Bankaccounts" &&
                 _.take(_.orderBy(data, ["sno"], ["desc"]), 10).map(
                   (account, index) => (
                     <Table.Tr key={index} className="[&_td]:last:border-b-0">
@@ -1386,8 +1380,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       </Table.Td>
                     </Table.Tr>
                   )
-                )} */}
-              {/* {title === "Add Data" &&
+                )}
+              {title === "Add Data" &&
                 _.take(_.orderBy(data, ["sno"], ["desc"]), 10).map(
                   (faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
@@ -1489,8 +1483,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       </Table.Td>
                     </Table.Tr>
                   )
-                )} */}
-              {/* {title === "Check UTR" &&
+                )}
+              {title === "Check UTR" &&
                 _.take(_.orderBy(data, ["sno"], ["desc"]), 10).map(
                   (faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
@@ -1557,8 +1551,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       </Table.Td>
                     </Table.Tr>
                   )
-                )} */}
-              {/* {title === "Reset Entry" &&
+                )}
+              {title === "Reset Entry" &&
                 _.take(_.orderBy(data, ["sno"], ["desc"]), 10).map(
                   (faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
@@ -1625,8 +1619,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       </Table.Td>
                     </Table.Tr>
                   )
-                )} */}
-              {/* {title === "Chargebacks" &&
+                )}
+              {title === "Chargebacks" &&
                 _.take(_.orderBy(data, ["sno"], ["desc"]), 10).map(
                   (faker, _fakerKey) => (
                     <Table.Tr
@@ -1714,8 +1708,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       </Table.Td>
                     </Table.Tr>
                   )
-                )} */}
-              {/* {title === "Payouts" &&
+                )}
+              {title === "Payouts" &&
                 _.take(
                   _.orderBy(
                     _.filter(data, (o) => _.includes(status, o.status)),
@@ -1974,8 +1968,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       </div>
                     </Table.Td>
                   </Table.Tr>
-                ))} */}
-              {/* {(title === "Merchants Settlements" ||
+                ))}
+              {(title === "Merchants Settlements" ||
                 title === "Vendors Settlements") &&
                 _.take(data, 10).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
@@ -2049,8 +2043,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       </div>
                     </Table.Td>
                   </Table.Tr>
-                ))} */}
-              {/* {title === "Vendors" &&
+                ))}
+              {title === "Vendors" &&
                 _.take(data, 20).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -2188,9 +2182,9 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       </div>
                     </Table.Td>
                   </Table.Tr>
-                ))} */}
+                ))}
 
-              {/* {title === "Users" &&
+              {title === "Users" &&
                 _.take(data, 10).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -2290,8 +2284,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       </Menu>
                     </Table.Td>
                   </Table.Tr>
-                ))} */}
-              {/* {title === "Roles" &&
+                ))}
+              {title === "Roles" &&
                 _.take(data, 20).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed  dark:bg-darkmode-600 ">
@@ -2362,8 +2356,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       </div>
                     </Table.Td>
                   </Table.Tr>
-                ))} */}
-              {/* {title === "Designation" &&
+                ))}
+              {title === "Designation" &&
                 _.take(data, 20).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -2436,7 +2430,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       </div>
                     </Table.Td>
                   </Table.Tr>
-                ))} */}
+                ))}
             </Table.Tbody>
           </Table>
 
