@@ -43,8 +43,12 @@ const PayinComponent: React.FC<PayinProps> = ({ setStatus, setId }) => {
   const getPayinData = async () => {
     const queryString = new URLSearchParams(params).toString();
     const payins = await getAllPayins(queryString);
-    if (payins?.data?.length > 0) {
-      dispatch(getPayins(payins?.data));
+    if (payins?.data) {
+      const payload = {
+        payin: payins.data.rows,
+        totalCount: payins.data.totalCount,
+      }
+      dispatch(getPayins(payload));
     } else {
       setNotificationStatus(Status.ERROR);
       setNotificationMessage("No Payins Found!");

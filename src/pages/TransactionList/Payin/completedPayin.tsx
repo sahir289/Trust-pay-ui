@@ -7,9 +7,6 @@ import users from "@/fakers/users";
 import CustomTable from "../../../components/TableComponent";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
-import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
-import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
 import { Columns, Status } from "@/constants";
 
 interface PayinProps {
@@ -31,8 +28,6 @@ const CompletedPayin: React.FC<PayinProps> = ({
   const newElement = "Commission";
 
   theadData.splice(indexToInsert, 0, newElement);
-
-  const payins = useAppSelector(getAllPayinData);
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -149,7 +144,6 @@ const CompletedPayin: React.FC<PayinProps> = ({
               setStatus={setStatus}
               setId={setId}
               columns={theadData}
-              data={payins as Payin[]}
               title={"Payins"}
               status={statusArray}
               params={params}

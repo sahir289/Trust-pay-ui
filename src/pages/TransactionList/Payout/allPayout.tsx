@@ -7,33 +7,38 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 // import { useState } from "react";
-import payouts from "@/fakers/payouts";
+// import payouts from "@/fakers/payouts";
 import CustomTable from "../../../components/TableComponent";
 
 interface PayinProps {
   reject: boolean; // Expecting a boolean prop to control modal reset
   setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
   approve: boolean; // Expecting a boolean prop to control modal reset
-  setApprove: React.Dispatch<React.SetStateAction<boolean>>
+  setApprove: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface Payout {
-  method: string;
-  id: string;
-  updated_at: string;
-  sno: number;
-  code: string;
-  amount: string;
-  status: string;
-  merchant_order_id: string;
-  merchant_code: string;
-  photo: string;
-  name: string;
-  user: string;
-  utr: string;
-}
+// interface Payout {
+//   method: string;
+//   id: string;
+//   updated_at: string;
+//   sno: number;
+//   code: string;
+//   amount: string;
+//   status: string;
+//   merchant_order_id: string;
+//   merchant_code: string;
+//   photo: string;
+//   name: string;
+//   user: string;
+//   utr: string;
+// }
 
-const AllPayout: React.FC<PayinProps> = ({ approve, setApprove, reject, setReject }) => {
+const AllPayout: React.FC<PayinProps> = ({
+  approve,
+  setApprove,
+  reject,
+  setReject,
+}) => {
   const tableHeaders: string[] = [
     "SNO.",
     "Amount",
@@ -155,12 +160,23 @@ const AllPayout: React.FC<PayinProps> = ({ approve, setApprove, reject, setRejec
                 </Popover>
               </div>
             </div>
-            <CustomTable columns={tableHeaders} approve={approve} setApprove={setApprove} setParams={() => {}} reject={reject} setReject={setReject} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Success", "Rejected", "Initiated"]} setStatus={() => { }} />
+            <CustomTable
+              columns={tableHeaders}
+              approve={approve}
+              setApprove={setApprove}
+              setParams={() => {}}
+              reject={reject}
+              setReject={setReject}
+              // data={payouts.fakePayouts() as unknown as Payout[]}
+              title={"Payouts"}
+              status={["Success", "Rejected", "Initiated"]}
+              setStatus={() => {}}
+            />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default AllPayout;

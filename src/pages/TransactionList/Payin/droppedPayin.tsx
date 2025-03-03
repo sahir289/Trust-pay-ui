@@ -7,9 +7,6 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import CustomTable from "../../../components/TableComponent";
-import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
-import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
 import { Columns, Status } from "@/constants";
 
 interface PayinProps {
@@ -21,8 +18,6 @@ interface PayinProps {
 
 const DroppedPayin: React.FC<PayinProps> = ({setStatus, setId, params, setParams}) => {
   const statusArray: string[] = [Status.DROPPED, Status.FAILED];
-
-  const payins = useAppSelector(getAllPayinData);
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -140,7 +135,6 @@ const DroppedPayin: React.FC<PayinProps> = ({setStatus, setId, params, setParams
               setStatus={setStatus}
               setId={setId}
               columns={Columns.PAYIN}
-              data={payins as Payin[]} 
               title={"Payins"} 
               status={statusArray} 
               params={params}

@@ -1,6 +1,6 @@
 import Lucide from "@/components/Base/Lucide";
 import {  FormInput } from "@/components/Base/Form";
-import users from "@/fakers/users";
+// import users from "@/fakers/users";
 import Modal from "../Modal/modal";
 import { useState, useRef } from "react";
 import CustomTable from "@/components/TableComponent";
@@ -64,7 +64,7 @@ const tableHeaders: string[] = [
             </div>
               <CustomTable 
                 columns={tableHeaders} 
-                data={users.fakeUsers() as unknown as User[]} 
+                // data={users.fakeUsers() as unknown as User[]} 
                 title={"Designation"}  
                 status={[]} 
                 setEditModal={setEditModal}

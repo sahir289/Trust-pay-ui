@@ -24,12 +24,11 @@ import Notification, {
 import { updatePayins } from "@/redux-toolkit/slices/payin/payinAPI";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
-import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
 import { Status } from "@/constants";
-import CommonTable from "./CommonTable"; // Adjust the path based on your project structure
+// import CommonTable from "./CommonTable"; // Adjust the path based on your project structure
 interface ICustomTableProps {
-  columns?: any[];
-  data?: any[];
+  columns?: string[];
+  data?: {rows: any[], totalCount: number};
   title?: string;
   setStatus?: React.Dispatch<React.SetStateAction<string | any>>;
   setId?: React.Dispatch<React.SetStateAction<string | any>>;
@@ -131,7 +130,6 @@ const CustomTable: React.FC<ICustomTableProps> = ({
   const [notificationStatus, setNotificationStatus] = useState("");
   const [id, passId] = useState<string>("");
   const [type, setType] = useState<string>("");
-  // console.log(id)
   // Basic non sticky notification
   const basicNonStickyNotification = useRef<NotificationElement>();
   const basicNonStickyNotificationToggle = () => {
@@ -277,7 +275,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
 
   const resetRef = useRef<null>(null);
   const [currentPage] = useState<number>(1);
-  const totalPages = 3;
+  const totalPages = payins.totalCount && params?.limit ? Math.ceil(payins.totalCount / params?.limit) : 0;
 
   const handlePageChange = (page: number) => {
     setParams((prev) => ({ ...prev, page: page }));
@@ -661,12 +659,12 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                {title === "Payins" &&
                 _.take(
                   _.orderBy(
-                    _.filter(payins, (o) => _.includes(status, o.status)),
+                    _.filter(payins.payin, (o) => _.includes(status, o.status)),
                     ["sno"],
                     ["desc"]
                   ),
                   params?.limit
-                ).map((payin: Payin, index) => {
+                ).map((payin, index) => {
                   return (
                     <Table.Tr key={index} className="[&_td]:last:border-b-0">
                       <Table.Td
@@ -691,7 +689,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
-                          ₹ {payin?.bank_response?.amount ? payin?.bank_response?.amount : 0}
+                          ₹ {payin?.bank_res_details?.amount ? payin?.bank_res_details?.amount : 0}
                         </a>
                       </Table.Td>
 
@@ -745,7 +743,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
-                          {payin?.merchant?.code}
+                          {payin?.merchant_details?.merchant_code}
                         </a>
                       </Table.Td>
 
@@ -758,7 +756,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
-                          {payin?.vendor}
+                          {payin?.vendor_code}
                         </a>
                       </Table.Td>
 
@@ -784,7 +782,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
-                          {payin?.bank_response?.utr}
+                          {payin?.bank_res_details?.utr}
                         </a>
                       </Table.Td>
 
@@ -873,8 +871,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     </Table.Tr>
                   );
                 })}
-               {title === "Merchants" &&
-                _.take(data, 10).map((faker, fakerKey) => (
+              {title === "Merchants" &&
+                _.take(data?.rows, 10).map((faker, fakerKey) => (
                   <React.Fragment key={fakerKey}>
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                       {faker?.submerchant && faker.submerchant.length > 0 ? (
@@ -1163,7 +1161,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                 ))}
 
               {title === "Bankaccounts" &&
-                _.take(_.orderBy(data, ["sno"], ["desc"]), 10).map(
+                _.take(_.orderBy(data?.rows, ["sno"], ["desc"]), 10).map(
                   (account, index) => (
                     <Table.Tr key={index} className="[&_td]:last:border-b-0">
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -1382,7 +1380,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                   )
                 )}
               {title === "Add Data" &&
-                _.take(_.orderBy(data, ["sno"], ["desc"]), 10).map(
+                _.take(_.orderBy(data?.rows, ["sno"], ["desc"]), 10).map(
                   (faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -1485,7 +1483,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                   )
                 )}
               {title === "Check UTR" &&
-                _.take(_.orderBy(data, ["sno"], ["desc"]), 10).map(
+                _.take(_.orderBy(data?.rows, ["sno"], ["desc"]), 10).map(
                   (faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -1553,7 +1551,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                   )
                 )}
               {title === "Reset Entry" &&
-                _.take(_.orderBy(data, ["sno"], ["desc"]), 10).map(
+                _.take(_.orderBy(data?.rows, ["sno"], ["desc"]), 10).map(
                   (faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -1621,7 +1619,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                   )
                 )}
               {title === "Chargebacks" &&
-                _.take(_.orderBy(data, ["sno"], ["desc"]), 10).map(
+                _.take(_.orderBy(data?.rows, ["sno"], ["desc"]), 10).map(
                   (faker, _fakerKey) => (
                     <Table.Tr
                       key={_fakerKey}
@@ -1712,7 +1710,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
               {title === "Payouts" &&
                 _.take(
                   _.orderBy(
-                    _.filter(data, (o) => _.includes(status, o.status)),
+                    _.filter(data?.rows, (o) => _.includes(status, o.status)),
                     ["sno"],
                     ["desc"]
                   ),
@@ -1971,7 +1969,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                 ))}
               {(title === "Merchants Settlements" ||
                 title === "Vendors Settlements") &&
-                _.take(data, 10).map((faker, fakerKey) => (
+                _.take(data?.rows, 10).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed w-20 dark:bg-darkmode-600">
                       <div className="flex items-center">
@@ -2045,7 +2043,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                   </Table.Tr>
                 ))}
               {title === "Vendors" &&
-                _.take(data, 20).map((faker, fakerKey) => (
+                _.take(data?.rows, 20).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                       {fakerKey + 1}
@@ -2185,7 +2183,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                 ))}
 
               {title === "Users" &&
-                _.take(data, 10).map((faker, fakerKey) => (
+                _.take(data?.rows, 10).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                       {faker?.manager}
@@ -2286,7 +2284,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                   </Table.Tr>
                 ))}
               {title === "Roles" &&
-                _.take(data, 20).map((faker, fakerKey) => (
+                _.take(data?.rows, 20).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed  dark:bg-darkmode-600 ">
                       {fakerKey + 1}
@@ -2358,7 +2356,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                   </Table.Tr>
                 ))}
               {title === "Designation" &&
-                _.take(data, 20).map((faker, fakerKey) => (
+                _.take(data?.rows, 20).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                       <a className="font-medium whitespace-nowrap">
@@ -2434,7 +2432,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
             </Table.Tbody>
           </Table>
 
-          <CommonTable columns={columns || []} data={data || []} />
+          {/* <CommonTable columns={columns} data={data} /> */}
         </div>
         <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
           <Pagination className="flex-1 w-full sm:w-auto">

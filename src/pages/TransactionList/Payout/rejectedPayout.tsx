@@ -8,33 +8,26 @@ import { FormInput, FormSelect } from "@/components/Base/Form";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
-import payouts from "@/fakers/payouts";
+// import payouts from "@/fakers/payouts";
 import CustomTable from "../../../components/TableComponent";
 
-interface PayinProps {
-  reject: boolean; // Expecting a boolean prop to control modal reset
-  setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
-  approve: boolean; // Expecting a boolean prop to control modal reset
-  setApprove: React.Dispatch<React.SetStateAction<boolean>>
-}
+// interface Payout {
+//   method: string;
+//   id: string;
+//   updated_at: string;
+//   sno: number;
+//   code: string;
+//   amount: string;
+//   status: string;
+//   merchant_order_id: string;
+//   merchant_code: string;
+//   photo: string;
+//   name: string;
+//   user: string;
+//   utr: string;
+// }
 
-interface Payout {
-  method: string;
-  id: string;
-  updated_at: string;
-  sno: number;
-  code: string;
-  amount: string;
-  status: string;
-  merchant_order_id: string;
-  merchant_code: string;
-  photo: string;
-  name: string;
-  user: string;
-  utr: string;
-}
-
-const RejectedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setReject}) => {
+const RejectedPayout: React.FC = () => {
   const tableHeaders = [
     "SNO.",
     "Amount",
@@ -159,14 +152,9 @@ const RejectedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setR
             <CustomTable 
               title="Payouts" 
               columns={tableHeaders} 
-              data={payouts.fakePayouts() as unknown as Payout[]} 
+              // data={payouts.fakePayouts() as unknown as Payout[]} 
               status={["Rejected"]} 
-              setStatus={() => {}} 
               setParams={() => {}}
-              approve={approve} 
-              setApprove={setApprove} 
-              reject={reject} 
-              setReject={setReject} 
             />
           </div>
         </div>
