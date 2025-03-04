@@ -1,272 +1,204 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { Tab } from "@/components/Base/Headless";
-import PayinComponent from "./Payin/payin";
-import Payout from "./Payout/payout";
-import Modal from "@/pages/Modal/modal";
-import Lucide from "@/components/Base/Lucide";
-import { useRef, useState } from "react";
-import ModalPopUp from "../ModalPopUp";
+import { Tab } from '@/components/Base/Headless';
+import PayInComponent from './Payin/payin';
+import PayOut from './Payout/payout';
+import Modal from '@/pages/Modal/modal';
+import Lucide from '@/components/Base/Lucide';
+import { useState, useRef } from 'react';
+import ModalPopUp from '../ModalPopUp';
 import Notification, {
   NotificationElement,
-} from "@/components/Base/Notification";
-import { updatePayins } from "@/redux-toolkit/slices/payin/payinAPI";
-import { Status } from "@/constants";
+} from '@/components/Base/Notification';
+import { updatePayIns } from '@/redux-toolkit/slices/payin/payinAPI';
+import { Status } from '@/constants';
 
 function Main() {
   const [newTransactionModal, setNewTransactionModal] = useState(false);
-  const [title, setTitle] = useState("Payins");
+  const [title, setTitle] = useState('PayIns');
+  const [status, setStatus] = useState<string>('');
+  const [id, setId] = useState<string>('');
+  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationStatus, setNotificationStatus] = useState('');
+  const [modalData, setModalData] = useState<{ open: boolean; type: string }>({
+    open: false,
+    type: '',
+  });
   const transactionRef = useRef(null);
-  const transactionModal = () => {
-    setNewTransactionModal(!newTransactionModal);
-  };
-  const [approve, setApprove] = useState(false);
-  const [reject, setReject] = useState(false);
-  const [status, setStatus] = useState<string>("");
-  const [id, setId] = useState<string>("");
-  const [notificationMessage, setNotificationMessage] = useState("");
-  const [notificationStatus, setNotificationStatus] = useState("");
-  // Basic non sticky notification
-  const basicNonStickyNotification = useRef<NotificationElement>();
-  const basicNonStickyNotificationToggle = () => {
-    // Show notification
-    basicNonStickyNotification.current?.showToast();
-  };
 
+  const notificationRef = useRef<NotificationElement>();
   const resetRef = useRef<null>(null);
-  const handleReject = () => {
-    setReject(!reject);
-  };
 
-  const handleApprove = () => {
-    setApprove(false);
-  };
-
-  const handleClose = () => {
-    setStatus("");
-  };
+  const toggleModal = () => setNewTransactionModal((prev) => !prev);
+  const closeModal = () => setModalData({ open: false, type: '' });
 
   const handleSubmit = async (data: Record<string, string>) => {
-    let url = "";
-    let apiData = {};
+    const apiData =
+      status === Status.BANK_MISMATCH
+        ? { type: 'PAYIN', ...data }
+        : { ...data };
 
-    if (status === Status.BANK_MISMATCH) {
-      url = `/update-deposit-status/${id}`;
-      apiData = { type: "PAYIN", ...data };
-    } else if (status === Status.DISPUTE) {
-      url = `/dispute-duplicate/${id}`;
-      apiData = { ...data };
-    }
+    const url =
+      status === Status.BANK_MISMATCH
+        ? `/update-deposit-status/${id}`
+        : `/dispute-duplicate/${id}`;
 
-    const res = await updatePayins(`${url}`, apiData);
+    const res = await updatePayIns(url, apiData);
     if (res?.data?.data?.message) {
-      setNotificationMessage(res?.data?.data?.message);
+      setNotificationMessage(res.data.data.message);
       setNotificationStatus(Status.SUCCESS);
-      basicNonStickyNotificationToggle();
     } else {
+      setNotificationMessage(res?.data?.error?.message || 'An error occurred');
       setNotificationStatus(Status.ERROR);
-      setNotificationMessage(res?.data?.error?.message);
-      basicNonStickyNotificationToggle();
     }
+    notificationRef.current?.showToast();
   };
 
   return (
     <>
       <div className="flex flex-col h-10 w-full px-2">
         <div className="flex justify-between items-center">
-          <div className="text-xl font-medium group-[.mode--light]:text-white ">
-            Transactions
-          </div>
-
+          <div className="text-xl font-medium">Transactions</div>
           <Modal
-            handleModal={transactionModal}
+            handleModal={toggleModal}
             sendButtonRef={transactionRef}
             forOpen={newTransactionModal}
             title={title}
           />
-
-          {status === Status.BANK_MISMATCH && (
-            <ModalPopUp
-              open={true}
-              onClose={handleClose}
-              title="Update Transaction"
-              fields={[]}
-              singleField={[
-                {
-                  id: "nick_name",
-                  label: "Bank Name",
-                  type: "text",
-                  placeholder: "Bank Name",
-                },
-              ]}
-              buttonText="Success"
-              onSubmit={handleSubmit}
-              onReset={handleClose}
-              resetRef={resetRef}
-            />
-          )}
-
-          {status === Status.DISPUTE && (
-            <ModalPopUp
-              open={true}
-              onClose={handleClose}
-              title="Update Transaction"
-              fields={[
-                {
-                  id: "amount",
-                  label: "Amount",
-                  type: "text",
-                  placeholder: "Amount",
-                },
-                {
-                  id: "confirmed",
-                  label: "Confirm Amount",
-                  type: "text",
-                  placeholder: "Confirm Amount",
-                },
-              ]}
-              singleField={[
-                {
-                  id: "merchantOrderId",
-                  label: "Merchant Order ID",
-                  type: "text",
-                  placeholder: "Merchant Order ID",
-                },
-              ]}
-              buttonText="Success"
-              onSubmit={handleSubmit}
-              onReset={handleClose}
-              resetRef={resetRef}
-            />
-          )}
-          {approve && (
-            <ModalPopUp
-              open={true}
-              onClose={handleApprove}
-              title="Update Transaction"
-              fields={[
-                {
-                  id: "method",
-                  label: "Method",
-                  type: "text",
-                  placeholder: "Method",
-                },
-                {
-                  id: "selectBank",
-                  label: "Select Bank",
-                  type: "text",
-                  placeholder: "Select Bank",
-                },
-              ]}
-              singleField={[
-                {
-                  id: "utrNumber",
-                  label: "UTR Number",
-                  type: "text",
-                  placeholder: "UTR Number",
-                },
-              ]}
-              buttonText="Approve"
-              onSubmit={() => {
-                /* Handle Approve */
-              }}
-              onReset={handleApprove}
-              resetRef={resetRef}
-            />
-          )}
-          {reject && (
-            <ModalPopUp
-              open={reject}
-              onClose={handleReject}
-              title="Update Transaction"
-              fields={[]}
-              singleField={[
-                {
-                  id: "rejectReason",
-                  label: "Reject Reason",
-                  type: "text",
-                  placeholder: "Reject Reason",
-                },
-              ]}
-              buttonText="Reject"
-              onSubmit={() => {
-                /* Handle Reject */
-              }}
-              onReset={handleReject}
-              resetRef={resetRef}
-            />
-          )}
         </div>
       </div>
-      <div className="grid grid-cols-12 gap-y-10 gap-x-6 mt-2">
+      <div className="grid grid-cols-12 gap-6 mt-2">
         <div className="col-span-12">
-          <div className="relative flex flex-col col-span-12 lg:col-span-12 xl:col-span-12 gap-y-7">
-            <div className="flex flex-col p-5 box box--stacked">
-              <Tab.Group>
-                <Tab.List variant="tabs">
-                  <Tab>
-                    <Tab.Button
-                      className="w-full py-2 flex items-center justify-center"
-                      as="button"
-                      onClick={() => setTitle("Payins")}
-                    >
-                      <Lucide
-                        icon="BadgeIndianRupee"
-                        className="w-5 h-5 ml-px stroke-[2.5]"
-                      />
-                      &nbsp; Payins
-                    </Tab.Button>
-                  </Tab>
-                  <Tab>
-                    <Tab.Button
-                      className="w-full py-2 flex items-center justify-center"
-                      as="button"
-                      onClick={() => setTitle("Payouts")}
-                    >
-                      <Lucide
-                        icon="ArrowRightCircle"
-                        className="w-5 h-5 ml-px stroke-[2.5]"
-                      />
-                      &nbsp; Payouts
-                    </Tab.Button>
-                  </Tab>
-                </Tab.List>
-                <Tab.Panels className="border-b border-l border-r">
-                  <Tab.Panel className="p-5 leading-relaxed">
-                    <PayinComponent setStatus={setStatus} setId={setId} />
-                  </Tab.Panel>
-                  <Tab.Panel className="p-5 leading-relaxed">
-                    <Payout
-                      reject={reject}
-                      setReject={setReject}
-                      approve={approve}
-                      setApprove={setApprove}
-                    />
-                  </Tab.Panel>
-                </Tab.Panels>
-              </Tab.Group>
-            </div>
+          <div className="p-5 box box--stacked">
+            <Tab.Group>
+              <Tab.List variant="tabs">
+                <Tab>
+                  <Tab.Button
+                    className="w-full py-2 flex items-center justify-center"
+                    as="button"
+                    onClick={() => setTitle('PayIns')}
+                  >
+                    <Lucide icon="BadgeIndianRupee" className="w-5 h-5" />{' '}
+                    &nbsp; PayIns
+                  </Tab.Button>
+                </Tab>
+                <Tab>
+                  <Tab.Button
+                    className="w-full py-2 flex items-center justify-center"
+                    as="button"
+                    onClick={() => setTitle('PayOuts')}
+                  >
+                    <Lucide icon="ArrowRightCircle" className="w-5 h-5" />{' '}
+                    &nbsp; PayOuts
+                  </Tab.Button>
+                </Tab>
+              </Tab.List>
+              <Tab.Panels className="border-b border-l border-r">
+                <Tab.Panel className="p-5">
+                  <PayInComponent setStatus={setStatus} setId={setId} />
+                </Tab.Panel>
+                <Tab.Panel className="p-5">
+                  <PayOut setModalData={setModalData} />
+                </Tab.Panel>
+              </Tab.Panels>
+            </Tab.Group>
           </div>
         </div>
       </div>
+
+      {modalData.open && (
+        <ModalPopUp
+          open={true}
+          onClose={closeModal}
+          title="Update Transaction"
+          fields={
+            modalData.type === 'approve'
+              ? [
+                  {
+                    id: 'method',
+                    label: 'Method',
+                    type: 'text',
+                    placeholder: 'Method',
+                  },
+                  {
+                    id: 'selectBank',
+                    label: 'Select Bank',
+                    type: 'text',
+                    placeholder: 'Select Bank',
+                  },
+                ]
+              : modalData.type === 'reject'
+              ? []
+              : [
+                  {
+                    id: 'amount',
+                    label: 'Amount',
+                    type: 'text',
+                    placeholder: 'Amount',
+                  },
+                  {
+                    id: 'confirmed',
+                    label: 'Confirm Amount',
+                    type: 'text',
+                    placeholder: 'Confirm Amount',
+                  },
+                ]
+          }
+          singleField={
+            modalData.type === 'approve'
+              ? [
+                  {
+                    id: 'utrNumber',
+                    label: 'UTR Number',
+                    type: 'text',
+                    placeholder: 'UTR Number',
+                  },
+                ]
+              : modalData.type === 'reject'
+              ? [
+                  {
+                    id: 'rejectReason',
+                    label: 'Reject Reason',
+                    type: 'text',
+                    placeholder: 'Reject Reason',
+                  },
+                ]
+              : [
+                  {
+                    id: 'merchantOrderId',
+                    label: 'Merchant Order ID',
+                    type: 'text',
+                    placeholder: 'Merchant Order ID',
+                  },
+                ]
+          }
+          buttonText={
+            modalData.type === 'approve'
+              ? 'Approve'
+              : modalData.type === 'reject'
+              ? 'Reject'
+              : 'Success'
+          }
+          onSubmit={handleSubmit}
+          onReset={closeModal}
+          resetRef={resetRef}
+        />
+      )}
+
       {notificationMessage && (
         <div className="text-center">
           <Notification
-            getRef={(el) => {
-              basicNonStickyNotification.current = el;
-            }}
-            options={{
-              duration: 3000,
-            }}
-            className="flex flex-col sm:flex-row"
+            getRef={(el) => (notificationRef.current = el)}
+            options={{ duration: 3000 }}
           >
-            {notificationStatus === Status.SUCCESS ? (
-              <Lucide icon="BadgeCheck" className="text-primary" />
-            ) : (
-              <Lucide icon="X" className="text-danger" />
-            )}
-            <div className="font-medium ml-4 mr-4">
-              <div className="font-medium">{notificationMessage}</div>
-            </div>
+            <Lucide
+              icon={notificationStatus === Status.SUCCESS ? 'BadgeCheck' : 'X'}
+              className={
+                notificationStatus === Status.SUCCESS
+                  ? 'text-primary'
+                  : 'text-danger'
+              }
+            />
+            <div className="ml-4 font-medium">{notificationMessage}</div>
           </Notification>
         </div>
       )}

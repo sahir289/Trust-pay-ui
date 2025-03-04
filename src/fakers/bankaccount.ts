@@ -13,7 +13,7 @@ export interface BankAccount {
   showBank: boolean;
   status: "Active" | "Inactive";
   action: string;
-  bankUsedFor: "Payouts" | "Settlements" | "Payins";
+  bankUsedFor: "PayOuts" | "Settlements" | "PayIns";
   vendors: string;
   createdAt: string;
   lastScheduledAt: string;
@@ -37,7 +37,7 @@ const fakersBankAccount = {
         showBank: true,
         status: "Active",
         action: "Edit/Delete",
-        bankUsedFor: "Payouts",
+        bankUsedFor: "PayOuts",
         vendors: "Vendor A",
       },
       {
@@ -55,7 +55,7 @@ const fakersBankAccount = {
         showBank: true,
         status: "Active",
         action: "Edit/Delete",
-        bankUsedFor: "Payouts",
+        bankUsedFor: "PayOuts",
         vendors: "Vendor A",
       },
       {
@@ -73,7 +73,7 @@ const fakersBankAccount = {
         showBank: true,
         status: "Active",
         action: "Edit/Delete",
-        bankUsedFor: "Payouts",
+        bankUsedFor: "PayOuts",
         vendors: "Vendor A",
       },
       {
@@ -91,7 +91,7 @@ const fakersBankAccount = {
         showBank: true,
         status: "Active",
         action: "Edit/Delete",
-        bankUsedFor: "Payouts",
+        bankUsedFor: "PayOuts",
         vendors: "Vendor A",
       },
       {
@@ -109,7 +109,7 @@ const fakersBankAccount = {
         showBank: true,
         status: "Active",
         action: "Edit/Delete",
-        bankUsedFor: "Payouts",
+        bankUsedFor: "PayOuts",
         vendors: "Vendor A",
       },
       {
@@ -127,7 +127,7 @@ const fakersBankAccount = {
         showBank: true,
         status: "Active",
         action: "Edit/Delete",
-        bankUsedFor: "Payouts",
+        bankUsedFor: "PayOuts",
         vendors: "Vendor A",
       },
       {
@@ -145,7 +145,7 @@ const fakersBankAccount = {
         showBank: true,
         status: "Active",
         action: "Edit/Delete",
-        bankUsedFor: "Payouts",
+        bankUsedFor: "PayOuts",
         vendors: "Vendor A",
       },
       {
@@ -163,7 +163,7 @@ const fakersBankAccount = {
         showBank: true,
         status: "Active",
         action: "Edit/Delete",
-        bankUsedFor: "Payouts",
+        bankUsedFor: "PayOuts",
         vendors: "Vendor A",
       },
       {
@@ -181,7 +181,7 @@ const fakersBankAccount = {
         showBank: true,
         status: "Active",
         action: "Edit/Delete",
-        bankUsedFor: "Payouts",
+        bankUsedFor: "PayOuts",
         vendors: "Vendor A",
       },
       {
@@ -199,7 +199,7 @@ const fakersBankAccount = {
         showBank: true,
         status: "Active",
         action: "Edit/Delete",
-        bankUsedFor: "Payouts",
+        bankUsedFor: "PayOuts",
         vendors: "Vendor A",
       },
     ];

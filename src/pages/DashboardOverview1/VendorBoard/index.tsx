@@ -6,14 +6,14 @@ import payins from "@/fakers/payins";
 import payouts from "@/fakers/payouts";
 
 function VendorBoard() {
-  const totalPayins = 5000.00;
-  const totalPayouts = 2000.00;
-  const totalReversePayouts = 1000.00;
+  const totalPayIns = 5000.00;
+  const totalPayOuts = 2000.00;
+  const totalReversePayOuts = 1000.00;
   const totalCommission = 1000.00;
   const totalSettlements = 1000.00;
   const totalChargeBacks = 1000.00;
-  const currentBalance = totalPayins - totalPayouts - (totalCommission) + totalSettlements + totalReversePayouts - totalChargeBacks;
-  const netBalance = totalPayins - totalPayouts - (totalCommission) + totalSettlements + totalReversePayouts - totalChargeBacks;
+  const currentBalance = totalPayIns - totalPayOuts - (totalCommission) + totalSettlements + totalReversePayOuts - totalChargeBacks;
+  const netBalance = totalPayIns - totalPayOuts - (totalCommission) + totalSettlements + totalReversePayOuts - totalChargeBacks;
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -51,7 +51,7 @@ function VendorBoard() {
               </div>
             </div>
             <div className="relative mt-5 mb-6">
-              <ReportDonutChart2 className="relative z-10" height={400} inputData={payins.fakePayins()} />
+              <ReportDonutChart2 className="relative z-10" height={400} inputData={payins.fakePayIns()} />
             </div>
             <div className="flex flex-wrap items-center justify-center gap-y-3 gap-x-5">
               <div className="flex items-center">
@@ -107,7 +107,7 @@ function VendorBoard() {
                     </div>
                     <div className="ml-2.5 text-lg">Deposits</div>
                   </div>
-                  <div className="justify-end ml-2.5 text-lg">₹{totalPayins}</div>
+                  <div className="justify-end ml-2.5 text-lg">₹{totalPayIns}</div>
                 </div>
                 <div className="flex items-center justify-between mx-2 mt-2 mb-2">
                   <div className="flex items-center">
@@ -119,7 +119,7 @@ function VendorBoard() {
                     </div>
                     <div className="ml-2.5 text-lg">Withdrawals</div>
                   </div>
-                  <div className="justify-end ml-2.5 text-lg">₹{totalPayouts}</div>
+                  <div className="justify-end ml-2.5 text-lg">₹{totalPayOuts}</div>
                 </div>
                 <div className="flex items-center justify-between mx-2 mt-2 mb-2">
                   <div className="flex items-center">
@@ -131,7 +131,7 @@ function VendorBoard() {
                     </div>
                     <div className="ml-2.5 text-lg">Reverse Withdrawals</div>
                   </div>
-                  <div className="justify-end ml-2.5 text-lg">₹{totalReversePayouts}</div>
+                  <div className="justify-end ml-2.5 text-lg">₹{totalReversePayOuts}</div>
                 </div>
                 <div className="flex items-center justify-between mx-2 mt-2 mb-2">
                   <div className="flex items-center">
@@ -234,7 +234,7 @@ function VendorBoard() {
               </div>
             </div>
             <div className="relative mt-5 mb-6">
-              <ReportDonutChart2 className="relative z-10" height={400} inputData={payouts.fakePayouts()} />
+              <ReportDonutChart2 className="relative z-10" height={400} inputData={payouts.fakePayOuts()} />
             </div>
             <div className="flex flex-wrap items-center justify-center gap-y-3 gap-x-5">
               <div className="flex items-center">
@@ -283,7 +283,7 @@ function VendorBoard() {
               </div>
             </div>
             <div className="relative mt-5 mb-6">
-              <ReportDonutChart2 className="relative z-10" height={400} inputData={payouts.fakePayouts()} />
+              <ReportDonutChart2 className="relative z-10" height={400} inputData={payouts.fakePayOuts()} />
             </div>
             <div className="flex flex-wrap items-center justify-center gap-y-3 gap-x-5">
               <div className="flex items-center">

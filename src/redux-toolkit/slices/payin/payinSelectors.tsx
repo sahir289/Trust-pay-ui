@@ -2,10 +2,10 @@
 import { RootState } from "../../store/store";
 
 // Select the entire list of payins
-export const getAllPayinData = (state: RootState) => state.payin.payin;
+export const getAllPayInData = (state: RootState) => state.payin;
 
 // Select a specific payin by ID
-export const getPayinById = (id: string) => (state: RootState) =>
+export const getPayInById = (id: string) => (state: RootState) =>
   state.payin.payin.find((p) => p.id === id);
 
 // Select amount for a specific payin

@@ -6,7 +6,7 @@ import ResetHistory from "./ResetHistory";
 import Modal from "../Modal/modal";
 import { useRef, useState } from "react";
 
-function Payin() {
+function PayIn() {
 const [addDataModal, setAddDataModal] = useState(false);
   const [title, setTitle] =useState("Add Data")
   const transactionRef = useRef(null);
@@ -74,4 +74,4 @@ const [addDataModal, setAddDataModal] = useState(false);
   );
 }
 
-export default Payin;
+export default PayIn;
