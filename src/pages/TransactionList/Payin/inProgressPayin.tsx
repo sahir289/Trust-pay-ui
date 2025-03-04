@@ -1,27 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
-import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover } from "@/components/Base/Headless";
-import { FormInput, FormSelect } from "@/components/Base/Form";
-import users from "@/fakers/users";
-import transactionStatus from "@/fakers/transaction-status";
-import Button from "@/components/Base/Button";
-import CustomTable from "../../../components/TableComponent";
-import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
-import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
-import { Columns, Status } from "@/constants";
-interface PayinProps {
+import React from 'react';
+import Lucide from '@/components/Base/Lucide';
+import { Menu, Popover } from '@/components/Base/Headless';
+import { FormInput, FormSelect } from '@/components/Base/Form';
+import users from '@/fakers/users';
+import transactionStatus from '@/fakers/transaction-status';
+import Button from '@/components/Base/Button';
+import CustomTable from '../../../components/TableComponent';
+import { Columns, Status } from '@/constants';
+interface PayInProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   setId: React.Dispatch<React.SetStateAction<string>>;
   setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   params: Record<string, any>;
 }
 
-const InProgressPayin: React.FC<PayinProps> = ({setStatus, setId, params, setParams}) => {
-  const statusArray: string[] = [Status.PENDING, Status.DUPLICATE, Status.DISPUTE, Status.BANK_MISMATCH, Status.IMAGE_PENDING, Status.ASSIGNED, Status.INITIATED];
-
-  const payins = useAppSelector(getAllPayinData);
+const InProgressPayIn: React.FC<PayInProps> = ({
+  setStatus,
+  setId,
+  params,
+  setParams,
+}) => {
+  const statusArray: string[] = [
+    Status.PENDING,
+    Status.DUPLICATE,
+    Status.DISPUTE,
+    Status.BANK_MISMATCH,
+    Status.IMAGE_PENDING,
+    Status.ASSIGNED,
+    Status.INITIATED,
+  ];
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -37,7 +45,7 @@ const InProgressPayin: React.FC<PayinProps> = ({setStatus, setId, params, setPar
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search Payins..."
+                    placeholder="Search PayIns..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>
@@ -61,7 +69,7 @@ const InProgressPayin: React.FC<PayinProps> = ({setStatus, setId, params, setPar
                   </Menu.Button>
                   <Menu.Items className="w-40">
                     <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{" "}
+                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{' '}
                       PDF
                     </Menu.Item>
                     <Menu.Item>
@@ -134,25 +142,20 @@ const InProgressPayin: React.FC<PayinProps> = ({setStatus, setId, params, setPar
                 </Popover>
               </div>
             </div>
-            <CustomTable 
-              setStatus={setStatus} 
+            <CustomTable
+              setStatus={setStatus}
               setId={setId}
               columns={Columns.PAYIN}
-              data={payins as Payin[]} 
-              title={"Payins"} 
-              status={statusArray} 
+              title={'PayIns'}
+              status={statusArray}
               params={params}
               setParams={setParams}
-              approve={false} 
-              setApprove={() => {}} 
-              reject={false} 
-              setReject={() => {}} 
             />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default InProgressPayin;
+export default InProgressPayIn;

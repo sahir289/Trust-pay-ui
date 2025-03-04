@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-export interface Payouts {
+export interface PayOuts {
   id: string;
   sno: number;
   merchant_order_id: string;
@@ -23,9 +23,9 @@ const imageAssets = import.meta.glob<{
   default: string;
 }>("/src/assets/images/users/*.{jpg,jpeg,png,svg}", { eager: true });
 
-const fakersPayouts = {
-  fakePayouts(): Array<Payouts> {
-    const payouts: Payouts[] = [
+const fakersPayOuts = {
+  fakePayOuts(): Array<PayOuts> {
+    const payouts: PayOuts[] = [
       {
         id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
         sno: 1,
@@ -86,4 +86,4 @@ const fakersPayouts = {
   },
 };
 
-export default fakersPayouts;
+export default fakersPayOuts;

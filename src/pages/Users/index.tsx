@@ -1,11 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import {  FormInput } from "@/components/Base/Form";
-import _ from "lodash";
 import * as yup from "yup";
 import Modal from "../Modal/modals";
-
-import React, { useCallback, useEffect, useState } from "react";
-import CustomTable from "@/components/TableComponent";
+import { useCallback, useEffect, useState } from "react";
+import CustomTable from "@/components/TableComponent/CommonTable";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
 import { addUser, getUsers } from "@/redux-toolkit/slices/user/userSlice";
@@ -24,12 +23,6 @@ export interface User {
 }
 function Main() {
   const [newUserModal, setNewUserModal] = useState(false);
-  const [editModal, setEditModal] = useState<string>("")
-
-  const [params, setParams] = React.useState<{ [key: string]: string }>({
-    page: "1",
-    limit: "10",
-  });
 
   // const existingMerchant = {
   //   first_name: "John's Store",
@@ -63,24 +56,26 @@ function Main() {
   
   const dispatch = useAppDispatch();
   const allUsers = useAppSelector(selectAllUsers);
-  console.log(allUsers)
 
   const fetchUsers = useCallback(async () => {
-    const queryString = new URLSearchParams(params).toString();
-    const userList = await getAllUsers(queryString);
+    // tempory disabled this functionality
+    // const queryString = new URLSearchParams(params).toString();
+    const userList = await getAllUsers("");
     dispatch(getUsers(userList));
-  }, [dispatch, params]); 
+  }, [dispatch]); 
 
   useEffect(() => {
     fetchUsers();
-  }, [JSON.stringify(params), fetchUsers]);
+  }, [fetchUsers]);
   
   const tableHeaders = [
-    "name",
-    "user_name",
-    "role",
-    "enabled"
+    { label: "Name", key: "first_name", type: "text" as const },
+    { label: "User Name", key: "user_name", type: "text" as const },
+    { label: "Created At", key: "created_at", type: "text" as const },
+    { label: "Created By", key: "created_by", type: "text" as const },
+    { label: "Is Enable", key: "is_enabled", type: "toggle" as const },
   ];
+
   const handleCreateUser = async () => {
     const newUser = await createUser({
       email: "test@example.com",
@@ -178,20 +173,9 @@ function Main() {
               </div>
             </div>
             <div className="overflow-auto xl:overflow-visible">
-              <CustomTable 
+              <CustomTable
                 columns={tableHeaders} 
-                data={allUsers as unknown as User[]} 
-                title={"Users"} 
-                status={[]} 
-                setStatus={() => {}} 
-                params={params}
-                setParams={setParams}
-                approve={false} 
-                editModal={editModal}
-                setEditModal={setEditModal}
-                setApprove={() => {}} 
-                reject={false} 
-                setReject={() => {}} 
+                data={{rows: allUsers, totalCount: 0}}
               />
             </div>
           </div>

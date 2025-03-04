@@ -4,7 +4,7 @@ import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 // import TomSelect from "@/components/Base/TomSelect";
 import { FormInput, FormSelect } from "@/components/Base/Form";
-import transactions from "@/fakers/transactions";
+// import transactions from "@/fakers/transactions";
 
 export interface Transaction {
   // category: string;
@@ -145,7 +145,7 @@ function VendorSettlement() {
               </div>
               <CustomTable
                 columns={tableHeaders}
-                data={transactions.fakeTransactions() as Transaction[]}
+                // data={transactions.fakeTransactions() as Transaction[]}
                 title={"Vendors Settlements"}
                 status={[]}
                 setStatus={() => {}}

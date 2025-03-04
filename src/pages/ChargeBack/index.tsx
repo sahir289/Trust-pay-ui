@@ -2,7 +2,7 @@
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import { FormInput, FormSelect } from "@/components/Base/Form";
-import chargebacks from "@/fakers/chargebacks";
+// import chargebacks from "@/fakers/chargebacks";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
@@ -165,7 +165,7 @@ function ChargeBack() {
                 columns={tableHeaders} 
                 setEditModal={setEditModal}
                 editModal={editModal}
-                data={chargebacks.fakeChargeBacks() as unknown as Chargeback[]} 
+                // data={chargebacks.fakeChargeBacks() as unknown as Chargeback[]} 
                 title={"Chargebacks"} 
                 status={[]} 
                 setStatus={() => {}} 

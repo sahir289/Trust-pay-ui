@@ -1,48 +1,41 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable no-undef */
-import React from "react";
-import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover } from "@/components/Base/Headless";
+import React from 'react';
+import Lucide from '@/components/Base/Lucide';
+import { Menu, Popover } from '@/components/Base/Headless';
 // import TomSelect from "@/components/Base/TomSelect";
-import { FormInput, FormSelect } from "@/components/Base/Form";
-import users from "@/fakers/users";
-import transactionStatus from "@/fakers/transaction-status";
-import Button from "@/components/Base/Button";
-import payouts from "@/fakers/payouts";
-import CustomTable from "../../../components/TableComponent";
+import { FormInput, FormSelect } from '@/components/Base/Form';
+import users from '@/fakers/users';
+import transactionStatus from '@/fakers/transaction-status';
+import Button from '@/components/Base/Button';
+// import payouts from "@/fakers/payouts";
+import CustomTable from '../../../components/TableComponent';
 
-interface PayinProps {
-  reject: boolean; // Expecting a boolean prop to control modal reset
-  setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
-  approve: boolean; // Expecting a boolean prop to control modal reset
-  setApprove: React.Dispatch<React.SetStateAction<boolean>>
-}
+// interface PayOut {
+//   method: string;
+//   id: string;
+//   updated_at: string;
+//   sno: number;
+//   code: string;
+//   amount: string;
+//   status: string;
+//   merchant_order_id: string;
+//   merchant_code: string;
+//   photo: string;
+//   name: string;
+//   user: string;
+//   utr: string;
+// }
 
-interface Payout {
-  method: string;
-  id: string;
-  updated_at: string;
-  sno: number;
-  code: string;
-  amount: string;
-  status: string;
-  merchant_order_id: string;
-  merchant_code: string;
-  photo: string;
-  name: string;
-  user: string;
-  utr: string;
-}
-
-const RejectedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setReject}) => {
+const RejectedPayOut: React.FC = () => {
   const tableHeaders = [
-    "SNO.",
-    "Amount",
-    "Status",
-    "Merchant",
-    "Vendor",
-    "Bank Details",
-    "Action",
+    'SNO.',
+    'Amount',
+    'Status',
+    'Merchant',
+    'Vendor',
+    'Bank Details',
+    'Action',
   ];
 
   return (
@@ -59,7 +52,7 @@ const RejectedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setR
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search Payouts..."
+                    placeholder="Search PayOuts..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>
@@ -83,7 +76,7 @@ const RejectedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setR
                   </Menu.Button>
                   <Menu.Items className="w-40">
                     <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{" "}
+                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{' '}
                       PDF
                     </Menu.Item>
                     <Menu.Item>
@@ -93,7 +86,7 @@ const RejectedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setR
                   </Menu.Items>
                 </Menu>
                 <Popover className="inline-block">
-                  {({ }) => (
+                  {({}) => (
                     <>
                       <Popover.Button
                         as={Button}
@@ -156,23 +149,18 @@ const RejectedPayout: React.FC<PayinProps> = ({approve, setApprove, reject, setR
                 </Popover>
               </div>
             </div>
-            <CustomTable 
-              title="Payouts" 
-              columns={tableHeaders} 
-              data={payouts.fakePayouts() as unknown as Payout[]} 
-              status={["Rejected"]} 
-              setStatus={() => {}} 
+            <CustomTable
+              title="PayOuts"
+              columns={tableHeaders}
+              // data={payouts.fakePayOuts() as unknown as PayOut[]}
+              status={['Rejected']}
               setParams={() => {}}
-              approve={approve} 
-              setApprove={setApprove} 
-              reject={reject} 
-              setReject={setReject} 
             />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default RejectedPayout;
+export default RejectedPayOut;

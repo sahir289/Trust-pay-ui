@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Payin, PayinState } from "./payinTypes";
+import { PayInState } from "./payinTypes";
 
-const initialState: PayinState = {
+const initialState: PayInState = {
   payin: [],
+  totalCount: 0,
 };
 
 const payinSlice = createSlice({
@@ -10,8 +11,9 @@ const payinSlice = createSlice({
   initialState,
   reducers: {
     // Replace entire payin list
-    getPayins: (state, action: PayloadAction<Payin[]>) => {
-      state.payin = action.payload;
+    getPayIns: (state, action: PayloadAction<PayInState>) => {
+      state.payin = action.payload.payin;
+      state.totalCount = action.payload.totalCount;
     },
 
     // Update amount for a specific payin
@@ -50,7 +52,7 @@ const payinSlice = createSlice({
 });
 
 // Export actions to use in components
-export const { getPayins, updateAmount, updateStatus, updateIsNotified } =
+export const { getPayIns, updateAmount, updateStatus, updateIsNotified } =
   payinSlice.actions;
 
 // Export reducer to use in store

@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-export interface Payin {
+export interface PayIn {
     id: string;
     sno: number;
     code: string;
@@ -25,9 +25,9 @@ const imageAssets = import.meta.glob<{
     default: string;
 }>("/src/assets/images/users/*.{jpg,jpeg,png,svg}", { eager: true });
 
-const fakersPayins = {
-    fakePayins(): Array<Payin> {
-        const payins: Array<Payin> = [
+const fakersPayIns = {
+    fakePayIns(): Array<PayIn> {
+        const payins: Array<PayIn> = [
             {
                 id: "1d54f8a4-7040-4e65-9254-ef55aa72efdc",
                 sno: 1,
@@ -234,4 +234,4 @@ const fakersPayins = {
     },
 };
 
-export default fakersPayins;
+export default fakersPayIns;
