@@ -18,7 +18,7 @@ interface UserLocation {
   longitude: number;
 }
 
-interface PayinDetails {
+interface PayInDetails {
   hi: string;
   user: UserLocation;
 }
@@ -29,7 +29,7 @@ interface MerchantDetails {
   notify_url: string | null;
 }
 
-export interface Payin {
+export interface PayIn {
   id: string | null;
   sno: number | null; // Updated from string to number
   upi_short_code: string | null;
@@ -49,14 +49,14 @@ export interface Payin {
   updated_by: string | null;
   created_at: string | null;
   updated_at: string | null;
-  payin_details: PayinDetails; // Added from JSON structure
+  payin_details: PayInDetails; // Added from JSON structure
   vendor_code: string | null; // Added
   nick_name: string | null; // Added
   merchant_details: MerchantDetails; // More specific
   bank_res_details: BankResponse;
 }
 
-export interface PayinState {
-  payin: Payin[];
+export interface PayInState {
+  payin: PayIn[];
   totalCount: number;
 }

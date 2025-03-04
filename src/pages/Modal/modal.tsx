@@ -58,7 +58,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                     {title}
                   </Button>
                 </div>
-                {title === "Payins" && (
+                {title === "PayIns" && (
                   <Dialog
                     open={forOpen}
                     onClose={() => {

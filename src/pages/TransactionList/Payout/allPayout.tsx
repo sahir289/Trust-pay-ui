@@ -10,7 +10,7 @@ import Button from "@/components/Base/Button";
 // import payouts from "@/fakers/payouts";
 import CustomTable from "../../../components/TableComponent";
 
-interface PayinProps {
+interface PayInProps {
   reject: boolean; // Expecting a boolean prop to control modal reset
   setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
   approve: boolean; // Expecting a boolean prop to control modal reset
@@ -33,7 +33,7 @@ interface PayinProps {
 //   utr: string;
 // }
 
-const AllPayout: React.FC<PayinProps> = ({
+const AllPayout: React.FC<PayInProps> = ({
   approve,
   setApprove,
   reject,

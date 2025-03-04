@@ -9,14 +9,14 @@ import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import { Columns, Status } from "@/constants";
 
-interface PayinProps {
+interface PayInProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   setId: React.Dispatch<React.SetStateAction<string>>;
   setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   params: Record<string, any>;
 }
 
-const CompletedPayin: React.FC<PayinProps> = ({
+const CompletedPayIn: React.FC<PayInProps> = ({
   setStatus,
   setId,
   params,
@@ -43,7 +43,7 @@ const CompletedPayin: React.FC<PayinProps> = ({
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search Payins..."
+                    placeholder="Search PayIns..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>
@@ -144,14 +144,10 @@ const CompletedPayin: React.FC<PayinProps> = ({
               setStatus={setStatus}
               setId={setId}
               columns={theadData}
-              title={"Payins"}
+              title={"PayIns"}
               status={statusArray}
               params={params}
               setParams={setParams}
-              approve={false}
-              setApprove={() => {}}
-              reject={false}
-              setReject={() => {}}
             />
           </div>
         </div>
@@ -160,4 +156,4 @@ const CompletedPayin: React.FC<PayinProps> = ({
   );
 };
 
-export default CompletedPayin;
+export default CompletedPayIn;

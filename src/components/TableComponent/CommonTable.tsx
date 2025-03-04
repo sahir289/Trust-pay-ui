@@ -15,7 +15,7 @@ interface Column {
 
 interface CommonTableProps {
   columns: Column[];
-  data: {rows: any[], totalCount: number};
+  data: { rows: any[]; totalCount: number };
   expandable?: boolean;
   handleRowClick?: (index: number) => void;
   expandedRow?: number;

@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import {  FormInput } from "@/components/Base/Form";
 import Modal from "../Modal/modal";
 import { useCallback, useEffect, useRef, useState } from "react";
 // import CustomTable from "@/components/TableComponent";
-// import CustomTables from "@/components/TableComponent/CommonTable";
+import CustomTables from "@/components/TableComponent/CommonTable";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
 import { addUser, getUsers } from "@/redux-toolkit/slices/user/userSlice";
@@ -29,7 +30,6 @@ function Main() {
 
   const dispatch = useAppDispatch();
   const allUsers = useAppSelector(selectAllUsers);
-  console.log(allUsers)
 
   const fetchUsers = useCallback(async () => {
     // tempory disabled this functionality
@@ -42,13 +42,14 @@ function Main() {
     fetchUsers();
   }, [fetchUsers]);
   
-  // const tableHeaders = [
-  //   { label: "Name", key: "first_name", type: "text" as const },
-  //   { label: "User Name", key: "user_name", type: "text" as const },
-  //   { label: "Created At", key: "created_at", type: "text" as const },
-  //   { label: "Created By", key: "created_by", type: "text" as const },
-  //   { label: "Is Enable", key: "is_enabled", type: "toggle" as const },
-  // ];
+  const tableHeaders = [
+    { label: "Name", key: "first_name", type: "text" as const },
+    { label: "User Name", key: "user_name", type: "text" as const },
+    { label: "Created At", key: "created_at", type: "text" as const },
+    { label: "Created By", key: "created_by", type: "text" as const },
+    { label: "Is Enable", key: "is_enabled", type: "toggle" as const },
+  ];
+
   const handleCreateUser = async () => {
     const newUser = await createUser({
       email: "test@example.com",
@@ -147,11 +148,10 @@ function Main() {
               </div>
             </div>
             <div className="overflow-auto xl:overflow-visible">
-
-              {/* <CustomTables 
+              <CustomTables 
                 columns={tableHeaders} 
-                // data={allUsers as unknown as User[]} 
-              /> */}
+                data={{rows: allUsers, totalCount: 0}}
+              />
             </div>
           </div>
         </div>

@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Tab } from "@/components/Base/Headless";
-import PayinComponent from "./Payin/payin";
+import PayInComponent from "./Payin/payin";
 import Payout from "./Payout/payout";
 import Modal from "@/pages/Modal/modal";
 import Lucide from "@/components/Base/Lucide";
 import { useState, useRef } from "react";
 import ModalPopUp from "../ModalPopUp";
 import Notification, { NotificationElement } from "@/components/Base/Notification";
-import { updatePayins } from "@/redux-toolkit/slices/payin/payinAPI";
+import { updatePayIns } from "@/redux-toolkit/slices/payin/payinAPI";
 import { Status } from "@/constants";
 
 function Main() {
   const [newTransactionModal, setNewTransactionModal] = useState(false);
-  const [title, setTitle] = useState("Payins");
+  const [title, setTitle] = useState("PayIns");
   const [status, setStatus] = useState<string>("");
   const [id, setId] = useState<string>("");
   const [notificationMessage, setNotificationMessage] = useState("");
@@ -35,7 +35,7 @@ function Main() {
       ? `/update-deposit-status/${id}`
       : `/dispute-duplicate/${id}`;
     
-    const res = await updatePayins(url, apiData);
+    const res = await updatePayIns(url, apiData);
     if (res?.data?.data?.message) {
       setNotificationMessage(res.data.data.message);
       setNotificationStatus(Status.SUCCESS);
@@ -60,8 +60,8 @@ function Main() {
             <Tab.Group>
               <Tab.List variant="tabs">
                 <Tab>
-                  <Tab.Button className="w-full py-2" as="button" onClick={() => setTitle("Payins")}>
-                    <Lucide icon="BadgeIndianRupee" className="w-5 h-5" /> &nbsp; Payins
+                  <Tab.Button className="w-full py-2" as="button" onClick={() => setTitle("PayIns")}>
+                    <Lucide icon="BadgeIndianRupee" className="w-5 h-5" /> &nbsp; PayIns
                   </Tab.Button>
                 </Tab>
                 <Tab>
@@ -72,7 +72,7 @@ function Main() {
               </Tab.List>
               <Tab.Panels className="border-b border-l border-r">
                 <Tab.Panel className="p-5">
-                  <PayinComponent setStatus={setStatus} setId={setId} />
+                  <PayInComponent setStatus={setStatus} setId={setId} />
                 </Tab.Panel>
                 <Tab.Panel className="p-5">
                   <Payout setModalData={setModalData} />

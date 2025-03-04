@@ -13,7 +13,7 @@ export interface BankAccount {
   showBank: boolean;
   status: "Active" | "Inactive";
   action: string;
-  bankUsedFor: "Payouts" | "Settlements" | "Payins";
+  bankUsedFor: "Payouts" | "Settlements" | "PayIns";
   vendors: string;
   createdAt: string;
   lastScheduledAt: string;

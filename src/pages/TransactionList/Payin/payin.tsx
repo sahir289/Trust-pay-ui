@@ -1,27 +1,26 @@
-/* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useEffect, useRef, useState } from "react";
 import { Tab } from "@/components/Base/Headless";
-import AllPayin from "./allPayin";
-import CompletedPayin from "./completedPayin";
-import InProgressPayin from "./inProgressPayin";
-import DroppedPayin from "./droppedPayin";
+import AllPayIn from "./allPayin";
+import CompletedPayIn from "./completedPayin";
+import InProgressPayIn from "./inProgressPayin";
+import DroppedPayIn from "./droppedPayin";
 import Lucide from "@/components/Base/Lucide";
 import Notification, {
   NotificationElement,
 } from "@/components/Base/Notification";
-import { getAllPayins } from "@/redux-toolkit/slices/payin/payinAPI";
+import { getAllPayIns } from "@/redux-toolkit/slices/payin/payinAPI";
 import LoadingIcon from "@/components/Base/LoadingIcon";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
-import { getPayins } from "@/redux-toolkit/slices/payin/payinSlice";
+import { getPayIns } from "@/redux-toolkit/slices/payin/payinSlice";
 import { Status } from "@/constants";
 
-interface PayinProps {
+interface PayInProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   setId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const PayinComponent: React.FC<PayinProps> = ({ setStatus, setId }) => {
+const PayInComponent: React.FC<PayInProps> = ({ setStatus, setId }) => {
   const [params, setParams] = useState<{ [key: string]: string }>({
     page: "1",
     limit: "10",
@@ -37,21 +36,21 @@ const PayinComponent: React.FC<PayinProps> = ({ setStatus, setId }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    getPayinData();
+    getPayInData();
   }, [JSON.stringify(params)]);
 
-  const getPayinData = async () => {
+  const getPayInData = async () => {
     const queryString = new URLSearchParams(params).toString();
-    const payins = await getAllPayins(queryString);
+    const payins = await getAllPayIns(queryString);
     if (payins?.data) {
       const payload = {
         payin: payins.data.rows,
         totalCount: payins.data.totalCount,
-      }
-      dispatch(getPayins(payload));
+      };
+      dispatch(getPayIns(payload));
     } else {
       setNotificationStatus(Status.ERROR);
-      setNotificationMessage("No Payins Found!");
+      setNotificationMessage("No PayIns Found!");
       basicNonStickyNotificationToggle();
     }
   };
@@ -107,7 +106,7 @@ const PayinComponent: React.FC<PayinProps> = ({ setStatus, setId }) => {
             </Tab.List>
             <Tab.Panels className="border-b border-l border-r">
               <Tab.Panel className="py-5 leading-relaxed">
-                <AllPayin
+                <AllPayIn
                   setStatus={setStatus}
                   setId={setId}
                   params={params}
@@ -115,7 +114,7 @@ const PayinComponent: React.FC<PayinProps> = ({ setStatus, setId }) => {
                 />
               </Tab.Panel>
               <Tab.Panel className="py-5 leading-relaxed">
-                <CompletedPayin
+                <CompletedPayIn
                   setStatus={setStatus}
                   setId={setId}
                   params={params}
@@ -123,7 +122,7 @@ const PayinComponent: React.FC<PayinProps> = ({ setStatus, setId }) => {
                 />
               </Tab.Panel>
               <Tab.Panel className="py-5 leading-relaxed">
-                <InProgressPayin
+                <InProgressPayIn
                   setStatus={setStatus}
                   setId={setId}
                   params={params}
@@ -131,7 +130,7 @@ const PayinComponent: React.FC<PayinProps> = ({ setStatus, setId }) => {
                 />
               </Tab.Panel>
               <Tab.Panel className="py-5 leading-relaxed">
-                <DroppedPayin
+                <DroppedPayIn
                   setStatus={setStatus}
                   setId={setId}
                   params={params}
@@ -168,4 +167,4 @@ const PayinComponent: React.FC<PayinProps> = ({ setStatus, setId }) => {
   );
 };
 
-export default PayinComponent;
+export default PayInComponent;

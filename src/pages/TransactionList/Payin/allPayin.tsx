@@ -6,22 +6,33 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import CustomTable from "../../../components/TableComponent";
-import {
-  FormInput,
-  FormSelect,
-
-} from "@/components/Base/Form";
+import { FormInput, FormSelect } from "@/components/Base/Form";
 import { Columns, Status } from "@/constants";
 
-interface PayinProps {
+interface PayInProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   setId: React.Dispatch<React.SetStateAction<string>>;
   setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   params: Record<string, any>;
 }
 
-const AllPayin: React.FC<PayinProps> = ({ setStatus, setId, params, setParams }) => {
-  const statusArray: string[] = [Status.PENDING, Status.DUPLICATE, Status.DISPUTE, Status.BANK_MISMATCH, Status.IMAGE_PENDING, Status.ASSIGNED, Status.INITIATED, Status.SUCCESS, Status.DROPPED];
+const AllPayIn: React.FC<PayInProps> = ({
+  setStatus,
+  setId,
+  params,
+  setParams,
+}) => {
+  const statusArray: string[] = [
+    Status.PENDING,
+    Status.DUPLICATE,
+    Status.DISPUTE,
+    Status.BANK_MISMATCH,
+    Status.IMAGE_PENDING,
+    Status.ASSIGNED,
+    Status.INITIATED,
+    Status.SUCCESS,
+    Status.DROPPED,
+  ];
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -37,7 +48,7 @@ const AllPayin: React.FC<PayinProps> = ({ setStatus, setId, params, setParams })
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search Payins..."
+                    placeholder="Search PayIns..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>
@@ -136,22 +147,18 @@ const AllPayin: React.FC<PayinProps> = ({ setStatus, setId, params, setParams })
             </div>
             <CustomTable
               columns={Columns.PAYIN}
-              title={"Payins"}
-              status={statusArray} 
+              title={"PayIns"}
+              status={statusArray}
               setStatus={setStatus}
               setId={setId}
               params={params}
               setParams={setParams}
-              approve={false}
-              setApprove={() => { }}
-              reject={false}
-              setReject={() => { }}
             />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default AllPayin;
+export default AllPayIn;

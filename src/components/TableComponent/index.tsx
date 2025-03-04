@@ -21,14 +21,15 @@ import VendorDetails from "@/pages/VendorDetails/VendorDetails";
 import Notification, {
   NotificationElement,
 } from "@/components/Base/Notification";
-import { updatePayins } from "@/redux-toolkit/slices/payin/payinAPI";
+import { updatePayIns } from "@/redux-toolkit/slices/payin/payinAPI";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
+import { getAllPayInData } from "@/redux-toolkit/slices/payin/payinSelectors";
 import { Status } from "@/constants";
+import CommonTable from "./CommonTable";
 // import CommonTable from "./CommonTable"; // Adjust the path based on your project structure
 interface ICustomTableProps {
   columns?: string[];
-  data?: {rows: any[], totalCount: number};
+  data?: { rows: any[]; totalCount: number };
   title?: string;
   setStatus?: React.Dispatch<React.SetStateAction<string | any>>;
   setId?: React.Dispatch<React.SetStateAction<string | any>>;
@@ -137,7 +138,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
     basicNonStickyNotification.current?.showToast();
   };
 
-  const payins = useAppSelector(getAllPayinData);
+  const payins = useAppSelector(getAllPayInData);
 
   const [bankdetails, setBankDetails] = useState<{
     accountName: string;
@@ -151,7 +152,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
     showBank: boolean;
     status: "Active" | "Inactive";
     action: string;
-    bankUsedFor: "Payouts" | "Settlements" | "Payins";
+    bankUsedFor: "Payouts" | "Settlements" | "PayIns";
     vendors: string;
     createdAt: string;
     lastScheduledAt: string;
@@ -275,7 +276,10 @@ const CustomTable: React.FC<ICustomTableProps> = ({
 
   const resetRef = useRef<null>(null);
   const [currentPage] = useState<number>(1);
-  const totalPages = payins.totalCount && params?.limit ? Math.ceil(payins.totalCount / params?.limit) : 0;
+  const totalPages =
+    payins.totalCount && params?.limit
+      ? Math.ceil(payins.totalCount / params?.limit)
+      : 0;
 
   const handlePageChange = (page: number) => {
     setParams((prev) => ({ ...prev, page: page }));
@@ -284,7 +288,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
   const notify = async (id: string | any) => {
     const url = `/update-payment-notified-status/${id}`;
     const apiData = { type: "PAYIN" };
-    const res = await updatePayins(`${url}`, apiData);
+    const res = await updatePayIns(`${url}`, apiData);
     if (res?.data?.data?.message) {
       setNotificationMessage(res?.data?.data?.message);
       setNotificationStatus(Status.SUCCESS);
@@ -656,7 +660,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
-               {title === "Payins" &&
+              {title === "PayIns" &&
                 _.take(
                   _.orderBy(
                     _.filter(payins.payin, (o) => _.includes(status, o.status)),
@@ -689,7 +693,10 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
-                          ₹ {payin?.bank_res_details?.amount ? payin?.bank_res_details?.amount : 0}
+                          ₹{" "}
+                          {payin?.bank_res_details?.amount
+                            ? payin?.bank_res_details?.amount
+                            : 0}
                         </a>
                       </Table.Td>
 
@@ -1332,9 +1339,9 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                                         : "Inactive",
                                     bankUsedFor:
                                       (account?.bankUsedFor as
-                                        | "Payins"
+                                        | "PayIns"
                                         | "Payouts"
-                                        | "Settlements") || "Payins",
+                                        | "Settlements") || "PayIns",
                                     vendors: account?.vendors || "",
                                     createdAt: account?.createdAt || "",
                                     lastScheduledAt:
@@ -2070,13 +2077,13 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       </div>
                     </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                        <a  className="font-medium whitespace-nowrap">
-                          {faker?.position}
-                        </a>
-                        <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
-                          {faker?.department}
-                        </div>
-                      </Table.Td> 
+                      <a className="font-medium whitespace-nowrap">
+                        {faker?.position}
+                      </a>
+                      <div className="text-slate-500 text-xs whitespace-nowrap mt-0.5">
+                        {faker?.department}
+                      </div>
+                    </Table.Td>
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                       <div className="w-40">
                         <div className="text-xs text-slate-500">
@@ -2432,7 +2439,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
             </Table.Tbody>
           </Table>
 
-          {/* <CommonTable columns={columns} data={data} /> */}
+          <CommonTable columns={[]} data={{rows: [], totalCount: 0}} />
         </div>
         <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
           <Pagination className="flex-1 w-full sm:w-auto">
