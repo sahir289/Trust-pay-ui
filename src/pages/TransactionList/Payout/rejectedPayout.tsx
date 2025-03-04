@@ -1,17 +1,17 @@
 /* eslint-disable no-empty-pattern */
 /* eslint-disable no-undef */
-import React from "react";
-import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover } from "@/components/Base/Headless";
+import React from 'react';
+import Lucide from '@/components/Base/Lucide';
+import { Menu, Popover } from '@/components/Base/Headless';
 // import TomSelect from "@/components/Base/TomSelect";
-import { FormInput, FormSelect } from "@/components/Base/Form";
-import users from "@/fakers/users";
-import transactionStatus from "@/fakers/transaction-status";
-import Button from "@/components/Base/Button";
+import { FormInput, FormSelect } from '@/components/Base/Form';
+import users from '@/fakers/users';
+import transactionStatus from '@/fakers/transaction-status';
+import Button from '@/components/Base/Button';
 // import payouts from "@/fakers/payouts";
-import CustomTable from "../../../components/TableComponent";
+import CustomTable from '../../../components/TableComponent';
 
-// interface Payout {
+// interface PayOut {
 //   method: string;
 //   id: string;
 //   updated_at: string;
@@ -27,15 +27,15 @@ import CustomTable from "../../../components/TableComponent";
 //   utr: string;
 // }
 
-const RejectedPayout: React.FC = () => {
+const RejectedPayOut: React.FC = () => {
   const tableHeaders = [
-    "SNO.",
-    "Amount",
-    "Status",
-    "Merchant",
-    "Vendor",
-    "Bank Details",
-    "Action",
+    'SNO.',
+    'Amount',
+    'Status',
+    'Merchant',
+    'Vendor',
+    'Bank Details',
+    'Action',
   ];
 
   return (
@@ -52,7 +52,7 @@ const RejectedPayout: React.FC = () => {
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search Payouts..."
+                    placeholder="Search PayOuts..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>
@@ -76,7 +76,7 @@ const RejectedPayout: React.FC = () => {
                   </Menu.Button>
                   <Menu.Items className="w-40">
                     <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{" "}
+                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{' '}
                       PDF
                     </Menu.Item>
                     <Menu.Item>
@@ -86,7 +86,7 @@ const RejectedPayout: React.FC = () => {
                   </Menu.Items>
                 </Menu>
                 <Popover className="inline-block">
-                  {({ }) => (
+                  {({}) => (
                     <>
                       <Popover.Button
                         as={Button}
@@ -149,11 +149,11 @@ const RejectedPayout: React.FC = () => {
                 </Popover>
               </div>
             </div>
-            <CustomTable 
-              title="Payouts" 
-              columns={tableHeaders} 
-              // data={payouts.fakePayouts() as unknown as Payout[]} 
-              status={["Rejected"]} 
+            <CustomTable
+              title="PayOuts"
+              columns={tableHeaders}
+              // data={payouts.fakePayOuts() as unknown as PayOut[]}
+              status={['Rejected']}
               setParams={() => {}}
             />
           </div>
@@ -161,6 +161,6 @@ const RejectedPayout: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
-export default RejectedPayout;
+export default RejectedPayOut;

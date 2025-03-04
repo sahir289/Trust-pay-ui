@@ -89,7 +89,7 @@ function AccountReports() {
                     />
                     <FormInput
                       type="text"
-                      placeholder="Search Payouts..."
+                      placeholder="Search PayOuts..."
                       className="pl-9 sm:w-64 rounded-[0.5rem]"
                     />
                   </div>
@@ -234,10 +234,10 @@ function AccountReports() {
                             <span className="whitespace-nowrap">{faker.reversedPayOut}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.reversedPayoutAmount}</span>
+                            <span className="whitespace-nowrap">{faker.reversedPayOutAmount}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                            <span className="whitespace-nowrap">{faker.reversedPayoutCommission}</span>
+                            <span className="whitespace-nowrap">{faker.reversedPayOutCommission}</span>
                           </Table.Td>
                           <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                             <span className="whitespace-nowrap">{faker.settlementCount}</span>

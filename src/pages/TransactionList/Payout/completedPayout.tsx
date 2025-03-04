@@ -1,13 +1,13 @@
-import React from "react";
-import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover } from "@/components/Base/Headless";
+import React from 'react';
+import Lucide from '@/components/Base/Lucide';
+import { Menu, Popover } from '@/components/Base/Headless';
 // import TomSelect from "@/components/Base/TomSelect";
-import { FormInput, FormSelect } from "@/components/Base/Form";
-import users from "@/fakers/users";
-import transactionStatus from "@/fakers/transaction-status";
-import Button from "@/components/Base/Button";
+import { FormInput, FormSelect } from '@/components/Base/Form';
+import users from '@/fakers/users';
+import transactionStatus from '@/fakers/transaction-status';
+import Button from '@/components/Base/Button';
 // import payouts from "@/fakers/payouts";
-import CustomTable from "../../../components/TableComponent";
+import CustomTable from '../../../components/TableComponent';
 
 interface PayInProps {
   reject: boolean; // Expecting a boolean prop to control modal reset
@@ -16,7 +16,7 @@ interface PayInProps {
   setApprove: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
 }
 
-// interface Payout {
+// interface PayOut {
 //   method: string;
 //   id: string;
 //   updated_at: string;
@@ -32,20 +32,20 @@ interface PayInProps {
 //   utr: string;
 // }
 
-const CompletedPayout: React.FC<PayInProps> = ({
+const CompletedPayOut: React.FC<PayInProps> = ({
   approve,
   setApprove,
   reject,
   setReject,
 }) => {
   const tableHeaders = [
-    "SNO.",
-    "Amount",
-    "Status",
-    "Merchant",
-    "Vendor",
-    "Bank Details",
-    "Action",
+    'SNO.',
+    'Amount',
+    'Status',
+    'Merchant',
+    'Vendor',
+    'Bank Details',
+    'Action',
   ];
 
   return (
@@ -62,7 +62,7 @@ const CompletedPayout: React.FC<PayInProps> = ({
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search Payouts..."
+                    placeholder="Search PayOuts..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>
@@ -86,7 +86,7 @@ const CompletedPayout: React.FC<PayInProps> = ({
                   </Menu.Button>
                   <Menu.Items className="w-40">
                     <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{" "}
+                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{' '}
                       PDF
                     </Menu.Item>
                     <Menu.Item>
@@ -167,9 +167,9 @@ const CompletedPayout: React.FC<PayInProps> = ({
               setStatus={() => {}}
               setParams={() => {}}
               columns={tableHeaders}
-              // data={payouts.fakePayouts() as unknown as Payout[]}
-              title={"Payouts"}
-              status={["Success"]}
+              // data={payouts.fakePayOuts() as unknown as PayOut[]}
+              title={'PayOuts'}
+              status={['Success']}
             />
           </div>
         </div>
@@ -178,4 +178,4 @@ const CompletedPayout: React.FC<PayInProps> = ({
   );
 };
 
-export default CompletedPayout;
+export default CompletedPayOut;

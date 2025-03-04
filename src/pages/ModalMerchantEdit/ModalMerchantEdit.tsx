@@ -127,7 +127,7 @@ const ModalMerchantEdit: React.FC<ModalProps> = ({ handleModal, transaction }) =
                   </div>
                   <div className="col-span-12 sm:col-span-6">
                     <FormLabel htmlFor="modal-form-4">
-                      Payout Callback
+                      PayOut Callback
                     </FormLabel>
                     <FormInput
                       id="modal-form-4"

@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
-import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover } from "@/components/Base/Headless";
-import { FormInput, FormSelect } from "@/components/Base/Form";
-import users from "@/fakers/users";
-import CustomTable from "../../../components/TableComponent";
-import transactionStatus from "@/fakers/transaction-status";
-import Button from "@/components/Base/Button";
-import { Columns, Status } from "@/constants";
+import React from 'react';
+import Lucide from '@/components/Base/Lucide';
+import { Menu, Popover } from '@/components/Base/Headless';
+import { FormInput, FormSelect } from '@/components/Base/Form';
+import users from '@/fakers/users';
+import CustomTable from '../../../components/TableComponent';
+import transactionStatus from '@/fakers/transaction-status';
+import Button from '@/components/Base/Button';
+import { Columns, Status } from '@/constants';
 
 interface PayInProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
@@ -25,7 +25,7 @@ const CompletedPayIn: React.FC<PayInProps> = ({
   const statusArray: string[] = [Status.SUCCESS];
   const theadData: string[] = [...Columns.PAYIN]; // Ensure it's a mutable array
   const indexToInsert = 3; // Change this to the desired index
-  const newElement = "Commission";
+  const newElement = 'Commission';
 
   theadData.splice(indexToInsert, 0, newElement);
 
@@ -67,7 +67,7 @@ const CompletedPayIn: React.FC<PayInProps> = ({
                   </Menu.Button>
                   <Menu.Items className="w-40">
                     <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{" "}
+                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{' '}
                       PDF
                     </Menu.Item>
                     <Menu.Item>
@@ -144,7 +144,7 @@ const CompletedPayIn: React.FC<PayInProps> = ({
               setStatus={setStatus}
               setId={setId}
               columns={theadData}
-              title={"PayIns"}
+              title={'PayIns'}
               status={statusArray}
               params={params}
               setParams={setParams}

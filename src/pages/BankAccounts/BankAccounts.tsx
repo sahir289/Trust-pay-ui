@@ -23,7 +23,7 @@ import {
   showBank: boolean;
   status: "Active" | "Inactive";
   action: string;
-  bankUsedFor: "Payouts" | "Settlements" | "PayIns";
+  bankUsedFor: "PayOuts" | "Settlements" | "PayIns";
   vendors: string;
   createdAt: string;
   lastScheduledAt: string;

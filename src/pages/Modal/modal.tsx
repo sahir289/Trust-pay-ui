@@ -674,7 +674,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                   </Dialog>
                 )}
 
-                {title === "Payouts" && (
+                {title === "PayOuts" && (
                   <Dialog
                     open={forOpen}
                     onClose={() => {
@@ -684,7 +684,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                   >
                     <Dialog.Panel className="pt-2 pb-4">
                       <Dialog.Title className="justify-between">
-                        <h2>Payout</h2>
+                        <h2>PayOut</h2>
                         <Lucide
                           icon="X"
                           className="w-5 h-5 ml-px stroke-[3]"
@@ -899,7 +899,7 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                         </div>
                         <div className="col-span-12 sm:col-span-6">
                           <FormLabel htmlFor="modal-form-4">
-                            Payout Callback
+                            PayOut Callback
                           </FormLabel>
                           <FormInput
                             id="modal-form-4"

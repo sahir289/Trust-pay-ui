@@ -10,8 +10,8 @@ export interface reportAccount {
     payOutAmount: number;
     payOutCommission: number;
     reversedPayOut: number;
-    reversedPayoutAmount: number;
-    reversedPayoutCommission: number;
+    reversedPayOutAmount: number;
+    reversedPayOutCommission: number;
     settlementCount: number;
     settlementAmount: number;
     lienAmount: number;
@@ -33,8 +33,8 @@ const fakeReportAccount = {
                 payOutAmount: 40000,
                 payOutCommission: 400,
                 reversedPayOut: 2,
-                reversedPayoutAmount: 5000,
-                reversedPayoutCommission: 50,
+                reversedPayOutAmount: 5000,
+                reversedPayOutCommission: 50,
                 settlementCount: 8,
                 settlementAmount: 35000,
                 lienAmount: 788,
@@ -52,8 +52,8 @@ const fakeReportAccount = {
                 payOutAmount: 60000,
                 payOutCommission: 600,
                 reversedPayOut: 3,
-                reversedPayoutAmount: 7000,
-                reversedPayoutCommission: 70,
+                reversedPayOutAmount: 7000,
+                reversedPayOutCommission: 70,
                 settlementCount: 12,
                 settlementAmount: 50000,
                 lienAmount: 788,
@@ -71,8 +71,8 @@ const fakeReportAccount = {
                 payOutAmount: 25000,
                 payOutCommission: 250,
                 reversedPayOut: 1,
-                reversedPayoutAmount: 2000,
-                reversedPayoutCommission: 20,
+                reversedPayOutAmount: 2000,
+                reversedPayOutCommission: 20,
                 settlementCount: 6,
                 settlementAmount: 20000,
                 lienAmount: 788,

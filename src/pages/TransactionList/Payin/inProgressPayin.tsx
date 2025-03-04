@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
-import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover } from "@/components/Base/Headless";
-import { FormInput, FormSelect } from "@/components/Base/Form";
-import users from "@/fakers/users";
-import transactionStatus from "@/fakers/transaction-status";
-import Button from "@/components/Base/Button";
-import CustomTable from "../../../components/TableComponent";
-import { Columns, Status } from "@/constants";
+import React from 'react';
+import Lucide from '@/components/Base/Lucide';
+import { Menu, Popover } from '@/components/Base/Headless';
+import { FormInput, FormSelect } from '@/components/Base/Form';
+import users from '@/fakers/users';
+import transactionStatus from '@/fakers/transaction-status';
+import Button from '@/components/Base/Button';
+import CustomTable from '../../../components/TableComponent';
+import { Columns, Status } from '@/constants';
 interface PayInProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   setId: React.Dispatch<React.SetStateAction<string>>;
@@ -69,7 +69,7 @@ const InProgressPayIn: React.FC<PayInProps> = ({
                   </Menu.Button>
                   <Menu.Items className="w-40">
                     <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{" "}
+                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{' '}
                       PDF
                     </Menu.Item>
                     <Menu.Item>
@@ -146,7 +146,7 @@ const InProgressPayIn: React.FC<PayInProps> = ({
               setStatus={setStatus}
               setId={setId}
               columns={Columns.PAYIN}
-              title={"PayIns"}
+              title={'PayIns'}
               status={statusArray}
               params={params}
               setParams={setParams}

@@ -1,32 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable no-unused-vars */
-import Lucide from "@/components/Base/Lucide";
-import Pagination from "@/components/Base/Pagination";
-import React, { useRef, useState, JSX } from "react";
-import { Menu } from "@/components/Base/Headless";
-import { FormCheck, FormSwitch, FormSelect } from "@/components/Base/Form";
-import Table from "@/components/Base/Table";
-import clsx from "clsx";
-import _ from "lodash";
-import Tippy from "@/components/Base/Tippy";
-import PasswordVerificationModal from "@/pages/PasswordModal";
-import ModalTransactionDetails from "@/pages/ModalTransactionDetails/ModalTransactionDetails";
-import ModalPopUp from "@/pages/ModalPopUp";
-import ModalMerchantEdit from "@/pages/ModalMerchantEdit/ModalMerchantEdit";
-import RoleDetails from "@/pages/RolesDetails/RolesDetails";
-import DesignationDetails from "@/pages/DesignationDetails/DesignationDetails";
-import BankDetailsModal from "@/pages/BankAccounts/BankAccounts";
-import VendorDetails from "@/pages/VendorDetails/VendorDetails";
+import Lucide from '@/components/Base/Lucide';
+import Pagination from '@/components/Base/Pagination';
+import React, { useRef, useState, JSX } from 'react';
+import { Menu } from '@/components/Base/Headless';
+import { FormCheck, FormSwitch, FormSelect } from '@/components/Base/Form';
+import Table from '@/components/Base/Table';
+import clsx from 'clsx';
+import _ from 'lodash';
+import Tippy from '@/components/Base/Tippy';
+import PasswordVerificationModal from '@/pages/PasswordModal';
+import ModalTransactionDetails from '@/pages/ModalTransactionDetails/ModalTransactionDetails';
+import ModalPopUp from '@/pages/ModalPopUp';
+import ModalMerchantEdit from '@/pages/ModalMerchantEdit/ModalMerchantEdit';
+import RoleDetails from '@/pages/RolesDetails/RolesDetails';
+import DesignationDetails from '@/pages/DesignationDetails/DesignationDetails';
+import BankDetailsModal from '@/pages/BankAccounts/BankAccounts';
+import VendorDetails from '@/pages/VendorDetails/VendorDetails';
 import Notification, {
   NotificationElement,
-} from "@/components/Base/Notification";
-import { updatePayIns } from "@/redux-toolkit/slices/payin/payinAPI";
-import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-import { getAllPayInData } from "@/redux-toolkit/slices/payin/payinSelectors";
-import { Status } from "@/constants";
-import CommonTable from "./CommonTable";
-// import CommonTable from "./CommonTable"; // Adjust the path based on your project structure
+} from '@/components/Base/Notification';
+import { updatePayIns } from '@/redux-toolkit/slices/payin/payinAPI';
+import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
+import { getAllPayInData } from '@/redux-toolkit/slices/payin/payinSelectors';
+import { Status } from '@/constants';
+import CommonTable from './CommonTable';
+
 interface ICustomTableProps {
   columns?: string[];
   data?: { rows: any[]; totalCount: number };
@@ -72,47 +72,47 @@ const CustomTable: React.FC<ICustomTableProps> = ({
 
   const getStatusStyles = (status: string): StatusStyle => {
     switch (status) {
-      case "IMAGE_PENDING":
-      case "PENDING":
+      case Status.IMAGE_PENDING:
+      case Status.PENDING:
         return {
-          color: "text-yellow-500",
+          color: 'text-yellow-500',
           icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" />,
         };
-      case "FAILED":
-      case "DROPPED":
-      case "REJECTED":
+      case Status.FAILED:
+      case Status.DROPPED:
+      case Status.REJECTED:
         return {
-          color: "text-red-500",
+          color: 'text-red-500',
           icon: (
             <Lucide icon="XCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
           ),
         };
       case Status.BANK_MISMATCH:
-      case "DUPLICATE":
+      case Status.DUPLICATE:
       case Status.DISPUTE:
         return {
-          color: "text-orange-500",
+          color: 'text-orange-500',
           icon: (
             <Lucide icon="FileWarning" className="w-5 h-5 ml-px stroke-[2.5]" />
           ),
         };
-      case "ASSIGNED":
+      case Status.ASSIGNED:
         return {
-          color: "text-blue-500",
+          color: 'text-blue-500',
           icon: (
             <Lucide icon="ListChecks" className="w-5 h-5 ml-px stroke-[2.5]" />
           ),
         };
       case Status.SUCCESS:
         return {
-          color: "text-green-500",
+          color: 'text-green-500',
           icon: (
             <Lucide icon="CheckCircle" className="w-5 h-5 ml-px stroke-[2.5]" />
           ),
         };
       default:
         return {
-          color: "text-gray-500",
+          color: 'text-gray-500',
           icon: <Lucide icon="Globe" className="w-5 h-5 ml-px stroke-[2.5]" />,
         };
     }
@@ -126,11 +126,11 @@ const CustomTable: React.FC<ICustomTableProps> = ({
   const [addMerchant, setAddMerchant] = useState(false);
   const [secondPopUp, setSecondPopup] = useState(false);
   const [addataReject, setAddataReject] = useState<boolean>(false);
-  const [TitleforDelete, setTitleforDelete] = useState<string>("");
-  const [notificationMessage, setNotificationMessage] = useState("");
-  const [notificationStatus, setNotificationStatus] = useState("");
-  const [id, passId] = useState<string>("");
-  const [type, setType] = useState<string>("");
+  const [TitleforDelete, setTitleforDelete] = useState<string>('');
+  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationStatus, setNotificationStatus] = useState('');
+  const [id, passId] = useState<string>('');
+  const [type, setType] = useState<string>('');
   // Basic non sticky notification
   const basicNonStickyNotification = useRef<NotificationElement>();
   const basicNonStickyNotificationToggle = () => {
@@ -150,9 +150,9 @@ const CustomTable: React.FC<ICustomTableProps> = ({
     allowIntent: boolean;
     allowQR: boolean;
     showBank: boolean;
-    status: "Active" | "Inactive";
+    status: 'Active' | 'Inactive';
     action: string;
-    bankUsedFor: "Payouts" | "Settlements" | "PayIns";
+    bankUsedFor: 'PayOuts' | 'Settlements' | 'PayIns';
     vendors: string;
     createdAt: string;
     lastScheduledAt: string;
@@ -287,7 +287,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
 
   const notify = async (id: string | any) => {
     const url = `/update-payment-notified-status/${id}`;
-    const apiData = { type: "PAYIN" };
+    const apiData = { type: 'PAYIN' };
     const res = await updatePayIns(`${url}`, apiData);
     if (res?.data?.data?.message) {
       setNotificationMessage(res?.data?.data?.message);
@@ -325,35 +325,35 @@ const CustomTable: React.FC<ICustomTableProps> = ({
           <ModalTransactionDetails
             handleModal={() => Roles(null)}
             transaction={details}
-            title={"transaction"}
+            title={'transaction'}
             id={id}
             type={type}
           />
         )}
 
-        {editModal === "merchant" &&
+        {editModal === 'merchant' &&
           secondPopUp &&
           setEditModal &&
           merchantDetails && (
             <ModalMerchantEdit
-              handleModal={() => setEditModal("")}
+              handleModal={() => setEditModal('')}
               transaction={{ ...merchantDetails, submerchant: [] }}
-              title={"merchant"}
+              title={'merchant'}
             />
           )}
 
-        {editModal === "chargeback" && secondPopUp && (
+        {editModal === 'chargeback' && secondPopUp && (
           <ModalPopUp
             open={true}
-            onClose={() => setEditModal && setEditModal("")}
+            onClose={() => setEditModal && setEditModal('')}
             title="Update Transaction"
             fields={[]}
             singleField={[
               {
-                id: "amount",
-                label: "Amount",
-                type: "text",
-                placeholder: "Amount",
+                id: 'amount',
+                label: 'Amount',
+                type: 'text',
+                placeholder: 'Amount',
               },
             ]}
             buttonText="Success"
@@ -365,63 +365,63 @@ const CustomTable: React.FC<ICustomTableProps> = ({
           />
         )}
 
-        {editModal === "roles" && secondPopUp && roles && (
+        {editModal === 'roles' && secondPopUp && roles && (
           <RoleDetails
-            handleModal={() => setEditModal && setEditModal("")}
+            handleModal={() => setEditModal && setEditModal('')}
             transaction={{
               ...roles,
-              email: "",
-              phone: "",
-              location: "",
-              addressLine1: "",
-              addressLine2: "",
+              email: '',
+              phone: '',
+              location: '',
+              addressLine1: '',
+              addressLine2: '',
               isActive: false,
-              photo: roles.photo || "",
-              department: roles.department || "", // Ensure department is always a string
+              photo: roles.photo || '',
+              department: roles.department || '', // Ensure department is always a string
             }}
             title="Role Details"
           />
         )}
 
-        {editModal === "usersDetails" && secondPopUp && usersDetails && (
+        {editModal === 'usersDetails' && secondPopUp && usersDetails && (
           <RoleDetails
-            handleModal={() => setEditModal && setEditModal("")}
-            transaction={{ ...usersDetails, sno: 0, status: "" }}
+            handleModal={() => setEditModal && setEditModal('')}
+            transaction={{ ...usersDetails, sno: 0, status: '' }}
             title="User Details"
           />
         )}
 
-        {editModal === "designation" && secondPopUp && roles && (
+        {editModal === 'designation' && secondPopUp && roles && (
           <DesignationDetails
-            handleModal={() => setEditModal && setEditModal("")}
+            handleModal={() => setEditModal && setEditModal('')}
             title="Designation Details"
             transaction={roles}
           />
         )}
 
-        {editModal === "bankdetails" && secondPopUp === true && bankdetails && (
+        {editModal === 'bankdetails' && secondPopUp === true && bankdetails && (
           <BankDetailsModal
-            handleModal={() => setEditModal && setEditModal("")}
+            handleModal={() => setEditModal && setEditModal('')}
             title="Bank Details"
             transaction={bankdetails}
           />
         )}
 
-        {editModal === "vendors" && secondPopUp === true && (
+        {editModal === 'vendors' && secondPopUp === true && (
           <VendorDetails
-            handleModal={() => setEditModal && setEditModal("")}
+            handleModal={() => setEditModal && setEditModal('')}
             vendor={
               vendorDetails || {
                 sno: 0,
-                code: "",
+                code: '',
                 vendor_commission: 0,
-                created_date: "",
-                created_by: "",
-                status: "",
-                action: "",
-                updated_at: "",
-                name: "",
-                method: "",
+                created_date: '',
+                created_by: '',
+                status: '',
+                action: '',
+                updated_at: '',
+                name: '',
+                method: '',
               }
             }
           />
@@ -431,39 +431,39 @@ const CustomTable: React.FC<ICustomTableProps> = ({
           <ModalPopUp
             open={addData}
             onClose={settlementModal}
-            title={"Add data"}
+            title={'Add data'}
             fields={[
               {
-                id: "Transaction ID",
-                label: "Transaction ID",
-                type: "text",
-                placeholder: "Transaction ID",
+                id: 'Transaction ID',
+                label: 'Transaction ID',
+                type: 'text',
+                placeholder: 'Transaction ID',
               },
               {
-                id: "Status",
-                label: "Status",
-                type: "text",
-                placeholder: "Status",
+                id: 'Status',
+                label: 'Status',
+                type: 'text',
+                placeholder: 'Status',
               },
               {
-                id: "Amount",
-                label: "Amount",
-                type: "text",
-                placeholder: "Amount",
+                id: 'Amount',
+                label: 'Amount',
+                type: 'text',
+                placeholder: 'Amount',
               },
               {
-                id: "Date",
-                label: "Date",
-                type: "text",
-                placeholder: "Date",
+                id: 'Date',
+                label: 'Date',
+                type: 'text',
+                placeholder: 'Date',
               },
             ]}
             singleField={[
               {
-                id: "Customer Name",
-                label: "Customer Name",
-                type: "text",
-                placeholder: "Customer Name",
+                id: 'Customer Name',
+                label: 'Customer Name',
+                type: 'text',
+                placeholder: 'Customer Name',
               },
             ]}
             buttonText="Success"
@@ -479,14 +479,14 @@ const CustomTable: React.FC<ICustomTableProps> = ({
           <ModalPopUp
             open={true}
             onClose={handleRejected}
-            title={"Delete data"}
+            title={'Delete data'}
             fields={[]}
             singleField={[
               {
-                id: "Are you sure to delete?",
-                label: "Are you sure to delete?",
-                type: "text",
-                placeholder: "",
+                id: 'Are you sure to delete?',
+                label: 'Are you sure to delete?',
+                type: 'text',
+                placeholder: '',
               },
             ]}
             buttonText="Success"
@@ -502,14 +502,14 @@ const CustomTable: React.FC<ICustomTableProps> = ({
           <ModalPopUp
             open={true}
             onClose={settlementModal}
-            title={"Approve Settlement"}
+            title={'Approve Settlement'}
             fields={[]}
             singleField={[
               {
-                id: "settlement",
-                label: "Settlement",
-                type: "text",
-                placeholder: "Approve Settlement",
+                id: 'settlement',
+                label: 'Settlement',
+                type: 'text',
+                placeholder: 'Approve Settlement',
               },
             ]}
             buttonText="Success"
@@ -525,14 +525,14 @@ const CustomTable: React.FC<ICustomTableProps> = ({
           <ModalPopUp
             open={true}
             onClose={settlementModal}
-            title={"Reject Settlement"}
+            title={'Reject Settlement'}
             fields={[]}
             singleField={[
               {
-                id: "Reject settlement",
-                label: "Reject Settlement",
-                type: "text",
-                placeholder: "Reject Settlement",
+                id: 'Reject settlement',
+                label: 'Reject Settlement',
+                type: 'text',
+                placeholder: 'Reject Settlement',
               },
             ]}
             buttonText="Success"
@@ -548,87 +548,87 @@ const CustomTable: React.FC<ICustomTableProps> = ({
           <ModalPopUp
             open={true}
             onClose={secondPop}
-            title={"Add Merchant"}
+            title={'Add Merchant'}
             fields={[
               {
-                id: "merchantCode",
-                label: "Name",
-                type: "text",
-                placeholder: "Merchant Name",
+                id: 'merchantCode',
+                label: 'Name',
+                type: 'text',
+                placeholder: 'Merchant Name',
               },
               {
-                id: "merchantCode",
-                label: "Code",
-                type: "text",
-                placeholder: "Merchant Code",
+                id: 'merchantCode',
+                label: 'Code',
+                type: 'text',
+                placeholder: 'Merchant Code',
               },
               {
-                id: "site",
-                label: "Site",
-                type: "text",
-                placeholder: "example@gmail.com",
+                id: 'site',
+                label: 'Site',
+                type: 'text',
+                placeholder: 'example@gmail.com',
               },
               {
-                id: "returnSite",
-                label: "Return Site",
-                type: "text",
-                placeholder: "example@gmail.com",
+                id: 'returnSite',
+                label: 'Return Site',
+                type: 'text',
+                placeholder: 'example@gmail.com',
               },
               {
-                id: "callback",
-                label: "Callback",
-                type: "text",
-                placeholder: "example@gmail.com",
+                id: 'callback',
+                label: 'Callback',
+                type: 'text',
+                placeholder: 'example@gmail.com',
               },
               {
-                id: "payoutCallback",
-                label: "Payout Callback",
-                type: "text",
-                placeholder: "example@gmail.com",
+                id: 'payoutCallback',
+                label: 'PayOut Callback',
+                type: 'text',
+                placeholder: 'example@gmail.com',
               },
               {
-                id: "minPayIn",
-                label: "Min PayIn",
-                type: "text",
-                placeholder: "Amount",
+                id: 'minPayIn',
+                label: 'Min PayIn',
+                type: 'text',
+                placeholder: 'Amount',
               },
               {
-                id: "maxPayIn",
-                label: "Max PayIn",
-                type: "text",
-                placeholder: "Amount",
+                id: 'maxPayIn',
+                label: 'Max PayIn',
+                type: 'text',
+                placeholder: 'Amount',
               },
               {
-                id: "payInCommission",
-                label: "PayIn Commission",
-                type: "text",
-                placeholder: "Commission Percentage",
+                id: 'payInCommission',
+                label: 'PayIn Commission',
+                type: 'text',
+                placeholder: 'Commission Percentage',
               },
               {
-                id: "minPayOut",
-                label: "Min PayOut",
-                type: "text",
-                placeholder: "Amount",
+                id: 'minPayOut',
+                label: 'Min PayOut',
+                type: 'text',
+                placeholder: 'Amount',
               },
               {
-                id: "maxPayOut",
-                label: "Max PayOut",
-                type: "text",
-                placeholder: "Amount",
+                id: 'maxPayOut',
+                label: 'Max PayOut',
+                type: 'text',
+                placeholder: 'Amount',
               },
               {
-                id: "payOutCommission",
-                label: "PayOut Commission",
-                type: "text",
-                placeholder: "Commission Percentage",
+                id: 'payOutCommission',
+                label: 'PayOut Commission',
+                type: 'text',
+                placeholder: 'Commission Percentage',
               },
             ]}
             singleField={[
               {
-                id: "bankName",
-                label: "Bank Name",
-                type: "text",
-                placeholder: "Bank Name",
+                id: 'bankName',
+                label: 'Bank Name',
+                type: 'text',
+                placeholder: 'Bank Name',
               },
             ]}
             buttonText="Success"
@@ -644,7 +644,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
           <Table className="border-b border-slate-200/60">
             <Table.Thead>
               <Table.Tr>
-                {title === "Payouts" && (
+                {title === 'PayOuts' && (
                   <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 text-slate-500 dark:bg-darkmode-400">
                     <FormCheck.Input type="checkbox" />
                   </Table.Td>
@@ -660,14 +660,14 @@ const CustomTable: React.FC<ICustomTableProps> = ({
               </Table.Tr>
             </Table.Thead>
             <Table.Tbody>
-              {title === "PayIns" &&
+              {title === 'PayIns' &&
                 _.take(
                   _.orderBy(
                     _.filter(payins.payin, (o) => _.includes(status, o.status)),
-                    ["sno"],
-                    ["desc"]
+                    ['sno'],
+                    ['desc'],
                   ),
-                  params?.limit
+                  params?.limit,
                 ).map((payin, index) => {
                   return (
                     <Table.Tr key={index} className="[&_td]:last:border-b-0">
@@ -675,8 +675,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
                           Roles({});
-                          setType("PAYIN");
-                          passId(payin?.id ?? "");
+                          setType('PAYIN');
+                          passId(payin?.id ?? '');
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
@@ -688,12 +688,12 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
                           Roles({});
-                          setType("PAYIN");
-                          passId(payin?.id ?? "");
+                          setType('PAYIN');
+                          passId(payin?.id ?? '');
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
-                          ₹{" "}
+                          ₹{' '}
                           {payin?.bank_res_details?.amount
                             ? payin?.bank_res_details?.amount
                             : 0}
@@ -704,8 +704,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
                           Roles({});
-                          setType("PAYIN");
-                          passId(payin?.id ?? "");
+                          setType('PAYIN');
+                          passId(payin?.id ?? '');
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
@@ -730,11 +730,11 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div
                           className={`flex items-center gap-2 font-medium whitespace-nowrap ${
-                            getStatusStyles(payin?.status || "").color
+                            getStatusStyles(payin?.status || '').color
                           }`}
                         >
                           {
-                            getStatusStyles(payin?.status || "")
+                            getStatusStyles(payin?.status || '')
                               .icon as React.ReactNode
                           }
                           {payin?.status}
@@ -745,8 +745,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
                           Roles({});
-                          setType("PAYIN");
-                          passId(payin?.id ?? "");
+                          setType('PAYIN');
+                          passId(payin?.id ?? '');
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
@@ -758,8 +758,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
                           Roles({});
-                          setType("PAYIN");
-                          passId(payin?.id ?? "");
+                          setType('PAYIN');
+                          passId(payin?.id ?? '');
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
@@ -771,8 +771,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
                           Roles({});
-                          setType("PAYIN");
-                          passId(payin?.id ?? "");
+                          setType('PAYIN');
+                          passId(payin?.id ?? '');
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
@@ -784,8 +784,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
                           Roles({});
-                          setType("PAYIN");
-                          passId(payin?.id ?? "");
+                          setType('PAYIN');
+                          passId(payin?.id ?? '');
                         }}
                       >
                         <a className="font-medium whitespace-nowrap">
@@ -797,8 +797,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
                           Roles({});
-                          setType("PAYIN");
-                          passId(payin?.id ?? "");
+                          setType('PAYIN');
+                          passId(payin?.id ?? '');
                         }}
                       >
                         <div className="flex items-center">
@@ -809,7 +809,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                                 alt="Tailwise - Admin Dashboard Template"
                                 className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                                 src={payin?.user_submitted_image}
-                                content={"User Submitted Image"}
+                                content={'User Submitted Image'}
                               />
                             ) : null}
                           </div>
@@ -836,7 +836,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                                     setId(
                                       payin?.status === Status.BANK_MISMATCH
                                         ? payin?.merchant_order_id
-                                        : payin?.id
+                                        : payin?.id,
                                     );
                                 }}
                               >
@@ -844,7 +844,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                                   <Lucide
                                     icon="CheckSquare"
                                     className="w-4 h-4 mr-2"
-                                  />{" "}
+                                  />{' '}
                                   Reset
                                 </Menu.Item>
 
@@ -855,7 +855,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                                   <Lucide
                                     icon="Bell"
                                     className="w-4 h-4 mr-2"
-                                  />{" "}
+                                  />{' '}
                                   Notify
                                 </Menu.Item>
                               </Menu.Items>
@@ -878,7 +878,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     </Table.Tr>
                   );
                 })}
-              {title === "Merchants" &&
+              {title === 'Merchants' &&
                 _.take(data?.rows, 10).map((faker, fakerKey) => (
                   <React.Fragment key={fakerKey}>
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
@@ -891,7 +891,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                             }
                           >
                             <Lucide
-                              icon={expandedRow === fakerKey ? "Minus" : "Plus"}
+                              icon={expandedRow === fakerKey ? 'Minus' : 'Plus'}
                               className="block text-white  mx-auto my-auto stroke-3 justify-center items-center"
                             />
                           </div>
@@ -904,26 +904,26 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         className="py-4 border-dashed dark:bg-darkmode-600"
                         onClick={() => {
                           if (setStatus) {
-                            setStatus("merchantVerification");
+                            setStatus('merchantVerification');
                           }
                           Roles({
                             sno: String(faker?.sno), // Convert number to string
-                            id: faker?.id || "", // Ensure id exists
-                            code: faker?.code || "",
+                            id: faker?.id || '', // Ensure id exists
+                            code: faker?.code || '',
                             confirmed: String(faker?.confirmed), // Convert boolean to string
-                            payin_merchant_commission: String("0"), // Ensure commission exists
-                            payin_vendor_commission: String("0"), // Ensure commission exists
+                            payin_merchant_commission: String('0'), // Ensure commission exists
+                            payin_vendor_commission: String('0'), // Ensure commission exists
                             amount: String(faker?.amount), // Convert number to string
-                            status: faker?.status || "",
-                            merchant_order_id: faker?.merchant_order_id || "", // Ensure merchant_order_id exists
-                            merchant_code: faker?.merchant_code || "", // Ensure merchant_code exists
-                            name: faker?.name || "",
-                            user_submitted_utr: faker?.user_submitted_utr || "",
-                            utr: faker?.utr || "",
-                            method: faker?.method || "",
+                            status: faker?.status || '',
+                            merchant_order_id: faker?.merchant_order_id || '', // Ensure merchant_order_id exists
+                            merchant_code: faker?.merchant_code || '', // Ensure merchant_code exists
+                            name: faker?.name || '',
+                            user_submitted_utr: faker?.user_submitted_utr || '',
+                            utr: faker?.utr || '',
+                            method: faker?.method || '',
                             duration: 0, // Ensure duration exists
-                            bank: "", // Ensure bank exists
-                            updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                            bank: '', // Ensure bank exists
+                            updated_at: faker?.updated_at || '', // Ensure updated_at exists
                           });
                         }}
                       >
@@ -1007,37 +1007,37 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                               <Menu.Item
                                 onClick={() => {
                                   setMerchantDetails({
-                                    name: faker?.name || "",
-                                    photo: faker?.photo || "",
-                                    code: faker?.code || "",
-                                    site: faker?.site || "",
-                                    apikey: faker?.api_key || "",
-                                    public_api_key: faker?.public_api_key || "",
-                                    balance: String(faker?.balance) || "",
-                                    payin_range: faker?.payin_range || "",
+                                    name: faker?.name || '',
+                                    photo: faker?.photo || '',
+                                    code: faker?.code || '',
+                                    site: faker?.site || '',
+                                    apikey: faker?.api_key || '',
+                                    public_api_key: faker?.public_api_key || '',
+                                    balance: String(faker?.balance) || '',
+                                    payin_range: faker?.payin_range || '',
                                     payin_commission:
-                                      faker?.payin_commission || "",
-                                    payout_range: faker?.payout_range || "",
+                                      faker?.payin_commission || '',
+                                    payout_range: faker?.payout_range || '',
                                     payout_commission:
-                                      faker?.payout_commission || "",
-                                    test_mode: String(faker?.test_mode) || "",
+                                      faker?.payout_commission || '',
+                                    test_mode: String(faker?.test_mode) || '',
                                     allow_intent: String(faker?.allow_intent),
-                                    created_at: faker?.createdAt || "",
-                                    actions: faker?.actions || "",
+                                    created_at: faker?.createdAt || '',
+                                    actions: faker?.actions || '',
                                   });
                                 }}
                               >
                                 <Lucide
                                   icon="CheckSquare"
                                   className="w-4 h-4 mr-2"
-                                />{" "}
+                                />{' '}
                                 Edit
                               </Menu.Item>
                               <Menu.Item className="text-danger">
                                 <Lucide
                                   icon="Trash2"
                                   className="w-4 h-4 mr-2"
-                                />{" "}
+                                />{' '}
                                 Delete
                               </Menu.Item>
                             </Menu.Items>
@@ -1117,45 +1117,45 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                                 <Menu.Items className="w-40">
                                   <Menu.Item
                                     onClick={() => {
-                                      openModal("List");
+                                      openModal('List');
                                       if (setStatus) {
-                                        setStatus("merchantVerification");
+                                        setStatus('merchantVerification');
                                       }
                                       setMerchantDetails({
-                                        name: faker.name || "",
-                                        photo: faker.photo || "",
-                                        code: faker.code || "",
-                                        site: faker.site || "",
-                                        apikey: faker.api_key || "",
+                                        name: faker.name || '',
+                                        photo: faker.photo || '',
+                                        code: faker.code || '',
+                                        site: faker.site || '',
+                                        apikey: faker.api_key || '',
                                         public_api_key:
-                                          faker.public_api_key || "",
-                                        balance: String(faker.balance) || "",
-                                        payin_range: faker.payin_range || "",
+                                          faker.public_api_key || '',
+                                        balance: String(faker.balance) || '',
+                                        payin_range: faker.payin_range || '',
                                         payin_commission:
-                                          faker.payin_commission || "",
-                                        payout_range: faker.payout_range || "",
+                                          faker.payin_commission || '',
+                                        payout_range: faker.payout_range || '',
                                         payout_commission:
-                                          faker.payout_commission || "",
+                                          faker.payout_commission || '',
                                         test_mode:
-                                          String(faker.test_mode) || "",
+                                          String(faker.test_mode) || '',
                                         allow_intent:
-                                          String(faker.allow_intent) || "",
-                                        created_at: faker.createdAt || "",
-                                        actions: faker.actions || "",
+                                          String(faker.allow_intent) || '',
+                                        created_at: faker.createdAt || '',
+                                        actions: faker.actions || '',
                                       });
                                     }}
                                   >
                                     <Lucide
                                       icon="CheckSquare"
                                       className="w-4 h-4 mr-2"
-                                    />{" "}
+                                    />{' '}
                                     Edit
                                   </Menu.Item>
                                   <Menu.Item className="text-danger">
                                     <Lucide
                                       icon="Trash2"
                                       className="w-4 h-4 mr-2"
-                                    />{" "}
+                                    />{' '}
                                     Delete
                                   </Menu.Item>
                                 </Menu.Items>
@@ -1167,8 +1167,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                   </React.Fragment>
                 ))}
 
-              {title === "Bankaccounts" &&
-                _.take(_.orderBy(data?.rows, ["sno"], ["desc"]), 10).map(
+              {title === 'Bankaccounts' &&
+                _.take(_.orderBy(data?.rows, ['sno'], ['desc']), 10).map(
                   (account, index) => (
                     <Table.Tr key={index} className="[&_td]:last:border-b-0">
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -1190,13 +1190,13 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                           <div className="flex h-1 border rounded-sm bg-slate-50 mt-1.5 dark:bg-darkmode-400">
                             <div
                               className={clsx([
-                                "first:rounded-l-sm last:rounded-r-sm border border-primary/20 -m-px bg-primary/40",
+                                'first:rounded-l-sm last:rounded-r-sm border border-primary/20 -m-px bg-primary/40',
                                 [
-                                  "w-[35%]",
-                                  "w-[45%]",
-                                  "w-[55%]",
-                                  "w-[65%]",
-                                  "w-[75%]",
+                                  'w-[35%]',
+                                  'w-[45%]',
+                                  'w-[55%]',
+                                  'w-[65%]',
+                                  'w-[75%]',
                                 ][_.random(0, 4)],
                               ])}
                             ></div>
@@ -1312,51 +1312,51 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                             </Menu.Button>
                             <Menu.Items className="w-40">
                               <Menu.Item>
-                                <Lucide icon="Eye" className="w-4 h-4 mr-2" />{" "}
+                                <Lucide icon="Eye" className="w-4 h-4 mr-2" />{' '}
                                 List
                               </Menu.Item>
                               <Menu.Item>
                                 <Lucide
                                   icon="Download"
                                   className="w-4 h-4 mr-2"
-                                />{" "}
+                                />{' '}
                                 Report
                               </Menu.Item>
                               <Menu.Item
                                 onClick={() => {
-                                  openModal("Edit");
+                                  openModal('Edit');
                                   setBankDetails({
-                                    accountName: account?.accountName || "",
-                                    bankDetails: account?.bankDetails || "",
-                                    accountNumber: account?.accountNumber || "",
-                                    upiId: account?.upiId || "",
-                                    balance: String(account?.balance) || "",
+                                    accountName: account?.accountName || '',
+                                    bankDetails: account?.bankDetails || '',
+                                    accountNumber: account?.accountNumber || '',
+                                    upiId: account?.upiId || '',
+                                    balance: String(account?.balance) || '',
                                     allowIntent: !!account?.allow_intent,
                                     status:
-                                      account?.status === "Active" ||
-                                      account?.status === "Inactive"
+                                      account?.status === 'Active' ||
+                                      account?.status === 'Inactive'
                                         ? account?.status
-                                        : "Inactive",
+                                        : 'Inactive',
                                     bankUsedFor:
                                       (account?.bankUsedFor as
-                                        | "PayIns"
-                                        | "Payouts"
-                                        | "Settlements") || "PayIns",
-                                    vendors: account?.vendors || "",
-                                    createdAt: account?.createdAt || "",
+                                        | 'PayIns'
+                                        | 'PayOuts'
+                                        | 'Settlements') || 'PayIns',
+                                    vendors: account?.vendors || '',
+                                    createdAt: account?.createdAt || '',
                                     lastScheduledAt:
-                                      account?.lastScheduledAt || "",
-                                    limits: "", // Add default value for limits
+                                      account?.lastScheduledAt || '',
+                                    limits: '', // Add default value for limits
                                     allowQR: false, // Add default value for allowQR
                                     showBank: false, // Add default value for showBank
-                                    action: "", // Add default value for action
+                                    action: '', // Add default value for action
                                   });
                                 }}
                               >
                                 <Lucide
                                   icon="CheckSquare"
                                   className="w-4 h-4 mr-2"
-                                />{" "}
+                                />{' '}
                                 Edit
                               </Menu.Item>
                               <Menu.Item
@@ -1384,10 +1384,10 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         </div>
                       </Table.Td>
                     </Table.Tr>
-                  )
+                  ),
                 )}
-              {title === "Add Data" &&
-                _.take(_.orderBy(data?.rows, ["sno"], ["desc"]), 10).map(
+              {title === 'Add Data' &&
+                _.take(_.orderBy(data?.rows, ['sno'], ['desc']), 10).map(
                   (faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -1401,7 +1401,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                               alt="Tailwise - Admin Dashboard Template"
                               className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                               src={faker?.photo}
-                              content={faker?.name || ""}
+                              content={faker?.name || ''}
                             />
                           </div>
                           <div className="ml-3.5">
@@ -1431,8 +1431,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div
                           className={clsx([
-                            "flex items-center",
-                            faker?.orderStatus?.textColor || "",
+                            'flex items-center',
+                            faker?.orderStatus?.textColor || '',
                           ])}
                         >
                           {faker?.orderStatus?.icon}
@@ -1469,7 +1469,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                                 <Lucide
                                   icon="CheckSquare"
                                   className="w-4 h-4 mr-2"
-                                />{" "}
+                                />{' '}
                                 Edit
                               </Menu.Item>
                               <Menu.Item
@@ -1487,10 +1487,10 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         </div>
                       </Table.Td>
                     </Table.Tr>
-                  )
+                  ),
                 )}
-              {title === "Check UTR" &&
-                _.take(_.orderBy(data?.rows, ["sno"], ["desc"]), 10).map(
+              {title === 'Check UTR' &&
+                _.take(_.orderBy(data?.rows, ['sno'], ['desc']), 10).map(
                   (faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -1504,7 +1504,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                               alt="Tailwise - Admin Dashboard Template"
                               className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                               src={faker?.photo}
-                              content={faker?.name || ""}
+                              content={faker?.name || ''}
                             />
                           </div>
                           <div className="ml-3.5">
@@ -1534,8 +1534,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div
                           className={clsx([
-                            "flex items-center",
-                            faker?.orderStatus?.textColor || "",
+                            'flex items-center',
+                            faker?.orderStatus?.textColor || '',
                           ])}
                         >
                           {faker?.orderStatus?.icon}
@@ -1555,10 +1555,10 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         </div>
                       </Table.Td>
                     </Table.Tr>
-                  )
+                  ),
                 )}
-              {title === "Reset Entry" &&
-                _.take(_.orderBy(data?.rows, ["sno"], ["desc"]), 10).map(
+              {title === 'Reset Entry' &&
+                _.take(_.orderBy(data?.rows, ['sno'], ['desc']), 10).map(
                   (faker, fakerKey) => (
                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -1572,7 +1572,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                               alt="Tailwise - Admin Dashboard Template"
                               className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                               src={faker?.photo}
-                              content={faker?.name || ""}
+                              content={faker?.name || ''}
                             />
                           </div>
                           <div className="ml-3.5">
@@ -1602,8 +1602,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                         <div
                           className={clsx([
-                            "flex items-center",
-                            faker?.orderStatus?.textColor || "",
+                            'flex items-center',
+                            faker?.orderStatus?.textColor || '',
                           ])}
                         >
                           {faker?.orderStatus?.icon}
@@ -1623,10 +1623,10 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         </div>
                       </Table.Td>
                     </Table.Tr>
-                  )
+                  ),
                 )}
-              {title === "Chargebacks" &&
-                _.take(_.orderBy(data?.rows, ["sno"], ["desc"]), 10).map(
+              {title === 'Chargebacks' &&
+                _.take(_.orderBy(data?.rows, ['sno'], ['desc']), 10).map(
                   (faker, _fakerKey) => (
                     <Table.Tr
                       key={_fakerKey}
@@ -1655,7 +1655,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                               alt="Tailwise - Admin Dashboard Template"
                               className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                               src={faker?.photo}
-                              content={faker?.name || ""}
+                              content={faker?.name || ''}
                             />
                           </div>
                           <div className="ml-3.5">
@@ -1690,16 +1690,16 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                               />
                             </Menu.Button>
                             <Menu.Items className="w-40">
-                              <Menu.Item onClick={() => openModal("Edit")}>
+                              <Menu.Item onClick={() => openModal('Edit')}>
                                 <Lucide
                                   icon="CheckSquare"
                                   className="w-4 h-4 mr-2"
-                                />{" "}
+                                />{' '}
                                 Edit
                               </Menu.Item>
                               <Menu.Item
                                 className="text-danger"
-                                onClick={() => openModal("Delete")}
+                                onClick={() => openModal('Delete')}
                               >
                                 <Lucide
                                   icon="Trash2"
@@ -1712,16 +1712,16 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         </div>
                       </Table.Td>
                     </Table.Tr>
-                  )
+                  ),
                 )}
-              {title === "Payouts" &&
+              {title === 'PayOuts' &&
                 _.take(
                   _.orderBy(
                     _.filter(data?.rows, (o) => _.includes(status, o.status)),
-                    ["sno"],
-                    ["desc"]
+                    ['sno'],
+                    ['desc'],
                   ),
-                  10
+                  10,
                 ).map((faker, _fakerKey) => (
                   <Table.Tr key={_fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -1733,22 +1733,22 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       onClick={() => {
                         Roles({
                           sno: String(faker?.sno), // Convert number to string
-                          id: faker?.id || "", // Ensure id exists
-                          code: faker?.code || "",
+                          id: faker?.id || '', // Ensure id exists
+                          code: faker?.code || '',
                           confirmed: String(faker?.confirmed), // Convert boolean to string
-                          payin_merchant_commission: String("0"), // Ensure commission exists
-                          payin_vendor_commission: String("0"), // Ensure commission exists
+                          payin_merchant_commission: String('0'), // Ensure commission exists
+                          payin_vendor_commission: String('0'), // Ensure commission exists
                           amount: String(faker?.amount), // Convert number to string
-                          status: faker?.status || "",
-                          merchant_order_id: faker?.merchant_order_id || "",
-                          merchant_code: faker?.merchant_code || "",
-                          name: faker?.name || "",
-                          user_submitted_utr: faker?.user_submitted_utr || "",
-                          utr: faker?.utr || "",
-                          method: faker?.method || "",
+                          status: faker?.status || '',
+                          merchant_order_id: faker?.merchant_order_id || '',
+                          merchant_code: faker?.merchant_code || '',
+                          name: faker?.name || '',
+                          user_submitted_utr: faker?.user_submitted_utr || '',
+                          utr: faker?.utr || '',
+                          method: faker?.method || '',
                           duration: 0, // Ensure duration exists
-                          bank: "", // Ensure bank exists
-                          updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                          bank: '', // Ensure bank exists
+                          updated_at: faker?.updated_at || '', // Ensure updated_at exists
                         });
                       }}
                     >
@@ -1762,22 +1762,22 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       onClick={() => {
                         Roles({
                           sno: String(faker?.sno), // Convert number to string
-                          id: faker?.id || "", // Ensure id exists
-                          code: faker?.code || "",
+                          id: faker?.id || '', // Ensure id exists
+                          code: faker?.code || '',
                           confirmed: String(faker?.confirmed), // Convert boolean to string
-                          payin_merchant_commission: String("0"), // Ensure commission exists
-                          payin_vendor_commission: String("0"), // Ensure commission exists
+                          payin_merchant_commission: String('0'), // Ensure commission exists
+                          payin_vendor_commission: String('0'), // Ensure commission exists
                           amount: String(faker?.amount), // Convert number to string
-                          status: faker?.status || "",
-                          merchant_order_id: faker?.merchant_order_id || "",
-                          merchant_code: faker?.merchant_code || "",
-                          name: faker?.name || "",
-                          user_submitted_utr: faker?.user_submitted_utr || "",
-                          utr: faker?.utr || "",
-                          method: faker?.method || "",
+                          status: faker?.status || '',
+                          merchant_order_id: faker?.merchant_order_id || '',
+                          merchant_code: faker?.merchant_code || '',
+                          name: faker?.name || '',
+                          user_submitted_utr: faker?.user_submitted_utr || '',
+                          utr: faker?.utr || '',
+                          method: faker?.method || '',
                           duration: 0, // Ensure duration exists
-                          bank: "", // Ensure bank exists
-                          updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                          bank: '', // Ensure bank exists
+                          updated_at: faker?.updated_at || '', // Ensure updated_at exists
                         });
                       }}
                     >
@@ -1791,32 +1791,32 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       onClick={() => {
                         Roles({
                           sno: String(faker?.sno), // Convert number to string
-                          id: faker?.id || "", // Ensure id exists
-                          code: faker?.code || "",
+                          id: faker?.id || '', // Ensure id exists
+                          code: faker?.code || '',
                           confirmed: String(faker?.confirmed), // Convert boolean to string
-                          payin_merchant_commission: String("0"), // Ensure commission exists
-                          payin_vendor_commission: String("0"), // Ensure commission exists
+                          payin_merchant_commission: String('0'), // Ensure commission exists
+                          payin_vendor_commission: String('0'), // Ensure commission exists
                           amount: String(faker?.amount), // Convert number to string
-                          status: faker?.status || "",
-                          merchant_order_id: faker?.merchant_order_id || "",
-                          merchant_code: faker?.merchant_code || "",
-                          name: faker?.name || "",
-                          user_submitted_utr: faker?.user_submitted_utr || "",
-                          utr: faker?.utr || "",
-                          method: faker?.method || "",
+                          status: faker?.status || '',
+                          merchant_order_id: faker?.merchant_order_id || '',
+                          merchant_code: faker?.merchant_code || '',
+                          name: faker?.name || '',
+                          user_submitted_utr: faker?.user_submitted_utr || '',
+                          utr: faker?.utr || '',
+                          method: faker?.method || '',
                           duration: 0, // Ensure duration exists
-                          bank: "", // Ensure bank exists
-                          updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                          bank: '', // Ensure bank exists
+                          updated_at: faker?.updated_at || '', // Ensure updated_at exists
                         });
                       }}
                     >
                       <div
                         className={`flex items-center gap-2 font-medium whitespace-nowrap ${
-                          getStatusStyles(faker?.status || "").color
+                          getStatusStyles(faker?.status || '').color
                         }`}
                       >
                         {
-                          getStatusStyles(faker?.status || "")
+                          getStatusStyles(faker?.status || '')
                             .icon as React.ReactNode
                         }
                         {faker?.status}
@@ -1828,22 +1828,22 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       onClick={() => {
                         Roles({
                           sno: String(faker?.sno), // Convert number to string
-                          id: faker?.id || "", // Ensure id exists
-                          code: faker?.code || "",
+                          id: faker?.id || '', // Ensure id exists
+                          code: faker?.code || '',
                           confirmed: String(faker?.confirmed), // Convert boolean to string
-                          payin_merchant_commission: String("0"), // Ensure commission exists
-                          payin_vendor_commission: String("0"), // Ensure commission exists
+                          payin_merchant_commission: String('0'), // Ensure commission exists
+                          payin_vendor_commission: String('0'), // Ensure commission exists
                           amount: String(faker?.amount), // Convert number to string
-                          status: faker?.status || "",
-                          merchant_order_id: faker?.merchant_order_id || "",
-                          merchant_code: faker?.merchant_code || "",
-                          name: faker?.name || "",
-                          user_submitted_utr: faker?.user_submitted_utr || "",
-                          utr: faker?.utr || "",
-                          method: faker?.method || "",
+                          status: faker?.status || '',
+                          merchant_order_id: faker?.merchant_order_id || '',
+                          merchant_code: faker?.merchant_code || '',
+                          name: faker?.name || '',
+                          user_submitted_utr: faker?.user_submitted_utr || '',
+                          utr: faker?.utr || '',
+                          method: faker?.method || '',
                           duration: 0, // Ensure duration exists
-                          bank: "", // Ensure bank exists
-                          updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                          bank: '', // Ensure bank exists
+                          updated_at: faker?.updated_at || '', // Ensure updated_at exists
                         });
                       }}
                     >
@@ -1857,22 +1857,22 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       onClick={() => {
                         Roles({
                           sno: String(faker?.sno), // Convert number to string
-                          id: faker?.id || "", // Ensure id exists
-                          code: faker?.code || "",
+                          id: faker?.id || '', // Ensure id exists
+                          code: faker?.code || '',
                           confirmed: String(faker?.confirmed), // Convert boolean to string
-                          payin_merchant_commission: String("0"), // Ensure commission exists
-                          payin_vendor_commission: String("0"), // Ensure commission exists
+                          payin_merchant_commission: String('0'), // Ensure commission exists
+                          payin_vendor_commission: String('0'), // Ensure commission exists
                           amount: String(faker?.amount), // Convert number to string
-                          status: faker?.status || "",
-                          merchant_order_id: faker?.merchant_order_id || "",
-                          merchant_code: faker?.merchant_code || "",
-                          name: faker?.name || "",
-                          user_submitted_utr: faker?.user_submitted_utr || "",
-                          utr: faker?.utr || "",
-                          method: faker?.method || "",
+                          status: faker?.status || '',
+                          merchant_order_id: faker?.merchant_order_id || '',
+                          merchant_code: faker?.merchant_code || '',
+                          name: faker?.name || '',
+                          user_submitted_utr: faker?.user_submitted_utr || '',
+                          utr: faker?.utr || '',
+                          method: faker?.method || '',
                           duration: 0, // Ensure duration exists
-                          bank: "", // Ensure bank exists
-                          updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                          bank: '', // Ensure bank exists
+                          updated_at: faker?.updated_at || '', // Ensure updated_at exists
                         });
                       }}
                     >
@@ -1886,22 +1886,22 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       onClick={() => {
                         Roles({
                           sno: String(faker?.sno), // Convert number to string
-                          id: faker?.id || "", // Ensure id exists
-                          code: faker?.code || "",
+                          id: faker?.id || '', // Ensure id exists
+                          code: faker?.code || '',
                           confirmed: String(faker?.confirmed), // Convert boolean to string
-                          payin_merchant_commission: String("0"), // Ensure commission exists
-                          payin_vendor_commission: String("0"), // Ensure commission exists
+                          payin_merchant_commission: String('0'), // Ensure commission exists
+                          payin_vendor_commission: String('0'), // Ensure commission exists
                           amount: String(faker?.amount), // Convert number to string
-                          status: faker?.status || "",
-                          merchant_order_id: faker?.merchant_order_id || "",
-                          merchant_code: faker?.merchant_code || "",
-                          name: faker?.name || "",
-                          user_submitted_utr: faker?.user_submitted_utr || "",
-                          utr: faker?.utr || "",
-                          method: faker?.method || "",
+                          status: faker?.status || '',
+                          merchant_order_id: faker?.merchant_order_id || '',
+                          merchant_code: faker?.merchant_code || '',
+                          name: faker?.name || '',
+                          user_submitted_utr: faker?.user_submitted_utr || '',
+                          utr: faker?.utr || '',
+                          method: faker?.method || '',
                           duration: 0, // Ensure duration exists
-                          bank: "", // Ensure bank exists
-                          updated_at: faker?.updated_at || "", // Ensure updated_at exists
+                          bank: '', // Ensure bank exists
+                          updated_at: faker?.updated_at || '', // Ensure updated_at exists
                         });
                       }}
                     >
@@ -1914,9 +1914,9 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                       <div className="flex items-center justify-center">
                         <Menu className="h-5">
                           <Menu.Button className="w-5 h-5 text-slate-500">
-                            {faker?.status === "Rejected" ? (
+                            {faker?.status === 'Rejected' ? (
                               <>
-                                {" "}
+                                {' '}
                                 <Lucide
                                   icon="Bell"
                                   className="w-5 h-5 text-green-500"
@@ -1924,7 +1924,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                               </>
                             ) : (
                               <>
-                                {" "}
+                                {' '}
                                 <Lucide
                                   icon="MoreVertical"
                                   className="w-5 h-5"
@@ -1933,21 +1933,21 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                             )}
                           </Menu.Button>
 
-                          {faker?.status === "Initiated" ? (
+                          {faker?.status === 'Initiated' ? (
                             <Menu.Items className="w-40">
                               <Menu.Item
                                 onClick={() =>
                                   setApprove && setApprove(!approve)
                                 }
                               >
-                                <Lucide icon="Check" className="w-4 h-4 mr-2" />{" "}
+                                <Lucide icon="Check" className="w-4 h-4 mr-2" />{' '}
                                 Approve
                               </Menu.Item>
                               <Menu.Item
                                 className="text-danger"
                                 onClick={() => setReject && setReject(!reject)}
                               >
-                                <Lucide icon="X" className="w-4 h-4 mr-2" />{" "}
+                                <Lucide icon="X" className="w-4 h-4 mr-2" />{' '}
                                 Reject
                               </Menu.Item>
                             </Menu.Items>
@@ -1957,14 +1957,14 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                                 <Lucide
                                   icon="Bell"
                                   className="w-4 h-4 mr-2 text-green-500"
-                                />{" "}
+                                />{' '}
                                 Notify
                               </Menu.Item>
                               <Menu.Item
                                 className="text-danger"
                                 onClick={() => setReject && setReject(!reject)}
                               >
-                                <Lucide icon="X" className="w-4 h-4 mr-2" />{" "}
+                                <Lucide icon="X" className="w-4 h-4 mr-2" />{' '}
                                 Reject
                               </Menu.Item>
                             </Menu.Items>
@@ -1974,8 +1974,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     </Table.Td>
                   </Table.Tr>
                 ))}
-              {(title === "Merchants Settlements" ||
-                title === "Vendors Settlements") &&
+              {(title === 'Merchants Settlements' ||
+                title === 'Vendors Settlements') &&
                 _.take(data?.rows, 10).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed w-20 dark:bg-darkmode-600">
@@ -1999,7 +1999,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     <Table.Td className="py-4 border-dashed w-30 dark:bg-darkmode-600">
                       <div
                         className={clsx([
-                          "flex items-center",
+                          'flex items-center',
                           faker?.orderStatus?.textColor,
                         ])}
                       >
@@ -2031,7 +2031,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                               <Lucide
                                 icon="CheckSquare"
                                 className="w-4 h-4 mr-2"
-                              />{" "}
+                              />{' '}
                               Edit
                             </Menu.Item>
                             <Menu.Item
@@ -2049,7 +2049,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     </Table.Td>
                   </Table.Tr>
                 ))}
-              {title === "Vendors" &&
+              {title === 'Vendors' &&
                 _.take(data?.rows, 20).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -2063,7 +2063,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                             alt="Tailwise - Admin Dashboard Template"
                             className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                             src={faker?.photo}
-                            content={faker?.name || ""}
+                            content={faker?.name || ''}
                           />
                         </div>
                         <div className="ml-3.5">
@@ -2092,13 +2092,13 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                         <div className="flex h-1 border rounded-sm bg-slate-50 mt-1.5 dark:bg-darkmode-400">
                           <div
                             className={clsx([
-                              "first:rounded-l-sm last:rounded-r-sm border border-primary/20 -m-px bg-primary/40",
+                              'first:rounded-l-sm last:rounded-r-sm border border-primary/20 -m-px bg-primary/40',
                               [
-                                "w-[35%]",
-                                "w-[45%]",
-                                "w-[55%]",
-                                "w-[65%]",
-                                "w-[75%]",
+                                'w-[35%]',
+                                'w-[45%]',
+                                'w-[55%]',
+                                'w-[65%]',
+                                'w-[75%]',
                               ][_.random(0, 4)],
                             ])}
                           ></div>
@@ -2117,8 +2117,8 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
                       <div
                         className={clsx([
-                          "flex ",
-                          ["text-success", "text-danger"][_.random(0, 1)],
+                          'flex ',
+                          ['text-success', 'text-danger'][_.random(0, 1)],
                         ])}
                       >
                         <Lucide
@@ -2126,7 +2126,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                           className="w-3.5 h-3.5 stroke-[1.7]"
                         />
                         <div className="ml-1.5 whitespace-nowrap">
-                          {_.random(0, 1) ? "Active" : "Inactive"}
+                          {_.random(0, 1) ? 'Active' : 'Inactive'}
                         </div>
                       </div>
                     </Table.Td>
@@ -2142,42 +2142,42 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                           <Menu.Items className="w-40">
                             <Menu.Item
                               onClick={() => {
-                                openModal("Edit");
+                                openModal('Edit');
                                 setVendorDetails({
                                   sno: faker.sno || 0,
-                                  code: faker.code || "",
+                                  code: faker.code || '',
                                   vendor_commission: 0,
-                                  created_date: faker.createdAt || "",
-                                  created_by: "",
-                                  status: faker.status || "",
-                                  action: "",
-                                  confirmed: faker.confirmed || "",
-                                  amount: faker.amount || "",
+                                  created_date: faker.createdAt || '',
+                                  created_by: '',
+                                  status: faker.status || '',
+                                  action: '',
+                                  confirmed: faker.confirmed || '',
+                                  amount: faker.amount || '',
                                   merchant_order_id:
-                                    faker.merchant_order_id || "",
-                                  merchant_code: faker.merchant_code || "",
-                                  photo: faker.photo || "",
-                                  name: faker.name || "",
+                                    faker.merchant_order_id || '',
+                                  merchant_code: faker.merchant_code || '',
+                                  photo: faker.photo || '',
+                                  name: faker.name || '',
                                   user_submitted_utr:
-                                    faker.user_submitted_utr || "",
-                                  utr: faker.utr || "",
+                                    faker.user_submitted_utr || '',
+                                  utr: faker.utr || '',
                                   position: faker.position,
-                                  method: faker.method ?? "",
-                                  id: faker.id || "",
-                                  updated_at: faker.updated_at || "",
+                                  method: faker.method ?? '',
+                                  id: faker.id || '',
+                                  updated_at: faker.updated_at || '',
                                 });
                               }}
                             >
-                              {" "}
+                              {' '}
                               <Lucide
                                 icon="CheckSquare"
                                 className="w-4 h-4 mr-2"
-                              />{" "}
+                              />{' '}
                               Edit
                             </Menu.Item>
                             <Menu.Item
                               className="text-danger"
-                              onClick={() => openModal("Delete")}
+                              onClick={() => openModal('Delete')}
                             >
                               <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                               Delete
@@ -2189,7 +2189,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                   </Table.Tr>
                 ))}
 
-              {title === "Users" &&
+              {title === 'Users' &&
                 _.take(data?.rows, 10).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -2203,7 +2203,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                             alt="Tailwise - Admin Dashboard Template"
                             className="rounded-full shadow-[0px_0px_0px_2px_#fff,_1px_1px_5px_rgba(0,0,0,0.32)] dark:shadow-[0px_0px_0px_2px_#3f4865,_1px_1px_5px_rgba(0,0,0,0.32)]"
                             src={faker?.photo}
-                            content={faker?.name || ""}
+                            content={faker?.name || ''}
                           />
                         </div>
                         <div className="ml-3.5">
@@ -2257,17 +2257,17 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                           <Menu.Item
                             onClick={() => {
                               setUsersDetails({
-                                name: faker.name || "",
-                                position: faker.position || "",
-                                photo: faker.photo || "",
-                                email: faker.email || "",
-                                phone: "",
-                                department: faker.department || "",
-                                location: "",
-                                joinedDate: faker.joinedDate || "",
-                                manager: faker.manager || "",
-                                addressLine1: "",
-                                addressLine2: "",
+                                name: faker.name || '',
+                                position: faker.position || '',
+                                photo: faker.photo || '',
+                                email: faker.email || '',
+                                phone: '',
+                                department: faker.department || '',
+                                location: '',
+                                joinedDate: faker.joinedDate || '',
+                                manager: faker.manager || '',
+                                addressLine1: '',
+                                addressLine2: '',
                                 isActive: false,
                               });
                             }}
@@ -2275,12 +2275,12 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                             <Lucide
                               icon="CheckSquare"
                               className="w-4 h-4 mr-2"
-                            />{" "}
+                            />{' '}
                             Edit
                           </Menu.Item>
                           <Menu.Item
                             className="text-danger"
-                            onClick={() => openModal("Delete")}
+                            onClick={() => openModal('Delete')}
                           >
                             <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                             Delete
@@ -2290,7 +2290,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     </Table.Td>
                   </Table.Tr>
                 ))}
-              {title === "Roles" &&
+              {title === 'Roles' &&
                 _.take(data?.rows, 20).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed  dark:bg-darkmode-600 ">
@@ -2330,28 +2330,28 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                             <Menu.Item
                               onClick={() => {
                                 // Open the modal (you can call a function like openModal("Edit"))
-                                openModal("Edit");
+                                openModal('Edit');
 
                                 // Set the roles state with the selected role data
                                 setRoles({
                                   sno: fakerKey + 1, // or however you want to generate the serial number
-                                  position: faker?.position ?? "",
-                                  name: faker?.name ?? "",
-                                  manager: faker?.manager ?? "",
-                                  joinedDate: faker?.joinedDate ?? "",
-                                  status: "Active", // or whatever status logic you'd want to apply
+                                  position: faker?.position ?? '',
+                                  name: faker?.name ?? '',
+                                  manager: faker?.manager ?? '',
+                                  joinedDate: faker?.joinedDate ?? '',
+                                  status: 'Active', // or whatever status logic you'd want to apply
                                 });
                               }}
                             >
                               <Lucide
                                 icon="CheckSquare"
                                 className="w-4 h-4 mr-2"
-                              />{" "}
+                              />{' '}
                               Edit
                             </Menu.Item>
                             <Menu.Item
                               className="text-danger"
-                              onClick={() => openModal("Delete")}
+                              onClick={() => openModal('Delete')}
                             >
                               <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                               Delete
@@ -2362,7 +2362,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     </Table.Td>
                   </Table.Tr>
                 ))}
-              {title === "Designation" &&
+              {title === 'Designation' &&
                 _.take(data?.rows, 20).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
                     <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
@@ -2403,29 +2403,29 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                           <Menu.Items className="w-40">
                             <Menu.Item
                               onClick={() => {
-                                openModal("List");
+                                openModal('List');
                                 if (setStatus) {
-                                  setStatus("merchantVerification");
+                                  setStatus('merchantVerification');
                                 }
                                 setRoles({
                                   sno: fakerKey + 1, // or however you want to generate the serial number
-                                  position: faker?.position ?? "",
-                                  name: faker?.name ?? "",
-                                  manager: faker?.manager ?? "",
-                                  joinedDate: faker?.joinedDate ?? "",
-                                  status: "Active", // or whatever status logic you'd want to apply
+                                  position: faker?.position ?? '',
+                                  name: faker?.name ?? '',
+                                  manager: faker?.manager ?? '',
+                                  joinedDate: faker?.joinedDate ?? '',
+                                  status: 'Active', // or whatever status logic you'd want to apply
                                 });
                               }}
                             >
                               <Lucide
                                 icon="CheckSquare"
                                 className="w-4 h-4 mr-2"
-                              />{" "}
+                              />{' '}
                               Edit
                             </Menu.Item>
                             <Menu.Item
                               className="text-danger"
-                              onClick={() => openModal("Delete")}
+                              onClick={() => openModal('Delete')}
                             >
                               <Lucide icon="Trash2" className="w-4 h-4 mr-2" />
                               Delete
@@ -2439,7 +2439,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
             </Table.Tbody>
           </Table>
 
-          <CommonTable columns={[]} data={{rows: [], totalCount: 0}} />
+          <CommonTable columns={[]} data={{ rows: [], totalCount: 0 }} />
         </div>
         <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
           <Pagination className="flex-1 w-full sm:w-auto">

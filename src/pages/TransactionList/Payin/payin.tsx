@@ -1,19 +1,19 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import React, { useEffect, useRef, useState } from "react";
-import { Tab } from "@/components/Base/Headless";
-import AllPayIn from "./allPayin";
-import CompletedPayIn from "./completedPayin";
-import InProgressPayIn from "./inProgressPayin";
-import DroppedPayIn from "./droppedPayin";
-import Lucide from "@/components/Base/Lucide";
+import React, { useEffect, useRef, useState } from 'react';
+import { Tab } from '@/components/Base/Headless';
+import AllPayIn from './allPayin';
+import CompletedPayIn from './completedPayin';
+import InProgressPayIn from './inProgressPayin';
+import DroppedPayIn from './droppedPayin';
+import Lucide from '@/components/Base/Lucide';
 import Notification, {
   NotificationElement,
-} from "@/components/Base/Notification";
-import { getAllPayIns } from "@/redux-toolkit/slices/payin/payinAPI";
-import LoadingIcon from "@/components/Base/LoadingIcon";
-import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
-import { getPayIns } from "@/redux-toolkit/slices/payin/payinSlice";
-import { Status } from "@/constants";
+} from '@/components/Base/Notification';
+import { getAllPayIns } from '@/redux-toolkit/slices/payin/payinAPI';
+import LoadingIcon from '@/components/Base/LoadingIcon';
+import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
+import { getPayIns } from '@/redux-toolkit/slices/payin/payinSlice';
+import { Status } from '@/constants';
 
 interface PayInProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
@@ -22,11 +22,11 @@ interface PayInProps {
 
 const PayInComponent: React.FC<PayInProps> = ({ setStatus, setId }) => {
   const [params, setParams] = useState<{ [key: string]: string }>({
-    page: "1",
-    limit: "10",
+    page: '1',
+    limit: '10',
   });
-  const [notificationMessage, setNotificationMessage] = useState("");
-  const [notificationStatus, setNotificationStatus] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationStatus, setNotificationStatus] = useState('');
   // Basic non sticky notification
   const basicNonStickyNotification = useRef<NotificationElement>();
   const basicNonStickyNotificationToggle = () => {
@@ -50,7 +50,7 @@ const PayInComponent: React.FC<PayInProps> = ({ setStatus, setId }) => {
       dispatch(getPayIns(payload));
     } else {
       setNotificationStatus(Status.ERROR);
-      setNotificationMessage("No PayIns Found!");
+      setNotificationMessage('No PayIns Found!');
       basicNonStickyNotificationToggle();
     }
   };
