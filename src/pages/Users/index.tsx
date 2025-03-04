@@ -1,16 +1,14 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-unused-vars */
 import Lucide from "@/components/Base/Lucide";
 import {  FormInput } from "@/components/Base/Form";
 import _ from "lodash";
 import Modal from "../Modal/modal";
-import { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import CustomTable from "@/components/TableComponent";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
-// import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
 import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
 import { addUser, getUsers } from "@/redux-toolkit/slices/user/userSlice";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
 export interface User {
   id: string;
   sno: number;
@@ -25,20 +23,29 @@ export interface User {
 function Main() {
   const [newUserModal, setNewUserModal] = useState(false);
   const [editModal, setEditModal] = useState<string>("")
+  const [params, setParams] = React.useState<{ [key: string]: string }>({
+    page: "1",
+    limit: "10",
+  });
   const userRef = useRef(null);
   const userModal = () => {
     setNewUserModal(!newUserModal)
   }
 
   const dispatch = useAppDispatch();
-  
-  const fetchUsers = async () => {
-    const userList = await getAllUsers();
-    dispatch(getUsers(userList));
-  };
-  // const users = useAppSelector(selectAllUsers);
-  // console.log(users, "userss==")
+  const allUsers = useAppSelector(selectAllUsers);
+  console.log(allUsers)
 
+  const fetchUsers = useCallback(async () => {
+    const queryString = new URLSearchParams(params).toString();
+    const userList = await getAllUsers(queryString);
+    dispatch(getUsers(userList));
+  }, [dispatch, params]); 
+
+  useEffect(() => {
+    fetchUsers();
+  }, [JSON.stringify(params), fetchUsers]);
+  
   const tableHeaders = [
     "admin_name",
     "user_name",
@@ -55,7 +62,7 @@ function Main() {
     });
     dispatch(addUser(newUser));
   };
-  console.log(handleCreateUser)
+  console.log(handleCreateUser, "handleCreateUser")
   
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -147,14 +154,15 @@ function Main() {
             <div className="overflow-auto xl:overflow-visible">
               <CustomTable 
                 columns={tableHeaders} 
-                data={fetchUsers() as unknown as User[]} 
+                data={allUsers as unknown as User[]} 
                 title={"Users"} 
                 status={[]} 
                 setStatus={() => {}} 
-                setParams={() => {}}
+                params={params}
+                setParams={setParams}
                 approve={false} 
                 editModal={editModal}
-                 setEditModal={setEditModal}
+                setEditModal={setEditModal}
                 setApprove={() => {}} 
                 reject={false} 
                 setReject={() => {}} 
