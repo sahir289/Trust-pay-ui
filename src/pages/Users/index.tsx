@@ -148,9 +148,10 @@ function Main() {
               </div>
             </div>
             <div className="overflow-auto xl:overflow-visible">
+              // totalCount: 100 is a dummy data
               <CustomTables 
                 columns={tableHeaders} 
-                data={{rows: allUsers, totalCount: 0}}
+                data={{rows: allUsers, totalCount: 100}}
               />
             </div>
           </div>
