@@ -8,12 +8,24 @@ import Lucide, { icons } from '@/components/Base/Lucide';
 import { FormCheck, FormSwitch, FormSelect } from '@/components/Base/Form';
 import Tippy from '@/components/Base/Tippy';
 
-interface Column {
+// interface Column {
+//   label: string;
+//   key: string;
+//   type?: 'text' | 'image' | 'status' | 'checkbox' | 'expand' | 'toggle';
+// }
+interface Column  {
   label: string;
   key: string;
-  type?: 'text' | 'image' | 'status' | 'checkbox' | 'expand' | 'toggle';
-}
-
+  type?:
+  | 'status'
+  | 'image'
+  | 'text'
+  | 'checkbox'
+  | 'toggle'
+  | 'expand'
+  | 'actions'
+  | "percent";
+};
 interface CommonTableProps {
   columns: Column[];
   data: { rows: any[]; totalCount: number };
@@ -150,7 +162,10 @@ const CommonTable: React.FC<CommonTableProps> = ({
                     <FormCheck.Input type="checkbox" />
                   ) : col.type === 'toggle' ? (
                     <FormSwitch className=" dark:border-red-500 rounded-lg">
-                      <FormSwitch.Label htmlFor="show-example-1 " className="ml-0 ">
+                      <FormSwitch.Label
+                        htmlFor="show-example-1 "
+                        className="ml-0 "
+                      >
                         <FormSwitch.Input
                           id="show-example-1"
                           className="ml-0 mr-0 border-2 border-slate-300"
@@ -158,6 +173,19 @@ const CommonTable: React.FC<CommonTableProps> = ({
                         />
                       </FormSwitch.Label>
                     </FormSwitch>
+                  ) : col.type === 'percent' ? (
+                    <div className="flex items-center gap-2 w-full">
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={row[col.key] || 0} 
+                        className="w-full cursor-pointer accent-primary"
+                      />
+                      <span className="text-xs text-slate-500">
+                        {row[col.key] || 0}%
+                      </span>{' '}
+                    </div>
                   ) : expandable && col.type === 'expand' ? (
                     <div
                       className="cursor-pointer"
@@ -177,7 +205,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
           ))}
         </Table.Tbody>
       </Table>
-      
+
       {/* Pagination UI */}
       <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
         <Pagination className="flex-1 w-full sm:w-auto">
@@ -198,7 +226,9 @@ const CommonTable: React.FC<CommonTableProps> = ({
           {renderPaginationLinks()}
 
           <Pagination.Link
-            onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
+            onClick={() =>
+              currentPage < totalPages && handlePageChange(currentPage + 1)
+            }
             active={currentPage === totalPages}
           >
             <Lucide icon="ChevronRight" className="w-4 h-4" />

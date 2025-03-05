@@ -1932,7 +1932,6 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                               </>
                             )}
                           </Menu.Button>
-
                           {faker?.status === 'Initiated' ? (
                             <Menu.Items className="w-40">
                               <Menu.Item
