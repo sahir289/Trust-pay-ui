@@ -113,9 +113,7 @@ function Main() {
             );
 
             // ✅ Emit user-login event to server
-            socket.emit('user-login', {
-              userId: userData?.user_id,
-            });
+            socket.emit('user-login', userData?.user_id);
 
             navigate('auth/dashboard');
           } else {
