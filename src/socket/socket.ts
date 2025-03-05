@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:8090", {
+const socket = io("http://localhost:8090/v1", {
   autoConnect: false, // Avoids auto-reconnection issues
   transports: ["websocket"], // Forces WebSocket transport
 });
