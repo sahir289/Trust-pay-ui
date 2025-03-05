@@ -175,7 +175,7 @@ function Main() {
             <div className="overflow-auto xl:overflow-visible">
               <CustomTable
                 columns={tableHeaders} 
-                data={{rows: allUsers, totalCount: 0}}
+                data={{rows: allUsers, totalCount: 100}}
               />
             </div>
           </div>
