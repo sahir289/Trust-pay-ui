@@ -8,12 +8,13 @@ import colorSchemeReducer from "../slices/common/colorScheme/colorSchemeSlice";
 import sideMenuReducer from "../slices/common/sideMenu/sideMenuSlice";
 import compactMenuReducer from "../slices/common/compactMenu/compactMenuSlice";
 import pageLoaderReducer from "../slices/common/pageLoader/pageLoaderSlice";
-
+import merchantReducer from "../slices/merchants/merchantSlice"
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
   payin: payInReducer,
   theme: themeReducer,
+  merchant: merchantReducer,
   darkMode: darkModeReducer,
   colorScheme: colorSchemeReducer,
   sideMenu: sideMenuReducer,

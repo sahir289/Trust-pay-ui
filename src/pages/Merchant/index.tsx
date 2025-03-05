@@ -8,6 +8,13 @@ import { JSX } from "react";
 import { useRef, useState } from "react";
 import Modal from "../Modal/modal";
 import CustomTable from "@/components/TableComponent";
+import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { useEffect } from "react";
+import { useCallback } from "react";
+import { selectAllMerchants } from "@/redux-toolkit/slices/merchants/merchantSelector";
+import { getMerchants } from "@/redux-toolkit/slices/merchants/merchantSlice";
+import { getAllMerchants } from "@/redux-toolkit/slices/merchants/merchantAPI";
 
 export interface Merchant {
     name: string;
@@ -38,7 +45,20 @@ function Main(): JSX.Element {
     const handleRowClick = (fakerKey: number): void => {
         setExpandedRow((prevRow) => (prevRow === fakerKey ? null : fakerKey));
     };
+  const dispatch = useAppDispatch();
+    const allMerchants = useAppSelector(selectAllMerchants);
+    console.log(allMerchants,"merchants data")
+  const fetchMerchants = useCallback(async () => {
+    // tempory disabled this functionality
+    // const queryString = new URLSearchParams(params).toString();
+    const userList = await getAllMerchants("");
+    dispatch(getMerchants(userList));
+  }, [dispatch]); 
 
+  useEffect(() => {
+    fetchMerchants();
+  }, [fetchMerchants]);
+  
     const tableHeaders: string[] = [
         "Sub Merchants",
         "Code",
@@ -51,6 +71,26 @@ function Main(): JSX.Element {
         "Allow Intent",
         "Actions",
     ];
+    //  const tableHeaders = [
+    //    { label: 'Sub Merchants', key: 'sub_merchants', type: 'text' as const },
+    //    { label: 'Code', key: 'code', type: 'text' as const },
+    //    { label: 'Balance', key: 'balance', type: 'text' as const },
+    //    { label: 'PayIn Range', key: 'payin_range', type: 'text' as const },
+    //    {
+    //      label: 'PayIn Commission',
+    //      key: 'payin_commission',
+    //      type: 'text' as const,
+    //    },
+    //    { label: 'PayOut Range', key: 'payout_range', type: 'text' as const },
+    //    {
+    //      label: 'PayOut Commission',
+    //      key: 'payout_commission',
+    //      type: 'text' as const,
+    //    },
+    //    { label: 'Test Mode', key: 'test_mode', type: 'toggle' as const },
+    //    { label: 'Allow Intent', key: 'allow_intent', type: 'toggle' as const },
+    //    { label: 'Actions', key: 'actions', type: 'actions' as const },
+    //  ];
     return (
         <div className="grid grid-cols-12 gap-y-10 gap-x-6">
             <div className="col-span-12">
