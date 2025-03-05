@@ -13,7 +13,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
     // Listen for a message to delete local storage items
     socket.on('forceLogout', () => {
-        console.log("Socket called")
+      console.log('Socket called');
       logout();
     });
 
