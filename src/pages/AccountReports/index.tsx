@@ -1,5 +1,3 @@
-/* eslint-disable no-empty-pattern */
-/* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import users from "@/fakers/users";
@@ -7,77 +5,22 @@ import Button from "@/components/Base/Button";
 import Table from "@/components/Base/Table";
 import _ from "lodash";
 import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
-import { ReactNode, useEffect, useState } from "react";
+import { useState } from "react";
 import { Menu, Popover } from "@/components/Base/Headless";
-// import TomSelect from "@/components/Base/TomSelect";
+import Pagination from "@/components/Base/Pagination";
+import fakeReportAccount from "@/fakers/accountreports";
 
-import React from "react";
-import { getApi } from "@/redux-toolkit/api";
-// import { getApi } from "@/stores/api";
-type User = {
-  id: string | null;
-  upi_id: ReactNode;
-  upi_params: ReactNode;
-  acc_no: ReactNode;
-  ifsc: ReactNode;
-  bank_name: ReactNode;
-  is_qr: any;
-  is_bank: any;
-  min_payin: ReactNode;
-  is_enabled: any;
-  payin_count: ReactNode;
-  balance: ReactNode;
-  today_balance: ReactNode;
-  bank_used_for: ReactNode;
-  updated_by: string | null;
-};
-
-function VendorAccountReports() {
+function AccountReports() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [reportData, setReportData] = useState<User[]>([]);
-  const [params, setParams] = React.useState<{ [key: string]: string }>({});
-  const [vendorCode, setVendorCode] = useState('')
-
-  // const [selectedUser, setSelectedUser] = useState("1");
-  useEffect(() => {
-    async function fetchReports() {
-      try {
-        if (!params) {
-          setParams({
-            page: "1",
-            limit: "10",
-          });
-        }
-        const response = await getApi("/reports/get-vendors-reports", params, true);
-        if (response.data && response.data.data && Array.isArray(response.data.data)) {
-          setReportData(response.data.data);
-        } else {
-          setReportData([]);
-        }
-      } catch (error) {
-        console.error("Error fetching report data:", error);
-        setReportData([]);
-      }
-    }
-
-    fetchReports();
-  }, [params]);
-
-  const handleVendorCode = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-    setVendorCode(e.target.value)
-  }
-  async function getVendor() {
-    const response = await getApi(`/reports/get-vendors-reports?code=${vendorCode}`, {}, true);
-    console.log(response, "response12")
-  }
 
   return (
+
     <>
       <div className="col-span-12">
         <div className="flex flex-col md:h-10 mt-4 gap-y-3 md:items-center md:flex-row mx-6">
           <div className="text-base text-xl font-medium group-[.mode--light]:text-white">
-            Vendor Account Reports
+            Merchant Account Reports
           </div>
           <div className="flex flex-col sm:flex-row gap-y-2 md:ml-auto">
             <Button
@@ -92,19 +35,17 @@ function VendorAccountReports() {
             </Button>
           </div>
         </div>
-        <div className="flex w-full flex-row py-10 sm:px-6 ">
+        <div className="flex w-full flex-row py-10 sm:px-6">
           <div className="flex w-full flex-row gap-y-7 md:flex-row px-4 sm:px-2 py-2 sm:py-2  rounded-lg">
             <div className="p-5 w-full flex flex-row mt-3.5 box box--stacked justify-between">
               <div className="mr-2">
-                <label className="my-4 px-2">Vendor Codes</label>
+                <label className="my-4 px-2">Merchant Codes</label>
                 <FormInput
                   type="text"
-                  placeholder="Vendor Codes"
+                  placeholder="Merchant Codes"
                   className="py-3 mt-3 mx-1 h-13"
-                  onChange={handleVendorCode}
-                  value={vendorCode}
                 />
-              </div>
+                </div>
               <div className="flex gap-3 mt-3 mx-1">
                 <input
                   type="date"
@@ -126,7 +67,6 @@ function VendorAccountReports() {
                     rounded
                     variant="primary"
                     className="px-4 w-35 my-2 border-primary/50 rounded-lg"
-                    onClick={getVendor}
                   >
                     Download Now
                   </Button>
@@ -136,14 +76,10 @@ function VendorAccountReports() {
           </div>
         </div>
       </div>
-
-
-
-
-      <div className="grid grid-cols-12 gap-y-10 gap-x-6  border-2 border-slate-600 rounded-lg">
+      <div className="grid grid-cols-12 gap-y-10 gap-x-6">
         <div className="col-span-12">
           <div className="mt-3.5">
-            <div className="flex flex-col ">
+            <div className="flex flex-col  border-2 border-slate-600 rounded-lg">
               <div className="flex flex-col py-5 sm:items-center sm:flex-row gap-y-2 mx-6">
                 <div>
                   <div className="relative">
@@ -161,8 +97,9 @@ function VendorAccountReports() {
                 <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 sm:ml-auto ">
 
                   <Popover className="inline-block">
-                    {({ }) => (
+                    {({ close }: { close: () => void }) => (
                       <>
+
                         <Popover.Panel placement="bottom-end">
                           <div className="p-2">
                             <div>
@@ -204,7 +141,7 @@ function VendorAccountReports() {
                   </Popover>
                 </div>
               </div>
-              <div className="overflow-auto mx-4">
+              <div className="overflow-auto mx-4 ">
                 <Table className="border border-slate-200/60 rounded-md">
                   <Table.Thead>
                     <Table.Tr>
@@ -212,49 +149,49 @@ function VendorAccountReports() {
                         <FormCheck.Input type="checkbox" />
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        ID
+                        Date
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        UPI ID
+                        Vendor Code
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        UPI Params
+                        Pay-In Count
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Account No
+                        Pay-In Amount
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        IFSC
+                        Pay-In Commission
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Bank Name
+                        Pay-Out Count
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        QR Enabled
+                        Pay-Out Amount
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Bank Enabled
+                        Pay-Out Commission
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Min Payin
+                        Reversed Pay-Out
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Status
+                        Reversed Pay-Out Amount
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Payin Count
+                        Reversed Pay-Out Commission
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Balance
+                        Settlement Count
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Today’s Balance
+                        Settlement Amount
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Bank Used For
+                        Current Balance
                       </Table.Td>
                       <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Updated By
+                        Net Balance
                       </Table.Td>
                       <Table.Td className="py-4 font-medium text-center border-t w-36 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
                         Action
@@ -262,83 +199,101 @@ function VendorAccountReports() {
                     </Table.Tr>
                   </Table.Thead>
 
-
                   <Table.Tbody>
-                    {reportData.map((user, userKey) => (
-                      <Table.Tr key={userKey} className="[&_td]:last:border-b-0">
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <FormCheck.Input type="checkbox" />
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.id}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.upi_id}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.upi_params}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.acc_no}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.ifsc}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.bank_name}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.is_qr ? "Yes" : "No"}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.is_bank ? "Yes" : "No"}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.min_payin}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.is_enabled ? "Enabled" : "Disabled"}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.payin_count}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.balance}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.today_balance}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.bank_used_for}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.updated_by}</span>
-                        </Table.Td>
-                        <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                          <div className="flex items-center justify-center">
-                            <Menu className="h-5">
-                              <Menu.Button className="w-5 h-5 text-slate-500">
-                                <Lucide icon="MoreVertical" className="w-5 h-5" />
-                              </Menu.Button>
-                              <Menu.Items className="w-40">
-                                <Menu.Item>
-                                  <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
-                                </Menu.Item>
-                                <Menu.Item className="text-danger">
-                                  <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
-                                </Menu.Item>
-                              </Menu.Items>
-                            </Menu>
-                          </div>
-                        </Table.Td>
-                      </Table.Tr>
-                    ))}
+                    {_.take(fakeReportAccount.fakeAccountReport(), 10).map(
+                      (faker, fakerKey) => (
+                        <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <FormCheck.Input type="checkbox" />
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.date}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.vendorCode}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.payInCount}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.payInAmount}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.payInCommission}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.payOutCount}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.payOutAmount}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.payOutCommission}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.reversedPayOut}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.reversedPayOutAmount}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.reversedPayOutCommission}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.settlementCount}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.settlementAmount}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.currentBalance}</span>
+                          </Table.Td>
+                          <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                            <span className="whitespace-nowrap">{faker.netBalance}</span>
+                          </Table.Td>
+                          <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
+                            <div className="flex items-center justify-center">
+                              <Menu className="h-5">
+                                <Menu.Button className="w-5 h-5 text-slate-500">
+                                  <Lucide icon="MoreVertical" className="w-5 h-5" />
+                                </Menu.Button>
+                                <Menu.Items className="w-40">
+                                  <Menu.Item>
+                                    <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
+                                  </Menu.Item>
+                                  <Menu.Item className="text-danger">
+                                    <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
+                                  </Menu.Item>
+                                </Menu.Items>
+                              </Menu>
+                            </div>
+                          </Table.Td>
+                        </Table.Tr>
+                      )
+                    )}
                   </Table.Tbody>
-
                 </Table>
               </div>
               <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
-
+                <Pagination className="flex-1 w-full mr-auto sm:w-auto">
+                  <Pagination.Link>
+                    <Lucide icon="ChevronsLeft" className="w-4 h-4" />
+                  </Pagination.Link>
+                  <Pagination.Link>
+                    <Lucide icon="ChevronLeft" className="w-4 h-4" />
+                  </Pagination.Link>
+                  <Pagination.Link>...</Pagination.Link>
+                  <Pagination.Link>1</Pagination.Link>
+                  <Pagination.Link active>2</Pagination.Link>
+                  <Pagination.Link>3</Pagination.Link>
+                  <Pagination.Link>...</Pagination.Link>
+                  <Pagination.Link>
+                    <Lucide icon="ChevronRight" className="w-4 h-4" />
+                  </Pagination.Link>
+                  <Pagination.Link>
+                    <Lucide icon="ChevronsRight" className="w-4 h-4" />
+                  </Pagination.Link>
+                </Pagination>
                 <FormSelect className="sm:w-20 rounded-[0.5rem]">
                   <option>10</option>
                   <option>25</option>
@@ -353,4 +308,4 @@ function VendorAccountReports() {
   );
 }
 
-export default VendorAccountReports;
+export default AccountReports;

@@ -1,25 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
-import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover } from "@/components/Base/Headless";
-import { FormInput, FormSelect } from "@/components/Base/Form";
-import users from "@/fakers/users";
-import CustomTable from "../../../components/TableComponent";
-import transactionStatus from "@/fakers/transaction-status";
-import Button from "@/components/Base/Button";
-import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
-import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
-import { Columns, Status } from "@/constants";
+import React from 'react';
+import Lucide from '@/components/Base/Lucide';
+import { Menu, Popover } from '@/components/Base/Headless';
+import { FormInput, FormSelect } from '@/components/Base/Form';
+import users from '@/fakers/users';
+import CustomTable from '../../../components/TableComponent';
+import transactionStatus from '@/fakers/transaction-status';
+import Button from '@/components/Base/Button';
+import { Columns, Status } from '@/constants';
 
-interface PayinProps {
+interface PayInProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   setId: React.Dispatch<React.SetStateAction<string>>;
   setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   params: Record<string, any>;
 }
 
-const CompletedPayin: React.FC<PayinProps> = ({
+const CompletedPayIn: React.FC<PayInProps> = ({
   setStatus,
   setId,
   params,
@@ -28,11 +25,9 @@ const CompletedPayin: React.FC<PayinProps> = ({
   const statusArray: string[] = [Status.SUCCESS];
   const theadData: string[] = [...Columns.PAYIN]; // Ensure it's a mutable array
   const indexToInsert = 3; // Change this to the desired index
-  const newElement = "Commission";
+  const newElement = 'Commission';
 
   theadData.splice(indexToInsert, 0, newElement);
-
-  const payins = useAppSelector(getAllPayinData);
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -48,7 +43,7 @@ const CompletedPayin: React.FC<PayinProps> = ({
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search Payins..."
+                    placeholder="Search PayIns..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>
@@ -72,7 +67,7 @@ const CompletedPayin: React.FC<PayinProps> = ({
                   </Menu.Button>
                   <Menu.Items className="w-40">
                     <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{" "}
+                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{' '}
                       PDF
                     </Menu.Item>
                     <Menu.Item>
@@ -149,15 +144,10 @@ const CompletedPayin: React.FC<PayinProps> = ({
               setStatus={setStatus}
               setId={setId}
               columns={theadData}
-              data={payins as Payin[]}
-              title={"Payins"}
+              title={'PayIns'}
               status={statusArray}
               params={params}
               setParams={setParams}
-              approve={false}
-              setApprove={() => {}}
-              reject={false}
-              setReject={() => {}}
             />
           </div>
         </div>
@@ -166,4 +156,4 @@ const CompletedPayin: React.FC<PayinProps> = ({
   );
 };
 
-export default CompletedPayin;
+export default CompletedPayIn;

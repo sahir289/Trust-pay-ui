@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import Lucide from "@/components/Base/Lucide";
 import { FormInput } from "@/components/Base/Form";
-import bankaccounts from "@/fakers/bankaccount";
+// import bankaccounts from "@/fakers/bankaccount";
 import Modal from "../Modal/modal";
 import { useState, useRef, JSX } from "react";
 import CustomTable from "@/components/TableComponent";
@@ -139,7 +139,7 @@ function Main(): JSX.Element {
             </div>
             <CustomTable 
               columns={tableHeaders} 
-              data={bankaccounts.fakeBankAccounts() as BankAccount[]} 
+              // data={bankaccounts.fakeBankAccounts() as BankAccount[]} 
               title={"Bankaccounts"} 
               status={[]} 
               setEditModal={setEditModal}

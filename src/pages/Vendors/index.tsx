@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import { FormInput,} from "@/components/Base/Form";
-import users from "@/fakers/users";
+// import users from "@/fakers/users";
 import Modal from "../Modal/modal";
 import CustomTable from "@/components/TableComponent";
 import { useState,useRef } from "react";
@@ -123,7 +123,7 @@ function Main() {
             <div className="overflow-auto xl:overflow-visible">
                 <CustomTable 
                   columns={tableHeaders} 
-                  data={users.fakeUsers() as unknown as User[]} 
+                  // data={users.fakeUsers() as unknown as User[]} 
                   title={"Vendors"} 
                   status={[""]}
                   editModal={editModal}

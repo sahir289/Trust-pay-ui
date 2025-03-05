@@ -2,7 +2,6 @@
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import {  FormInput, FormSelect } from "@/components/Base/Form";
-import transactions from "@/fakers/transactions";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
@@ -139,7 +138,7 @@ function CheckUtrHistory() {
             </div>
             <CustomTable 
               columns={transactionTableHeaders}  
-              data={transactions.fakeTransactions() as Transaction[]}  
+              // data={transactions.fakeTransactions() as Transaction[]}  
               title={"Reset Entry"} 
               status={[""]}
               setParams={() => {}}

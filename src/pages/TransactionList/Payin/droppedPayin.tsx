@@ -1,28 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from "react";
-import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover } from "@/components/Base/Headless";
-import { FormInput, FormSelect } from "@/components/Base/Form";
-import users from "@/fakers/users";
-import transactionStatus from "@/fakers/transaction-status";
-import Button from "@/components/Base/Button";
-import CustomTable from "../../../components/TableComponent";
-import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-import { getAllPayinData } from "@/redux-toolkit/slices/payin/payinSelectors";
-import { Payin } from "@/redux-toolkit/slices/payin/payinTypes";
-import { Columns, Status } from "@/constants";
+import React from 'react';
+import Lucide from '@/components/Base/Lucide';
+import { Menu, Popover } from '@/components/Base/Headless';
+import { FormInput, FormSelect } from '@/components/Base/Form';
+import users from '@/fakers/users';
+import transactionStatus from '@/fakers/transaction-status';
+import Button from '@/components/Base/Button';
+import CustomTable from '../../../components/TableComponent';
+import { Columns, Status } from '@/constants';
 
-interface PayinProps {
+interface PayInProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   setId: React.Dispatch<React.SetStateAction<string>>;
   setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   params: Record<string, any>;
 }
 
-const DroppedPayin: React.FC<PayinProps> = ({setStatus, setId, params, setParams}) => {
+const DroppedPayIn: React.FC<PayInProps> = ({
+  setStatus,
+  setId,
+  params,
+  setParams,
+}) => {
   const statusArray: string[] = [Status.DROPPED, Status.FAILED];
-
-  const payins = useAppSelector(getAllPayinData);
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -38,7 +38,7 @@ const DroppedPayin: React.FC<PayinProps> = ({setStatus, setId, params, setParams
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search Payins..."
+                    placeholder="Search PayIns..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>
@@ -62,7 +62,7 @@ const DroppedPayin: React.FC<PayinProps> = ({setStatus, setId, params, setParams
                   </Menu.Button>
                   <Menu.Items className="w-40">
                     <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{" "}
+                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{' '}
                       PDF
                     </Menu.Item>
                     <Menu.Item>
@@ -136,25 +136,20 @@ const DroppedPayin: React.FC<PayinProps> = ({setStatus, setId, params, setParams
               </div>
             </div>
 
-            <CustomTable 
+            <CustomTable
               setStatus={setStatus}
               setId={setId}
               columns={Columns.PAYIN}
-              data={payins as Payin[]} 
-              title={"Payins"} 
-              status={statusArray} 
+              title={'PayIns'}
+              status={statusArray}
               params={params}
               setParams={setParams}
-              approve={false} 
-              setApprove={() => {}} 
-              reject={false} 
-              setReject={() => {}} 
             />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default DroppedPayin;
+export default DroppedPayIn;

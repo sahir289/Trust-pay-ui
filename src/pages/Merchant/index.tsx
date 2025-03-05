@@ -236,7 +236,7 @@ function Main(): JSX.Element {
                         </div>
                         <CustomTable 
                             columns={tableHeaders}
-                            data={merchants.fakeMerchants() as Merchant[]} 
+                            // data={merchants.fakeMerchants() as Merchant[]} 
                             approve={false} 
                             setApprove={() => { }} 
                             reject={false} 

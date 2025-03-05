@@ -1,46 +1,51 @@
-import Lucide from "@/components/Base/Lucide";
-import { Menu, Popover } from "@/components/Base/Headless";
+import Lucide from '@/components/Base/Lucide';
+import { Menu, Popover } from '@/components/Base/Headless';
 // import TomSelect from "@/components/Base/TomSelect";
-import { FormInput, FormSelect } from "@/components/Base/Form";
-import users from "@/fakers/users";
-import transactionStatus from "@/fakers/transaction-status";
-import Button from "@/components/Base/Button";
-import React from "react";
-import payouts from "@/fakers/payouts";
-import CustomTable from "../../../components/TableComponent";
+import { FormInput, FormSelect } from '@/components/Base/Form';
+import users from '@/fakers/users';
+import transactionStatus from '@/fakers/transaction-status';
+import Button from '@/components/Base/Button';
+import React from 'react';
+// import payouts from "@/fakers/payouts";
+import CustomTable from '../../../components/TableComponent';
 
-interface PayinProps {
+interface PayInProps {
   reject: boolean; // Expecting a boolean prop to control modal reset
   setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
   approve: boolean; // Expecting a boolean prop to control modal reset
-  setApprove: React.Dispatch<React.SetStateAction<boolean>>
+  setApprove: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-interface Payout {
-  method: string;
-  id: string;
-  updated_at: string;
-  sno: number;
-  code: string;
-  amount: string;
-  status: string;
-  merchant_order_id: string;
-  merchant_code: string;
-  photo: string;
-  name: string;
-  user: string;
-  utr: string;
-}
+// interface PayOut {
+//   method: string;
+//   id: string;
+//   updated_at: string;
+//   sno: number;
+//   code: string;
+//   amount: string;
+//   status: string;
+//   merchant_order_id: string;
+//   merchant_code: string;
+//   photo: string;
+//   name: string;
+//   user: string;
+//   utr: string;
+// }
 
-const InProgressPayout: React.FC<PayinProps> = ({ approve, setApprove, reject, setReject }) => {
+const InProgressPayOut: React.FC<PayInProps> = ({
+  approve,
+  setApprove,
+  reject,
+  setReject,
+}) => {
   const tableHeaders = [
-    "SNO.",
-    "Amount",
-    "Status",
-    "Merchant",
-    "Vendor",
-    "Bank Details",
-    "Action",
+    'SNO.',
+    'Amount',
+    'Status',
+    'Merchant',
+    'Vendor',
+    'Bank Details',
+    'Action',
   ];
 
   return (
@@ -57,7 +62,7 @@ const InProgressPayout: React.FC<PayinProps> = ({ approve, setApprove, reject, s
                   />
                   <FormInput
                     type="text"
-                    placeholder="Search Payouts..."
+                    placeholder="Search PayOuts..."
                     className="pl-9 sm:w-64 rounded-[0.5rem]"
                   />
                 </div>
@@ -81,7 +86,7 @@ const InProgressPayout: React.FC<PayinProps> = ({ approve, setApprove, reject, s
                   </Menu.Button>
                   <Menu.Items className="w-40">
                     <Menu.Item>
-                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{" "}
+                      <Lucide icon="FileBarChart" className="w-4 h-4 mr-2" />{' '}
                       PDF
                     </Menu.Item>
                     <Menu.Item>
@@ -154,12 +159,23 @@ const InProgressPayout: React.FC<PayinProps> = ({ approve, setApprove, reject, s
                 </Popover>
               </div>
             </div>
-            <CustomTable approve={approve} setApprove={setApprove} reject={reject} setReject={setReject} setStatus={() => { }} setParams={() => {}} columns={tableHeaders} data={payouts.fakePayouts() as unknown as Payout[]} title={"Payouts"} status={["Initiated"]} />
+            <CustomTable
+              approve={approve}
+              setApprove={setApprove}
+              reject={reject}
+              setReject={setReject}
+              setStatus={() => {}}
+              setParams={() => {}}
+              columns={tableHeaders}
+              // data={payouts.fakePayOuts() as unknown as PayOut[]}
+              title={'PayOuts'}
+              status={['Initiated']}
+            />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default InProgressPayout;
+export default InProgressPayOut;

@@ -7,7 +7,7 @@ import { Dialog } from '@/components/Base/Headless';
 import Button from "@/components/Base/Button";
 import Lucide from "@/components/Base/Lucide";
 import React from "react";
-import { getPayinById } from "@/redux-toolkit/slices/payin/payinSelectors";
+import { getPayInById } from "@/redux-toolkit/slices/payin/payinSelectors";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 
 interface ModalProps {
@@ -20,7 +20,7 @@ interface ModalProps {
 
 const ModalTransactionDetails: React.FC<ModalProps> = ({ handleModal, transaction, id, type }) => {
     if (type === "PAYIN") {
-        transaction = useAppSelector(getPayinById(id ?? ''));
+        transaction = useAppSelector(getPayInById(id ?? ''));
     }
     
     return (

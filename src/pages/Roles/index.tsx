@@ -1,17 +1,17 @@
 import Lucide from "@/components/Base/Lucide";
 import { JSX } from "react";
 import { FormInput } from "@/components/Base/Form";
-import users from "@/fakers/users";
+// import users from "@/fakers/users";
 
-interface TableData {
-  sno: number;
-  role: string;
-  created_by: string;
-  created_at: string;
-  updated_at: string;
-  action: string;
-  id: string;
-}
+// interface TableData {
+//   sno: number;
+//   role: string;
+//   created_by: string;
+//   created_at: string;
+//   updated_at: string;
+//   action: string;
+//   id: string;
+// }
 import Modal from "../Modal/modal";
 import { useState,useRef } from "react";
 import CustomTable from "@/components/TableComponent";
@@ -67,7 +67,7 @@ function Main(): JSX.Element {
             </div>
               <CustomTable 
                 columns={tableHeaders} 
-                data={users.fakeUsers() as unknown as TableData[]} 
+                // data={users.fakeUsers() as unknown as TableData[]} 
                 title={"Roles"} 
                 setEditModal={setEditModal}
                 editModal={editModal as string}
