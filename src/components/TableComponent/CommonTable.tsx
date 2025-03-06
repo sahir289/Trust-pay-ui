@@ -8,12 +8,6 @@ import Lucide, { icons } from '@/components/Base/Lucide';
 import { FormCheck, FormSwitch, FormSelect } from '@/components/Base/Form';
 import Tippy from '@/components/Base/Tippy';
 
-// interface Column {
-//   label: string;
-//   key: string;
-//   type?: 'text' | 'image' | 'status' | 'checkbox' | 'expand' | 'toggle';
-// }
-
 interface Column  {
   label: string;
   key: string;
