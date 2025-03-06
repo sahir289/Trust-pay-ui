@@ -24,9 +24,11 @@ import SwitchAccount from "@/components/SwitchAccount";
 import NotificationsPanel from "@/components/NotificationsPanel";
 import ActivitiesPanel from "@/components/ActivitiesPanel";
 import { postApi } from "@/redux-toolkit/api";
+import { useAuth } from "@/components/context/AuthContext";
 
 function Main() {
   const dispatch = useAppDispatch();
+  const { setToken } = useAuth()
   const compactMenu = useAppSelector(selectCompactMenu);
   const setCompactMenu = (val: boolean) => {
     localStorage.setItem("compactMenu", val.toString());
@@ -87,6 +89,7 @@ function Main() {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("userData");
       sessionStorage.removeItem("userSession");
+      setToken(null);
       navigate("/");
     }
   };

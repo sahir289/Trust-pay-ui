@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 interface ProtectedRouteProps {
@@ -7,13 +6,22 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute = ({ allowedRoles }: ProtectedRouteProps) => {
-  const { userRole } = useAuth();
+  const { userRole, token } = useAuth();
+  const location = useLocation();
 
-  if (!userRole) {
-    return <Navigate to="/" replace />;
+  // ** Redirect to login if not authenticated **
+  if (!token) {
+    return <Navigate to="/" state={{ from: location }} replace />;
   }
 
-  return allowedRoles.includes(userRole) ? <Outlet /> : <Navigate to="/unauthorized" replace />;
+  // ** Redirect to unauthorized page if the user doesn't have the required role **
+  if (userRole && !allowedRoles.includes(userRole)) {
+    return <Navigate to="/unauthorized" state={{ from: location }} replace />;
+  }
+
+  // ** If the user has access, render the protected component **
+  return <Outlet />;
 };
 
 export default ProtectedRoute;
+
