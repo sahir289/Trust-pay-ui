@@ -134,7 +134,7 @@ const AllPayIn: React.FC<PayInProps> = () => {
             </div>
             <CustomTable
               columns={Columns.PAYIN}
-              data={{rows: payins.payin, totalCount: payins.totalCount}}
+              data={{ rows: payins.payin, totalCount: payins.totalCount }}
             />
           </div>
         </div>

@@ -7,7 +7,7 @@ import users from '@/fakers/users';
 import transactionStatus from '@/fakers/transaction-status';
 import Button from '@/components/Base/Button';
 import CustomTable from '../../../components/TableComponent/CommonTable';
-import { Columns } from '@/constants';
+import { Columns, Status } from '@/constants';
 import { getAllPayInData } from '@/redux-toolkit/slices/payin/payinSelectors';
 import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 interface PayInProps {
@@ -19,15 +19,6 @@ interface PayInProps {
 
 const InProgressPayIn: React.FC<PayInProps> = () => {
   const payins = useAppSelector(getAllPayInData);
-  // const statusArray: string[] = [
-  //   Status.PENDING,
-  //   Status.DUPLICATE,
-  //   Status.DISPUTE,
-  //   Status.BANK_MISMATCH,
-  //   Status.IMAGE_PENDING,
-  //   Status.ASSIGNED,
-  //   Status.INITIATED,
-  // ];
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -143,7 +134,20 @@ const InProgressPayIn: React.FC<PayInProps> = () => {
 
             <CustomTable
               columns={Columns.PAYIN}
-              data={{ rows: payins.payin, totalCount: payins.totalCount }}
+              data={{
+                rows: payins.payin.filter((payin) =>
+                  [
+                    Status.PENDING,
+                    Status.DUPLICATE,
+                    Status.DISPUTE,
+                    Status.BANK_MISMATCH,
+                    Status.IMAGE_PENDING,
+                    Status.ASSIGNED,
+                    Status.INITIATED,
+                  ].includes(payin?.status),
+                ),
+                totalCount: payins.totalCount,
+              }}
             />
           </div>
         </div>

@@ -23,9 +23,13 @@ const CompletedPayIn: React.FC<PayInProps> = () => {
   // const statusArray: string[] = [Status.SUCCESS];
   const theadData = [...Columns.PAYIN]; // Ensure it's a mutable array
   const indexToInsert = 3; // Desired index
-  const newElement = { label: "Commission", key: "commission", type: "text" as const };
-  
-  theadData.splice(indexToInsert, 0, newElement);  
+  const newElement = {
+    label: 'Commission',
+    key: 'commission',
+    type: 'text' as const,
+  };
+
+  theadData.splice(indexToInsert, 0, newElement);
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -141,7 +145,12 @@ const CompletedPayIn: React.FC<PayInProps> = () => {
 
             <CustomTable
               columns={Columns.PAYIN}
-              data={{ rows: payins.payin.filter((payin) => payin.status === Status.SUCCESS), totalCount: payins.totalCount }}
+              data={{
+                rows: payins.payin.filter(
+                  (payin) => payin.status === Status.SUCCESS,
+                ),
+                totalCount: payins.totalCount,
+              }}
             />
           </div>
         </div>

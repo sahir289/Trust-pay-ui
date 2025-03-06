@@ -97,7 +97,7 @@ function Main() {
                   <PayInComponent setStatus={setStatus} setId={setId} />
                 </Tab.Panel>
                 <Tab.Panel className="p-5">
-                  <PayOut setModalData={setModalData} />
+                  <PayOut />
                 </Tab.Panel>
               </Tab.Panels>
             </Tab.Group>

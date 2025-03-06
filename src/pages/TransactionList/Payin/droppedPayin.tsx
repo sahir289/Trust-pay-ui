@@ -7,7 +7,7 @@ import users from '@/fakers/users';
 import transactionStatus from '@/fakers/transaction-status';
 import Button from '@/components/Base/Button';
 import CustomTable from '../../../components/TableComponent/CommonTable';
-import { Columns } from '@/constants';
+import { Columns, Status } from '@/constants';
 import { getAllPayInData } from '@/redux-toolkit/slices/payin/payinSelectors';
 import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 
@@ -136,7 +136,12 @@ const DroppedPayIn: React.FC<PayInProps> = () => {
 
             <CustomTable
               columns={Columns.PAYIN}
-              data={{rows: payins.payin, totalCount: payins.totalCount}}
+              data={{
+                rows: payins.payin.filter((payin) =>
+                  [Status.DROPPED, Status.FAILED].includes(payin?.status),
+                ),
+                totalCount: payins.totalCount,
+              }}
             />
           </div>
         </div>
