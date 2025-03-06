@@ -21,90 +21,22 @@ const Users: React.FC = () => {
     email: true,
   };
 
-  const formFields = {
-    User_Details: [
-      {
-        name: 'first_name',
-        label: 'First Name',
-        type: 'text',
-        placeholder: 'Enter First Name',
-        validation: yup.string().required('First Name is required'),
-      },
-      {
-        name: 'last_name',
-        label: 'Last Name',
-        type: 'text',
-        placeholder: 'Enter Last Name',
-        validation: yup.string().required('Last Name is required'),
-      },
-      {
-        name: 'user_name',
-        label: 'Username',
-        type: 'text',
-        placeholder: 'Enter Username',
-        validation: yup.string().required('Username is required'),
-      },
-      {
-        name: 'email',
-        label: 'Email',
-        type: 'text',
-        placeholder: 'Enter Email',
-        validation: yup
-          .string()
-          .email('Invalid Email')
-          .required('Email is required'),
-      },
-      {
-        name: 'contact_no',
-        label: 'Contact Number',
-        type: 'text',
-        placeholder: 'Enter Contact Number',
-        validation: yup
-          .string()
-          .matches(/^\d+$/, 'Must be a valid number')
-          .required('Contact number is required'),
-      },
-    ],
-    User_Info: [
-      {
-        name: 'designation_id',
-        label: 'Designation ID',
-        type: 'text',
-        placeholder: 'Enter Designation ID',
-        validation: yup.string().required('Designation ID is required'),
-      },
-      {
-        name: 'role_id',
-        label: 'Role ID',
-        type: 'text',
-        placeholder: 'Enter Role ID',
-        validation: yup.string().required('Role ID is required'),
-      },
-      {
-        name: 'password',
-        label: 'Password',
-        type: 'password',
-        placeholder: 'Enter Password',
-        validation: yup
-          .string()
-          .min(5, 'Password must be at least 5 characters')
-          .required('Password is required'),
-      },
-      {
-        name: 'code',
-        label: 'Code',
-        type: 'text',
-        placeholder: 'Enter Code',
-        validation: yup.string().required('Code is required'),
-      },
-      {
-        name: 'is_enabled',
-        label: 'Is Enabled?',
-        type: 'switch',
-        validation: yup.boolean(),
-      },
-    ],
-  };
+const formFields = {
+      User_Details: [
+        { name: "first_name", label: "First Name", type: "text", placeholder: "Enter First Name", validation: yup.string().required("First Name is required") },
+        { name: "last_name", label: "Last Name", type: "text", placeholder: "Enter Last Name", validation: yup.string().required("Last Name is required") },
+        { name: "user_name", label: "Username", type: "text", placeholder: "Enter Username", validation: yup.string().required("Username is required") },
+        { name: "email", label: "Email", type: "text", placeholder: "Enter Email", validation: yup.string().email("Invalid Email").required("Email is required") },
+        { name: "contact_no", label: "Contact Number", type: "text", placeholder: "Enter Contact Number", validation: yup.string().matches(/^\d+$/, "Must be a valid number").required("Contact number is required") },
+      ],
+      User_Info: [
+        { name: "designation_id", label: "Designation ID", type: "text", placeholder: "Enter Designation ID", validation: yup.string().required("Designation ID is required") },
+        { name: "role_id", label: "Role ID", type: "text", placeholder: "Enter Role ID", validation: yup.string().required("Role ID is required") },
+        { name: "password", label: "Password", type: "password", placeholder: "Enter Password", validation: yup.string().min(5, "Password must be at least 5 characters").required("Password is required") },
+        { name: "code", label: "Code", type: "text", placeholder: "Enter Code", validation: yup.string().required("Code is required") },
+        { name: "is_enabled", label: "Is Enabled?", type: "switch", validation: yup.boolean() },
+      ]
+    };
 
   // const userRef = useRef(null);
   const userModal = () => {
@@ -150,6 +82,7 @@ const Users: React.FC = () => {
               title="Add User"
               formFields={formFields}
               existingData={existingMerchant}
+              handleSubmitData={userModal}
             />
             {/* <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields} existingData={existingMerchant}/> */}
           </div>
