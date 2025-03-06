@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import Lucide from '@/components/Base/Lucide';
-import { FormInput } from '@/components/Base/Form';
-import * as yup from 'yup';
-import Modal from '../Modal/modals';
-import { useCallback, useEffect, useState } from 'react';
-import CustomTable from '@/components/TableComponent/CommonTable';
-import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
-import { createUser, getAllUsers } from '@/redux-toolkit/slices/user/userAPI';
-import { addUser, getUsers } from '@/redux-toolkit/slices/user/userSlice';
-import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
-import { selectAllUsers } from '@/redux-toolkit/slices/user/userSelectors';
+import Lucide from "@/components/Base/Lucide";
+import {  FormInput } from "@/components/Base/Form";
+import * as yup from "yup";
+import Modal from "../Modal/modals";
+import { useCallback, useEffect, useState } from "react";
+import CustomTable from "@/components/TableComponent/CommonTable";
+import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
+import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
+import { addUser, getUsers } from "@/redux-toolkit/slices/user/userSlice";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
+import { Columns } from "@/constants";
 export interface User {
   id: string;
   sno: number;
@@ -135,13 +136,6 @@ const Users: React.FC<User> = () => {
     fetchUsers();
   }, [fetchUsers]);
 
-  const tableHeaders = [
-    { label: 'Name', key: 'first_name', type: 'text' as const },
-    { label: 'User Name', key: 'user_name', type: 'text' as const },
-    { label: 'Created At', key: 'created_at', type: 'text' as const },
-    { label: 'Created By', key: 'created_by', type: 'text' as const },
-    { label: 'Is Enable', key: 'is_enabled', type: 'toggle' as const },
-  ];
 
   const handleCreateUser = async () => {
     const newUser = await createUser({
@@ -247,8 +241,8 @@ const Users: React.FC<User> = () => {
             </div>
             <div className="overflow-auto xl:overflow-visible">
               <CustomTable
-                columns={tableHeaders}
-                data={{ rows: allUsers, totalCount: 100 }}
+                columns={Columns.USERS} 
+                data={{rows: allUsers, totalCount: 100}}
               />
             </div>
           </div>

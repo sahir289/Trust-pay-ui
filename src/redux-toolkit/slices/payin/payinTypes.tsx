@@ -34,7 +34,7 @@ export interface PayIn {
   sno: number | null; // Updated from string to number
   upi_short_code: string | null;
   amount: number | null;
-  status: string | null;
+  status: string;
   is_notified: boolean;
   user_submitted_utr: string | null;
   merchant_order_id: string | null;

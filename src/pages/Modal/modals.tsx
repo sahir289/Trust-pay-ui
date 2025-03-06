@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable no-undef */
 import React, { useState, useEffect } from "react";
 import { Dialog } from "@/components/Base/Headless";
 import Button from "@/components/Base/Button";
@@ -22,9 +24,9 @@ const Modal: React.FC<ModalProps> = ({
   existingData,
   setEditData,
 }) => {
-  console.log(existingData, 'existingData');
   // Determine if we are editing
   const isEditMode = !!existingData;
+
   const initialValues = isEditMode ? existingData : {};
   // Set initial values if editing
   const [defaultValues, setDefaultValues] = useState(initialValues);
