@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 import api from "../../services/api"; 
 import { ApiVendorResponse, Vendor } from "./vendorTypes";
 
-export const getAllVendor = async (_p0?: string): Promise<Vendor[]> => {
+export const getAllVendor = async (p0?: string): Promise<Vendor[]> => {
   try {
     const response = await api.get<ApiVendorResponse<Vendor[]>> (`/vendors`);
     return response.data.data;

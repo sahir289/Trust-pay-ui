@@ -3,7 +3,7 @@ import Lucide from "@/components/Base/Lucide";
 import {  FormInput } from "@/components/Base/Form";
 import * as yup from "yup";
 import Modal from "../Modal/modals";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CustomTable from "@/components/TableComponent/CommonTable";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
@@ -11,19 +11,8 @@ import { addUser, getUsers } from "@/redux-toolkit/slices/user/userSlice";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
 import { Columns } from "@/constants";
-export interface User {
-  id: string;
-  sno: number;
-  code: string;
-  vendor_commission: number;
-  created_date: string;
-  created_by: string;
-  status: string;
-  action: string;
-  updated_at: string;
-}
 
-const Users: React.FC<User> = () => {
+const Users: React.FC = () => {
   const [newUserModal, setNewUserModal] = useState(false);
   const existingMerchant = {
     first_name: "John's Store",
