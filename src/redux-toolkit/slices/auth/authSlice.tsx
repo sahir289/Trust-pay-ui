@@ -6,21 +6,26 @@ const initialState: AuthState = {
   user: null,
   token: null,
   isAuthenticated: false,
+  loading: false,
+  error: null,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    loginSuccess: (state, action: PayloadAction<{ user: any; token: string }>) => {
+    loginSuccess: (state, action: PayloadAction<{ user: any; accessToken: string }>) => {
+      console.log(action.payload, "action.payload");
       state.user = action.payload.user;
-      state.token = action.payload.token;
+      state.token = action.payload.accessToken;
       state.isAuthenticated = true;
+      state.loading = false;
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;
+      state.loading = false;
     },
   },
 });

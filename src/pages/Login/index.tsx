@@ -6,12 +6,17 @@ import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
 import clsx from "clsx";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
-import { useLocation, useNavigate } from "react-router-dom";
-import React, { useState, useRef, useEffect } from "react";
-import { postApi } from "../../redux-toolkit/api";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "@/redux-toolkit/slices/auth/authAPI";
+import { selectAuth } from "@/redux-toolkit/slices/auth/authSelectors";
+import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { loginSuccess } from "@/redux-toolkit/slices/auth/authSlice";
+import React, { useState, useRef, useCallback } from "react";
 import { jwtDecode } from "jwt-decode";
 import Lucide from "@/components/Base/Lucide";
 import Notification, { NotificationElement } from "@/components/Base/Notification";
+import { useAuth } from "@/components/context/AuthContext";
 
 interface CustomJwtPayload {
   user_name: string;
@@ -23,26 +28,46 @@ interface CustomJwtPayload {
 }
 
 function Main() {
-  const { pathname } = useLocation();
-  const token = localStorage.getItem("accessToken");
+  const navigate = useNavigate();
+  const { setToken } = useAuth();
 
-  useEffect(() => {
-    if (token) {
-      if (pathname === "/") {
-        navigate("/auth/dashboard");
-      }
+  // const loginSuccess = useAppSelector(loginSuccess);
+  const dispatch = useAppDispatch();
+  const userLogin = useAppSelector(selectAuth);
+
+  console.log(userLogin, "userLogin")
+
+  const fetchLoginDetails = useCallback(async (userlogin: { username: string; password: string }) => {
+    const loginUserInfo = await loginUser(userlogin);
+    console.log(loginUserInfo, "loginUserInfo");
+    if (loginUserInfo?.data?.accessToken) {
+      // Save token and user data to localStorage
+      localStorage.setItem("accessToken", loginUserInfo?.data?.accessToken);
+      setToken(loginUserInfo?.data?.accessToken);
+
+      const userData = jwtDecode<CustomJwtPayload>(loginUserInfo?.data.accessToken);
+      localStorage.setItem("userData", JSON.stringify({
+        name: userData?.user_name,
+        designation: userData?.designation,
+        role: userData?.role,
+      }));
+      sessionStorage.setItem("userSession", JSON.stringify(loginUserInfo?.data?.sessionId));
+
+      // Dispatch the login success action
+      dispatch(loginSuccess(loginUserInfo.data));
+
+      // Navigate to the dashboard
+      navigate("auth/dashboard");
     } else {
-      // if (
-      //   !(
-      //     pathname === "/forgot-password" ||
-      //     pathname === "/reset-password" ||
-      //     pathname === "/on-boarding"
-      //   )
-      // ) {
-      logout();
-      // }
+      // Handle failed login response
+      if (loginUserInfo?.error?.statusCode === 404) {
+        setNotificationMessage(loginUserInfo?.error?.message);
+      } else {
+        setNotificationMessage("Failed to login");
+      }
+      basicNonStickyNotificationToggle();
     }
-  }, [pathname]);
+  }, [dispatch]);
 
   // Basic non sticky notification
   const basicNonStickyNotification = useRef<NotificationElement>();
@@ -50,8 +75,6 @@ function Main() {
     // Show notification
     basicNonStickyNotification.current?.showToast();
   };
-
-  const navigate = useNavigate();
 
   const INITIAL_LOGIN_OBJ = {
     username: "",
@@ -87,58 +110,7 @@ function Main() {
       setNotificationMessage("Password is required!");
       basicNonStickyNotificationToggle();
     } else {
-      delete (loginObj as { rememberMe?: boolean }).rememberMe;
-      await postApi("/auth/login", loginObj, false)
-        .then((res) => {
-          if (res?.data?.data?.accessToken) {
-            localStorage.setItem("accessToken", res?.data?.data?.accessToken);
-            const userData = jwtDecode<CustomJwtPayload>(
-              res?.data?.data?.accessToken
-            );
-
-            localStorage.setItem(
-              "userData",
-              JSON.stringify({
-                name: userData?.user_name,
-                designation: userData?.designation,
-                role: userData?.role,
-              })
-            );
-            sessionStorage.setItem(
-              "userSession",
-              JSON.stringify(res?.data?.data?.sessionId)
-            );
-
-            navigate("auth/dashboard");
-          } else {
-            if (res?.error?.error?.status === 404) {
-              setNotificationMessage(
-                res?.error?.message === "User not found"
-                  ? "Wrong credentials"
-                  : res?.error?.message
-              );
-              basicNonStickyNotificationToggle();
-            } else {
-              setNotificationMessage("Fail to login");
-              basicNonStickyNotificationToggle();
-            }
-          }
-        })
-        .catch((err) => {
-          setNotificationMessage(err?.response?.data?.error?.message);
-          basicNonStickyNotificationToggle();
-        });
-    }
-  };
-
-  const logout = async () => {
-    const session_id = sessionStorage.getItem("UserSession");
-    if (session_id) {
-      await postApi("/auth/logout", { session_id }, true);
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("userData");
-      sessionStorage.removeItem("userSession");
-      navigate("/");
+      fetchLoginDetails(loginObj);
     }
   };
 

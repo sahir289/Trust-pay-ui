@@ -2,6 +2,7 @@
 import { useRoutes } from "react-router-dom";
 // import { useAuth } from "../components/context/AuthContext";
 import ProtectedRoute from "../components/ProtectedRoute";
+import AuthRoutes from "../components/ProtectedRoute/AuthRoutes";
 import DashboardOverview1 from "../pages/DashboardOverview1";
 import Users from "../pages/Users";
 import Vendors from "../pages/Vendors";
@@ -29,7 +30,7 @@ function Router() {
   const routes = [
     {
       path: "/",
-      element: <Login />,
+      element: <AuthRoutes><Login /></AuthRoutes>,
     },
     {
       path: "auth",
