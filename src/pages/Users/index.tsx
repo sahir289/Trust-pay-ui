@@ -23,13 +23,12 @@ export interface User {
 }
 function Main() {
   const [newUserModal, setNewUserModal] = useState(false);
-
-  // const existingMerchant = {
-  //   first_name: "John's Store",
-  //   last_name: 500,
-  //   user_name: "upi",
-  //   email: true,
-  // };
+  const existingMerchant = {
+    first_name: "John's Store",
+    last_name: 500,
+    user_name: "upi",
+    email: true,
+  };
 
     const formFields = {
       User_Details: [
@@ -94,8 +93,14 @@ function Main() {
             Users
           </div>
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-          <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields}/>
-          {/* <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields} existingData={existingMerchant}/> */}
+            <Modal
+              handleModal={userModal}
+              forOpen={newUserModal}
+              title="Add User"
+              formFields={formFields}
+              existingData={existingMerchant}
+            />
+            {/* <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields} existingData={existingMerchant}/> */}
           </div>
         </div>
 
@@ -174,8 +179,8 @@ function Main() {
             </div>
             <div className="overflow-auto xl:overflow-visible">
               <CustomTable
-                columns={tableHeaders} 
-                data={{rows: allUsers, totalCount: 100}}
+                columns={tableHeaders}
+                data={{ rows: allUsers, totalCount: 100 }}
               />
             </div>
           </div>

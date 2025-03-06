@@ -36,33 +36,40 @@ export interface Merchant {
 
 function Main(): JSX.Element {
     const [newMerchantModal, setNewMerchantModal] = useState(false);
-    // const [expandedRow, setExpandedRow] = useState<number | null>(null);
+    const [expandedRow, setExpandedRow] = useState<number | null>(null);
     // const [editModal, setEditModal] = useState<boolean>(false)
     // const sendButtonRef = useRef(null);
     const merchantModal = () => {
-        setNewMerchantModal(!newMerchantModal)
+        setNewMerchantModal((prev) => !prev)
     }
+    
     //  const [params, setParams] = useState<{ [key: string]: string }>({
     //     page: '1',
     //     limit: '10',
     //   });
-    // const handleRowClick = (fakerKey: number): void => {
-    //     setExpandedRow((prevRow) => (prevRow === fakerKey ? null : fakerKey));
-    // };
+
+  const handleRowClick = (fakerKey: number): void => {
+        setExpandedRow((prevRow) => (prevRow === fakerKey ? null : fakerKey));
+    };
+  const [title, setTitle] = useState('Add Merchant');
+  const [editData, setEditData] = useState({});
   const dispatch = useAppDispatch();
-    const allMerchants = useAppSelector(selectAllMerchants);
+  const allMerchants = useAppSelector(selectAllMerchants);
   const fetchMerchants = useCallback(async () => {
     // tempory disabled this functionality
     // const queryString = new URLSearchParams(params).toString();
-      const userList = await getAllMerchants("");
-      console.log(userList,"merchant data");
-    dispatch(getMerchants(userList));
+    const merchantList = await getAllMerchants("");
+    //   console.log(merchantList,"merchant data");
+    dispatch(getMerchants(merchantList));
   }, [dispatch]); 
-
+  const handleEditModal = (title: string, data: any) => {
+    setEditData(data);
+    setTitle(title);
+    merchantModal();
+  };
   useEffect(() => {
     fetchMerchants();
-  },[fetchMerchants]);
-  
+  }, [fetchMerchants]);
     // const tableHeaders: string[] = [
     //     "Sub Merchants",
     //     "Code",
@@ -86,7 +93,6 @@ function Main(): JSX.Element {
           width: '12',
         },
       ],
-
       URLs: [
         {
           name: 'site',
@@ -129,7 +135,6 @@ function Main(): JSX.Element {
             .required('PayOut Callback URL is required'),
         },
       ],
-
       PayIn: [
         {
           name: 'min_payin',
@@ -163,7 +168,6 @@ function Main(): JSX.Element {
           width: '12',
         },
       ],
-
       PayOut: [
         {
           name: 'min_payout',
@@ -197,7 +201,7 @@ function Main(): JSX.Element {
           width: '12',
         },
       ],
-      Toggle: [
+      "": [
         {
           name: 'is_test_mode',
           label: 'Test Mode',
@@ -213,20 +217,20 @@ function Main(): JSX.Element {
       ],
     };
      const tableHeaders = [
-       { label: 'Sub Merchants', key: 'sub_merchants', type: 'text' as const },
+       { label: 'Sub Merchants', key: 'sub_merchants', type: 'expand' as const },
        { label: 'Code', key: 'code', type: 'text' as const },
        { label: 'Balance', key: 'balance', type: 'text' as const },
        { label: 'PayIn Range', key: 'payin_range', type: 'text' as const },
        {
          label: 'PayIn Commission',
          key: 'payin_commission',
-         type: 'percent' as const,
+         type: 'range' as const,
        },
        { label: 'PayOut Range', key: 'payout_range', type: 'text' as const },
        {
          label: 'PayOut Commission',
          key: 'payout_commission',
-         type: 'percent' as const,
+         type: 'range' as const,
        },
        { label: 'Test Mode', key: 'test_mode', type: 'toggle' as const },
        { label: 'Allow Intent', key: 'allow_intent', type: 'toggle' as const },
@@ -239,25 +243,26 @@ function Main(): JSX.Element {
             <div className="text-base font-medium group-[.mode--light]:text-white">
               Merchant
             </div>
-
             <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
               {/* <Modal
                 handleModal={merchantModal}
                 sendButtonRef={sendButtonRef}
                 title="Add Merchant"
                 forOpen={newMerchantModal}
-                        /> */}
+            /> */}
               <Modal
                 handleModal={merchantModal}
                 forOpen={newMerchantModal}
-                title="Add Merchant"
+                title={title}
                 formFields={formFields}
+                existingData={editData}
+                setEditData={setEditData}
               />
             </div>
           </div>
           <div className="flex flex-col gap-8 mt-3.5">
-            <div className="flex flex-col p-5 box box--stacked">
-              <div className="grid grid-cols-4 gap-5">
+            {/* <div className="flex flex-col p-5 box box--stacked">
+              {/* <div className="grid grid-cols-4 gap-5">
                 <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
                   <div className="text-base text-slate-500">
                     Registered Merchants
@@ -314,8 +319,8 @@ function Main(): JSX.Element {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </div> */}
+            {/* </div> } */}
             <div className="flex flex-col box box--stacked">
               <div className="flex flex-col p-5 sm:items-center sm:flex-row gap-y-2">
                 <div>
@@ -430,6 +435,11 @@ function Main(): JSX.Element {
               <CustomTable
                 columns={tableHeaders}
                 data={{ rows: allMerchants, totalCount: 100 }}
+                expandedRow={expandedRow ?? 20}
+                expandable={true}
+                handleRowClick={(index: number) => handleRowClick(index)}
+                handleEditModal={handleEditModal}
+
                 // params={params}
                 // setParams={setParams}
               />

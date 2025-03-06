@@ -13,6 +13,7 @@ import Tippy from '@/components/Base/Tippy';
 //   key: string;
 //   type?: 'text' | 'image' | 'status' | 'checkbox' | 'expand' | 'toggle';
 // }
+
 interface Column  {
   label: string;
   key: string;
@@ -24,13 +25,15 @@ interface Column  {
   | 'toggle'
   | 'expand'
   | 'actions'
-  | "percent";
+  | "range";
 };
+
 interface CommonTableProps {
   columns: Column[];
   data: { rows: any[]; totalCount: number };
   expandable?: boolean;
   handleRowClick?: (index: number) => void;
+  handleEditModal?: (title: string, data: any) => void;
   expandedRow?: number;
 }
 
@@ -39,6 +42,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
   data,
   expandable,
   handleRowClick,
+  handleEditModal,
   expandedRow,
 }) => {
   const getStatusStyles = (status: string) => {
@@ -158,6 +162,18 @@ const CommonTable: React.FC<CommonTableProps> = ({
                       />
                       {row[col.key]}
                     </div>
+                  ) : col.type === 'actions' ? (
+                    <div className="flex items-center justify-center">
+                      <Lucide
+                        icon="CheckSquare"
+                        onClick={() => handleEditModal && handleEditModal('Edit Merchant', row)}
+                        className="w-4 h-4 mr-2 cursor-pointer"
+                      />{' '}
+                      <Lucide
+                        icon="Trash2"
+                        className="w-4 h-4 mr-2 cursor-pointer"
+                      />
+                    </div>
                   ) : col.type === 'checkbox' ? (
                     <FormCheck.Input type="checkbox" />
                   ) : col.type === 'toggle' ? (
@@ -173,18 +189,19 @@ const CommonTable: React.FC<CommonTableProps> = ({
                         />
                       </FormSwitch.Label>
                     </FormSwitch>
-                  ) : col.type === 'percent' ? (
+                  ) : col.type === 'range' ? (
                     <div className="flex items-center gap-2 w-full">
                       <input
                         type="range"
                         min="0"
                         max="100"
-                        value={row[col.key] || 0} 
-                        className="w-full cursor-pointer accent-primary"
+                        value={row[col.key] || 0}
+                        className="w-full cursor-pointer accent-primary" // Ensuring good styling
                       />
                       <span className="text-xs text-slate-500">
                         {row[col.key] || 0}%
                       </span>{' '}
+                      {/* Display value */}
                     </div>
                   ) : expandable && col.type === 'expand' ? (
                     <div
@@ -192,7 +209,9 @@ const CommonTable: React.FC<CommonTableProps> = ({
                       onClick={() => handleRowClick && handleRowClick(rowIndex)}
                     >
                       <Lucide
-                        icon={expandedRow === rowIndex ? 'Minus' : 'Plus'}
+                        icon={
+                          expandedRow === rowIndex ? 'ChevronUp' : 'ChevronDown'
+                        }
                         className="w-5 h-5"
                       />
                     </div>

@@ -41,7 +41,7 @@ interface DynamicFormProps {
 }
 
 const DynamicForm: React.FC<DynamicFormProps> = ({
-    sections,
+  sections,
   onSubmit,
   defaultValues,
   isEditMode,
@@ -57,7 +57,6 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
     defaultValues,
   });
 
-  console.log(isEditMode, "aaaaaeeee")
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
         {Object.entries(sections).map(([sectionName, fields]) => (
