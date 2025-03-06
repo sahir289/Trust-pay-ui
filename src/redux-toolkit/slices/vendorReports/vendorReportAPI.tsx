@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import api from "../../services/api"; 
 import { ApiVendorReportsResponse, VendorReports } from "./vendorReportTypes";
 //Actions are functions that dispatch payloads to the reducer(userSlice.ts)
 //all apis called
 
-export const getVendorReports = async (): Promise<VendorReports[]> => {
+export const getVendorReports = async (_p0?: string): Promise<VendorReports[]> => {
     try {
       const response = await api.get<ApiVendorReportsResponse<VendorReports[]>> (`/reports/get-vendors-reports`);
       return response.data.data;
