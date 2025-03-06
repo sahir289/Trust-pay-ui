@@ -223,7 +223,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
             </Table.Tr>
           ))}
         </Table.Tbody>
-      </Table>
+      </Table>     
 
       {/* Pagination UI */}
       <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
