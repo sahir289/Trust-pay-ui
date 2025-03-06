@@ -5,7 +5,7 @@ import { ApiVendorReportsResponse, VendorReports } from "./vendorReportTypes";
 //Actions are functions that dispatch payloads to the reducer(userSlice.ts)
 //all apis called
 
-export const getVendorReports = async (p0?: string): Promise<VendorReports[]> => {
+export const getVendorReports = async (_p0?: string): Promise<VendorReports[]> => {
     try {
       const response = await api.get<ApiVendorReportsResponse<VendorReports[]>> (`/reports/get-vendors-reports`);
       return response.data.data;

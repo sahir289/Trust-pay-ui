@@ -52,7 +52,6 @@ function AccountReports() {
 
   const tableHeaders = [
   { label: "Code", key: "code", type: "text" as const },
-  { label: "Id", key: "id", type: "text" as const },
   { label: "Total Payin Count", key: "total_payin_count", type: "text" as const },
   { label: "Total Payin Amount", key: "total_payin_amount", type: "text" as const },
   { label: "Total Payin Commission", key: "total_payin_commission", type: "text" as const },
@@ -67,8 +66,7 @@ function AccountReports() {
   { label: "Net Balance", key: "net_balance", type: "text" as const },
   { label: "Created At", key: "created_at", type: "text" as const },
   { label: "Updated At", key: "updated_at", type: "text" as const },
-  { label: "Calculation User Id", key: "calculation_user_id", type: "text" as const },
-  { label: "User Id", key: "user_id", type: "text" as const },
+  
 ];
   const handleMerchantCode = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setmerchantCode(e.target.value)
@@ -199,10 +197,10 @@ function AccountReports() {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-12 gap-y-10 gap-x-6">
+      <div className="grid grid-cols-12 gap-y-10 ">
         <div className="col-span-12">
           <div className="mt-3.5">
-            <div className="flex flex-col  border-2 border-slate-600 rounded-lg">
+            <div className="flex flex-col rounded-lg">
               <div className="flex flex-col py-5 sm:items-center sm:flex-row gap-y-2 mx-6">
                 <div>
                   <div className="relative">
