@@ -6,8 +6,10 @@ import { FormInput, FormSelect } from '@/components/Base/Form';
 import users from '@/fakers/users';
 import transactionStatus from '@/fakers/transaction-status';
 import Button from '@/components/Base/Button';
-import CustomTable from '../../../components/TableComponent';
-import { Columns, Status } from '@/constants';
+import CustomTable from '../../../components/TableComponent/CommonTable';
+import { Columns } from '@/constants';
+import { getAllPayInData } from '@/redux-toolkit/slices/payin/payinSelectors';
+import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 interface PayInProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   setId: React.Dispatch<React.SetStateAction<string>>;
@@ -15,21 +17,17 @@ interface PayInProps {
   params: Record<string, any>;
 }
 
-const InProgressPayIn: React.FC<PayInProps> = ({
-  setStatus,
-  setId,
-  params,
-  setParams,
-}) => {
-  const statusArray: string[] = [
-    Status.PENDING,
-    Status.DUPLICATE,
-    Status.DISPUTE,
-    Status.BANK_MISMATCH,
-    Status.IMAGE_PENDING,
-    Status.ASSIGNED,
-    Status.INITIATED,
-  ];
+const InProgressPayIn: React.FC<PayInProps> = () => {
+  const payins = useAppSelector(getAllPayInData);
+  // const statusArray: string[] = [
+  //   Status.PENDING,
+  //   Status.DUPLICATE,
+  //   Status.DISPUTE,
+  //   Status.BANK_MISMATCH,
+  //   Status.IMAGE_PENDING,
+  //   Status.ASSIGNED,
+  //   Status.INITIATED,
+  // ];
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -142,14 +140,10 @@ const InProgressPayIn: React.FC<PayInProps> = ({
                 </Popover>
               </div>
             </div>
+
             <CustomTable
-              setStatus={setStatus}
-              setId={setId}
               columns={Columns.PAYIN}
-              title={'PayIns'}
-              status={statusArray}
-              params={params}
-              setParams={setParams}
+              data={{ rows: payins.payin, totalCount: payins.totalCount }}
             />
           </div>
         </div>

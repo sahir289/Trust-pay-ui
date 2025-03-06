@@ -4,10 +4,12 @@ import Lucide from '@/components/Base/Lucide';
 import { Menu, Popover } from '@/components/Base/Headless';
 import { FormInput, FormSelect } from '@/components/Base/Form';
 import users from '@/fakers/users';
-import CustomTable from '../../../components/TableComponent';
+import CustomTable from '../../../components/TableComponent/CommonTable';
 import transactionStatus from '@/fakers/transaction-status';
 import Button from '@/components/Base/Button';
 import { Columns, Status } from '@/constants';
+import { getAllPayInData } from '@/redux-toolkit/slices/payin/payinSelectors';
+import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 
 interface PayInProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
@@ -16,18 +18,14 @@ interface PayInProps {
   params: Record<string, any>;
 }
 
-const CompletedPayIn: React.FC<PayInProps> = ({
-  setStatus,
-  setId,
-  params,
-  setParams,
-}) => {
-  const statusArray: string[] = [Status.SUCCESS];
-  const theadData: string[] = [...Columns.PAYIN]; // Ensure it's a mutable array
-  const indexToInsert = 3; // Change this to the desired index
-  const newElement = 'Commission';
-
-  theadData.splice(indexToInsert, 0, newElement);
+const CompletedPayIn: React.FC<PayInProps> = () => {
+  const payins = useAppSelector(getAllPayInData);
+  // const statusArray: string[] = [Status.SUCCESS];
+  const theadData = [...Columns.PAYIN]; // Ensure it's a mutable array
+  const indexToInsert = 3; // Desired index
+  const newElement = { label: "Commission", key: "commission", type: "text" as const };
+  
+  theadData.splice(indexToInsert, 0, newElement);  
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -140,14 +138,10 @@ const CompletedPayIn: React.FC<PayInProps> = ({
                 </Popover>
               </div>
             </div>
+
             <CustomTable
-              setStatus={setStatus}
-              setId={setId}
-              columns={theadData}
-              title={'PayIns'}
-              status={statusArray}
-              params={params}
-              setParams={setParams}
+              columns={Columns.PAYIN}
+              data={{ rows: payins.payin.filter((payin) => payin.status === Status.SUCCESS), totalCount: payins.totalCount }}
             />
           </div>
         </div>

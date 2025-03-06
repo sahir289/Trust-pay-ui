@@ -5,9 +5,11 @@ import { Menu, Popover } from '@/components/Base/Headless';
 import users from '@/fakers/users';
 import transactionStatus from '@/fakers/transaction-status';
 import Button from '@/components/Base/Button';
-import CustomTable from '../../../components/TableComponent';
+import CustomTable from '../../../components/TableComponent/CommonTable';
 import { FormInput, FormSelect } from '@/components/Base/Form';
-import { Columns, Status } from '@/constants';
+import { Columns } from '@/constants';
+import { getAllPayInData } from '@/redux-toolkit/slices/payin/payinSelectors';
+import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 
 interface PayInProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
@@ -16,23 +18,8 @@ interface PayInProps {
   params: Record<string, any>;
 }
 
-const AllPayIn: React.FC<PayInProps> = ({
-  setStatus,
-  setId,
-  params,
-  setParams,
-}) => {
-  const statusArray: string[] = [
-    Status.PENDING,
-    Status.DUPLICATE,
-    Status.DISPUTE,
-    Status.BANK_MISMATCH,
-    Status.IMAGE_PENDING,
-    Status.ASSIGNED,
-    Status.INITIATED,
-    Status.SUCCESS,
-    Status.DROPPED,
-  ];
+const AllPayIn: React.FC<PayInProps> = () => {
+  const payins = useAppSelector(getAllPayInData);
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -147,12 +134,7 @@ const AllPayIn: React.FC<PayInProps> = ({
             </div>
             <CustomTable
               columns={Columns.PAYIN}
-              title={'PayIns'}
-              status={statusArray}
-              setStatus={setStatus}
-              setId={setId}
-              params={params}
-              setParams={setParams}
+              data={{rows: payins.payin, totalCount: payins.totalCount}}
             />
           </div>
         </div>

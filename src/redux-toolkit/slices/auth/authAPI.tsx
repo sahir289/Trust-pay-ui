@@ -31,7 +31,6 @@ interface LoginParams {
 export const loginUser = async ({ username, password }: LoginParams): Promise<LoginResponse> => {
   setPageLoader(true);
   const response = await api.post("/auth/login", { username, password });
-  console.log(response.data, "response.data");
   setPageLoader(false);
   return response.data;
 };

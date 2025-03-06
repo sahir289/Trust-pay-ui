@@ -10,6 +10,7 @@ import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
 import { addUser, getUsers } from "@/redux-toolkit/slices/user/userSlice";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
+import { Columns } from "@/constants";
 export interface User {
   id: string;
   sno: number;
@@ -66,14 +67,7 @@ function Main() {
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
-  
-  const tableHeaders = [
-    { label: "Name", key: "first_name", type: "text" as const },
-    { label: "User Name", key: "user_name", type: "text" as const },
-    { label: "Created At", key: "created_at", type: "text" as const },
-    { label: "Created By", key: "created_by", type: "text" as const },
-    { label: "Is Enable", key: "is_enabled", type: "toggle" as const },
-  ];
+
 
   const handleCreateUser = async () => {
     const newUser = await createUser({
@@ -179,8 +173,8 @@ function Main() {
             </div>
             <div className="overflow-auto xl:overflow-visible">
               <CustomTable
-                columns={tableHeaders}
-                data={{ rows: allUsers, totalCount: 100 }}
+                columns={Columns.USERS} 
+                data={{rows: allUsers, totalCount: 100}}
               />
             </div>
           </div>
