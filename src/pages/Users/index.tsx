@@ -7,9 +7,11 @@ import { useCallback, useEffect, useState } from "react";
 import CustomTable from "@/components/TableComponent/CommonTable";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
-import { addUser, getUsers } from "@/redux-toolkit/slices/user/userSlice";
+import { addUser, getUsers, onload } from "@/redux-toolkit/slices/user/userSlice";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
+import LoadingIcon from '@/components/Base/LoadingIcon';
+
 export interface User {
   id: string;
   sno: number;
@@ -23,6 +25,8 @@ export interface User {
 }
 function Main() {
   const [newUserModal, setNewUserModal] = useState(false);
+  const dispatch = useAppDispatch();
+  const allUsers = useAppSelector(selectAllUsers);  
 
   // const existingMerchant = {
   //   first_name: "John's Store",
@@ -48,18 +52,16 @@ function Main() {
       ]
     };
 
-   
   // const userRef = useRef(null);
   const userModal = () => {
     setNewUserModal(!newUserModal)
   }
   
-  const dispatch = useAppDispatch();
-  const allUsers = useAppSelector(selectAllUsers);
 
   const fetchUsers = useCallback(async () => {
     // tempory disabled this functionality
     // const queryString = new URLSearchParams(params).toString();
+    dispatch(onload());
     const userList = await getAllUsers("");
     dispatch(getUsers(userList));
   }, [dispatch]); 
@@ -173,10 +175,13 @@ function Main() {
               </div>
             </div>
             <div className="overflow-auto xl:overflow-visible">
+            {allUsers.loading ? <div className="flex justify-center items-center w-full h-screen">
+              <LoadingIcon icon="ball-triangle" className="w-[5%] h-auto" />
+            </div>:
               <CustomTable
                 columns={tableHeaders} 
-                data={{rows: allUsers, totalCount: 100}}
-              />
+                data={{rows: allUsers.users, totalCount: 100}}
+              />}
             </div>
           </div>
         </div>

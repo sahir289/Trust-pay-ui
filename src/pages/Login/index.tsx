@@ -11,7 +11,7 @@ import { loginUser } from "@/redux-toolkit/slices/auth/authAPI";
 import { selectAuth } from "@/redux-toolkit/slices/auth/authSelectors";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-import { loginSuccess } from "@/redux-toolkit/slices/auth/authSlice";
+import { loginSuccess, onload } from "@/redux-toolkit/slices/auth/authSlice";
 import React, { useState, useRef, useCallback } from "react";
 import { jwtDecode } from "jwt-decode";
 import Lucide from "@/components/Base/Lucide";
@@ -32,13 +32,13 @@ function Main() {
   const navigate = useNavigate();
   const { setToken } = useAuth();
 
-  // const loginSuccess = useAppSelector(loginSuccess);
   const dispatch = useAppDispatch();
   const userLogin = useAppSelector(selectAuth);
 
   console.log(userLogin, "userLogin")
 
   const fetchLoginDetails = useCallback(async (userlogin: { username: string; password: string }) => {
+    dispatch(onload({ load: true }));
     const loginUserInfo = await loginUser(userlogin);
     console.log(loginUserInfo, "loginUserInfo");
     if (loginUserInfo?.data?.accessToken) {
@@ -215,9 +215,10 @@ function Main() {
                     <Button
                       variant="primary"
                       rounded
+                      disabled={userLogin.loading}
                       className="bg-gradient-to-r from-theme-1/70 to-theme-2/70 w-full py-3.5 xl:mr-3 dark:border-darkmode-400"
                     >
-                      Sign In
+                      {userLogin.loading ? 'Loading...' : 'Sign In'}
                     </Button>
                   </div>
                 </form>
