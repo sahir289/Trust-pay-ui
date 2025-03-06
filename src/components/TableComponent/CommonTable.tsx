@@ -8,17 +8,32 @@ import Lucide, { icons } from '@/components/Base/Lucide';
 import { FormCheck, FormSwitch, FormSelect } from '@/components/Base/Form';
 import Tippy from '@/components/Base/Tippy';
 
-interface Column {
+// interface Column {
+//   label: string;
+//   key: string;
+//   type?: 'text' | 'image' | 'status' | 'checkbox' | 'expand' | 'toggle';
+// }
+
+interface Column  {
   label: string;
   key: string;
-  type?: 'text' | 'image' | 'status' | 'checkbox' | 'expand' | 'toggle';
-}
+  type?:
+  | 'status'
+  | 'image'
+  | 'text'
+  | 'checkbox'
+  | 'toggle'
+  | 'expand'
+  | 'actions'
+  | "range";
+};
 
 interface CommonTableProps {
   columns: Column[];
   data: { rows: any[]; totalCount: number };
   expandable?: boolean;
   handleRowClick?: (index: number) => void;
+  handleEditModal?: (title: string, data: any) => void;
   expandedRow?: number;
 }
 
@@ -27,6 +42,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
   data,
   expandable,
   handleRowClick,
+  handleEditModal,
   expandedRow,
 }) => {
   const getStatusStyles = (status: string) => {
@@ -146,11 +162,26 @@ const CommonTable: React.FC<CommonTableProps> = ({
                       />
                       {row[col.key]}
                     </div>
+                  ) : col.type === 'actions' ? (
+                    <div className="flex items-center justify-center">
+                      <Lucide
+                        icon="CheckSquare"
+                        onClick={() => handleEditModal && handleEditModal('Edit Merchant', row)}
+                        className="w-4 h-4 mr-2 cursor-pointer"
+                      />{' '}
+                      <Lucide
+                        icon="Trash2"
+                        className="w-4 h-4 mr-2 cursor-pointer"
+                      />
+                    </div>
                   ) : col.type === 'checkbox' ? (
                     <FormCheck.Input type="checkbox" />
                   ) : col.type === 'toggle' ? (
                     <FormSwitch className=" dark:border-red-500 rounded-lg">
-                      <FormSwitch.Label htmlFor="show-example-1 " className="ml-0 ">
+                      <FormSwitch.Label
+                        htmlFor="show-example-1 "
+                        className="ml-0 "
+                      >
                         <FormSwitch.Input
                           id="show-example-1"
                           className="ml-0 mr-0 border-2 border-slate-300"
@@ -158,13 +189,29 @@ const CommonTable: React.FC<CommonTableProps> = ({
                         />
                       </FormSwitch.Label>
                     </FormSwitch>
+                  ) : col.type === 'range' ? (
+                    <div className="flex items-center gap-2 w-full">
+                      <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={row[col.key] || 0}
+                        className="w-full cursor-pointer accent-primary" // Ensuring good styling
+                      />
+                      <span className="text-xs text-slate-500">
+                        {row[col.key] || 0}%
+                      </span>{' '}
+                      {/* Display value */}
+                    </div>
                   ) : expandable && col.type === 'expand' ? (
                     <div
                       className="cursor-pointer"
                       onClick={() => handleRowClick && handleRowClick(rowIndex)}
                     >
                       <Lucide
-                        icon={expandedRow === rowIndex ? 'Minus' : 'Plus'}
+                        icon={
+                          expandedRow === rowIndex ? 'ChevronUp' : 'ChevronDown'
+                        }
                         className="w-5 h-5"
                       />
                     </div>
@@ -177,7 +224,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
           ))}
         </Table.Tbody>
       </Table>
-      
+
       {/* Pagination UI */}
       <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
         <Pagination className="flex-1 w-full sm:w-auto">
@@ -198,7 +245,9 @@ const CommonTable: React.FC<CommonTableProps> = ({
           {renderPaginationLinks()}
 
           <Pagination.Link
-            onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
+            onClick={() =>
+              currentPage < totalPages && handlePageChange(currentPage + 1)
+            }
             active={currentPage === totalPages}
           >
             <Lucide icon="ChevronRight" className="w-4 h-4" />

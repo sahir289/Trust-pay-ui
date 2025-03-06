@@ -10,6 +10,7 @@ interface ModalProps {
   forOpen: boolean;
   formFields: any;
   existingData?: any;
+  setEditData?: any;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -19,15 +20,12 @@ const Modal: React.FC<ModalProps> = ({
   forOpen,
   formFields,
   existingData,
+  setEditData,
 }) => {
-  console.log(existingData, "existingData")
+  console.log(existingData, 'existingData');
   // Determine if we are editing
   const isEditMode = !!existingData;
-  console.log(existingData, "existingDataassss")
-  console.log(isEditMode, "aaaa")
-
   const initialValues = isEditMode ? existingData : {};
-  console.log(initialValues, "initialValuessss")
   // Set initial values if editing
   const [defaultValues, setDefaultValues] = useState(initialValues);
   const [key, setKey] = useState(0); // Key to force re-render on reset
@@ -42,10 +40,11 @@ const Modal: React.FC<ModalProps> = ({
 
   const handleSubmit = (data: any) => {
     if (isEditMode) {
-      console.log("Updated Data:", data);
+      setEditData(data);
+      console.log('Updated Data:', data);
       // Call API to update existing record
     } else {
-      console.log("New Data:", data);
+      console.log('New Data:', data);
       // Call API to create new record
     }
     handleModal();
@@ -53,18 +52,16 @@ const Modal: React.FC<ModalProps> = ({
 
   const handleCancel = () => {
     if (isEditMode) {
-      
-      console.log("Updated Data:");
+      console.log('Updated Data:');
       // Call API to update existing record
     } else {
-      console.log("New Data:");
+      console.log('New Data:');
       // Call API to create new record
     }
     handleModal();
   };
 
   const handleReset = () => {
-    console.log("aaaaa")
     setDefaultValues(initialValues);
     setKey((prev) => prev + 1); // Force form to reset
   };
@@ -83,7 +80,7 @@ const Modal: React.FC<ModalProps> = ({
       >
         <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 mr-2" /> {title}
       </Button>
-      <Dialog open={forOpen} onClose={handleModal} initialFocus={sendButtonRef} >
+      <Dialog open={forOpen} onClose={handleModal} initialFocus={sendButtonRef}>
         <Dialog.Panel className="p-6 pt-2 pb-4">
           <Dialog.Title className="flex justify-between">
             <h2>{title}</h2>

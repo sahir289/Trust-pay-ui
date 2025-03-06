@@ -26,6 +26,7 @@ interface Field {
   label: string;
   type: string;
   placeholder?: string;
+  width?: boolean;
   options?: { value: string; label: string }[];
   validation: any;
 }
@@ -40,7 +41,7 @@ interface DynamicFormProps {
 }
 
 const DynamicForm: React.FC<DynamicFormProps> = ({
-    sections,
+  sections,
   onSubmit,
   defaultValues,
   isEditMode,
@@ -56,68 +57,82 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
     defaultValues,
   });
 
-  console.log(isEditMode, "aaaaaeeee")
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {Object.entries(sections).map(([sectionName, fields]) => (
-        <fieldset key={sectionName} className="border-2 rounded-lg border-gray-200 p-4 mb-4">
-          <legend className="text-lg font-semibold px-2">{sectionName.replace(/_/g, " ")}</legend>
-          <div className="grid grid-cols-12 gap-4">
-            {fields.map((field) => (
-              <div key={field.name} className="col-span-12 sm:col-span-6">
-                <FormLabel htmlFor={field.name}>{field.label}</FormLabel>
-                {field.type === "text" || field.type === "number" || field.type === "password" ? (
-                  <Controller
-                    name={field.name}
-                    control={control}
-                    render={({ field: controllerField }) => (
-                      <FormInput
-                        {...controllerField}
-                        id={field.name}
-                        type={field.type}
-                        placeholder={field.placeholder}
-                      />
-                    )}
-                  />
-                ) : field.type === "select" ? (
-                  <Controller
-                    name={field.name}
-                    control={control}
-                    render={({ field: controllerField }) => (
-                      <FormSelect {...controllerField} id={field.name}>
-                        {field.options?.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </FormSelect>
-                    )}
-                  />
-                ) : field.type === "switch" ? (
-                  <Controller
-                    name={field.name}
-                    control={control}
-                    render={({ field: controllerField }) => (
-                      <FormSwitch>
-                        <FormSwitch.Label htmlFor={field.name}>
-                          <FormSwitch.Input
-                            {...controllerField}
-                            id={field.name}
-                            type="checkbox"
-                          />
-                        </FormSwitch.Label>
-                      </FormSwitch>
-                    )}
-                  />
-                ) : null}
-                {errors[field.name] && typeof errors[field.name]?.message === "string" ? (
-                  <p className="text-red-500">{errors[field.name]?.message as string}</p>
-                ) : null}
-              </div>
-            ))}
-          </div>
-        </fieldset>
-      ))}
+        {Object.entries(sections).map(([sectionName, fields]) => (
+          <fieldset
+            key={sectionName}
+            className="border-2 rounded-lg border-gray-200 p-4 mb-4"
+          >
+            <legend className="text-lg font-semibold px-2">
+              {sectionName.replace(/_/g, ' ')}
+            </legend>
+            <div className="grid grid-cols-12 gap-4">
+              {fields.map((field) => (
+                <div
+                  key={field.name}
+                  className={`col-span-12 ${
+                    field.width ? 'sm:col-span-12' : 'sm:col-span-6'
+                  }`}
+                >
+                  <FormLabel htmlFor={field.name}>{field.label}</FormLabel>
+                  {field.type === 'text' ||
+                  field.type === 'number' ||
+                  field.type === 'password' ? (
+                    <Controller
+                      name={field.name}
+                      control={control}
+                      render={({ field: controllerField }) => (
+                        <FormInput
+                          {...controllerField}
+                          id={field.name}
+                          type={field.type}
+                          placeholder={field.placeholder}
+                        />
+                      )}
+                    />
+                  ) : field.type === 'select' ? (
+                    <Controller
+                      name={field.name}
+                      control={control}
+                      render={({ field: controllerField }) => (
+                        <FormSelect {...controllerField} id={field.name}>
+                          {field.options?.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </FormSelect>
+                      )}
+                    />
+                  ) : field.type === 'switch' ? (
+                    <Controller
+                      name={field.name}
+                      control={control}
+                      render={({ field: controllerField }) => (
+                        <FormSwitch>
+                          <FormSwitch.Label htmlFor={field.name}>
+                            <FormSwitch.Input
+                              {...controllerField}
+                              id={field.name}
+                              type="checkbox"
+                            />
+                          </FormSwitch.Label>
+                        </FormSwitch>
+                      )}
+                    />
+                  ) : null}
+                  {errors[field.name] &&
+                  typeof errors[field.name]?.message === 'string' ? (
+                    <p className="text-red-500">
+                      {errors[field.name]?.message as string}
+                    </p>
+                  ) : null}
+                </div>
+              ))}
+            </div>
+          </fieldset>
+        ))}
       <div className="flex justify-end mt-4">
         <Button
           type="button"
@@ -125,10 +140,10 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
           onClick={() => (isEditMode ? handleReset() : handleCancel())}
           className="w-20 mr-1"
         >
-          {isEditMode ? "Reset" : "Cancel"}
+          {isEditMode ? 'Reset' : 'Cancel'}
         </Button>
         <Button type="submit" variant="primary">
-          {isEditMode ? "Update" : "Save"}
+          {isEditMode ? 'Update' : 'Save'}
         </Button>
       </div>
     </form>
