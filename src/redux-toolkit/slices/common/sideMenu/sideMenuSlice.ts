@@ -30,29 +30,6 @@ const initialState: SideMenuState = {
       pathname: "/auth/transaction-list",
       title: "Transactions",
     },
-    "USERS",
-    {
-      icon: "Users",
-      pathname: "/layout/users",
-      title: "Users",
-    },
-    "Clients",
-    {
-      icon: "CreditCard",
-      pathname: "/auth/merchants",
-      title: "Merchants",
-    },
-    {
-      icon: "Store",
-      pathname: "/auth/vendors",
-      title: "Vendors",
-    },
-    "REPORTS",
-    {
-      icon: "SquareUser",
-      pathname: "/auth/reports",
-      title: "Reports",
-    },
     "SETTLEMENTS & CHARGEBACKS",
     {
       icon: "NotebookText",
@@ -69,6 +46,12 @@ const initialState: SideMenuState = {
       icon: "Landmark",
       pathname: "/auth/bankaccounts",
       title: "Bank Details",
+    },
+    "REPORTS",
+    {
+      icon: "SquareUser",
+      pathname: "/auth/reports",
+      title: "Reports",
     },
     "USERS",
     {
@@ -87,24 +70,24 @@ const initialState: SideMenuState = {
       pathname: "/auth/vendors",
       title: "Vendors",
     },
-    "ROLES & DESIGNATIONS",
-    {
-      icon: "CircleUserRound",
-      pathname: "/auth/roles",
-      title: "Roles",
-    },
-    {
-      icon: "UserCog",
-      pathname: "/auth/designation",
-      title: "Designations",
-    },
+    // "ROLES & DESIGNATIONS",
+    // {
+    //   icon: "CircleUserRound",
+    //   pathname: "/auth/roles",
+    //   title: "Roles",
+    // },
+    // {
+    //   icon: "UserCog",
+    //   pathname: "/auth/designation",
+    //   title: "Designations",
+    // },
     "DATA ENTRIES",
     {
       icon: "FileText",
       pathname: "/auth/add-data",
       title: "Data Entries",
     },
-    
+
     // "CHAT SUPPORT",
     // {
     //   icon: "MailOpen",
