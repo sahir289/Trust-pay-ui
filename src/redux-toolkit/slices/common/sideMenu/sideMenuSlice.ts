@@ -30,6 +30,29 @@ const initialState: SideMenuState = {
       pathname: "/auth/transaction-list",
       title: "Transactions",
     },
+    "USERS",
+    {
+      icon: "Users",
+      pathname: "/layout/users",
+      title: "Users",
+    },
+    "Clients",
+    {
+      icon: "CreditCard",
+      pathname: "/auth/merchants",
+      title: "Merchants",
+    },
+    {
+      icon: "Store",
+      pathname: "/auth/vendors",
+      title: "Vendors",
+    },
+    "REPORTS",
+    {
+      icon: "SquareUser",
+      pathname: "/auth/reports",
+      title: "Reports",
+    },
     "SETTLEMENTS & CHARGEBACKS",
     {
       icon: "NotebookText",
@@ -81,17 +104,7 @@ const initialState: SideMenuState = {
       pathname: "/auth/add-data",
       title: "Data Entries",
     },
-    "ACCOUNT REPORTS",
-    {
-      icon: "SquareUser",
-      pathname: "/auth/account-reports",
-      title: "Account Report",
-    },
-    {
-      icon: "SquareUser",
-      pathname: "/auth/vendor-account-reports",
-      title: "Vendor Account Report",
-    },
+    
     // "CHAT SUPPORT",
     // {
     //   icon: "MailOpen",

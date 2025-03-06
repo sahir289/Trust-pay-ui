@@ -7,7 +7,7 @@ import Users from "../pages/Users";
 import Vendors from "../pages/Vendors";
 import Merchant from "../pages/Merchant";
 import Roles from "../pages/Roles";
-import VendorAccountReports from "../pages/VendorAccountReports";
+import Reports from "../pages/Reports";
 import TransactionList from "../pages/TransactionList";
 // import Chat from "../pages/Chat";
 import Login from "../pages/Login";
@@ -19,7 +19,6 @@ import AddData from "../pages/AddData";
 import Designation from "../pages/Designation";
 import Layout from "../themes";
 import Bankaccount from "../pages/BankAccount";
-import AccountReports from "@/pages/AccountReports";
 import Unauthorized from "../pages/Unauthorized";
 import { Role } from "@/constants";
 import NotFound from "@/pages/NotFound";
@@ -43,7 +42,7 @@ function Router() {
         {
           path: "vendors",
           element: <ProtectedRoute allowedRoles={[Role.ADMIN, Role.TRANSACTIONS, Role.OPERATIONS, Role.VENDOR]} />,
-          children: [{ path: "", element: <Vendors /> }],
+          children: [{ path: "/auth/vendors", element: <Vendors /> }],
         },
         {
           path: "users",
@@ -53,17 +52,12 @@ function Router() {
         {
           path: "merchants",
           element: <ProtectedRoute allowedRoles={[Role.ADMIN, Role.TRANSACTIONS, Role.OPERATIONS, Role.MERCHANT_ADMIN, Role.MERCHANT, Role.SUB_MERCHANT]} />,
-          children: [{ path: "", element: <Merchant /> }],
+          children: [{ path: "/auth/merchants", element: <Merchant /> }],
         },
         {
-          path: "vendor-account-reports",
+          path: "reports",
           element: <ProtectedRoute allowedRoles={[Role.ADMIN, Role.TRANSACTIONS, Role.MERCHANT_ADMIN, Role.MERCHANT, Role.SUB_MERCHANT, Role.VENDOR]} />,
-          children: [{ path: "", element: <VendorAccountReports /> }],
-        },
-        {
-          path: "account-reports",
-          element: <ProtectedRoute allowedRoles={[Role.ADMIN, Role.TRANSACTIONS, Role.MERCHANT_ADMIN, Role.MERCHANT, Role.SUB_MERCHANT, Role.VENDOR]} />,
-          children: [{ path: "", element: <AccountReports /> }],
+          children: [{ path: "/auth/reports", element: <Reports /> }],
         },
         {
           path: "transaction-list",
