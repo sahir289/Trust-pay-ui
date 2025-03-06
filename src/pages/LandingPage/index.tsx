@@ -328,14 +328,14 @@ function Main() {
       pages: [
         {
           name: "AccountReports",
-          pathname: "/account-reports",
-          image: "account-reports",
-        },
-        {
-          name: "VendorAccountReports",
-          pathname: "/vendor-account-reports",
-          image: "vendor-account-reports",
-        },
+          pathname: "/reports",
+          image: "reports",
+        }
+        // {
+        //   name: "VendorAccountReports",
+        //   pathname: "/vendor-account-reports",
+        //   image: "vendor-account-reports",
+        // },
       ],
     },
     {

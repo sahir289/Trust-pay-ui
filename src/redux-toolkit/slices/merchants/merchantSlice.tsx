@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Merchant, MerchantState } from "./merchantTypes";
 
@@ -18,7 +17,7 @@ const merchantSlice = createSlice({
     addMerchant: (state, action: PayloadAction<Merchant>) => {
       state.users.push(action.payload);
     },
-    updateMerchant: (state, action: PayloadAction<Merchant>) => {
+    updateMercHant: (state, action: PayloadAction<Merchant>) => {
       const updatedMerchant = action.payload;
       const index = state.users.findIndex(
         (user) => user.id === updatedMerchant.id,
@@ -27,7 +26,7 @@ const merchantSlice = createSlice({
         state.users[index] = updatedMerchant;
       }
     },
-    deleteMerchant: (state, action: PayloadAction<Merchant>) => {
+    deleteMercHant: (state, action: PayloadAction<Merchant>) => {
       const updatedMerchant = action.payload;
       const index = state.users.findIndex(
         (user) => user.id === updatedMerchant.id,
@@ -39,5 +38,5 @@ const merchantSlice = createSlice({
   },
 });
 
-export const { getMerchants, addMerchant, updateMerchant,deleteMerchant } = merchantSlice.actions;
+export const { getMerchants, addMerchant, updateMercHant,deleteMercHant } = merchantSlice.actions;
 export default merchantSlice.reducer;

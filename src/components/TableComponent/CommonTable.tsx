@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import Table from '@/components/Base/Table';
 import Pagination from '@/components/Base/Pagination';
@@ -8,25 +8,22 @@ import Lucide, { icons } from '@/components/Base/Lucide';
 import { FormCheck, FormSwitch, FormSelect } from '@/components/Base/Form';
 import Tippy from '@/components/Base/Tippy';
 
-// interface Column {
-//   label: string;
-//   key: string;
-//   type?: 'text' | 'image' | 'status' | 'checkbox' | 'expand' | 'toggle';
-// }
-
-interface Column  {
+interface Column {
   label: string;
   key: string;
   type?:
-  | 'status'
-  | 'image'
-  | 'text'
-  | 'checkbox'
-  | 'toggle'
-  | 'expand'
-  | 'actions'
-  | "range";
-};
+    | 'status'
+    | 'image'
+    | 'text'
+    | 'checkbox'
+    | 'toggle'
+    | 'expand'
+    | 'range'
+    | 'object'
+    | 'action'
+    | string;
+  objectKey?: string;
+}
 
 interface CommonTableProps {
   columns: Column[];
@@ -52,9 +49,16 @@ const CommonTable: React.FC<CommonTableProps> = ({
       string,
       { color: string; icon: keyof typeof icons }
     > = {
-      PENDING: { color: 'text-yellow-500', icon: 'Clock' },
-      SUCCESS: { color: 'text-green-500', icon: 'CheckCircle' },
+      IMAGE_PENDING: { color: 'text-yellow-500', icon: 'Globe' },
+      PENDING: { color: 'text-yellow-500', icon: 'Globe' },
       FAILED: { color: 'text-red-500', icon: 'XCircle' },
+      DROPPED: { color: 'text-red-500', icon: 'XCircle' },
+      REJECTED: { color: 'text-red-500', icon: 'XCircle' },
+      BANK_MISMATCH: { color: 'text-orange-500', icon: 'FileWarning' },
+      DUPLICATE: { color: 'text-orange-500', icon: 'FileWarning' },
+      DISPUTE: { color: 'text-orange-500', icon: 'FileWarning' },
+      ASSIGNED: { color: 'text-blue-500', icon: 'ListChecks' },
+      SUCCESS: { color: 'text-green-500', icon: 'CheckCircle' },
     };
     return statusStyles[status] || { color: 'text-gray-500', icon: 'Info' };
   };
@@ -65,9 +69,8 @@ const CommonTable: React.FC<CommonTableProps> = ({
 
   const paginatedData = data.rows.slice(
     (currentPage - 1) * limit,
-    currentPage * limit
+    currentPage * limit,
   );
-
   const totalPages =
     data.totalCount && data.totalCount > 0
       ? Math.ceil(data.totalCount / limit)
@@ -116,8 +119,10 @@ const CommonTable: React.FC<CommonTableProps> = ({
           {page}
         </Pagination.Link>
       ) : (
-        <span key={index} className="px-2">...</span>
-      )
+        <span key={index} className="px-2">
+          ...
+        </span>
+      ),
     );
   };
 
@@ -160,7 +165,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
                     >
                       <Lucide
                         icon={getStatusStyles(row[col.key]).icon}
-                        className="w-5 h-5"
+                        className="w-5 h-5 ml-px stroke-[2.5] mr-2"
                       />
                       {row[col.key]}
                     </div>
@@ -220,6 +225,12 @@ const CommonTable: React.FC<CommonTableProps> = ({
                         className="w-5 h-5"
                       />
                     </div>
+                  ) : col.type === 'object' &&
+                    typeof row[col.key] === 'object' &&
+                    row[col.key] !== null ? (
+                    row[col.key][col.objectKey ?? ''] ?? ''
+                  ) : col.type === 'action' ? (
+                    <span> action </span>
                   ) : (
                     row[col.key]
                   )}
@@ -239,7 +250,6 @@ const CommonTable: React.FC<CommonTableProps> = ({
           >
             <Lucide icon="ChevronsLeft" className="w-4 h-4" />
           </Pagination.Link>
-
           <Pagination.Link
             onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
             active={currentPage === 1}
@@ -280,9 +290,9 @@ const CommonTable: React.FC<CommonTableProps> = ({
           }}
         >
           <option value="10">10</option>
-          <option value="25">25</option>
-          <option value="35">35</option>
+          <option value="20">20</option>
           <option value="50">50</option>
+          <option value="100">100</option>
         </FormSelect>
       </div>
     </div>

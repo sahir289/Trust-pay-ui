@@ -18,7 +18,11 @@ import { getMerchants } from "@/redux-toolkit/slices/merchants/merchantSlice";
 import { getAllMerchants } from "@/redux-toolkit/slices/merchants/merchantAPI";
 import { createMerchant } from "@/redux-toolkit/slices/merchants/merchantAPI";
 import { updateMerchant } from "@/redux-toolkit/slices/merchants/merchantAPI";
-import { deleteMerchant } from '@/redux-toolkit/slices/merchants/merchantAPI';
+// import { deleteMerchant } from '@/redux-toolkit/slices/merchants/merchantAPI';
+import { Columns } from "@/constants";
+import { addMerchant } from "@/redux-toolkit/slices/merchants/merchantSlice";
+// import { deleteMercHant } from "@/redux-toolkit/slices/merchants/merchantSlice";
+import { updateMercHant } from "@/redux-toolkit/slices/merchants/merchantSlice";
 
 export interface Merchant {
     name: string;
@@ -43,14 +47,17 @@ function Main(): JSX.Element {
     const [expandedRow, setExpandedRow] = useState<number | null>(null);
     // const [editModal, setEditModal] = useState<boolean>(false)
     // const sendButtonRef = useRef(null);
+
     const merchantModal = () => {
         setNewMerchantModal((prev) => !prev)
     }
+
     useEffect(() => {
       if (!newMerchantModal) {
         setFormData(null);
       }
     }, [newMerchantModal]);
+
     //  const [params, setParams] = useState<{ [key: string]: string }>({
     //     page: '1',
     //     limit: '10',
@@ -73,52 +80,59 @@ function Main(): JSX.Element {
       setFormData(data);
     merchantModal();
   };
-const handleSubmitData =async (data: any, isEditMode?: boolean) => {
+const handleSubmitData =(async (data: any, isEditMode?: boolean) => {
         if (isEditMode) {
             let prevData = formData;
-            // console.log(formData,"data")
             const newData = getUpdatedFields(prevData, data)
-            await updateMerchant(data.id, newData);
+            const updatedMerchant=    await updateMerchant(data.id, newData);
+            // console.log(updateMercHant,"hiii from updated merchant")
+            dispatch(updateMercHant(updatedMerchant));
             setFormData(null);
         } else {
-            await createMerchant(data);
-        }
-};
+      const addedMerchant=    await createMerchant(data);
+        dispatch(addMerchant(addedMerchant));
+    }
+})
 
-    const handledeleteData = async (id: string) => {
-        // console.log(id,"id from delelte")
-    await  deleteMerchant(id)
+const handledeleteData = async (id: string) => {
+    console.log(id, "id  delete")
+    //temp not deleting data
+//    await deleteMerchant(id);
+    // dispatch(deleteMercHant(deletedMerchant));
   }
     ///for update data from edit modal where we update merchant details return only updated data
-    function getUpdatedFields(
-      originalData: any,
-      updatedData: any,
-    ): { [key: string]: any } {
-      const updatedFields: { [key: string]: any } = {};
+function getUpdatedFields(
+  originalData: any,
+  updatedData: any,
+): { [key: string]: any } {
+  const updatedFields: { [key: string]: any } = {};
 
-      Object.keys(updatedData).forEach((key) => {
-        if (typeof updatedData[key] === 'object' && updatedData[key] !== null) {
-          // Handle nested objects like `config`
-          const nestedUpdates = getUpdatedFields(
-            originalData[key] || {},
-            updatedData[key],
-          );
-          if (Object.keys(nestedUpdates).length > 0) {
-            updatedFields[key] = nestedUpdates;
-          }
-        } else {
-          // Check if the value is different from the original
-          if (updatedData[key] !== originalData[key]) {
-            updatedFields[key] = updatedData[key];
-          }
-        }
-      });
+  Object.keys(updatedData).forEach((key) => {
+    if (typeof updatedData[key] === 'object' && updatedData[key] !== null) {
+      // Handle nested objects like `config`
+      const nestedUpdates = getUpdatedFields(
+        originalData[key] || {},
+        updatedData[key],
+      );
 
-      return updatedFields;
+      // If there are nested updates, add them to updatedFields
+      if (Object.keys(nestedUpdates).length > 0) {
+        updatedFields[key] = nestedUpdates;
+      }
+    } else {
+      // Check if the value is different from the original
+      if (updatedData[key] !== originalData[key]) {
+        updatedFields[key] = updatedData[key];
+      }
     }
+  });
+
+  return updatedFields;
+}
 
 
-  useEffect(() => {
+
+useEffect(() => {
       fetchMerchants();
   }, [fetchMerchants]);
     // const tableHeaders: string[] = [
@@ -133,7 +147,7 @@ const handleSubmitData =async (data: any, isEditMode?: boolean) => {
     //     "Allow Intent",
     //     "Actions",
     // ];
-    const formFields = {
+const formFields = {
       Code: [
         {
           name: 'code',
@@ -267,31 +281,7 @@ const handleSubmitData =async (data: any, isEditMode?: boolean) => {
         },
       ],
     };
-     const tableHeaders = [
-       {
-         label: 'Sub Merchants',
-         key: 'sub_merchants',
-         type: 'expand' as const,
-       },
-       { label: 'Code', key: 'code', type: 'text' as const },
-       { label: 'Balance', key: 'balance', type: 'text' as const },
-       { label: 'PayIn Range', key: 'payin_range', type: 'text' as const },
-       {
-         label: 'PayIn Commission',
-         key: 'payin_commission',
-         type: 'range' as const,
-       },
-       { label: 'PayOut Range', key: 'payout_range', type: 'text' as const },
-       {
-         label: 'PayOut Commission',
-         key: 'payout_commission',
-         type: 'range' as const,
-       },
-       { label: 'Test Mode', key: 'test_mode', type: 'toggle' as const },
-       { label: 'Allow Intent', key: 'allow_intent', type: 'toggle' as const },
-       { label: 'Enabled', key: 'is_enabled', type: 'toggle' as const },
-       { label: 'Actions', key: 'actions', type: 'actions' as const },
-     ];
+   
     return (
       <div className="grid grid-cols-12 gap-y-10 gap-x-6">
         <div className="col-span-12">
@@ -491,14 +481,13 @@ const handleSubmitData =async (data: any, isEditMode?: boolean) => {
                 </div>
               </div>
               <CustomTable
-                columns={tableHeaders}
-                data={{ rows: allMerchants, totalCount: 100 }}
+                columns={Columns.MERCHANTS}
+                data={{ rows: allMerchants, totalCount: allMerchants.length }}
                 expandedRow={expandedRow ?? 20}
                 expandable={true}
                 handleRowClick={(index: number) => handleRowClick(index)}
                 handleEditModal={handleEditModal}
                 handleDeleteData={handledeleteData}
-
                 // params={params}
                 // setParams={setParams}
               />
@@ -511,12 +500,12 @@ const handleSubmitData =async (data: any, isEditMode?: boolean) => {
             setReject={() => { }} 
             title={"Merchants"} 
             status={[]} 
-                            editModal={editModal.toString()} 
-                            setEditModal={() => setEditModal(!editModal)} 
-                            setStatus={() => { }} 
-                            setParams={() => {}}
-                            expandedRow={expandedRow ?? 20} 
-                            handleRowClick={(index: number) => handleRowClick(index)}
+            editModal={editModal.toString()} 
+            setEditModal={() => setEditModal(!editModal)} 
+            setStatus={() => { }} 
+            setParams={() => {}}
+            expandedRow={expandedRow ?? 20} 
+            handleRowClick={(index: number) => handleRowClick(index)}
             /> */}
             </div>
           </div>
