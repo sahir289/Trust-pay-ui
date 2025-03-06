@@ -3,7 +3,6 @@ import Lucide from "@/components/Base/Lucide";
 import users from "@/fakers/users";
 import Papa from 'papaparse';
 import Button from "@/components/Base/Button";
-import _ from "lodash";
 import { FormInput, FormSelect } from "@/components/Base/Form";
 import { useCallback, useEffect, useState } from "react";
 import { Popover } from "@/components/Base/Headless";
