@@ -1,19 +1,23 @@
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import { FormCheck, FormInput, FormLabel } from "@/components/Base/Form";
-import Tippy from "@/components/Base/Tippy";
-import users from "@/fakers/users";
-import Button from "@/components/Base/Button";
-import clsx from "clsx";
-import ThemeSwitcher from "@/components/ThemeSwitcher";
-import { useLocation, useNavigate } from "react-router-dom";
-import React, { useState, useRef, useEffect } from "react";
-import { postApi } from "../../redux-toolkit/api";
-import { jwtDecode } from "jwt-decode";
-import Lucide from "@/components/Base/Lucide";
-import Notification, { NotificationElement } from "@/components/Base/Notification";
+import { FormCheck, FormInput, FormLabel } from '@/components/Base/Form';
+import Tippy from '@/components/Base/Tippy';
+import users from '@/fakers/users';
+import Button from '@/components/Base/Button';
+import clsx from 'clsx';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
+import { useLocation, useNavigate } from 'react-router-dom';
+import React, { useState, useRef, useEffect } from 'react';
+import { postApi } from '../../redux-toolkit/api';
+import { jwtDecode } from 'jwt-decode';
+import Lucide from '@/components/Base/Lucide';
+import Notification, {
+  NotificationElement,
+} from '@/components/Base/Notification';
+import socket from '@/socket/socket';
 
 interface CustomJwtPayload {
+  user_id: string;
   user_name: string;
   designation: string;
   role: string;
@@ -24,12 +28,12 @@ interface CustomJwtPayload {
 
 function Main() {
   const { pathname } = useLocation();
-  const token = localStorage.getItem("accessToken");
+  const token = localStorage.getItem('accessToken');
 
   useEffect(() => {
     if (token) {
-      if (pathname === "/") {
-        navigate("/auth/dashboard");
+      if (pathname === '/') {
+        navigate('/auth/dashboard');
       }
     } else {
       // if (
@@ -54,13 +58,13 @@ function Main() {
   const navigate = useNavigate();
 
   const INITIAL_LOGIN_OBJ = {
-    username: "",
-    password: "",
+    username: '',
+    password: '',
     rememberMe: false,
   };
 
   const [loginObj, setLoginObj] = useState(INITIAL_LOGIN_OBJ);
-  const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -80,46 +84,48 @@ function Main() {
   const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (loginObj.username.trim() === "") {
-      setNotificationMessage("UserName is required!");
+    if (loginObj.username.trim() === '') {
+      setNotificationMessage('UserName is required!');
       basicNonStickyNotificationToggle();
-    } else if (loginObj.password.trim() === "") {
-      setNotificationMessage("Password is required!");
+    } else if (loginObj.password.trim() === '') {
+      setNotificationMessage('Password is required!');
       basicNonStickyNotificationToggle();
     } else {
       delete (loginObj as { rememberMe?: boolean }).rememberMe;
-      await postApi("/auth/login", loginObj, false)
+      await postApi('/auth/login', loginObj, false)
         .then((res) => {
           if (res?.data?.data?.accessToken) {
-            localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+            localStorage.setItem('accessToken', res?.data?.data?.accessToken);
             const userData = jwtDecode<CustomJwtPayload>(
-              res?.data?.data?.accessToken
+              res?.data?.data?.accessToken,
             );
 
-            localStorage.setItem(
-              "userData",
-              JSON.stringify({
-                name: userData?.user_name,
-                designation: userData?.designation,
-                role: userData?.role,
-              })
-            );
+            const userInfo = {
+              name: userData?.user_name,
+              designation: userData?.designation,
+              role: userData?.role,
+            };
+
+            localStorage.setItem('userData', JSON.stringify(userInfo));
             sessionStorage.setItem(
-              "userSession",
-              JSON.stringify(res?.data?.data?.sessionId)
+              'userSession',
+              JSON.stringify(res?.data?.data?.sessionId),
             );
 
-            navigate("auth/dashboard");
+            // ✅ Emit user-login event to server
+            socket.emit('user-login', userData?.user_id);
+
+            navigate('auth/dashboard');
           } else {
             if (res?.error?.error?.status === 404) {
               setNotificationMessage(
-                res?.error?.message === "User not found"
-                  ? "Wrong credentials"
-                  : res?.error?.message
+                res?.error?.message === 'User not found'
+                  ? 'Wrong credentials'
+                  : res?.error?.message,
               );
               basicNonStickyNotificationToggle();
             } else {
-              setNotificationMessage("Fail to login");
+              setNotificationMessage('Fail to login');
               basicNonStickyNotificationToggle();
             }
           }
@@ -132,13 +138,13 @@ function Main() {
   };
 
   const logout = async () => {
-    const session_id = sessionStorage.getItem("UserSession");
+    const session_id = sessionStorage.getItem('UserSession');
     if (session_id) {
-      await postApi("/auth/logout", { session_id }, true);
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("userData");
-      sessionStorage.removeItem("userSession");
-      navigate("/");
+      await postApi('/auth/logout', { session_id }, true);
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('userData');
+      sessionStorage.removeItem('userSession');
+      navigate('/');
     }
   };
 
@@ -147,7 +153,7 @@ function Main() {
       <div className="container grid lg:h-screen grid-cols-12 lg:max-w-[1550px] 2xl:max-w-[1750px] py-10 px-5 sm:py-14 sm:px-10 md:px-36 lg:py-0 lg:pl-14 lg:pr-12 xl:px-24">
         <div
           className={clsx([
-            "relative z-50 h-full col-span-12 p-7 sm:p-14 bg-white rounded-2xl lg:bg-transparent lg:pr-10 lg:col-span-5 xl:pr-24 2xl:col-span-4 lg:p-0 dark:bg-darkmode-600",
+            'relative z-50 h-full col-span-12 p-7 sm:p-14 bg-white rounded-2xl lg:bg-transparent lg:pr-10 lg:col-span-5 xl:pr-24 2xl:col-span-4 lg:p-0 dark:bg-darkmode-600',
             "before:content-[''] before:absolute before:inset-0 before:-mb-3.5 before:bg-white/40 before:rounded-2xl before:mx-5 dark:before:hidden",
           ])}
         >
@@ -164,7 +170,7 @@ function Main() {
             <div className="mt-10">
               <div className="text-2xl font-medium">Sign In</div>
               <div className="mt-2.5 text-slate-600 dark:text-slate-400">
-                Don't have an account?{" "}
+                Don't have an account?{' '}
                 <a className="font-medium text-primary" href="/register">
                   Sign Up
                 </a>
@@ -177,11 +183,11 @@ function Main() {
                   <FormInput
                     type="text"
                     className="block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80"
-                    placeholder={"Enter your username"}
+                    placeholder={'Enter your username'}
                     value={loginObj.username}
                     onChange={(e) =>
                       updateFormValue({
-                        updateType: "username",
+                        updateType: 'username',
                         value: e.target.value,
                       })
                     }
@@ -192,13 +198,13 @@ function Main() {
                   </FormLabel>
                   <div className="relative">
                     <FormInput
-                      type={showPassword ? "text" : "password"}
+                      type={showPassword ? 'text' : 'password'}
                       className="block px-4 py-3.5 rounded-[0.6rem] border-slate-300/80"
                       placeholder="************"
                       value={loginObj.password}
                       onChange={(e) =>
                         updateFormValue({
-                          updateType: "password",
+                          updateType: 'password',
                           value: e.target.value,
                         })
                       }
@@ -224,7 +230,7 @@ function Main() {
                         checked={loginObj.rememberMe}
                         onChange={(e) =>
                           updateFormValue({
-                            updateType: "rememberMe",
+                            updateType: 'rememberMe',
                             value: e.target.value,
                           })
                         }
@@ -256,14 +262,14 @@ function Main() {
       <div className="fixed container grid w-screen inset-0 h-screen grid-cols-12 lg:max-w-[1550px] 2xl:max-w-[1750px] pl-14 pr-12 xl:px-24">
         <div
           className={clsx([
-            "relative h-screen col-span-12 lg:col-span-5 2xl:col-span-4 z-20",
+            'relative h-screen col-span-12 lg:col-span-5 2xl:col-span-4 z-20',
             "after:bg-white after:hidden after:lg:block after:content-[''] after:absolute after:right-0 after:inset-y-0 after:bg-gradient-to-b after:from-white after:to-slate-100/80 after:w-[800%] after:rounded-[0_1.2rem_1.2rem_0/0_1.7rem_1.7rem_0] dark:after:bg-darkmode-600 dark:after:from-darkmode-600 dark:after:to-darkmode-600",
             "before:content-[''] before:hidden before:lg:block before:absolute before:right-0 before:inset-y-0 before:my-6 before:bg-gradient-to-b before:from-white/10 before:to-slate-50/10 before:bg-white/50 before:w-[800%] before:-mr-4 before:rounded-[0_1.2rem_1.2rem_0/0_1.7rem_1.7rem_0] dark:before:from-darkmode-300 dark:before:to-darkmode-300",
           ])}
         ></div>
         <div
           className={clsx([
-            "h-full col-span-7 2xl:col-span-8 lg:relative",
+            'h-full col-span-7 2xl:col-span-8 lg:relative',
             "before:content-[''] before:absolute before:lg:-ml-10 before:left-0 before:inset-y-0 before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 before:w-screen before:lg:w-[800%]",
             "after:content-[''] after:absolute after:inset-y-0 after:left-0 after:w-screen after:lg:w-[800%] after:bg-texture-white after:bg-fixed after:bg-center after:lg:bg-[25rem_-25rem] after:bg-no-repeat",
           ])}
@@ -286,7 +292,7 @@ function Main() {
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
                     src={users.fakeUsers()[0]?.photo}
-                    content={users.fakeUsers()[0]?.name || ""}
+                    content={users.fakeUsers()[0]?.name || ''}
                   />
                 </div>
                 <div className="-ml-3 w-9 h-9 2xl:w-11 2xl:h-11 image-fit zoom-in">
@@ -295,7 +301,7 @@ function Main() {
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
                     src={users.fakeUsers()[0]?.photo}
-                    content={users.fakeUsers()[0]?.name || ""}
+                    content={users.fakeUsers()[0]?.name || ''}
                   />
                 </div>
                 <div className="-ml-3 w-9 h-9 2xl:w-11 2xl:h-11 image-fit zoom-in">
@@ -304,7 +310,7 @@ function Main() {
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
                     src={users.fakeUsers()[0]?.photo}
-                    content={users.fakeUsers()[0]?.name || ""}
+                    content={users.fakeUsers()[0]?.name || ''}
                   />
                 </div>
                 <div className="-ml-3 w-9 h-9 2xl:w-11 2xl:h-11 image-fit zoom-in">
@@ -313,7 +319,7 @@ function Main() {
                     alt="Tailwise - Admin Dashboard Template"
                     className="rounded-full border-[3px] border-white/50"
                     src={users.fakeUsers()[0]?.photo}
-                    content={users.fakeUsers()[0]?.name || ""}
+                    content={users.fakeUsers()[0]?.name || ''}
                   />
                 </div>
               </div>
