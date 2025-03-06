@@ -42,7 +42,7 @@ function Router() {
         {
           path: "vendors",
           element: <ProtectedRoute allowedRoles={[Role.ADMIN, Role.TRANSACTIONS, Role.OPERATIONS, Role.VENDOR]} />,
-          children: [{ path: "", element: <Vendors /> }],
+          children: [{ path: "/auth/vendors", element: <Vendors /> }],
         },
         {
           path: "users",

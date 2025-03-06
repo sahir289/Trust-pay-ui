@@ -44,14 +44,14 @@ const initialState: SideMenuState = {
     },
     {
       icon: "Store",
-      pathname: "/layout/vendors",
+      pathname: "/auth/vendors",
       title: "Vendors",
     },
     "REPORTS",
     {
       icon: "SquareUser",
       pathname: "/auth/reports",
-      title: "Report",
+      title: "Reports",
     },
     "SETTLEMENTS & CHARGEBACKS",
     {
@@ -104,17 +104,7 @@ const initialState: SideMenuState = {
       pathname: "/auth/add-data",
       title: "Data Entries",
     },
-    "ACCOUNT REPORTS",
-    {
-      icon: "SquareUser",
-      pathname: "/auth/account-reports",
-      title: "Account Report",
-    },
-    {
-      icon: "SquareUser",
-      pathname: "/auth/vendor-account-reports",
-      title: "Vendor Account Report",
-    },
+    
     // "CHAT SUPPORT",
     // {
     //   icon: "MailOpen",

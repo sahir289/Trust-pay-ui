@@ -3,131 +3,139 @@ import Lucide from "@/components/Base/Lucide";
 import users from "@/fakers/users";
 import Papa from 'papaparse';
 import Button from "@/components/Base/Button";
-import Table from "@/components/Base/Table";
 import _ from "lodash";
-import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
-import { useEffect, useState } from "react";
-import {  Menu, Popover } from "@/components/Base/Headless";
+import { FormInput, FormSelect } from "@/components/Base/Form";
+import { useCallback, useEffect, useState } from "react";
+import { Popover } from "@/components/Base/Headless";
 // import { getApi } from "@/stores/api";
 import React from "react";
 import { getApi } from "@/redux-toolkit/api";
-type User = {
-  sno: number | null;
-  upi_short_code: string | null;
-  amount: string | null;
-  status: string | null;
-  is_notified: boolean | null;
-  merchant_order_id: string | null;
-  user: string | null;
-  currency: string | null;
-  bank_acc_id: string | null;
-  merchant_id: boolean | null;
-  bank_response_id: string | null;
-  payin_merchant_commission: string | null;
-  payin_vendor_commission: string | null;
-  user_submitted_utr: string | null;
-  duration: string | null;
-  is_url_expires: string | null;
-  expiration_date: string | null;
-};
+import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { getMerchantsReports } from "@/redux-toolkit/slices/reports/reportAPI";
+import { getMerchantReports } from "@/redux-toolkit/slices/reports/reportSlice";
+import CustomTable from "@/components/TableComponent/CommonTable";
+import { selectReports } from "@/redux-toolkit/slices/reports/reportSelectors";
+export interface MerchantReports {
+  sno: number;
+  upi_short_code: string;
+  amount: string;
+  status: string;
+  is_notified: boolean;
+  merchant_order_id: string;
+  user: string;
+  currency: string;
+  bank_acc_id: string;
+  merchant_id: boolean;
+  bank_response_id: string;
+  payin_merchant_commission: string;
+  payin_vendor_commission: string;
+  user_submitted_utr: string;
+  duration: string;
+  is_url_expires: string;
+  expiration_date: string;
+}
 function AccountReports() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [reportData, setReportData] = useState<User[]>([]);
-  const [params, setParams] = React.useState<{ [key: string]: string }>({});
   const [merchantCode, setmerchantCode] = useState('')
 
-  useEffect(() => {
-    async function fetchReports() {
-      try {
-        if (!params) {
-          setParams({
-            page: "1",
-            limit: "10",
-          });
-        }
-        const response = await getApi("/reports/get-merchants-reports", params, true);
-        if (response.data && response.data.data && Array.isArray(response.data.data)) {
-          setReportData(response.data.data); 
-        } else {
-          setReportData([]); 
-        }
-      } catch (error) {
-        console.error("Error fetching report data:", error);
-        setReportData([]); 
-      }
-    }
-  
-    fetchReports();
-  }, [params]);
+  const dispatch = useAppDispatch();
+  const allMerchantReports = useAppSelector(selectReports);
+  const fetchMerchantReports = useCallback(async () => {
+    const merchantReport = await getMerchantsReports("");
+    dispatch(getMerchantReports(merchantReport));
+  }, [dispatch]);
 
-   const handleMerchantCode = (e: { target: { value: React.SetStateAction<string>; }; }) => {
-     setmerchantCode(e.target.value)
-   }
-    const downloadCSV = async () => {
-      const response = await getApi(`/reports/get-merchants-reports?code=${merchantCode}&startDate=${startDate}&endDate=${endDate}`, {}, true);
-      console.log(response, "response");
-    
-      let formatSetting: { Date: any; 'Merchant Code': any; 'PayIn Count': any; 'Payin Amount': any; 'PayIn Commission': any; 'PayOut Count': any; 'PayOut Amount': any; 'PayOut Commission': any; 'Reversed PayOut Count': any; 'Reversed PayOut Amount': any; 'Reversed PayOut Commission': any; 'Settlement Count': any; 'Settlement Amount': any; 'Lien Count': any; 'Lien Amount': any; 'Current Balance': any; 'Net Balance': any; }[] = [];
-    
-      response.data.data.forEach((el: {
-        created_at: string;
-        code: string;
-        total_payin_count: number;
-        total_payin_amount: number;
-        total_payin_commission: number;
-        total_payout_count: number;
-        total_payout_amount: number;
-        total_payout_commission: number;
-        total_reverse_payout_count: number;
-        total_reverse_payout_amount: number;
-        total_reverse_payout_commission: number;
-        total_settlement_count: number;
-        total_settlement_amount: number;
-        total_chargeback_count: number;
-        total_chargeback_amount: number;
-        net_balance: string;
-        current_balance: string;
-}) => {
-        formatSetting.push({
-          'Date': el.created_at || '',
-          'Merchant Code': el.code || '',
-          'PayIn Count': el.total_payin_count || 0,
-          'Payin Amount': el.total_payin_amount || 0,
-          'PayIn Commission': el.total_payin_commission || 0,
-          'PayOut Count': el.total_payout_count || 0,
-          'PayOut Amount': el.total_payout_amount || 0,
-          'PayOut Commission': el.total_payout_commission || 0,
-          'Reversed PayOut Count': el.total_reverse_payout_count || 0,
-          'Reversed PayOut Amount': el.total_reverse_payout_amount || 0,
-          'Reversed PayOut Commission': el.total_reverse_payout_commission || 0,
-          'Settlement Count': el.total_settlement_count || 0,
-          'Settlement Amount': el.total_settlement_amount || 0,
-          'Lien Count': el.total_chargeback_count || 0,
-          'Lien Amount': el.total_chargeback_amount || 0,
-          'Current Balance': el.current_balance || '',
-          'Net Balance': el.net_balance || '',
-        });
+  useEffect(() => {
+    fetchMerchantReports();
+  }, [fetchMerchantReports]);
+
+  const tableHeaders = [
+  { label: "Code", key: "code", type: "text" as const },
+  { label: "Id", key: "id", type: "text" as const },
+  { label: "Total Payin Count", key: "total_payin_count", type: "text" as const },
+  { label: "Total Payin Amount", key: "total_payin_amount", type: "text" as const },
+  { label: "Total Payin Commission", key: "total_payin_commission", type: "text" as const },
+  { label: "Total Payout Count", key: "total_payout_count", type: "text" as const },
+  { label: "Total Payout Amount", key: "total_payout_amount", type: "text" as const },
+  { label: "Total Payout Commission", key: "total_payout_commission", type: "text" as const },
+  { label: "Total Settlement Count", key: "total_settlement_count", type: "text" as const },
+  { label: "Total Settlement Amount", key: "total_settlement_amount", type: "text" as const },
+  { label: "Total Chargeback Count", key: "total_chargeback_count", type: "text" as const },
+  { label: "Total Chargeback Amount", key: "total_chargeback_amount", type: "text" as const },
+  { label: "Current Balance", key: "current_balance", type: "text" as const },
+  { label: "Net Balance", key: "net_balance", type: "text" as const },
+  { label: "Created At", key: "created_at", type: "text" as const },
+  { label: "Updated At", key: "updated_at", type: "text" as const },
+  { label: "Calculation User Id", key: "calculation_user_id", type: "text" as const },
+  { label: "User Id", key: "user_id", type: "text" as const },
+];
+  const handleMerchantCode = (e: { target: { value: React.SetStateAction<string>; }; }) => {
+    setmerchantCode(e.target.value)
+  }
+  const downloadCSV = async () => {
+    const response = await getApi(`/reports/get-merchants-reports?code=${merchantCode}&startDate=${startDate}&endDate=${endDate}`, {}, true);
+    console.log(response, "response");
+    let formatSetting: { Date: any; 'Merchant Code': any; 'PayIn Count': any; 'Payin Amount': any; 'PayIn Commission': any; 'PayOut Count': any; 'PayOut Amount': any; 'PayOut Commission': any; 'Reversed PayOut Count': any; 'Reversed PayOut Amount': any; 'Reversed PayOut Commission': any; 'Settlement Count': any; 'Settlement Amount': any; 'Lien Count': any; 'Lien Amount': any; 'Current Balance': any; 'Net Balance': any; }[] = [];
+    response.data.data.forEach((el: {
+      created_at: string;
+      code: string;
+      total_payin_count: number;
+      total_payin_amount: number;
+      total_payin_commission: number;
+      total_payout_count: number;
+      total_payout_amount: number;
+      total_payout_commission: number;
+      total_reverse_payout_count: number;
+      total_reverse_payout_amount: number;
+      total_reverse_payout_commission: number;
+      total_settlement_count: number;
+      total_settlement_amount: number;
+      total_chargeback_count: number;
+      total_chargeback_amount: number;
+      net_balance: string;
+      current_balance: string;
+    }) => {
+      formatSetting.push({
+        'Date': el.created_at || '',
+        'Merchant Code': el.code || '',
+        'PayIn Count': el.total_payin_count || 0,
+        'Payin Amount': el.total_payin_amount || 0,
+        'PayIn Commission': el.total_payin_commission || 0,
+        'PayOut Count': el.total_payout_count || 0,
+        'PayOut Amount': el.total_payout_amount || 0,
+        'PayOut Commission': el.total_payout_commission || 0,
+        'Reversed PayOut Count': el.total_reverse_payout_count || 0,
+        'Reversed PayOut Amount': el.total_reverse_payout_amount || 0,
+        'Reversed PayOut Commission': el.total_reverse_payout_commission || 0,
+        'Settlement Count': el.total_settlement_count || 0,
+        'Settlement Amount': el.total_settlement_amount || 0,
+        'Lien Count': el.total_chargeback_count || 0,
+        'Lien Amount': el.total_chargeback_amount || 0,
+        'Current Balance': el.current_balance || '',
+        'Net Balance': el.net_balance || '',
       });
-    
-  const csv = Papa.unparse(formatSetting, {
-    delimiter: ',', // Ensures commas separate fields
-    newline: '\r\n', // Ensures proper line breaks for CSV format
-    quotes: true, // Quotes around fields (useful for data with commas or special characters)
-  });
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement('a');
-      if (link.download !== undefined) {
-        const url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'merchant_reports.csv');
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
+    });
+
+    const csv = Papa.unparse(formatSetting, {
+      delimiter: ',',
+      newline: '\r\n', // Ensures proper line breaks for CSV format
+      quotes: true, // Quotes around fields (useful for data with commas or special characters)
+    });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    if (link.download !== undefined) {
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', 'merchant_reports.csv');
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
-    
+  }
+
   return (
     <>
       <div className="col-span-12">
@@ -205,7 +213,7 @@ function AccountReports() {
                     />
                     <FormInput
                       type="text"
-                      placeholder="Search Payouts..."
+                      placeholder="Search Reports..."
                       className="pl-9 sm:w-64 rounded-[0.5rem]"
                     />
                   </div>
@@ -257,165 +265,15 @@ function AccountReports() {
                   </Popover>
                 </div>
               </div>
-              <div className="overflow-auto mx-4 ">
-                <Table className="border border-slate-200/60 rounded-md">
-                <Table.Thead>
-                      <Table.Tr>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          <FormCheck.Input type="checkbox" />
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          S.No
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          UPI Short Code
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          Amount
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          Status
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          Is Notified
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          Merchant Order ID
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          User
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          Currency
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          Bank Account ID
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          Merchant ID
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          Bank Response ID
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          Payin Merchant Commission
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          Payin Vendor Commission
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          User Submitted UTR
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          Duration
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          URL Expiration Status
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          Expiration Date
-                        </Table.Td>
-                        <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                          Actions
-                        </Table.Td>
-                       
-                      </Table.Tr>
-                    </Table.Thead>
-
-                  <Table.Tbody>
-                    {reportData.map((item, fakerKey) => (
-                      <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <FormCheck.Input type="checkbox" />
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.sno}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.upi_short_code}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.amount}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.status}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.is_notified ? "Notified" : "Not Notified"}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.currency}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.merchant_order_id}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.user}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.bank_acc_id}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.merchant_id}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.bank_response_id || "N/A"}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.payin_merchant_commission || "N/A"}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.payin_vendor_commission || "N/A"}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.user_submitted_utr || "N/A"}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.duration || "N/A"}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.is_url_expires ? "Expired" : "Not Expired"}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{item?.expiration_date}</span>
-                        </Table.Td>
-                        <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                          <div className="flex items-center justify-center">
-                            <Menu className="h-5">
-                              <Menu.Button className="w-5 h-5 text-slate-500">
-                                <Lucide icon="MoreVertical" className="w-5 h-5" />
-                              </Menu.Button>
-                              <Menu.Items className="w-40">
-                                <Menu.Item>
-                                  <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
-                                </Menu.Item>
-                                <Menu.Item className="text-danger">
-                                  <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
-                                </Menu.Item>
-                              </Menu.Items>
-                            </Menu>
-                          </div>
-                        </Table.Td>
-                      </Table.Tr>
-                    ))}
-                  </Table.Tbody>
-
-
-                </Table>
-              </div>
-              <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
-               
-                <FormSelect className="sm:w-20 rounded-[0.5rem]">
-                  <option>10</option>
-                  <option>25</option>
-                  <option>35</option>
-                  <option>50</option>
-                </FormSelect>
-              </div>
+              <CustomTable
+                columns={tableHeaders}
+                data={{ rows: allMerchantReports, totalCount: 100 }}
+              />
             </div>
           </div>
         </div>
-      </div></>
+      </div>
+    </>
   );
 }
 

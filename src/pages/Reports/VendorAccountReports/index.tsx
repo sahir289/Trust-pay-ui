@@ -4,65 +4,78 @@
 import Lucide from "@/components/Base/Lucide";
 import users from "@/fakers/users";
 import Button from "@/components/Base/Button";
-import Table from "@/components/Base/Table";
 import _ from "lodash";
-import { FormCheck, FormInput, FormSelect } from "@/components/Base/Form";
-import { ReactNode, useEffect, useState } from "react";
-import { Menu, Popover } from "@/components/Base/Headless";
+import CustomTable from "@/components/TableComponent/CommonTable";
+import { FormInput, FormSelect } from "@/components/Base/Form";
+import { useCallback, useEffect, useState } from "react";
+import { Popover } from "@/components/Base/Headless";
 // import TomSelect from "@/components/Base/TomSelect";
 
 import React from "react";
 import { getApi } from "@/redux-toolkit/api";
+import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { selectReports } from "@/redux-toolkit/slices/vendorReports/vendorReportSelectors";
+import { getVendorReports } from "@/redux-toolkit/slices/vendorReports/vendorReportAPI";
+import { getVendorReportsSlice } from "@/redux-toolkit/slices/vendorReports/vendorReportsSlice";
 // import { getApi } from "@/stores/api";
-type User = {
-  id: string | null;
-  upi_id: ReactNode;
-  upi_params: ReactNode;
-  acc_no: ReactNode;
-  ifsc: ReactNode;
-  bank_name: ReactNode;
-  is_qr: any;
-  is_bank: any;
-  min_payin: ReactNode;
-  is_enabled: any;
-  payin_count: ReactNode;
-  balance: ReactNode;
-  today_balance: ReactNode;
-  bank_used_for: ReactNode;
-  updated_by: string | null;
+export interface VendorReports {
+  sno: number;
+  upi_short_code: string;
+  amount: string;
+  status: string;
+  is_notified: boolean;
+  merchant_order_id: string;
+  user: string;
+  currency: string;
+  bank_acc_id: string;
+  merchant_id: boolean;
+  bank_response_id: string;
+  payin_merchant_commission: string;
+  payin_vendor_commission: string;
+  user_submitted_utr: string;
+  duration: string;
+  is_url_expires: string;
+  expiration_date: string;
 };
 
 function VendorAccountReports() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [reportData, setReportData] = useState<User[]>([]);
-  const [params, setParams] = React.useState<{ [key: string]: string }>({});
   const [vendorCode, setVendorCode] = useState('')
+  const dispatch = useAppDispatch();
+  const allvendorReports = useAppSelector(selectReports);
+  const fetchVendorReports = useCallback(async () => {
+    const vendorReport = await getVendorReports("");
+    dispatch(getVendorReportsSlice(vendorReport));
+    console.log(vendorReport, allvendorReports, "vendorReport")
+  }, [dispatch]);
 
-  // const [selectedUser, setSelectedUser] = useState("1");
   useEffect(() => {
-    async function fetchReports() {
-      try {
-        if (!params) {
-          setParams({
-            page: "1",
-            limit: "10",
-          });
-        }
-        const response = await getApi("/reports/get-vendors-reports", params, true);
-        if (response.data && response.data.data && Array.isArray(response.data.data)) {
-          setReportData(response.data.data);
-        } else {
-          setReportData([]);
-        }
-      } catch (error) {
-        console.error("Error fetching report data:", error);
-        setReportData([]);
-      }
-    }
+    fetchVendorReports();
+  }, [fetchVendorReports]);
 
-    fetchReports();
-  }, [params]);
+  const tableHeaders = [
+    { label: "Code", key: "code", type: "text" as const },
+    { label: "Id", key: "id", type: "text" as const },
+    { label: "Total Payin Count", key: "total_payin_count", type: "text" as const },
+    { label: "Total Payin Amount", key: "total_payin_amount", type: "text" as const },
+    { label: "Total Payin Commission", key: "total_payin_commission", type: "text" as const },
+    { label: "Total Payout Count", key: "total_payout_count", type: "text" as const },
+    { label: "Total Payout Amount", key: "total_payout_amount", type: "text" as const },
+    { label: "Total Payout Commission", key: "total_payout_commission", type: "text" as const },
+    { label: "Total Settlement Count", key: "total_settlement_count", type: "text" as const },
+    { label: "Total Settlement Amount", key: "total_settlement_amount", type: "text" as const },
+    { label: "Total Chargeback Count", key: "total_chargeback_count", type: "text" as const },
+    { label: "Total Chargeback Amount", key: "total_chargeback_amount", type: "text" as const },
+    { label: "Current Balance", key: "current_balance", type: "text" as const },
+    { label: "Net Balance", key: "net_balance", type: "text" as const },
+    { label: "Created At", key: "created_at", type: "text" as const },
+    { label: "Updated At", key: "updated_at", type: "text" as const },
+    { label: "Calculation User Id", key: "calculation_user_id", type: "text" as const },
+    { label: "User Id", key: "vendor_user_id", type: "text" as const },
+  ];
+  // const [selectedUser, setSelectedUser] = useState("1");
 
   const handleVendorCode = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setVendorCode(e.target.value)
@@ -204,148 +217,10 @@ function VendorAccountReports() {
                   </Popover>
                 </div>
               </div>
-              <div className="overflow-auto mx-4">
-                <Table className="border border-slate-200/60 rounded-md">
-                  <Table.Thead>
-                    <Table.Tr>
-                      <Table.Td className="w-5 py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        <FormCheck.Input type="checkbox" />
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        ID
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        UPI ID
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        UPI Params
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Account No
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        IFSC
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Bank Name
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        QR Enabled
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Bank Enabled
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Min Payin
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Status
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Payin Count
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Balance
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Today’s Balance
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Bank Used For
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium border-t bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Updated By
-                      </Table.Td>
-                      <Table.Td className="py-4 font-medium text-center border-t w-36 bg-slate-50 border-slate-200/60 text-slate-500 dark:bg-darkmode-400">
-                        Action
-                      </Table.Td>
-                    </Table.Tr>
-                  </Table.Thead>
-
-
-                  <Table.Tbody>
-                    {reportData.map((user, userKey) => (
-                      <Table.Tr key={userKey} className="[&_td]:last:border-b-0">
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <FormCheck.Input type="checkbox" />
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.id}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.upi_id}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.upi_params}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.acc_no}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.ifsc}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.bank_name}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.is_qr ? "Yes" : "No"}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.is_bank ? "Yes" : "No"}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.min_payin}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.is_enabled ? "Enabled" : "Disabled"}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.payin_count}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.balance}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.today_balance}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.bank_used_for}</span>
-                        </Table.Td>
-                        <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
-                          <span className="whitespace-nowrap">{user.updated_by}</span>
-                        </Table.Td>
-                        <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                          <div className="flex items-center justify-center">
-                            <Menu className="h-5">
-                              <Menu.Button className="w-5 h-5 text-slate-500">
-                                <Lucide icon="MoreVertical" className="w-5 h-5" />
-                              </Menu.Button>
-                              <Menu.Items className="w-40">
-                                <Menu.Item>
-                                  <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
-                                </Menu.Item>
-                                <Menu.Item className="text-danger">
-                                  <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
-                                </Menu.Item>
-                              </Menu.Items>
-                            </Menu>
-                          </div>
-                        </Table.Td>
-                      </Table.Tr>
-                    ))}
-                  </Table.Tbody>
-
-                </Table>
-              </div>
-              <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
-
-                <FormSelect className="sm:w-20 rounded-[0.5rem]">
-                  <option>10</option>
-                  <option>25</option>
-                  <option>35</option>
-                  <option>50</option>
-                </FormSelect>
-              </div>
+              <CustomTable
+                columns={tableHeaders}
+                data={{ rows: allvendorReports, totalCount: 100 }}
+              />
             </div>
           </div>
         </div>

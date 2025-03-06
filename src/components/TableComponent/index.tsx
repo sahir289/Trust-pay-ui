@@ -878,6 +878,80 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     </Table.Tr>
                   );
                 })}
+                  {title === 'Merchant Reports' && 
+              _.take(data?.rows, 10).map(
+                (faker, fakerKey) => {
+                  return (
+                  <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <FormCheck.Input type="checkbox" />
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.date}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.vendorCode}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.payInCount}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.payInAmount}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.payInCommission}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.payOutCount}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.payOutAmount}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.payOutCommission}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.reversedPayOut}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.reversedPayOutAmount}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.reversedPayOutCommission}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.settlementCount}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.settlementAmount}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.currentBalance}</span>
+                    </Table.Td>
+                    <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                      <span className="whitespace-nowrap">{faker.netBalance}</span>
+                    </Table.Td>
+                    <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
+                      <div className="flex items-center justify-center">
+                        <Menu className="h-5">
+                          <Menu.Button className="w-5 h-5 text-slate-500">
+                            <Lucide icon="MoreVertical" className="w-5 h-5" />
+                          </Menu.Button>
+                          <Menu.Items className="w-40">
+                            <Menu.Item>
+                              <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
+                            </Menu.Item>
+                            <Menu.Item className="text-danger">
+                              <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
+                            </Menu.Item>
+                          </Menu.Items>
+                        </Menu>
+                      </div>
+                    </Table.Td>
+                  </Table.Tr>
+                )}
+              )
+             }
               {title === 'Merchants' &&
                 _.take(data?.rows, 10).map((faker, fakerKey) => (
                   <React.Fragment key={fakerKey}>
@@ -2290,6 +2364,93 @@ const CustomTable: React.FC<ICustomTableProps> = ({
                     </Table.Td>
                   </Table.Tr>
                 ))}
+                {title === 'Vendor Reports' && 
+                
+                 _.take(data?.rows, 10).map(
+                   (faker, fakerKey) => (
+                     <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <FormCheck.Input type="checkbox" />
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed w-44 dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.sno}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.code}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.vendor_commission}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.created_date}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.created_by}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.status}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.action}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.confirmed}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.amount}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.merchant_order_id}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.merchant_code}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.photo}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.name}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.user_submitted_utr}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.utr}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.position}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.method}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.id}</span>
+                       </Table.Td>
+                       <Table.Td className="py-4 border-dashed dark:bg-darkmode-600">
+                         <span className="whitespace-nowrap">{faker.updated_at}</span>
+                       </Table.Td>
+                       <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
+                         <div className="flex items-center justify-center">
+                           <Menu className="h-5">
+                             <Menu.Button className="w-5 h-5 text-slate-500">
+                               <Lucide icon="MoreVertical" className="w-5 h-5" />
+                             </Menu.Button>
+                             <Menu.Items className="w-40">
+                               <Menu.Item>
+                                 <Lucide icon="CheckSquare" className="w-4 h-4 mr-2" /> Edit
+                               </Menu.Item>
+                               <Menu.Item className="text-danger">
+                                 <Lucide icon="Trash2" className="w-4 h-4 mr-2" /> Delete
+                               </Menu.Item>
+                             </Menu.Items>
+                           </Menu>
+                         </div>
+                       </Table.Td>
+                     </Table.Tr>
+                   )
+                 )
+             }
+           
               {title === 'Roles' &&
                 _.take(data?.rows, 20).map((faker, fakerKey) => (
                   <Table.Tr key={fakerKey} className="[&_td]:last:border-b-0">

@@ -21,7 +21,6 @@ function Main() {
 
       <div className="grid grid-cols-12 gap-y-10 gap-x-6 mt-2">
         <div className="col-span-12">
-
           <div className="relative flex flex-col col-span-12 lg:col-span-12 xl:col-span-12 gap-y-7">
             <div className="flex flex-col p-5 box box--stacked">
               <Tab.Group>
