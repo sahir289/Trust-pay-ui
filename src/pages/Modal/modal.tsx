@@ -638,16 +638,39 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                           </Menu.Button>
                         </Menu>
                       </Dialog.Title>
-                      <fieldset className="col-span-12 sm:col-span-12 border-2 rounded-lg border-gray-200 mx-5 my-2">
-                        <legend className="ml-4 pt-1 px-2">Vendor</legend>
-                        <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
+                      <fieldset className="col-span-12 sm:col-span-12 rounded-lg mx-5 my-2">
+                      <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
                           <div className="col-span-12 sm:col-span-12">
-                            <FormLabel htmlFor="modal-form-1">Code</FormLabel>
+                            <FormLabel htmlFor="modal-form-1">First Name</FormLabel>
                             <FormInput id="modal-form-1" type="text" />
                           </div>
                           <div className="col-span-12 sm:col-span-12">
                             <FormLabel htmlFor="modal-form-1">
-                              Commision
+                              Last Name
+                            </FormLabel>
+                            <FormInput id="modal-form-1" type="text" />
+                          </div>
+                        </Dialog.Description>
+                        <Dialog.Description className="flex flex-row gap-4 gap-y-3">
+                          <div className="col-span-2 sm:col-span-2">
+                            <FormLabel htmlFor="modal-form-1">Code</FormLabel>
+                            <FormInput id="modal-form-1" type="text" />
+                          </div>
+                          <div className="col-span-2 sm:col-span-12">
+                            <FormLabel htmlFor="modal-form-1">
+                              Balance
+                            </FormLabel>
+                            <FormInput id="modal-form-1" type="text" />
+                          </div>
+                        </Dialog.Description>
+                        <Dialog.Description className="grid grid-cols-12 gap-4 gap-y-3">
+                          <div className="col-span-12 sm:col-span-12">
+                            <FormLabel htmlFor="modal-form-1">Pay in Commission</FormLabel>
+                            <FormInput id="modal-form-1" type="text" />
+                          </div>
+                          <div className="col-span-12 sm:col-span-12">
+                            <FormLabel htmlFor="modal-form-1">
+                            Pay out Commission
                             </FormLabel>
                             <FormInput id="modal-form-1" type="text" />
                           </div>
@@ -1325,6 +1348,22 @@ const Modal: React.FC<ModalProps> = ({ handleModal, sendButtonRef, title, forOpe
                             placeholder="example@gmail.com"
                           />
                         </div>
+                        <div className="col-span-12 sm:col-span-6  ">
+                          <FormLabel htmlFor="modal-form-1">First Name</FormLabel>
+                          <FormInput
+                            id="modal-form-1"
+                            type="text"
+                            placeholder="example@gmail.com"
+                          />
+                        </div><div className="col-span-12 sm:col-span-6  ">
+                          <FormLabel htmlFor="modal-form-1">Last Name</FormLabel>
+                          <FormInput
+                            id="modal-form-1"
+                            type="text"
+                            placeholder="example@gmail.com"
+                          />
+                        </div>
+                        
                       </Dialog.Description>
                       <Dialog.Footer className="mt-4">
                         <Button

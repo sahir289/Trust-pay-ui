@@ -1,4 +1,4 @@
-import api from "../../services/api"; // Assuming this is your axios instance
+import api from "../../services/api"; 
 import { ApiResponse, User } from "./userTypes";
 
 export const getAllUsers = async (queryString: string): Promise<User[]> => {
