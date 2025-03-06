@@ -42,7 +42,7 @@ function Main(): JSX.Element {
     const merchantModal = () => {
         setNewMerchantModal((prev) => !prev)
     }
-    
+
     //  const [params, setParams] = useState<{ [key: string]: string }>({
     //     page: '1',
     //     limit: '10',
@@ -50,25 +50,34 @@ function Main(): JSX.Element {
 
   const handleRowClick = (fakerKey: number): void => {
         setExpandedRow((prevRow) => (prevRow === fakerKey ? null : fakerKey));
-    };
+  };
+  
   const [title, setTitle] = useState('Add Merchant');
-  const [editData, setEditData] = useState({});
+  const [formData, setFormData] = useState(null);
   const dispatch = useAppDispatch();
   const allMerchants = useAppSelector(selectAllMerchants);
   const fetchMerchants = useCallback(async () => {
     // tempory disabled this functionality
     // const queryString = new URLSearchParams(params).toString();
-    const merchantList = await getAllMerchants("");
-    //   console.log(merchantList,"merchant data");
-    dispatch(getMerchants(merchantList));
+  const merchantList = await getAllMerchants("");
+  console.log(merchantList,"merchant data");
+  dispatch(getMerchants(merchantList));
   }, [dispatch]); 
   const handleEditModal = (title: string, data: any) => {
-    setEditData(data);
+    setFormData(data);
     setTitle(title);
     merchantModal();
   };
+    const handleSubmitData = (data: any, isEditMode?: boolean) => {
+        if (isEditMode) {
+          console.log(data, 'Edit data');
+        } else {
+          console.log(data, 'Add data');
+        }
+    };
+
   useEffect(() => {
-    fetchMerchants();
+      fetchMerchants();
   }, [fetchMerchants]);
     // const tableHeaders: string[] = [
     //     "Sub Merchants",
@@ -217,7 +226,11 @@ function Main(): JSX.Element {
       ],
     };
      const tableHeaders = [
-       { label: 'Sub Merchants', key: 'sub_merchants', type: 'expand' as const },
+       {
+         label: 'Sub Merchants',
+         key: 'sub_merchants',
+         type: 'expand' as const,
+       },
        { label: 'Code', key: 'code', type: 'text' as const },
        { label: 'Balance', key: 'balance', type: 'text' as const },
        { label: 'PayIn Range', key: 'payin_range', type: 'text' as const },
@@ -234,6 +247,7 @@ function Main(): JSX.Element {
        },
        { label: 'Test Mode', key: 'test_mode', type: 'toggle' as const },
        { label: 'Allow Intent', key: 'allow_intent', type: 'toggle' as const },
+       { label: 'Enabled', key: 'is_enabled', type: 'toggle' as const },
        { label: 'Actions', key: 'actions', type: 'actions' as const },
      ];
     return (
@@ -255,8 +269,10 @@ function Main(): JSX.Element {
                 forOpen={newMerchantModal}
                 title={title}
                 formFields={formFields}
-                existingData={editData}
-                setEditData={setEditData}
+                existingData={formData}
+                setEditData={setFormData}
+                handleSubmitData={handleSubmitData}
+                // dummyfunction={sdadasa}
               />
             </div>
           </div>
@@ -444,21 +460,21 @@ function Main(): JSX.Element {
                 // setParams={setParams}
               />
               {/* <CustomTable 
-                            columns={tableHeaders}
-                            // data={merchants.fakeMerchants() as Merchant[]} 
-                            approve={false} 
-                            setApprove={() => { }} 
-                            reject={false} 
-                            setReject={() => { }} 
-                            title={"Merchants"} 
-                            status={[]} 
+             columns={tableHeaders}
+            // data={merchants.fakeMerchants() as Merchant[]} 
+            approve={false} 
+            setApprove={() => { }} 
+            reject={false} 
+            setReject={() => { }} 
+            title={"Merchants"} 
+            status={[]} 
                             editModal={editModal.toString()} 
                             setEditModal={() => setEditModal(!editModal)} 
                             setStatus={() => { }} 
                             setParams={() => {}}
                             expandedRow={expandedRow ?? 20} 
                             handleRowClick={(index: number) => handleRowClick(index)}
-                        /> */}
+            /> */}
             </div>
           </div>
         </div>

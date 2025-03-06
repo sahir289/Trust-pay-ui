@@ -180,13 +180,17 @@ const CommonTable: React.FC<CommonTableProps> = ({
                     <FormSwitch className=" dark:border-red-500 rounded-lg">
                       <FormSwitch.Label
                         htmlFor="show-example-1 "
-                        className="ml-0 "
-                      >
-                        <FormSwitch.Input
-                          id="show-example-1"
-                          className="ml-0 mr-0 border-2 border-slate-300"
-                          type="checkbox"
-                        />
+                                className="ml-0 "
+                                
+              
+                     >
+                    <FormSwitch.Input
+                                  id="show-example-1"
+                                  className="ml-0 mr-0 border-2 border-slate-300"
+                                  type="checkbox"
+                                  value={row[col.key] ? 'true' : 'false'}
+                                  // disabled={ true}
+                    />
                       </FormSwitch.Label>
                     </FormSwitch>
                   ) : col.type === 'range' ? (

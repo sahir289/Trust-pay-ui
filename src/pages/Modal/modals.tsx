@@ -11,6 +11,7 @@ interface ModalProps {
   formFields: any;
   existingData?: any;
   setEditData?: any;
+  handleSubmitData: (data: any, isEditMode?: boolean | undefined) => void;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -20,12 +21,13 @@ const Modal: React.FC<ModalProps> = ({
   forOpen,
   formFields,
   existingData,
-  setEditData,
+  handleSubmitData
 }) => {
   console.log(existingData, 'existingData');
   // Determine if we are editing
   const isEditMode = !!existingData;
   const initialValues = isEditMode ? existingData : {};
+  console.log(isEditMode, "edit mode flag")
   // Set initial values if editing
   const [defaultValues, setDefaultValues] = useState(initialValues);
   const [key, setKey] = useState(0); // Key to force re-render on reset
@@ -40,10 +42,11 @@ const Modal: React.FC<ModalProps> = ({
 
   const handleSubmit = (data: any) => {
     if (isEditMode) {
-      setEditData(data);
+      handleSubmitData( data, isEditMode)
       console.log('Updated Data:', data);
       // Call API to update existing record
     } else {
+      handleSubmitData(data);
       console.log('New Data:', data);
       // Call API to create new record
     }
