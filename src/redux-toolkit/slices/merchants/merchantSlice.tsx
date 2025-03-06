@@ -9,7 +9,7 @@ const initialState: MerchantState = {
 };
 
 const merchantSlice = createSlice({
-  name: "merchants",
+  name: 'merchants',
   initialState,
   reducers: {
     getMerchants: (state, action: PayloadAction<Merchant[]>) => {
@@ -20,7 +20,18 @@ const merchantSlice = createSlice({
     },
     updateMerchant: (state, action: PayloadAction<Merchant>) => {
       const updatedMerchant = action.payload;
-      const index = state.users.findIndex((user) => user.id === updatedMerchant.id);
+      const index = state.users.findIndex(
+        (user) => user.id === updatedMerchant.id,
+      );
+      if (index !== -1) {
+        state.users[index] = updatedMerchant;
+      }
+    },
+    deleteMerchant: (state, action: PayloadAction<Merchant>) => {
+      const updatedMerchant = action.payload;
+      const index = state.users.findIndex(
+        (user) => user.id === updatedMerchant.id,
+      );
       if (index !== -1) {
         state.users[index] = updatedMerchant;
       }
@@ -28,5 +39,5 @@ const merchantSlice = createSlice({
   },
 });
 
-export const { getMerchants, addMerchant, updateMerchant } = merchantSlice.actions;
+export const { getMerchants, addMerchant, updateMerchant,deleteMerchant } = merchantSlice.actions;
 export default merchantSlice.reducer;

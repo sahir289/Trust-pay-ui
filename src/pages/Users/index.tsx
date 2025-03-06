@@ -30,7 +30,7 @@ function Main() {
     email: true,
   };
 
-    const formFields = {
+const formFields = {
       User_Details: [
         { name: "first_name", label: "First Name", type: "text", placeholder: "Enter First Name", validation: yup.string().required("First Name is required") },
         { name: "last_name", label: "Last Name", type: "text", placeholder: "Enter Last Name", validation: yup.string().required("Last Name is required") },
@@ -99,6 +99,7 @@ function Main() {
               title="Add User"
               formFields={formFields}
               existingData={existingMerchant}
+              handleSubmitData={userModal}
             />
             {/* <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields} existingData={existingMerchant}/> */}
           </div>
