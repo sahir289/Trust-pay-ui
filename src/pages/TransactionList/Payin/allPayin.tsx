@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Lucide from '@/components/Base/Lucide';
 import { Menu, Popover } from '@/components/Base/Headless';
 import users from '@/fakers/users';
@@ -16,7 +17,7 @@ import Notification, {
 } from '@/components/Base/Notification';
 import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
 import { getAllPayIns } from '@/redux-toolkit/slices/payin/payinAPI';
-import { getPayIns } from '@/redux-toolkit/slices/payin/payinSlice';
+import { getPayIns, onload } from '@/redux-toolkit/slices/payin/payinSlice';
 
 interface PayInProps {
   setStatus?: React.Dispatch<React.SetStateAction<string>>;
@@ -41,19 +42,26 @@ const AllPayIn: React.FC<PayInProps> = () => {
     getPayInData();
   }, [JSON.stringify(params)]);
 
-  const getPayInData = async () => {
+  const getPayInData = useCallback(async () => {
     const queryString = new URLSearchParams(
       params as Record<string, string>,
     ).toString();
+    dispatch(onload());
     const payins = await getAllPayIns(queryString);
     if (payins?.data) {
-      dispatch(getPayIns(payins?.data));
+      const payload = {
+        payin: payins?.data?.rows,
+        totalCount: payins?.data?.totalCount,
+        loading: false,
+        error: null,
+      };
+      dispatch(getPayIns(payload));
     } else {
       setNotificationStatus(Status.ERROR);
       setNotificationMessage('No PayIns Found!');
       basicNonStickyNotificationToggle();
     }
-  };
+  }, [dispatch]);
   const payins = useAppSelector(getAllPayInData);
 
   return (

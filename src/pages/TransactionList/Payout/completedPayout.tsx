@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Lucide from '@/components/Base/Lucide';
 import { Menu, Popover } from '@/components/Base/Headless';
 import { FormInput, FormSelect } from '@/components/Base/Form';
@@ -14,7 +14,7 @@ import { getAllPayOutData } from '@/redux-toolkit/slices/payout/payoutSelectors'
 import Notification, {
   NotificationElement,
 } from '@/components/Base/Notification';
-import { getPayOuts } from '@/redux-toolkit/slices/payout/payoutSlice';
+import { getPayOuts, onload } from '@/redux-toolkit/slices/payout/payoutSlice';
 import { getAllPayOuts } from '@/redux-toolkit/slices/payout/payoutAPI';
 import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
 import { getPaginationData } from '@/redux-toolkit/slices/common/params/paramsSelector';
@@ -44,21 +44,26 @@ const CompletedPayOut: React.FC<PayOutProps> = () => {
     getPayOutData();
   }, [JSON.stringify(params)]);
 
-  const getPayOutData = async () => {
-    const newParams = { ...params };
-    newParams.status = Status.APPROVED;
+  const getPayOutData = useCallback(async () => {
     const queryString = new URLSearchParams(
-      newParams as Record<string, string>,
+      params as Record<string, string>,
     ).toString();
+    dispatch(onload());
     const payOuts = await getAllPayOuts(queryString);
     if (payOuts?.data) {
-      dispatch(getPayOuts(payOuts?.data));
+      const payload = {
+        payout: payOuts?.data?.rows,
+        totalCount: payOuts?.data?.totalCount,
+        loading: false,
+        error: null,
+      };
+      dispatch(getPayOuts(payload));
     } else {
       setNotificationStatus(Status.ERROR);
       setNotificationMessage('No PayIns Found!');
       basicNonStickyNotificationToggle();
     }
-  };
+  }, [dispatch]);
   const payOuts = useAppSelector(getAllPayOutData);
 
   return (

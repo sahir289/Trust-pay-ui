@@ -12,9 +12,9 @@ const payoutSlice = createSlice({
   name: "payout",
   initialState,
   reducers: {
-    getPayOuts: (state, action: PayloadAction<PayOut[]>) => {
-      state.payout = action.payload;
-      state.totalCount = action.payload.length;
+    getPayOuts: (state, action: PayloadAction<PayOutState>) => {
+      state.payout = action.payload.payout;
+      state.totalCount = action.payload.totalCount;
       state.loading = false;
       state.error = null;
     },

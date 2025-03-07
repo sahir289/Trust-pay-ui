@@ -12,9 +12,9 @@ const payinSlice = createSlice({
   name: "payin",
   initialState,
   reducers: {
-    getPayIns: (state, action: PayloadAction<PayIn[]>) => {
-      state.payin = action.payload;
-      state.totalCount = action.payload.length;
+    getPayIns: (state, action: PayloadAction<PayInState>) => {
+      state.payin = action.payload.payin;
+      state.totalCount = action.payload.totalCount;
       state.loading = false;
       state.error = null;
     },
