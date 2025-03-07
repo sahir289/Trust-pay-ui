@@ -1,21 +1,19 @@
 import api from "../../services/api";
-import { setPageLoader } from "@/redux-toolkit/slices/common/pageLoader/pageLoaderSlice";
-
 
 interface LoginResponse {
-  error: {
+  error?: {
     message: string;
     name: string;
     statusCode: number;
   };
-  loading: boolean;
-  meta: {
+  loading?: boolean;
+  meta?: {
     message: string;
   };
-  data: {
+  data?: {
     accessToken: string;
     sessionId: string;
-  user: {
+  user?: {
     id: string;
     email: string;
     name: string;
@@ -29,15 +27,27 @@ interface LoginParams {
 }
 
 export const loginUser = async ({ username, password }: LoginParams): Promise<LoginResponse> => {
-  setPageLoader(true);
-  const response = await api.post("/auth/login", { username, password });
-  console.log(response.data, "response.data");
-  setPageLoader(false);
-  return response.data;
+  try {
+    const response = await api.post("/auth/login", { username, password });
+    return response.data;
+  } catch (error) {
+    console.error("Login API Error:", error);
+return {
+  error: {
+    message: (error as Error).message || "An error occurred",
+    name: (error as Error).name || "Error",
+    statusCode: (error as { status?: number }).status || 500,
+  }
+};
+  }
 };
 
-export const logOutUser = async () => {
-  const response = await api.post("/auth/logout");
+interface LogoutParams {
+  session_id: string;
+}
+
+export const logOutUser = async ({ session_id }: LogoutParams) => {
+  const response = await api.post("/auth/logout", { session_id });
   localStorage.removeItem("accessToken");
   localStorage.removeItem("userData");
   window.sessionStorage.removeItem("userSession");

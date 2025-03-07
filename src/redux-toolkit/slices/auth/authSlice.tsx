@@ -7,7 +7,11 @@ const initialState: AuthState = {
   token: null,
   isAuthenticated: false,
   loading: false,
-  error: null,
+  error: {
+    message: "",
+    name: "",
+    statusCode: 0,
+  },
 };
 
 const authSlice = createSlice({
@@ -20,6 +24,15 @@ const authSlice = createSlice({
       state.token = action.payload.accessToken;
       state.isAuthenticated = true;
       state.loading = false;
+      state.error = { message: "", name: "", statusCode: 0 };
+    },
+    loginFailure: (state, action: PayloadAction<{ error: any }>) => {
+      console.log(action.payload, "action.payloaddddd");
+      state.error = action.payload.error;
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.user = null;
+      state.token = null;
     },
     onload: (state, action: PayloadAction<{ load: boolean }>) => {
       console.log(action.payload, "action.payload");
@@ -30,9 +43,13 @@ const authSlice = createSlice({
       state.token = null;
       state.isAuthenticated = false;
       state.loading = false;
+      state.error = { message: "", name: "", statusCode: 0 };
+    },
+    clearError: (state) => {
+      state.error = { message: "", name: "", statusCode: 0 };
     },
   },
 });
 
-export const { loginSuccess, logout, onload } = authSlice.actions;
+export const { loginSuccess, logout, onload, loginFailure, clearError } = authSlice.actions;
 export default authSlice.reducer;
