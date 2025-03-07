@@ -109,4 +109,16 @@ export const Columns = {
     },
     { label: 'Action', key: 'action', type: 'action' as const },
   ],
+  BANK_RESPONSE: [
+    { label: 'SNO.', key: 'sno', type: 'text' as const },
+    { label: 'Status', key: 'status', type: 'text' as const },
+    { label: 'Amount', key: 'amount', type: 'text' as const },
+    { label: 'Amount Code', key: 'amount_code', type: 'text' as const },
+    { label: 'UTR', key: 'utr', type: 'text' as const },
+    { label: 'Bank Name', key: 'nick_name', type: 'text' as const },
+    { label: 'Is Used', key: 'is_used', type: 'toggle' as const },
+    { label: 'Updated Date', key: 'updated_at', type: 'text' as const },
+    { label: 'Updated By', key: 'updated_by', type: 'text' as const },
+    { label: 'Action', key: 'action', type: 'action' as const }
+  ]
 };
