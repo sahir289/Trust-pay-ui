@@ -46,7 +46,7 @@ function VendorAccountReports() {
   const dispatch = useAppDispatch();
   const allvendorReports = useAppSelector(selectReports);
   const fetchVendorReports = useCallback(async () => {
-    const vendorReport = await getVendorReports("");
+    const vendorReport = await getVendorReports();
     dispatch(getVendorReportsSlice(vendorReport));
     console.log(vendorReport, allvendorReports, "vendorReport")
   }, [dispatch]);

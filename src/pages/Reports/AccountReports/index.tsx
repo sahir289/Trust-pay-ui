@@ -42,7 +42,7 @@ function AccountReports() {
   const dispatch = useAppDispatch();
   const allMerchantReports = useAppSelector(selectReports);
   const fetchMerchantReports = useCallback(async () => {
-    const merchantReport = await getMerchantsReports("");
+    const merchantReport = await getMerchantsReports();
     dispatch(getMerchantReports(merchantReport));
   }, [dispatch]);
 

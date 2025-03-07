@@ -24,7 +24,7 @@ export const createMerchant = async (userData: {
   is_enabled?: boolean;
 }): Promise<Merchant> => {
   try {
-    const response = await api.post<Merchant>('/merchants/create-merchants', userData);
+    const response = await api.post<Merchant>('/merchants/create-merchant', userData);
     return response.data;
   } catch (error) {
     console.error('Failed to create user:', error);
@@ -37,7 +37,25 @@ export const updateMerchant = async (
   userData: Partial<Merchant>,
 ): Promise<Merchant> => {
   try {
-    const response = await api.put<Merchant>(`/merchants/${id}`, userData);
+    const response = await api.put<Merchant>(
+      `/merchants/update-merchant/${id}`,
+      userData,
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Failed to update user:', error);
+    throw error;
+  }
+};
+
+
+export const deleteMerchant = async (
+  id: string,
+): Promise<Merchant> => {
+  try {
+    const response = await api.delete<Merchant>(
+      `/merchants/delete-merchant/${id}`
+    );
     return response.data;
   } catch (error) {
     console.error('Failed to update user:', error);

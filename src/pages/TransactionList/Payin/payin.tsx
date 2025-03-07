@@ -14,17 +14,16 @@ import LoadingIcon from '@/components/Base/LoadingIcon';
 import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
 import { getPayIns } from '@/redux-toolkit/slices/payin/payinSlice';
 import { Status } from '@/constants';
+import { getPaginationData } from '@/redux-toolkit/slices/common/params/paramsSelector';
+import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 
 interface PayInProps {
   setStatus: React.Dispatch<React.SetStateAction<string>>;
   setId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const PayInComponent: React.FC<PayInProps> = ({ setStatus, setId }) => {
-  const [params, setParams] = useState<{ [key: string]: string }>({
-    page: '1',
-    limit: '10',
-  });
+const PayInComponent: React.FC<PayInProps> = () => {
+  const params = useAppSelector(getPaginationData);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [notificationStatus, setNotificationStatus] = useState('');
   // Basic non sticky notification
@@ -40,7 +39,7 @@ const PayInComponent: React.FC<PayInProps> = ({ setStatus, setId }) => {
   }, [JSON.stringify(params)]);
 
   const getPayInData = async () => {
-    const queryString = new URLSearchParams(params).toString();
+    const queryString = new URLSearchParams(params as Record<string, string>).toString();
     const payins = await getAllPayIns(queryString);
     if (payins?.data) {
       const payload = {
@@ -106,36 +105,16 @@ const PayInComponent: React.FC<PayInProps> = ({ setStatus, setId }) => {
             </Tab.List>
             <Tab.Panels className="border-b border-l border-r">
               <Tab.Panel className="py-5 leading-relaxed">
-                <AllPayIn
-                  setStatus={setStatus}
-                  setId={setId}
-                  params={params}
-                  setParams={setParams}
-                />
+                <AllPayIn />
               </Tab.Panel>
               <Tab.Panel className="py-5 leading-relaxed">
-                <CompletedPayIn
-                  setStatus={setStatus}
-                  setId={setId}
-                  params={params}
-                  setParams={setParams}
-                />
+                <CompletedPayIn />
               </Tab.Panel>
               <Tab.Panel className="py-5 leading-relaxed">
-                <InProgressPayIn
-                  setStatus={setStatus}
-                  setId={setId}
-                  params={params}
-                  setParams={setParams}
-                />
+                <InProgressPayIn />
               </Tab.Panel>
               <Tab.Panel className="py-5 leading-relaxed">
-                <DroppedPayIn
-                  setStatus={setStatus}
-                  setId={setId}
-                  params={params}
-                  setParams={setParams}
-                />
+                <DroppedPayIn />
               </Tab.Panel>
             </Tab.Panels>
           </Tab.Group>

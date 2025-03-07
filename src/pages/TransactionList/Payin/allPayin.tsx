@@ -12,15 +12,15 @@ import { getAllPayInData } from '@/redux-toolkit/slices/payin/payinSelectors';
 import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 
 interface PayInProps {
-  setStatus: React.Dispatch<React.SetStateAction<string>>;
-  setId: React.Dispatch<React.SetStateAction<string>>;
-  setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
-  params: Record<string, any>;
+  setStatus?: React.Dispatch<React.SetStateAction<string>>;
+  setId?: React.Dispatch<React.SetStateAction<string>>;
+  setParams?: React.Dispatch<React.SetStateAction<Record<string, any>>>;
+  params?: Record<string, any>;
 }
 
 const AllPayIn: React.FC<PayInProps> = () => {
   const payins = useAppSelector(getAllPayInData);
-
+  
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">

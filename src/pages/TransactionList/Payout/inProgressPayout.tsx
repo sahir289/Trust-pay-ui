@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Lucide from '@/components/Base/Lucide';
 import { Menu, Popover } from '@/components/Base/Headless';
 // import TomSelect from "@/components/Base/TomSelect";
@@ -7,46 +8,22 @@ import transactionStatus from '@/fakers/transaction-status';
 import Button from '@/components/Base/Button';
 import React from 'react';
 // import payouts from "@/fakers/payouts";
-import CustomTable from '../../../components/TableComponent';
+import CustomTable from '../../../components/TableComponent/CommonTable';
+import { Columns, Status } from '@/constants';
+import { getAllPayOutData } from '@/redux-toolkit/slices/payout/payoutSelectors';
+import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 
-interface PayInProps {
-  reject: boolean; // Expecting a boolean prop to control modal reset
-  setReject: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
-  approve: boolean; // Expecting a boolean prop to control modal reset
-  setApprove: React.Dispatch<React.SetStateAction<boolean>>;
+interface PayOutProps {
+  reject?: boolean; // Expecting a boolean prop to control modal reset
+  setReject?: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
+  approve?: boolean; // Expecting a boolean prop to control modal reset
+  setApprove?: React.Dispatch<React.SetStateAction<boolean>>;
+  setParams?: React.Dispatch<React.SetStateAction<Record<string, any>>>;
+  params?: Record<string, any>;
 }
 
-// interface PayOut {
-//   method: string;
-//   id: string;
-//   updated_at: string;
-//   sno: number;
-//   code: string;
-//   amount: string;
-//   status: string;
-//   merchant_order_id: string;
-//   merchant_code: string;
-//   photo: string;
-//   name: string;
-//   user: string;
-//   utr: string;
-// }
-
-const InProgressPayOut: React.FC<PayInProps> = ({
-  approve,
-  setApprove,
-  reject,
-  setReject,
-}) => {
-  const tableHeaders = [
-    'SNO.',
-    'Amount',
-    'Status',
-    'Merchant',
-    'Vendor',
-    'Bank Details',
-    'Action',
-  ];
+const InProgressPayOut: React.FC<PayOutProps> = () => {
+  const payOuts = useAppSelector(getAllPayOutData);
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -160,16 +137,13 @@ const InProgressPayOut: React.FC<PayInProps> = ({
               </div>
             </div>
             <CustomTable
-              approve={approve}
-              setApprove={setApprove}
-              reject={reject}
-              setReject={setReject}
-              setStatus={() => {}}
-              setParams={() => {}}
-              columns={tableHeaders}
-              // data={payouts.fakePayOuts() as unknown as PayOut[]}
-              title={'PayOuts'}
-              status={['Initiated']}
+              columns={Columns.PAYOUT}
+              data={{
+                rows: payOuts.payout.filter(
+                  (payout) => payout.status === Status.INITIATED,
+                ),
+                totalCount: payOuts.totalCount,
+              }}
             />
           </div>
         </div>

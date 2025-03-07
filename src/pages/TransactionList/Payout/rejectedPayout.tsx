@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-empty-pattern */
 /* eslint-disable no-undef */
 import React from 'react';
@@ -9,34 +10,22 @@ import users from '@/fakers/users';
 import transactionStatus from '@/fakers/transaction-status';
 import Button from '@/components/Base/Button';
 // import payouts from "@/fakers/payouts";
-import CustomTable from '../../../components/TableComponent';
+import CustomTable from '../../../components/TableComponent/CommonTable';
+import { Columns, Status } from '@/constants';
+import { getAllPayOutData } from '@/redux-toolkit/slices/payout/payoutSelectors';
+import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 
-// interface PayOut {
-//   method: string;
-//   id: string;
-//   updated_at: string;
-//   sno: number;
-//   code: string;
-//   amount: string;
-//   status: string;
-//   merchant_order_id: string;
-//   merchant_code: string;
-//   photo: string;
-//   name: string;
-//   user: string;
-//   utr: string;
-// }
+interface PayOutProps {
+  reject?: boolean; // Expecting a boolean prop to control modal reset
+  setReject?: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
+  approve?: boolean; // Expecting a boolean prop to control modal reset
+  setApprove?: React.Dispatch<React.SetStateAction<boolean>>;
+  setParams?: React.Dispatch<React.SetStateAction<Record<string, any>>>;
+  params?: Record<string, any>;
+}
 
-const RejectedPayOut: React.FC = () => {
-  const tableHeaders = [
-    'SNO.',
-    'Amount',
-    'Status',
-    'Merchant',
-    'Vendor',
-    'Bank Details',
-    'Action',
-  ];
+const RejectedPayOut: React.FC<PayOutProps> = () => {
+  const payOuts = useAppSelector(getAllPayOutData);
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -150,11 +139,13 @@ const RejectedPayOut: React.FC = () => {
               </div>
             </div>
             <CustomTable
-              title="PayOuts"
-              columns={tableHeaders}
-              // data={payouts.fakePayOuts() as unknown as PayOut[]}
-              status={['Rejected']}
-              setParams={() => {}}
+              columns={Columns.PAYOUT}
+              data={{
+                rows: payOuts.payout.filter(
+                  (payout) => payout.status === Status.REJECTED,
+                ),
+                totalCount: payOuts.totalCount,
+              }}
             />
           </div>
         </div>

@@ -7,6 +7,7 @@ import payOutReducer from "../slices/payout/payoutSlice";
 import settlementReducer from "../slices/settlement/settlementSlice";
 import calcualtionsReducer from "../slices/calculations/calculationsSlice";
 import dataEntriesReducer from "../slices/dataEntries/dataEntrySlice";
+import paramsReducer from "../slices/common/params/paramsSlice";
 import darkModeReducer from "../slices/common/darkMode/darkModeSlice";
 import colorSchemeReducer from "../slices/common/colorScheme/colorSchemeSlice";
 import sideMenuReducer from "../slices/common/sideMenu/sideMenuSlice";
@@ -29,6 +30,7 @@ const rootReducer = combineReducers({
   settlement: settlementReducer,
   calculations: calcualtionsReducer,
   dataEntries: dataEntriesReducer,
+  params: paramsReducer,
   theme: themeReducer,
   merchant: merchantReducer,
   darkMode: darkModeReducer,

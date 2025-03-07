@@ -84,6 +84,8 @@ const Users: React.FC = () => {
               forOpen={newUserModal}
               title="Add User"
               formFields={formFields}
+              existingData={existingMerchant}
+              handleSubmitData={userModal}
             />
             {/* <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields} existingData={existingMerchant}/> */}
           </div>
