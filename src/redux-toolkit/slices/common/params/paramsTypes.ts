@@ -1,7 +1,7 @@
 interface Params {
     page: string;
     limit: string;
-    [key: string]: string | undefined; // Allows additional dynamic parameters
+    [key: string]: string | string[] | undefined; // Allows additional dynamic parameters
 }
 
 export interface ParamsState {

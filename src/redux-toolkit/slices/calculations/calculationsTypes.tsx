@@ -25,4 +25,6 @@ export interface calculations {
 export interface CalculationsState {
   calculations: calculations[];
   totalCount: number;
+  loading: boolean;
+  error: string | null;
 }

@@ -25,4 +25,6 @@ export interface Vendor {
     token: string | null;
     isAuthenticated: boolean;
     vendors: Vendor[];
+    loading: boolean;
+    error: string | null;
   }

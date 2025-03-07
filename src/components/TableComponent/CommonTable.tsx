@@ -67,7 +67,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
   const [params, setParams] = useState({ limit: 10 });
   const { limit } = params;
 
-  const paginatedData = data.rows.slice(
+  const paginatedData = data?.rows?.slice(
     (currentPage - 1) * limit,
     currentPage * limit,
   );
@@ -142,7 +142,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
-          {paginatedData.map((row, rowIndex) => (
+          {paginatedData?.map((row, rowIndex) => (
             <Table.Tr key={rowIndex} className="[&_td]:last:border-b-0">
               {columns.map((col, colIndex) => (
                 <Table.Td
