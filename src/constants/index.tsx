@@ -216,7 +216,12 @@ export const formFields = {
         name: 'merchant_code',
         label: 'Merchant',
         type: 'select',
-        placeholder: 'Enter Merchant',
+        options: [
+          { value: '', label: 'Select Merchant' },
+          { value: '1', label: 'Merchant One' },
+          { value: '2', label: 'Merchant Two' },
+          { value: '3', label: 'Merchant Three' },
+        ],
         validation: yup.number().required('Merchant is required'),
       },
       {
@@ -247,7 +252,12 @@ export const formFields = {
         name: 'merchant_code',
         label: 'Merchant',
         type: 'select',
-        placeholder: 'Enter Merchant',
+        options: [
+          { value: '', label: 'Select Merchant' },
+          { value: '1', label: 'Merchant One' },
+          { value: '2', label: 'Merchant Two' },
+          { value: '3', label: 'Merchant Three' },
+        ],
         validation: yup.number().required('Merchant is required'),
       },
       {
@@ -286,5 +296,5 @@ export const formFields = {
         validation: yup.string().required('IFSC Code is required'),
       },
     ],
-  }
+  },
 };
