@@ -22,7 +22,7 @@ interface Column {
     | 'object'
     | 'action'
     | string;
-  objectKey?: string;
+  objectKey?: string | string[];
 }
 
 interface CommonTableProps {
@@ -228,7 +228,15 @@ const CommonTable: React.FC<CommonTableProps> = ({
                   ) : col.type === 'object' &&
                     typeof row[col.key] === 'object' &&
                     row[col.key] !== null ? (
-                    row[col.key][col.objectKey ?? ''] ?? ''
+                    Array.isArray(col.objectKey) ? (
+                      <>
+                        {col.objectKey.map((key, index) => (
+                          <div key={index}>{row[col.key]?.[key] ?? ''}</div>
+                        ))}
+                      </>
+                    ) : (
+                      row[col.key]?.[col.objectKey ?? ''] ?? ''
+                    )
                   ) : col.type === 'action' ? (
                     <span> action </span>
                   ) : (
