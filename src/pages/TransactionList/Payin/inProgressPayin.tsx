@@ -10,11 +10,12 @@ import CustomTable from '../../../components/TableComponent/CommonTable';
 import { Columns, Status } from '@/constants';
 import { getAllPayInData } from '@/redux-toolkit/slices/payin/payinSelectors';
 import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
+
 interface PayInProps {
-  setStatus: React.Dispatch<React.SetStateAction<string>>;
-  setId: React.Dispatch<React.SetStateAction<string>>;
-  setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
-  params: Record<string, any>;
+  setStatus?: React.Dispatch<React.SetStateAction<string>>;
+  setId?: React.Dispatch<React.SetStateAction<string>>;
+  setParams?: React.Dispatch<React.SetStateAction<Record<string, any>>>;
+  params?: Record<string, any>;
 }
 
 const InProgressPayIn: React.FC<PayInProps> = () => {

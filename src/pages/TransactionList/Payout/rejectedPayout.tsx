@@ -20,8 +20,8 @@ interface PayOutProps {
   setReject?: React.Dispatch<React.SetStateAction<boolean>>; // The setter function for reject
   approve?: boolean; // Expecting a boolean prop to control modal reset
   setApprove?: React.Dispatch<React.SetStateAction<boolean>>;
-  setParams: React.Dispatch<React.SetStateAction<Record<string, any>>>;
-  params: Record<string, any>;
+  setParams?: React.Dispatch<React.SetStateAction<Record<string, any>>>;
+  params?: Record<string, any>;
 }
 
 const RejectedPayOut: React.FC<PayOutProps> = () => {

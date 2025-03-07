@@ -12,6 +12,8 @@ import { Status } from '@/constants';
 import Notification, { NotificationElement } from '@/components/Base/Notification';
 import { getAllPayOuts } from '@/redux-toolkit/slices/payout/payoutAPI';
 import { getPayOuts } from '@/redux-toolkit/slices/payout/payoutSlice';
+import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
+import { getPaginationData } from '@/redux-toolkit/slices/common/params/paramsSelector';
 
 interface PayOutProps {
   // setModalData: React.Dispatch<
@@ -20,10 +22,7 @@ interface PayOutProps {
 }
 
 const PayOut: React.FC<PayOutProps> = () => {
-  const [params, setParams] = useState<{ [key: string]: string }>({
-    page: '1',
-    limit: '10',
-  });
+  const params = useAppSelector(getPaginationData);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [notificationStatus, setNotificationStatus] = useState('');
   // Basic non sticky notification
@@ -39,7 +38,7 @@ const PayOut: React.FC<PayOutProps> = () => {
   }, [JSON.stringify(params)]);
 
   const getPayOutData = async () => {
-    const queryString = new URLSearchParams(params).toString();
+    const queryString = new URLSearchParams(params as Record<string, string>).toString();
     const payOuts = await getAllPayOuts(queryString);
     if (payOuts?.data) {
       const payload = {
@@ -101,16 +100,16 @@ const PayOut: React.FC<PayOutProps> = () => {
           </Tab.List>
           <Tab.Panels className="border-b border-l border-r">
             <Tab.Panel className="py-5 leading-relaxed">
-              <AllPayOut params={params} setParams={setParams} />
+              <AllPayOut />
             </Tab.Panel>
             <Tab.Panel className="py-5 leading-relaxed">
-              <CompletedPayOut params={params} setParams={setParams} />
+              <CompletedPayOut />
             </Tab.Panel>
             <Tab.Panel className="py-5 leading-relaxed">
-              <InProgressPayOut params={params} setParams={setParams} />
+              <InProgressPayOut />
             </Tab.Panel>
             <Tab.Panel className="py-5 leading-relaxed">
-              <RejectedPayOut params={params} setParams={setParams} />
+              <RejectedPayOut />
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
