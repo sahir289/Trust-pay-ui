@@ -16,6 +16,14 @@ import { useCallback } from "react";
 import { selectAllMerchants } from "@/redux-toolkit/slices/merchants/merchantSelector";
 import { getMerchants } from "@/redux-toolkit/slices/merchants/merchantSlice";
 import { getAllMerchants } from "@/redux-toolkit/slices/merchants/merchantAPI";
+import { createMerchant } from "@/redux-toolkit/slices/merchants/merchantAPI";
+import { updateMerchant } from "@/redux-toolkit/slices/merchants/merchantAPI";
+// import { deleteMerchant } from '@/redux-toolkit/slices/merchants/merchantAPI';
+import { Columns } from "@/constants";
+import { addMerchant } from "@/redux-toolkit/slices/merchants/merchantSlice";
+// import { deleteMercHant } from "@/redux-toolkit/slices/merchants/merchantSlice";
+import { updateMercHant } from "@/redux-toolkit/slices/merchants/merchantSlice";
+
 export interface Merchant {
     name: string;
     // photo: string;
@@ -39,36 +47,93 @@ function Main(): JSX.Element {
     const [expandedRow, setExpandedRow] = useState<number | null>(null);
     // const [editModal, setEditModal] = useState<boolean>(false)
     // const sendButtonRef = useRef(null);
+
     const merchantModal = () => {
         setNewMerchantModal((prev) => !prev)
     }
-    
+
+    useEffect(() => {
+      if (!newMerchantModal) {
+        setFormData(null);
+      }
+    }, [newMerchantModal]);
+
     //  const [params, setParams] = useState<{ [key: string]: string }>({
     //     page: '1',
     //     limit: '10',
     //   });
-
   const handleRowClick = (fakerKey: number): void => {
         setExpandedRow((prevRow) => (prevRow === fakerKey ? null : fakerKey));
-    };
-  const [title, setTitle] = useState('Add Merchant');
-  const [editData, setEditData] = useState({});
+  };
+  const [title] = useState('Merchant');
+    const [formData, setFormData] = useState(null);
   const dispatch = useAppDispatch();
   const allMerchants = useAppSelector(selectAllMerchants);
   const fetchMerchants = useCallback(async () => {
     // tempory disabled this functionality
     // const queryString = new URLSearchParams(params).toString();
-    const merchantList = await getAllMerchants("");
-    //   console.log(merchantList,"merchant data");
-    dispatch(getMerchants(merchantList));
+  const merchantList = await getAllMerchants("");
+//   console.log(merchantList,"merchant data");
+  dispatch(getMerchants(merchantList));
   }, [dispatch]); 
-  const handleEditModal = (title: string, data: any) => {
-    setEditData(data);
-    setTitle(title);
+  const handleEditModal = (data: any) => {
+      setFormData(data);
     merchantModal();
   };
-  useEffect(() => {
-    fetchMerchants();
+const handleSubmitData =(async (data: any, isEditMode?: boolean) => {
+        if (isEditMode) {
+            let prevData = formData;
+            const newData = getUpdatedFields(prevData, data)
+            const updatedMerchant=    await updateMerchant(data.id, newData);
+            // console.log(updateMercHant,"hiii from updated merchant")
+            dispatch(updateMercHant(updatedMerchant));
+            setFormData(null);
+        } else {
+      const addedMerchant=    await createMerchant(data);
+        dispatch(addMerchant(addedMerchant));
+    }
+})
+
+const handledeleteData = async (id: string) => {
+    console.log(id, "id  delete")
+    //temp not deleting data
+//    await deleteMerchant(id);
+    // dispatch(deleteMercHant(deletedMerchant));
+  }
+    ///for update data from edit modal where we update merchant details return only updated data
+function getUpdatedFields(
+  originalData: any,
+  updatedData: any,
+): { [key: string]: any } {
+  const updatedFields: { [key: string]: any } = {};
+
+  Object.keys(updatedData).forEach((key) => {
+    if (typeof updatedData[key] === 'object' && updatedData[key] !== null) {
+      // Handle nested objects like `config`
+      const nestedUpdates = getUpdatedFields(
+        originalData[key] || {},
+        updatedData[key],
+      );
+
+      // If there are nested updates, add them to updatedFields
+      if (Object.keys(nestedUpdates).length > 0) {
+        updatedFields[key] = nestedUpdates;
+      }
+    } else {
+      // Check if the value is different from the original
+      if (updatedData[key] !== originalData[key]) {
+        updatedFields[key] = updatedData[key];
+      }
+    }
+  });
+
+  return updatedFields;
+}
+
+
+
+useEffect(() => {
+      fetchMerchants();
   }, [fetchMerchants]);
     // const tableHeaders: string[] = [
     //     "Sub Merchants",
@@ -82,7 +147,7 @@ function Main(): JSX.Element {
     //     "Allow Intent",
     //     "Actions",
     // ];
-    const formFields = {
+const formFields = {
       Code: [
         {
           name: 'code',
@@ -106,7 +171,7 @@ function Main(): JSX.Element {
         },
         {
           name: 'return_url',
-          label: 'Return Site',
+          label: 'Return',
           type: 'text',
           placeholder: 'Enter Return URL',
           validation: yup
@@ -216,26 +281,7 @@ function Main(): JSX.Element {
         },
       ],
     };
-     const tableHeaders = [
-       { label: 'Sub Merchants', key: 'sub_merchants', type: 'expand' as const },
-       { label: 'Code', key: 'code', type: 'text' as const },
-       { label: 'Balance', key: 'balance', type: 'text' as const },
-       { label: 'PayIn Range', key: 'payin_range', type: 'text' as const },
-       {
-         label: 'PayIn Commission',
-         key: 'payin_commission',
-         type: 'range' as const,
-       },
-       { label: 'PayOut Range', key: 'payout_range', type: 'text' as const },
-       {
-         label: 'PayOut Commission',
-         key: 'payout_commission',
-         type: 'range' as const,
-       },
-       { label: 'Test Mode', key: 'test_mode', type: 'toggle' as const },
-       { label: 'Allow Intent', key: 'allow_intent', type: 'toggle' as const },
-       { label: 'Actions', key: 'actions', type: 'actions' as const },
-     ];
+   
     return (
       <div className="grid grid-cols-12 gap-y-10 gap-x-6">
         <div className="col-span-12">
@@ -255,8 +301,10 @@ function Main(): JSX.Element {
                 forOpen={newMerchantModal}
                 title={title}
                 formFields={formFields}
-                existingData={editData}
-                setEditData={setEditData}
+                existingData={formData}
+                setEditData={setFormData}
+                handleSubmitData={handleSubmitData}
+                // dummyfunction={sdadasa}
               />
             </div>
           </div>
@@ -433,32 +481,32 @@ function Main(): JSX.Element {
                 </div>
               </div>
               <CustomTable
-                columns={tableHeaders}
-                data={{ rows: allMerchants, totalCount: 100 }}
+                columns={Columns.MERCHANTS}
+                data={{ rows: allMerchants, totalCount: allMerchants.length }}
                 expandedRow={expandedRow ?? 20}
                 expandable={true}
                 handleRowClick={(index: number) => handleRowClick(index)}
                 handleEditModal={handleEditModal}
-
+                handleDeleteData={handledeleteData}
                 // params={params}
                 // setParams={setParams}
               />
               {/* <CustomTable 
-                            columns={tableHeaders}
-                            // data={merchants.fakeMerchants() as Merchant[]} 
-                            approve={false} 
-                            setApprove={() => { }} 
-                            reject={false} 
-                            setReject={() => { }} 
-                            title={"Merchants"} 
-                            status={[]} 
-                            editModal={editModal.toString()} 
-                            setEditModal={() => setEditModal(!editModal)} 
-                            setStatus={() => { }} 
-                            setParams={() => {}}
-                            expandedRow={expandedRow ?? 20} 
-                            handleRowClick={(index: number) => handleRowClick(index)}
-                        /> */}
+             columns={tableHeaders}
+            // data={merchants.fakeMerchants() as Merchant[]} 
+            approve={false} 
+            setApprove={() => { }} 
+            reject={false} 
+            setReject={() => { }} 
+            title={"Merchants"} 
+            status={[]} 
+            editModal={editModal.toString()} 
+            setEditModal={() => setEditModal(!editModal)} 
+            setStatus={() => { }} 
+            setParams={() => {}}
+            expandedRow={expandedRow ?? 20} 
+            handleRowClick={(index: number) => handleRowClick(index)}
+            /> */}
             </div>
           </div>
         </div>

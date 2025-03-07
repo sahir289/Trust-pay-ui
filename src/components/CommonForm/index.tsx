@@ -58,6 +58,9 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
     resolver: yupResolver(getValidationSchema(sections)),
     defaultValues,
   });
+  
+  // console.log(defaultValues, "hii from the values");
+
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

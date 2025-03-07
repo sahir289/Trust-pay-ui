@@ -13,6 +13,7 @@ interface ModalProps {
   formFields: any;
   existingData?: any;
   setEditData?: any;
+  handleSubmitData: (data: any, isEditMode?: boolean | undefined) => void;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -22,7 +23,7 @@ const Modal: React.FC<ModalProps> = ({
   forOpen,
   formFields,
   existingData,
-  setEditData,
+  handleSubmitData
 }) => {
   // Determine if we are editing
   const isEditMode = !!existingData;
@@ -31,7 +32,6 @@ const Modal: React.FC<ModalProps> = ({
   // Set initial values if editing
   const [defaultValues, setDefaultValues] = useState(initialValues);
   const [key, setKey] = useState(0); // Key to force re-render on reset
-
   useEffect(() => {
     if (isEditMode) {
       setDefaultValues(existingData);
@@ -42,10 +42,10 @@ const Modal: React.FC<ModalProps> = ({
 
   const handleSubmit = (data: any) => {
     if (isEditMode) {
-      setEditData(data);
-      console.log('Updated Data:', data);
+      handleSubmitData( data, isEditMode)
       // Call API to update existing record
     } else {
+      handleSubmitData(data);
       console.log('New Data:', data);
       // Call API to create new record
     }
@@ -80,12 +80,16 @@ const Modal: React.FC<ModalProps> = ({
           handleModal();
         }}
       >
-        <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 mr-2" /> {title}
+        <Lucide icon="PenLine" className="stroke-[1.3] w-4 h-4 mr-2" />
+        Add {title}
       </Button>
       <Dialog open={forOpen} onClose={handleModal} initialFocus={sendButtonRef}>
         <Dialog.Panel className="p-6 pt-2 pb-4">
           <Dialog.Title className="flex justify-between">
-            <h2>{title}</h2>
+            <h2>
+              {!isEditMode ? 'Add' : 'Edit'}{" "}
+              {title}
+            </h2>
             <Lucide
               icon="X"
               className="w-5 h-5 cursor-pointer"

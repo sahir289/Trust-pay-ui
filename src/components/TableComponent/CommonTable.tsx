@@ -30,7 +30,8 @@ interface CommonTableProps {
   data: { rows: any[]; totalCount: number };
   expandable?: boolean;
   handleRowClick?: (index: number) => void;
-  handleEditModal?: (title: string, data: any) => void;
+  handleEditModal?: (data: any) => void;
+  handleDeleteData?:(id: string) => void;
   expandedRow?: number;
 }
 
@@ -40,6 +41,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
   expandable,
   handleRowClick,
   handleEditModal,
+  handleDeleteData,
   expandedRow,
 }) => {
   const getStatusStyles = (status: string) => {
@@ -171,14 +173,12 @@ const CommonTable: React.FC<CommonTableProps> = ({
                     <div className="flex items-center justify-center">
                       <Lucide
                         icon="CheckSquare"
-                        onClick={() =>
-                          handleEditModal &&
-                          handleEditModal('Edit Merchant', row)
-                        }
+                        onClick={() => handleEditModal && handleEditModal(row)}
                         className="w-4 h-4 mr-2 cursor-pointer"
                       />{' '}
                       <Lucide
                         icon="Trash2"
+                        onClick={() => handleDeleteData && handleDeleteData(row.id)}
                         className="w-4 h-4 mr-2 cursor-pointer"
                       />
                     </div>
@@ -194,6 +194,8 @@ const CommonTable: React.FC<CommonTableProps> = ({
                           id="show-example-1"
                           className="ml-0 mr-0 border-2 border-slate-300"
                           type="checkbox"
+                          value={row[col.key] ? 'true' : 'false'}
+                          // disabled={ true}
                         />
                       </FormSwitch.Label>
                     </FormSwitch>

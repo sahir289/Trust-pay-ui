@@ -35,7 +35,7 @@ function Main() {
   const dispatch = useAppDispatch();
     const allvendor = useAppSelector(selectVendors);
     const fetchVendor= useCallback(async () => {
-      const vendor = await getAllVendor("");
+      const vendor = await getAllVendor();
       dispatch(getVendorsSlice( vendor));
       console.log( vendor, "vendor")
     }, [dispatch]);

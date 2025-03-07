@@ -50,4 +50,29 @@ export const Columns = {
     { label: 'Created By', key: 'created_by', type: 'text' as const },
     { label: 'Is Enable', key: 'is_enabled', type: 'toggle' as const },
   ],
+  MERCHANTS: [
+       {
+         label: 'Sub Merchants',
+         key: 'sub_merchants',
+         type: 'expand' as const,
+       },
+       { label: 'Code', key: 'code', type: 'text' as const },
+       { label: 'Balance', key: 'balance', type: 'text' as const },
+       { label: 'PayIn Range', key: 'payin_range', type: 'text' as const },
+       {
+         label: 'PayIn Commission',
+         key: 'payin_commission',
+         type: 'range' as const,
+       },
+       { label: 'PayOut Range', key: 'payout_range', type: 'text' as const },
+       {
+         label: 'PayOut Commission',
+         key: 'payout_commission',
+         type: 'range' as const,
+       },
+       { label: 'Test Mode', key: 'test_mode', type: 'toggle' as const },
+       { label: 'Allow Intent', key: 'allow_intent', type: 'toggle' as const },
+       { label: 'Enabled', key: 'is_enabled', type: 'toggle' as const },
+       { label: 'Actions', key: 'actions', type: 'actions' as const },
+     ]
 };
