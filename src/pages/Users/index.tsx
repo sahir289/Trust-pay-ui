@@ -48,9 +48,6 @@ const Users: React.FC = () => {
     setNewUserModal(!newUserModal);
   };
 
-  const dispatch = useAppDispatch();
-  const allUsers = useAppSelector(selectAllUsers);
-
   const fetchUsers = useCallback(async () => {
     // tempory disabled this functionality
     // const queryString = new URLSearchParams(params).toString();
@@ -87,7 +84,6 @@ const Users: React.FC = () => {
               forOpen={newUserModal}
               title="Add User"
               formFields={formFields}
-              existingData={existingMerchant}
             />
             {/* <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields} existingData={existingMerchant}/> */}
           </div>
@@ -169,11 +165,12 @@ const Users: React.FC = () => {
             <div className="overflow-auto xl:overflow-visible">
             {allUsers.loading ? <div className="flex justify-center items-center w-full h-screen">
               <LoadingIcon icon="ball-triangle" className="w-[5%] h-auto" />
-            </div>:
+            </div> :
               <CustomTable
                 columns={Columns.USERS} 
-                data={{rows: allUsers, totalCount: 100}}
+                data={{rows: allUsers.users, totalCount: 100}}
               />
+            }
             </div>
           </div>
         </div>
