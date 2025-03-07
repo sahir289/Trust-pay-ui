@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
 import {  FormInput } from "@/components/Base/Form";
-import * as yup from "yup";
 import Modal from "../../components/Modal/modals";
 import React, { useCallback, useEffect, useState } from "react";
 import CustomTable from "@/components/TableComponent/CommonTable";
@@ -12,7 +11,6 @@ import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
 import LoadingIcon from '@/components/Base/LoadingIcon';
 import DynamicForm from "../../components/CommonForm"; 
-
 import { Columns, formFields } from "@/constants";
 
 const Users: React.FC = () => {
@@ -76,10 +74,17 @@ const Users: React.FC = () => {
               handleModal={userModal}
               forOpen={newUserModal}
               title="Add User"
-              formFields={formFields}
-              existingData={existingMerchant}
-              handleSubmitData={userModal}
-            />
+            >
+            <DynamicForm
+            sections={formFields.USER}
+            onSubmit={handleSubmit}
+            defaultValues={existingMerchant || {}}
+            isEditMode={false}
+            handleCancel={userModal}
+          />
+          <>
+          </>
+            </Modal>
             {/* <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields} existingData={existingMerchant}/> */}
           </div>
         </div>
