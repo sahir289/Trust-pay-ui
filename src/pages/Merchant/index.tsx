@@ -73,7 +73,6 @@ function Main(): JSX.Element {
   const handleRowClick = (fakerKey: number): void => {
         setExpandedRow((prevRow) => (prevRow === fakerKey ? null : fakerKey));
   };
-  const [title] = useState('Merchant');
     const [formData, setFormData] = useState(null);
   const dispatch = useAppDispatch();
   const allMerchants = useAppSelector(selectAllMerchants);

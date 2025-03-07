@@ -2,7 +2,7 @@
 import { Tab } from '@/components/Base/Headless';
 import PayInComponent from './Payin/payin';
 import PayOut from './Payout/payout';
-import Modal from '@/components/Modal/modal';
+import Modal from '@/components/Modal/modals';
 import Lucide from '@/components/Base/Lucide';
 import { useState, useRef } from 'react';
 import ModalPopUp from '../ModalPopUp';
@@ -15,6 +15,7 @@ import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
 import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 import { getParentTabs } from '@/redux-toolkit/slices/common/tabs/tabSelectors';
 import { setParentTab } from '@/redux-toolkit/slices/common/tabs/tabSlice';
+import DynamicForm from '@/components/CommonForm';
 
 function Main() {
   const dispatch = useAppDispatch();
@@ -73,13 +74,19 @@ function Main() {
       <div className="flex flex-col h-10 w-full px-2">
         <div className="flex justify-between items-center">
           <div className="text-xl font-medium">Transactions</div>
-          <Modal
-            handleModal={transactionModal}
-            forOpen={newTransactionModal}
-            title={title}
-            formFields={title === 'PayIns' ? formFields.PAYIN : formFields.PAYOUT}
-            handleSubmitData={transactionModal}
+            <Modal
+              handleModal={transactionModal}
+              forOpen={newTransactionModal}
+              title={title}
+            >
+            <DynamicForm
+            sections={title === 'PayIns' ? formFields.PAYIN : formFields.PAYOUT}
+            onSubmit={handleSubmit}
+            defaultValues={{}}
+            isEditMode={false}
+            handleCancel={transactionModal}
           />
+            </Modal>
         </div>
       </div>
       <div className="grid grid-cols-12 gap-6 mt-2">

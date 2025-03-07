@@ -82,8 +82,6 @@ const Users: React.FC = () => {
             isEditMode={false}
             handleCancel={userModal}
           />
-          <>
-          </>
             </Modal>
             {/* <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields} existingData={existingMerchant}/> */}
           </div>
