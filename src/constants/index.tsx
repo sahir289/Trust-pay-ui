@@ -1,3 +1,5 @@
+import * as yup from 'yup';
+
 export const Role = {
   ADMIN: 'ADMIN',
   TRANSACTIONS: 'TRANSACTIONS',
@@ -119,6 +121,170 @@ export const Columns = {
     { label: 'Is Used', key: 'is_used', type: 'toggle' as const },
     { label: 'Updated Date', key: 'updated_at', type: 'text' as const },
     { label: 'Updated By', key: 'updated_by', type: 'text' as const },
-    { label: 'Action', key: 'action', type: 'action' as const }
-  ]
+    { label: 'Action', key: 'action', type: 'action' as const },
+  ],
+};
+
+export const formFields = {
+  USER: {
+    User_Details: [
+      {
+        name: 'first_name',
+        label: 'First Name',
+        type: 'text',
+        placeholder: 'Enter First Name',
+        validation: yup.string().required('First Name is required'),
+      },
+      {
+        name: 'last_name',
+        label: 'Last Name',
+        type: 'text',
+        placeholder: 'Enter Last Name',
+        validation: yup.string().required('Last Name is required'),
+      },
+      {
+        name: 'user_name',
+        label: 'Username',
+        type: 'text',
+        placeholder: 'Enter Username',
+        validation: yup.string().required('Username is required'),
+      },
+      {
+        name: 'email',
+        label: 'Email',
+        type: 'text',
+        placeholder: 'Enter Email',
+        validation: yup
+          .string()
+          .email('Invalid Email')
+          .required('Email is required'),
+      },
+      {
+        name: 'contact_no',
+        label: 'Contact Number',
+        type: 'text',
+        placeholder: 'Enter Contact Number',
+        validation: yup
+          .string()
+          .matches(/^\d+$/, 'Must be a valid number')
+          .required('Contact number is required'),
+      },
+    ],
+    User_Info: [
+      {
+        name: 'designation_id',
+        label: 'Designation ID',
+        type: 'text',
+        placeholder: 'Enter Designation ID',
+        validation: yup.string().required('Designation ID is required'),
+      },
+      {
+        name: 'role_id',
+        label: 'Role ID',
+        type: 'text',
+        placeholder: 'Enter Role ID',
+        validation: yup.string().required('Role ID is required'),
+      },
+      {
+        name: 'password',
+        label: 'Password',
+        type: 'password',
+        placeholder: 'Enter Password',
+        validation: yup
+          .string()
+          .min(5, 'Password must be at least 5 characters')
+          .required('Password is required'),
+      },
+      {
+        name: 'code',
+        label: 'Code',
+        type: 'text',
+        placeholder: 'Enter Code',
+        validation: yup.string().required('Code is required'),
+      },
+      {
+        name: 'is_enabled',
+        label: 'Is Enabled?',
+        type: 'switch',
+        validation: yup.boolean(),
+      },
+    ],
+  },
+  PAYIN: {
+    Payin_Request: [
+      {
+        name: 'merchant_code',
+        label: 'Merchant',
+        type: 'select',
+        placeholder: 'Enter Merchant',
+        validation: yup.number().required('Merchant is required'),
+      },
+      {
+        name: 'user',
+        label: 'User',
+        type: 'text',
+        placeholder: 'Enter User',
+        validation: yup.number().required('User is required'),
+      },
+      {
+        name: 'amount',
+        label: 'Amount',
+        type: 'number',
+        placeholder: 'Enter Amount',
+        validation: yup.number().required('Amount is required'),
+      },
+      {
+        name: 'ot',
+        label: 'One Time',
+        type: 'switch',
+        validation: yup.boolean(),
+      },
+    ],
+  },
+  PAYOUT: {
+    Payout_Request: [
+      {
+        name: 'merchant_code',
+        label: 'Merchant',
+        type: 'select',
+        placeholder: 'Enter Merchant',
+        validation: yup.number().required('Merchant is required'),
+      },
+      {
+        name: 'amount',
+        label: 'Amount',
+        type: 'number',
+        placeholder: 'Enter Amount',
+        validation: yup.number().required('Amount is required'),
+      },
+      {
+        name: 'bank_name',
+        label: 'Bank Name',
+        type: 'text',
+        placeholder: 'Enter Bank Name',
+        validation: yup.string().required('Bank Name is required'),
+      },
+      {
+        name: 'acc_no',
+        label: 'Account Number',
+        type: 'number',
+        placeholder: 'Enter Account Number',
+        validation: yup.number().required('Account Number is required'),
+      },
+      {
+        name: 'acc_holder_name',
+        label: 'Account Holder Name',
+        type: 'text',
+        placeholder: 'Enter Account Holder Name',
+        validation: yup.string().required('Account Holder Name is required'),
+      },
+      {
+        name: 'ifsc_code',
+        label: 'IFSC Code',
+        type: 'text',
+        placeholder: 'Enter IFSC Code',
+        validation: yup.string().required('IFSC Code is required'),
+      },
+    ],
+  }
 };
