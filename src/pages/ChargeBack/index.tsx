@@ -7,7 +7,7 @@ import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import { useRef, useState } from "react";
-import Modal from "../Modal/modal";
+import Modal from "../../components/Modal/modal";
 import CustomTable from "@/components/TableComponent";
 export interface Chargeback {
   sno: number;

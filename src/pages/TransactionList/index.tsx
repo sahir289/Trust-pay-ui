@@ -2,7 +2,7 @@
 import { Tab } from '@/components/Base/Headless';
 import PayInComponent from './Payin/payin';
 import PayOut from './Payout/payout';
-import Modal from '@/pages/Modal/modal';
+import Modal from '@/components/Modal/modal';
 import Lucide from '@/components/Base/Lucide';
 import { useState, useRef } from 'react';
 import ModalPopUp from '../ModalPopUp';

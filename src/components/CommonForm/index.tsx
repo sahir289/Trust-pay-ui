@@ -28,7 +28,7 @@ interface Field {
   label: string;
   type: string;
   placeholder?: string;
-  width?: boolean;
+  width?: string;
   options?: { value: string; label: string }[];
   validation: any;
 }
@@ -39,7 +39,6 @@ interface DynamicFormProps {
   defaultValues: { [key: string]: any };
   isEditMode: boolean;
   handleCancel: () => void;
-  handleReset: () => void;
 }
 
 const DynamicForm: React.FC<DynamicFormProps> = ({
@@ -48,16 +47,20 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
   defaultValues,
   isEditMode,
   handleCancel,
-  handleReset,
 }) => {
   const {
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(getValidationSchema(sections)),
     defaultValues,
   });
+  
+    const handleReset = () => {
+      reset(defaultValues || {});
+    };
   
   // console.log(defaultValues, "hii from the values");
 

@@ -2,7 +2,7 @@
 import Lucide from "@/components/Base/Lucide";
 import {  FormInput } from "@/components/Base/Form";
 import * as yup from "yup";
-import Modal from "../Modal/modals";
+import Modal from "../../components/Modal/modals";
 import React, { useCallback, useEffect, useState } from "react";
 import CustomTable from "@/components/TableComponent/CommonTable";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
@@ -11,6 +11,7 @@ import { addUser, getUsers, onload } from "@/redux-toolkit/slices/user/userSlice
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
 import LoadingIcon from '@/components/Base/LoadingIcon';
+import DynamicForm from "../../components/CommonForm"; 
 
 import { Columns } from "@/constants";
 
@@ -60,6 +61,15 @@ const Users: React.FC = () => {
     fetchUsers();
   }, [fetchUsers]);
 
+  const handleSubmit = (data: Record<string, unknown>) => {
+    if (existingMerchant) {
+      // Call API to update existing record
+    } else {
+      console.log('New Data:', data);
+      // Call API to create new record
+    }
+    userModal();
+  };
 
   const handleCreateUser = async () => {
     const newUser = await createUser({
@@ -83,10 +93,17 @@ const Users: React.FC = () => {
               handleModal={userModal}
               forOpen={newUserModal}
               title="Add User"
-              formFields={formFields}
-              existingData={existingMerchant}
-              handleSubmitData={userModal}
-            />
+            >
+            <DynamicForm
+            sections={formFields}
+            onSubmit={handleSubmit}
+            defaultValues={existingMerchant || {}}
+            isEditMode={false}
+            handleCancel={userModal}
+          />
+          <>
+          </>
+            </Modal>
             {/* <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields} existingData={existingMerchant}/> */}
           </div>
         </div>

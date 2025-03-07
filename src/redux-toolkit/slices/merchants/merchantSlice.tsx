@@ -26,17 +26,13 @@ const merchantSlice = createSlice({
         state.users[index] = updatedMerchant;
       }
     },
-    deleteMercHant: (state, action: PayloadAction<Merchant>) => {
-      const updatedMerchant = action.payload;
-      const index = state.users.findIndex(
-        (user) => user.id === updatedMerchant.id,
-      );
-      if (index !== -1) {
-        state.users[index] = updatedMerchant;
-      }
+    deleteMercHantData: (state, action: PayloadAction<string>) => {
+      console.log(action.payload, "action.payload");
+      const merchantId = action.payload;
+      state.users = state.users.filter((user) => user.id !== merchantId);
     },
   },
 });
 
-export const { getMerchants, addMerchant, updateMercHant,deleteMercHant } = merchantSlice.actions;
+export const { getMerchants, addMerchant, updateMercHant,deleteMercHantData } = merchantSlice.actions;
 export default merchantSlice.reducer;
