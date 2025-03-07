@@ -19,12 +19,12 @@ const Users: React.FC = () => {
   const dispatch = useAppDispatch();
   const allUsers = useAppSelector(selectAllUsers);  
 
-  // const existingMerchant = {
-  //   first_name: "John's Store",
-  //   last_name: 500,
-  //   user_name: "upi",
-  //   email: true,
-  // };
+  const existingMerchant = {
+    first_name: "John's Store",
+    last_name: 500,
+    user_name: "upi",
+    email: true,
+  };
 
     const formFields = {
       User_Details: [
