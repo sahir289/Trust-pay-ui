@@ -3,7 +3,7 @@ import Lucide from "@/components/Base/Lucide";
 import {  FormInput } from "@/components/Base/Form";
 import * as yup from "yup";
 import Modal from "../Modal/modals";
-import { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CustomTable from "@/components/TableComponent/CommonTable";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
@@ -12,18 +12,9 @@ import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
 import LoadingIcon from '@/components/Base/LoadingIcon';
 
-export interface User {
-  id: string;
-  sno: number;
-  code: string;
-  vendor_commission: number;
-  created_date: string;
-  created_by: string;
-  status: string;
-  action: string;
-  updated_at: string;
-}
-function Main() {
+import { Columns } from "@/constants";
+
+const Users: React.FC = () => {
   const [newUserModal, setNewUserModal] = useState(false);
   const dispatch = useAppDispatch();
   const allUsers = useAppSelector(selectAllUsers);  
@@ -54,9 +45,11 @@ function Main() {
 
   // const userRef = useRef(null);
   const userModal = () => {
-    setNewUserModal(!newUserModal)
-  }
-  
+    setNewUserModal(!newUserModal);
+  };
+
+  const dispatch = useAppDispatch();
+  const allUsers = useAppSelector(selectAllUsers);
 
   const fetchUsers = useCallback(async () => {
     // tempory disabled this functionality
@@ -64,30 +57,23 @@ function Main() {
     dispatch(onload());
     const userList = await getAllUsers("");
     dispatch(getUsers(userList));
-  }, [dispatch]); 
+  }, [dispatch]);
 
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
-  
-  const tableHeaders = [
-    { label: "Name", key: "first_name", type: "text" as const },
-    { label: "User Name", key: "user_name", type: "text" as const },
-    { label: "Created At", key: "created_at", type: "text" as const },
-    { label: "Created By", key: "created_by", type: "text" as const },
-    { label: "Is Enable", key: "is_enabled", type: "toggle" as const },
-  ];
+
 
   const handleCreateUser = async () => {
     const newUser = await createUser({
-      email: "test@example.com",
-      password: "password123",
-      first_name: "John",
+      email: 'test@example.com',
+      password: 'password123',
+      first_name: 'John',
     });
     dispatch(addUser(newUser));
   };
-  console.log(handleCreateUser, "handleCreateUser")
-  
+  console.log(handleCreateUser, 'handleCreateUser');
+
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -96,8 +82,14 @@ function Main() {
             Users
           </div>
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-          <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields}/>
-          {/* <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields} existingData={existingMerchant}/> */}
+            <Modal
+              handleModal={userModal}
+              forOpen={newUserModal}
+              title="Add User"
+              formFields={formFields}
+              existingData={existingMerchant}
+            />
+            {/* <Modal handleModal={userModal} forOpen={newUserModal} title="Add User" formFields={formFields} existingData={existingMerchant}/> */}
           </div>
         </div>
 
@@ -179,15 +171,15 @@ function Main() {
               <LoadingIcon icon="ball-triangle" className="w-[5%] h-auto" />
             </div>:
               <CustomTable
-                columns={tableHeaders} 
-                data={{rows: allUsers.users, totalCount: 100}}
-              />}
+                columns={Columns.USERS} 
+                data={{rows: allUsers, totalCount: 100}}
+              />
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default Main;
+export default Users;

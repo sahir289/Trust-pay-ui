@@ -1,11 +1,17 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Lucide from "@/components/Base/Lucide";
-import { FormInput,} from "@/components/Base/Form";
+import { FormInput, } from "@/components/Base/Form";
 // import users from "@/fakers/users";
 import Modal from "../Modal/modal";
-import CustomTable from "@/components/TableComponent";
-import { useState,useRef } from "react";
-export interface User {
+import CustomTable from "@/components/TableComponent/CommonTable";
+import { useState, useRef, useCallback, useEffect } from "react";
+import { columns, vendorColumns } from "@/utils/columns";
+import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { getVendorsSlice } from "@/redux-toolkit/slices/vendor/vendorSlice";
+import { selectVendors } from "@/redux-toolkit/slices/vendor/vendorSelectors";
+import { getAllVendor } from "@/redux-toolkit/slices/vendor/vendorAPI";
+export interface Vendor {
   sno: number;
   code: string;
   vendor_commission: number;
@@ -19,21 +25,25 @@ export interface User {
 
 function Main() {
   const [newUserModal, setNewUserModal] = useState(false);
-  const [editModal, setEditModal] = useState<string>("")
+  const roleIs = localStorage.getItem("userData")
+  const role = roleIs ? JSON.parse(roleIs).role : null;
 
-  const tableHeaders = [
-    "sno",
-    "code",
-    "vendor_commission",
-    "created_date",
-    "created_by",
-    "status",
-    "action"
-  ];
   const userRef = useRef(null);
   const userModal = () => {
     setNewUserModal(!newUserModal)
   }
+  const dispatch = useAppDispatch();
+    const allvendor = useAppSelector(selectVendors);
+    const fetchVendor= useCallback(async () => {
+      const vendor = await getAllVendor("");
+      dispatch(getVendorsSlice( vendor));
+      console.log( vendor, "vendor")
+    }, [dispatch]);
+  
+    useEffect(() => {
+      fetchVendor();
+    }, [fetchVendor]);
+  
 
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -43,10 +53,10 @@ function Main() {
             Vendors
           </div>
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-          <Modal handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title="Add Vendors" />
+            <Modal handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title="Add Vendors" />
           </div>
         </div>
-      
+
         <div className="flex flex-col gap-8 mt-3.5">
           <div className="flex flex-col p-5 box box--stacked">
             <div className="grid grid-cols-4 gap-5">
@@ -120,23 +130,11 @@ function Main() {
                 </div>
               </div>
             </div>
-            <div className="overflow-auto xl:overflow-visible">
-                <CustomTable 
-                  columns={tableHeaders} 
-                  // data={users.fakeUsers() as unknown as User[]} 
-                  title={"Vendors"} 
-                  status={[""]}
-                  editModal={editModal}
-                  setEditModal={setEditModal}
-                  setStatus={() => {}} 
-                  setParams={() => {}}
-                  approve={false} 
-                  setApprove={() => {}} 
-                  reject={false} 
-                  setReject={() => {}} 
-                />
-              </div>
-            </div>
+            <CustomTable
+              columns={(role === 'ADMIN' ? columns : vendorColumns).VENDOR}
+              data={{ rows: allvendor, totalCount: 100 }}
+            />
+          </div>
         </div>
       </div>
     </div>

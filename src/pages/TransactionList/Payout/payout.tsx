@@ -8,15 +8,14 @@ import Lucide from '@/components/Base/Lucide';
 import LoadingIcon from '@/components/Base/LoadingIcon';
 
 interface PayOutProps {
-  setModalData: React.Dispatch<
-    React.SetStateAction<{ open: boolean; type: string }>
-  >;
+  // setModalData: React.Dispatch<
+  //   React.SetStateAction<{ open: boolean; type: string }>
+  // >;
 }
 
-const PayOut: React.FC<PayOutProps> = ({ setModalData }) => {
+const PayOut: React.FC<PayOutProps> = () => {
   const [reject, setReject] = useState(false);
   const [approve, setApprove] = useState(false);
-  console.log(setModalData({ open: false, type: '' }));
 
   return (
     <div className="flex flex-col p-5">

@@ -47,6 +47,12 @@ const initialState: SideMenuState = {
       pathname: "/auth/bankaccounts",
       title: "Bank Details",
     },
+    "REPORTS",
+    {
+      icon: "SquareUser",
+      pathname: "/auth/reports",
+      title: "Reports",
+    },
     "USERS",
     {
       icon: "Users",
@@ -64,34 +70,24 @@ const initialState: SideMenuState = {
       pathname: "/auth/vendors",
       title: "Vendors",
     },
-    "ROLES & DESIGNATIONS",
-    {
-      icon: "CircleUserRound",
-      pathname: "/auth/roles",
-      title: "Roles",
-    },
-    {
-      icon: "UserCog",
-      pathname: "/auth/designation",
-      title: "Designations",
-    },
+    // "ROLES & DESIGNATIONS",
+    // {
+    //   icon: "CircleUserRound",
+    //   pathname: "/auth/roles",
+    //   title: "Roles",
+    // },
+    // {
+    //   icon: "UserCog",
+    //   pathname: "/auth/designation",
+    //   title: "Designations",
+    // },
     "DATA ENTRIES",
     {
       icon: "FileText",
       pathname: "/auth/add-data",
       title: "Data Entries",
     },
-    "ACCOUNT REPORTS",
-    {
-      icon: "SquareUser",
-      pathname: "/auth/account-reports",
-      title: "Account Report",
-    },
-    {
-      icon: "SquareUser",
-      pathname: "/auth/vendor-account-reports",
-      title: "Vendor Account Report",
-    },
+
     // "CHAT SUPPORT",
     // {
     //   icon: "MailOpen",
