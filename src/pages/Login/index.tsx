@@ -11,7 +11,7 @@ import { loginUser } from "@/redux-toolkit/slices/auth/authAPI";
 import { selectAuth } from "@/redux-toolkit/slices/auth/authSelectors";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-import { loginSuccess } from "@/redux-toolkit/slices/auth/authSlice";
+import { loginSuccess, onload, loginFailure, clearError } from "@/redux-toolkit/slices/auth/authSlice";
 import React, { useState, useRef, useCallback } from "react";
 import { jwtDecode } from "jwt-decode";
 import Lucide from "@/components/Base/Lucide";
@@ -32,15 +32,13 @@ function Main() {
   const navigate = useNavigate();
   const { setToken } = useAuth();
 
-  // const loginSuccess = useAppSelector(loginSuccess);
   const dispatch = useAppDispatch();
   const userLogin = useAppSelector(selectAuth);
 
-  console.log(userLogin, "userLogin")
-
   const fetchLoginDetails = useCallback(async (userlogin: { username: string; password: string }) => {
+    dispatch(onload({ load: true }));
+    dispatch(clearError());
     const loginUserInfo = await loginUser(userlogin);
-    console.log(loginUserInfo, "loginUserInfo");
     if (loginUserInfo?.data?.accessToken) {
       // Save token and user data to localStorage
       localStorage.setItem("accessToken", loginUserInfo?.data?.accessToken);
@@ -55,20 +53,27 @@ function Main() {
       sessionStorage.setItem("userSession", JSON.stringify(loginUserInfo?.data?.sessionId));
 
       // Dispatch the login success action
-      dispatch(loginSuccess(loginUserInfo.data));
+      if (loginUserInfo.data) {     
+        dispatch(loginSuccess({
+          accessToken: loginUserInfo.data.accessToken,
+          user: loginUserInfo.data.user || {}
+        }));
+      }
 
       // Navigate to the dashboard
       navigate("auth/dashboard");
     } else {
       // Handle failed login response
-      if (loginUserInfo?.error?.statusCode === 404) {
+      dispatch(loginFailure({ error: loginUserInfo?.error }));
+        setNotificationMessage(loginUserInfo?.error?.message || "An unknown error occurred");
+        if (loginUserInfo?.error?.statusCode === 400) {
         setNotificationMessage(loginUserInfo?.error?.message);
       } else {
         setNotificationMessage("Failed to login");
       }
       basicNonStickyNotificationToggle();
     }
-  }, [dispatch]);
+  }, [dispatch]); 
 
   // Basic non sticky notification
   const basicNonStickyNotification = useRef<NotificationElement>();
@@ -215,9 +220,10 @@ function Main() {
                     <Button
                       variant="primary"
                       rounded
+                      disabled={userLogin.loading}
                       className="bg-gradient-to-r from-theme-1/70 to-theme-2/70 w-full py-3.5 xl:mr-3 dark:border-darkmode-400"
                     >
-                      Sign In
+                      {userLogin.loading ? 'Loading...' : 'Sign In'}
                     </Button>
                   </div>
                 </form>
@@ -297,7 +303,7 @@ function Main() {
           </div>
         </div>
       </div>
-      {notificationMessage && (
+      {userLogin.error && (
         <div className="text-center">
           {/* BEGIN: Basic Non Sticky Notification Content */}
           <Notification
@@ -311,7 +317,7 @@ function Main() {
           >
             <Lucide icon="X" className="text-danger" />
             <div className="font-medium ml-4 mr-4">
-              <div className="font-medium">{notificationMessage}</div>
+              <div className="font-medium">{notificationMessage ||userLogin.error.message}</div>
             </div>
           </Notification>
         </div>

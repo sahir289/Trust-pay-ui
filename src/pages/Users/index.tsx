@@ -7,117 +7,52 @@ import React, { useCallback, useEffect, useState } from "react";
 import CustomTable from "@/components/TableComponent/CommonTable";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
-import { addUser, getUsers } from "@/redux-toolkit/slices/user/userSlice";
+import { addUser, getUsers, onload } from "@/redux-toolkit/slices/user/userSlice";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
+import LoadingIcon from '@/components/Base/LoadingIcon';
+
 import { Columns } from "@/constants";
 
 const Users: React.FC = () => {
   const [newUserModal, setNewUserModal] = useState(false);
+  const dispatch = useAppDispatch();
+  const allUsers = useAppSelector(selectAllUsers);  
+
   const existingMerchant = {
     first_name: "John's Store",
     last_name: 500,
-    user_name: 'upi',
+    user_name: "upi",
     email: true,
   };
 
-  const formFields = {
-    User_Details: [
-      {
-        name: 'first_name',
-        label: 'First Name',
-        type: 'text',
-        placeholder: 'Enter First Name',
-        validation: yup.string().required('First Name is required'),
-      },
-      {
-        name: 'last_name',
-        label: 'Last Name',
-        type: 'text',
-        placeholder: 'Enter Last Name',
-        validation: yup.string().required('Last Name is required'),
-      },
-      {
-        name: 'user_name',
-        label: 'Username',
-        type: 'text',
-        placeholder: 'Enter Username',
-        validation: yup.string().required('Username is required'),
-      },
-      {
-        name: 'email',
-        label: 'Email',
-        type: 'text',
-        placeholder: 'Enter Email',
-        validation: yup
-          .string()
-          .email('Invalid Email')
-          .required('Email is required'),
-      },
-      {
-        name: 'contact_no',
-        label: 'Contact Number',
-        type: 'text',
-        placeholder: 'Enter Contact Number',
-        validation: yup
-          .string()
-          .matches(/^\d+$/, 'Must be a valid number')
-          .required('Contact number is required'),
-      },
-    ],
-    User_Info: [
-      {
-        name: 'designation_id',
-        label: 'Designation ID',
-        type: 'text',
-        placeholder: 'Enter Designation ID',
-        validation: yup.string().required('Designation ID is required'),
-      },
-      {
-        name: 'role_id',
-        label: 'Role ID',
-        type: 'text',
-        placeholder: 'Enter Role ID',
-        validation: yup.string().required('Role ID is required'),
-      },
-      {
-        name: 'password',
-        label: 'Password',
-        type: 'password',
-        placeholder: 'Enter Password',
-        validation: yup
-          .string()
-          .min(5, 'Password must be at least 5 characters')
-          .required('Password is required'),
-      },
-      {
-        name: 'code',
-        label: 'Code',
-        type: 'text',
-        placeholder: 'Enter Code',
-        validation: yup.string().required('Code is required'),
-      },
-      {
-        name: 'is_enabled',
-        label: 'Is Enabled?',
-        type: 'switch',
-        validation: yup.boolean(),
-      },
-    ],
-  };
+    const formFields = {
+      User_Details: [
+        { name: "first_name", label: "First Name", type: "text", placeholder: "Enter First Name", validation: yup.string().required("First Name is required") },
+        { name: "last_name", label: "Last Name", type: "text", placeholder: "Enter Last Name", validation: yup.string().required("Last Name is required") },
+        { name: "user_name", label: "Username", type: "text", placeholder: "Enter Username", validation: yup.string().required("Username is required") },
+        { name: "email", label: "Email", type: "text", placeholder: "Enter Email", validation: yup.string().email("Invalid Email").required("Email is required") },
+        { name: "contact_no", label: "Contact Number", type: "text", placeholder: "Enter Contact Number", validation: yup.string().matches(/^\d+$/, "Must be a valid number").required("Contact number is required") },
+      ],
+      User_Info: [
+        { name: "designation_id", label: "Designation ID", type: "text", placeholder: "Enter Designation ID", validation: yup.string().required("Designation ID is required") },
+        { name: "role_id", label: "Role ID", type: "text", placeholder: "Enter Role ID", validation: yup.string().required("Role ID is required") },
+        { name: "password", label: "Password", type: "password", placeholder: "Enter Password", validation: yup.string().min(5, "Password must be at least 5 characters").required("Password is required") },
+        { name: "code", label: "Code", type: "text", placeholder: "Enter Code", validation: yup.string().required("Code is required") },
+        { name: "is_enabled", label: "Is Enabled?", type: "switch", validation: yup.boolean() },
+      ]
+    };
 
   // const userRef = useRef(null);
   const userModal = () => {
     setNewUserModal(!newUserModal);
   };
 
-  const dispatch = useAppDispatch();
-  const allUsers = useAppSelector(selectAllUsers);
-
   const fetchUsers = useCallback(async () => {
     // tempory disabled this functionality
     // const queryString = new URLSearchParams(params).toString();
-    const userList = await getAllUsers('');
+    dispatch(onload());
+    const userList = await getAllUsers("");
     dispatch(getUsers(userList));
   }, [dispatch]);
 
@@ -230,10 +165,14 @@ const Users: React.FC = () => {
               </div>
             </div>
             <div className="overflow-auto xl:overflow-visible">
+            {allUsers.loading ? <div className="flex justify-center items-center w-full h-screen">
+              <LoadingIcon icon="ball-triangle" className="w-[5%] h-auto" />
+            </div> :
               <CustomTable
                 columns={Columns.USERS} 
-                data={{rows: allUsers, totalCount: 100}}
+                data={{rows: allUsers.users, totalCount: 100}}
               />
+            }
             </div>
           </div>
         </div>
