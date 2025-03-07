@@ -32,7 +32,7 @@ export const Columns = {
   PAYIN: [
     { label: 'SNO', key: 'sno', type: 'text' as const },
     {
-      label: 'UTR',
+      label: 'Amount',
       key: 'bank_res_details',
       type: 'object',
       objectKey: 'amount' as const,
