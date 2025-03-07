@@ -50,11 +50,7 @@ const InProgressPayIn: React.FC<PayInProps> = () => {
     ).toString();
     const payins = await getAllPayIns(queryString);
     if (payins?.data) {
-      const payload = {
-        payin: payins.data.rows,
-        totalCount: payins.data.totalCount,
-      };
-      dispatch(getPayIns(payload));
+      dispatch(getPayIns(payins?.data));
     } else {
       setNotificationStatus(Status.ERROR);
       setNotificationMessage('No PayIns Found!');

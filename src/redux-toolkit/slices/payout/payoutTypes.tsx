@@ -35,4 +35,6 @@ export interface PayOut {
 export interface PayOutState {
   payout: PayOut[];
   totalCount: number;
+  loading: boolean;
+  error: string | null;
 }

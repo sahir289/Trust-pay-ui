@@ -1,37 +1,37 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { SettlementState } from "./settlementTypes";
+import { Settlement, SettlementState } from "./settlementTypes";
 
 const initialState: SettlementState = {
   settlement: [],
   totalCount: 0,
+  loading: false,
+  error: null,
 };
 
 const settlementSlice = createSlice({
   name: "settlement",
   initialState,
   reducers: {
-    // Replace entire settlement list
-    getSettlements: (state, action: PayloadAction<SettlementState>) => {
-      state.settlement = action.payload.settlement;
-      state.totalCount = action.payload.totalCount;
+    getSettlements: (state, action: PayloadAction<Settlement[]>) => {
+      state.settlement = action.payload;
+      state.totalCount = action.payload.length;
+      state.loading = false;
+      state.error = null;
     },
-
-    // Update amount for a specific settlement
-    updateAmount: (
-      state,
-      action: PayloadAction<{ id: string; amount: number }>
-    ) => {
+    onload: (state) => {
+      state.loading = true;
+    },
+    addSettlement: (state, action: PayloadAction<Settlement>) => {
+      state.settlement.push(action.payload);
+      state.totalCount++;
+    },
+    updateAmount: (state, action: PayloadAction<{ id: string; amount: number }>) => {
       const settlement = state.settlement.find((p) => p.id === action.payload.id);
       if (settlement) {
         settlement.amount = action.payload.amount;
       }
     },
-
-    // Update status for a specific settlement
-    updateStatus: (
-      state,
-      action: PayloadAction<{ id: string; status: string }>
-    ) => {
+    updateStatus: (state, action: PayloadAction<{ id: string; status: string }>) => {
       const settlement = state.settlement.find((p) => p.id === action.payload.id);
       if (settlement) {
         settlement.status = action.payload.status;
@@ -40,9 +40,5 @@ const settlementSlice = createSlice({
   },
 });
 
-// Export actions to use in components
-export const { getSettlements, updateAmount, updateStatus } =
-  settlementSlice.actions;
-
-// Export reducer to use in store
+export const { getSettlements, onload, addSettlement, updateAmount, updateStatus } = settlementSlice.actions;
 export default settlementSlice.reducer;

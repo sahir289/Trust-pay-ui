@@ -26,7 +26,6 @@ const authSlice = createSlice({
       state.error = { message: "", name: "", statusCode: 0 };
     },
     loginFailure: (state, action: PayloadAction<{ error: any }>) => {
-      console.log(action.payload, "action.payloaddddd");
       state.error = action.payload.error;
       state.loading = false;
       state.isAuthenticated = false;
@@ -34,7 +33,6 @@ const authSlice = createSlice({
       state.token = null;
     },
     onload: (state, action: PayloadAction<{ load: boolean }>) => {
-      console.log(action.payload, "action.payload");
       state.loading = action.payload.load;
     },
     logout: (state) => {

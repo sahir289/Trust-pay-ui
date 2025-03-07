@@ -52,11 +52,7 @@ const RejectedPayOut: React.FC<PayOutProps> = () => {
     ).toString();
     const payOuts = await getAllPayOuts(queryString);
     if (payOuts?.data) {
-      const payload = {
-        payout: payOuts.data.rows,
-        totalCount: payOuts.data.totalCount,
-      };
-      dispatch(getPayOuts(payload));
+      dispatch(getPayOuts(payOuts?.data));
     } else {
       setNotificationStatus(Status.ERROR);
       setNotificationMessage('No PayIns Found!');

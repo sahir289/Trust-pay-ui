@@ -5,29 +5,36 @@ const initialState: DataEntryState = {
   bankResponse: [],
   checkUtrHistory: [],
   totalCount: 0,
+  loading: false,
+  error: null,
 };
 
 const dataEntrySlice = createSlice({
   name: 'dataEntry',
   initialState,
   reducers: {
-    // Replace entire bankResponse list
     getBankResponses: (state, action: PayloadAction<DataEntryState>) => {
-      state.bankResponse = action.payload.bankResponse;
+      state.bankResponse = action.payload?.bankResponse;
       state.totalCount = action.payload.totalCount;
+      state.loading = false;
+      state.error = null;
     },
-
-    // Replace entire checkUtrHistory list
     getCheckUtrHistories: (state, action: PayloadAction<DataEntryState>) => {
-      state.checkUtrHistory = action.payload.checkUtrHistory;
+      state.checkUtrHistory = action.payload?.checkUtrHistory;
       state.totalCount = action.payload.totalCount;
+      state.loading = false;
+      state.error = null;
+    },
+    onload: (state) => {
+      state.loading = true;
     },
   },
 });
 
-// Export actions to use in components
-export const { getBankResponses, getCheckUtrHistories } =
-  dataEntrySlice.actions;
+export const {
+  getBankResponses,
+  getCheckUtrHistories,
+  onload,
+} = dataEntrySlice.actions;
 
-// Export reducer to use in store
 export default dataEntrySlice.reducer;

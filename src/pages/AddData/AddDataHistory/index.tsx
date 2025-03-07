@@ -37,11 +37,7 @@ const AddData: React.FC = () => {
     const queryString = new URLSearchParams(params as Record<string, string>).toString();
     const bankResponses = await getAllBankResponses(queryString);
     if (bankResponses?.data) {
-      const payload = {
-        bankResponse: bankResponses?.data?.rows,
-        totalCount: bankResponses?.data?.totalCount,
-      };
-      dispatch(getBankResponses(payload));
+      dispatch(getBankResponses(bankResponses?.data));
     } else {
       setNotificationStatus(Status.ERROR);
       setNotificationMessage('No PayIns Found!');

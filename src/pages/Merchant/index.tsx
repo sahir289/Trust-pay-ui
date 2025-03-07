@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Lucide from "@/components/Base/Lucide";
 import { Menu, Popover } from "@/components/Base/Headless";
 import { FormInput, FormSelect } from "@/components/Base/Form";
@@ -17,12 +19,12 @@ import { selectAllMerchants } from "@/redux-toolkit/slices/merchants/merchantSel
 import { getMerchants } from "@/redux-toolkit/slices/merchants/merchantSlice";
 import { getAllMerchants } from "@/redux-toolkit/slices/merchants/merchantAPI";
 import { createMerchant } from "@/redux-toolkit/slices/merchants/merchantAPI";
-import { updateMerchant } from "@/redux-toolkit/slices/merchants/merchantAPI";
+import { updateMerchantData } from "@/redux-toolkit/slices/merchants/merchantAPI";
 // import { deleteMerchant } from '@/redux-toolkit/slices/merchants/merchantAPI';
 import { Columns } from "@/constants";
 import { addMerchant } from "@/redux-toolkit/slices/merchants/merchantSlice";
 // import { deleteMercHant } from "@/redux-toolkit/slices/merchants/merchantSlice";
-import { updateMercHant } from "@/redux-toolkit/slices/merchants/merchantSlice";
+import { updateMerchant } from "@/redux-toolkit/slices/merchants/merchantSlice";
 
 export interface Merchant {
     name: string;
@@ -84,9 +86,9 @@ const handleSubmitData =(async (data: any, isEditMode?: boolean) => {
         if (isEditMode) {
             let prevData = formData;
             const newData = getUpdatedFields(prevData, data)
-            const updatedMerchant=    await updateMerchant(data.id, newData);
+            const updatedMerchant=    await updateMerchantData(data.id, newData);
             // console.log(updateMercHant,"hiii from updated merchant")
-            dispatch(updateMercHant(updatedMerchant));
+            dispatch(updateMerchant(updatedMerchant));
             setFormData(null);
         } else {
       const addedMerchant=    await createMerchant(data);
