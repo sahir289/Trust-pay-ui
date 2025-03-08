@@ -7,7 +7,14 @@ import { FormInput, FormSelect } from "@/components/Base/Form";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
-import CustomTable from "@/components/TableComponent";
+import { useCallback, useEffect } from "react";
+import { getAllSettlements } from "@/redux-toolkit/slices/settlement/settlementAPI";
+import { getSettlements } from "@/redux-toolkit/slices/settlement/settlementSlice";
+import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
+import { Columns } from "@/constants";
+import CustomTable from "@/components/TableComponent/CommonTable";
+import { getAllSettlementData } from "@/redux-toolkit/slices/settlement/settlementSelectors";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 export interface Transaction {
   // category: string;
   orderId: string;
@@ -18,16 +25,21 @@ export interface Transaction {
   amount: string;
 }
 function MerchantSettlement() {
-  // const [selectedUser, setSelectedUser] = useState("1");
-  const tableHeaders: string[] = [
-    "SNO.",
-    "Amount",
-    "Status",
-    "Merchant",
-    "Bank Details",
-    "Action",
-  ];
-
+  const dispatch = useAppDispatch();
+  const allSettlement = useAppSelector(getAllSettlementData) || [];
+  const fetchSettlements = useCallback(async () => {
+    const response = await getAllSettlements("role_name=ADMIN");
+  
+    if (response?.data) {
+      dispatch(getSettlements(response.data));
+    } else {
+      console.error("Error fetching settlements:", response.error);
+    }
+  }, [dispatch]);
+  
+  useEffect(() => {
+    fetchSettlements();
+  }, [fetchSettlements]);
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -139,17 +151,11 @@ function MerchantSettlement() {
                 </Popover>
               </div>
             </div>
-            <CustomTable 
-              columns={tableHeaders} 
-              // data={transactions.fakeTransactions() as Transaction[]} 
-              title={"Merchants Settlements"} 
-              status={[]} 
-              setStatus={() => {}} 
-              setParams={() => {}}
-              approve={false} 
-              setApprove={() => {}} 
-              reject={false} 
-              setReject={() => {}} 
+            <CustomTable
+              columns={Columns.SETTLEMENT}
+              data={{ rows: allSettlement, totalCount: allSettlement.length }}
+              // handleEditModal={handleEditModal}
+              // handleDeleteData={handledeleteData}
             />
           </div>
         </div>

@@ -2,7 +2,7 @@
 import { RootState } from "../../store/store";
 
 // Select the entire list of payouts
-export const getAllSettlementData = (state: RootState) => state.settlement;
+export const getAllSettlementData = (state: RootState) => state.settlement.settlement;
 
 // Select a specific settlement by ID
 export const getSettlementById = (id: string) => (state: RootState) =>

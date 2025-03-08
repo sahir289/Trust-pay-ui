@@ -1,19 +1,13 @@
-interface SettlementDetails {
-    acc_no: string | null;
-    acc_holder_name: string | null;
-    ifsc_code: string | null;
-    bank_name: string | null;
-    upi_id: string | null;
-    utr_id: string | null;
-}
+
 
 export interface Settlement {
   id: string | null;
   sno: number | null;
-  user: string | null;
+  user_id: string | null;
   amount: number | null;
   status: string;
-  settlement_details: SettlementDetails;
+  // settlement_details: SettlementDetails;
+  config: string | null;
   approved_at: string | null;
   rejected_at?: string | null;
   rejected_reason?: string | null;

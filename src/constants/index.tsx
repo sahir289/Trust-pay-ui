@@ -123,6 +123,13 @@ export const Columns = {
     { label: 'Updated By', key: 'updated_by', type: 'text' as const },
     { label: 'Action', key: 'action', type: 'action' as const },
   ],
+  SETTLEMENT:[
+    { label: 'Sno.', key: 'sno', type: 'text' as const },
+    { label: 'Status', key: 'status', type: 'text' as const },
+    { label: 'Amount', key: 'amount', type: 'text' as const },
+    { label: 'Bank Details', key: 'config', type: 'object' as const },
+    { label: 'Action', key: 'approved_at', type: 'actions' as const },
+  ]
 };
 
 export const formFields = {
