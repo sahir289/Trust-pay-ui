@@ -2,7 +2,8 @@ export interface Vendor {
     id: string;
     role_id: number;
     user_id: string;
-    full_name: number;
+    first_name: number;
+    last_name: number;
     code: string;
     payin_commission: string;
     payout_commission: string;

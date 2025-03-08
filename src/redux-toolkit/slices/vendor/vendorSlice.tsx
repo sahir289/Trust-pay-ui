@@ -27,8 +27,18 @@ const vendorSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     },
+     addVendor: (state, action: PayloadAction<Vendor>) => {
+          state.vendors.push(action.payload);
+        },
+        updateVendorSlice: (state, action: PayloadAction<Vendor>) => {
+              const updatedUser = action.payload;
+              const index = state.vendors.findIndex((vendor) => vendor.id === updatedUser.id);
+              if (index !== -1) {
+                state.vendors[index] = updatedUser;
+              }
+            },
   },
 });
 
-export const { getVendorsSlice, onload, setError } = vendorSlice.actions;
+export const { getVendorsSlice, addVendor, updateVendorSlice } = vendorSlice.actions;
 export default vendorSlice.reducer;

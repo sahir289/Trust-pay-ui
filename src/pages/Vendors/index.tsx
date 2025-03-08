@@ -2,15 +2,15 @@
 import Lucide from "@/components/Base/Lucide";
 import { FormInput, } from "@/components/Base/Form";
 // import users from "@/fakers/users";
-import Modal from "../../components/Modal/modal";
 import CustomTable from "@/components/TableComponent/CommonTable";
-import { useState, useRef, useCallback, useEffect } from "react";
-import { columns, vendorColumns } from "@/utils/columns";
+import { useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-import { getVendorsSlice } from "@/redux-toolkit/slices/vendor/vendorSlice";
+import { addVendor, getVendorsSlice, updateVendorSlice } from "@/redux-toolkit/slices/vendor/vendorSlice";
 import { selectVendors } from "@/redux-toolkit/slices/vendor/vendorSelectors";
-import { getAllVendor } from "@/redux-toolkit/slices/vendor/vendorAPI";
+import { createVendor, getAllVendor, updateVendor } from "@/redux-toolkit/slices/vendor/vendorAPI";
+import Modal from "../Modal/modals";
+import { columns, vendorColumns } from "@/constants";
 export interface Vendor {
   sno: number;
   code: string;
@@ -24,27 +24,65 @@ export interface Vendor {
 }
 
 function Main() {
-  const [newUserModal, setNewUserModal] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [newVendorModal, setNewVendorModal] = useState(false);
+  const [title] = useState('Vendor');
   const roleIs = localStorage.getItem("userData")
   const role = roleIs ? JSON.parse(roleIs).role : null;
-
-  const userRef = useRef(null);
-  const userModal = () => {
-    setNewUserModal(!newUserModal)
-  }
   const dispatch = useAppDispatch();
-    const allvendor = useAppSelector(selectVendors);
-    const fetchVendor= useCallback(async () => {
-      const vendor = await getAllVendor();
-      dispatch(getVendorsSlice( vendor));
-      console.log( vendor, "vendor")
-    }, [dispatch]);
-  
-    useEffect(() => {
-      fetchVendor();
-    }, [fetchVendor]);
-  
+  const allvendor = useAppSelector(selectVendors);
+  const fetchVendor = useCallback(async () => {
+    const vendor = await getAllVendor("");
+    dispatch(getVendorsSlice(vendor));
+  }, [dispatch]);
+  const vendorModal = () => {
+    setNewVendorModal((prev) => !prev)
+  }
+  useEffect(() => {
+    fetchVendor();
+  }, [fetchVendor]);
+  const handleEditModal = (data: any) => {
+    setFormData(data);
+    // setTitle(title);
+    vendorModal();
+  };
+  function getUpdatedFields(
+    originalData: any,
+    updatedData: any,
+  ): { [key: string]: any } {
+    const updatedFields: { [key: string]: any } = {};
+    Object.keys(updatedData).forEach((key) => {
+      if (typeof updatedData[key] === 'object' && updatedData[key] !== null) {
+        // Handle nested objects like `config`
+        const nestedUpdates = getUpdatedFields(
+          originalData[key] || {},
+          updatedData[key],
+        );
+        if (Object.keys(nestedUpdates).length > 0) {
+          updatedFields[key] = nestedUpdates;
+        }
+      } else {
+        // Check if the value is different from the original
+        if (updatedData[key] !== originalData[key]) {
+          updatedFields[key] = updatedData[key];
+        }
+      }
+    });
 
+    return updatedFields;
+  }
+  const handleSubmitData = async (data: any, isEditMode?: boolean) => {
+    if (isEditMode) {
+      let prevData = formData;
+      const newData = getUpdatedFields(prevData, data)
+      const editVendor = await updateVendor(data.id, newData);
+      dispatch(updateVendorSlice(editVendor));
+      
+    } else {
+      const newVendor = await createVendor(data);
+      dispatch(addVendor(newVendor));
+    }
+  };
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -53,10 +91,45 @@ function Main() {
             Vendors
           </div>
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-            <Modal handleModal={userModal} sendButtonRef={userRef} forOpen={newUserModal} title="Add Vendors" />
+            <Modal
+              title={title}
+              forOpen={newVendorModal}
+              formFields={{
+                "Personal Info": [
+                  {
+                    name: "balance",
+                    label: "Balance",
+                    type: "number",
+                    placeholder: "Enter your Balance",
+                  },
+                ],
+                Commissions: [
+                  {
+                    name: "payin_commission",
+                    label: "Pay in Commission",
+                    type: "text",
+                    placeholder: "Pay in Commission",
+                  },
+                  {
+                    name: "payout_commission",
+                    label: "Pay out Commission",
+                    type: "text",
+                    placeholder: "Pay out Commission",
+                  },
+                ],
+              }}
+              // handleModal={() => setAddVendor}
+              existingData={formData}
+              handleSubmitData={handleSubmitData}
+              handleModal={vendorModal}
+            />
+
           </div>
         </div>
+        {/* handleModal,
+  sendButtonRef, */}
 
+        {/* existingData, */}
         <div className="flex flex-col gap-8 mt-3.5">
           <div className="flex flex-col p-5 box box--stacked">
             <div className="grid grid-cols-4 gap-5">
@@ -133,6 +206,7 @@ function Main() {
             <CustomTable
               columns={(role === 'ADMIN' ? columns : vendorColumns).VENDOR}
               data={{ rows: allvendor, totalCount: 100 }}
+              handleEditModal={handleEditModal}
             />
           </div>
         </div>
