@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-unused-vars */
 import api from "../../services/api"; 
 import { ApiVendorReportsResponse, VendorReports } from "./vendorReportTypes";
