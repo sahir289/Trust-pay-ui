@@ -18,15 +18,14 @@ import compactMenuReducer from "../slices/common/compactMenu/compactMenuSlice";
 import pageLoaderReducer from "../slices/common/pageLoader/pageLoaderSlice";
 import merchantReducer from "../slices/merchants/merchantSlice"
 import reportReducer from "../slices/reports/reportSlice";
-import vendorReportsReducer from "../slices/vendorReports/vendorReportsSlice"
 import vendorReducer from "../slices/vendor/vendorSlice"
+import chargebackReducer from "../slices/chargebacks/chargebackSlice"
 //This file configures the Redux store.
 
 const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
   report : reportReducer,
-  vendorReport : vendorReportsReducer, 
   vendors : vendorReducer ,
   payin: payInReducer,
   payout: payOutReducer,
@@ -37,6 +36,7 @@ const rootReducer = combineReducers({
   designation: designationReducer,
   params: paramsReducer,
   tab: tabReducer,
+  chargeback : chargebackReducer,
   theme: themeReducer,
   merchant: merchantReducer,
   darkMode: darkModeReducer,
