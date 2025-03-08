@@ -33,6 +33,8 @@ export interface DataEntryState {
   bankResponse: BankResponse[];
   checkUtrHistory?: CheckUtrHistory[];
   totalCount: number;
+  loading: boolean;
+  error: string | null;
 }
 
 // export interface ResetHistory {

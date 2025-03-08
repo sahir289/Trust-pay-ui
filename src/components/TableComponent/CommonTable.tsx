@@ -23,7 +23,7 @@ interface Column {
   | 'action'
   | 'limits'
     | string;
-  objectKey?: string;
+  objectKey?: string | string[];
 }
 
 interface CommonTableProps {
@@ -68,7 +68,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
   const [params, setParams] = useState({ limit: 10 });
   const { limit } = params;
 
-  const paginatedData = data.rows.slice(
+  const paginatedData = data?.rows?.slice(
     (currentPage - 1) * limit,
     currentPage * limit,
   );
@@ -143,7 +143,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
           </Table.Tr>
         </Table.Thead>
         <Table.Tbody>
-          {paginatedData.map((row, rowIndex) => (
+          {paginatedData?.map((row, rowIndex) => (
             <Table.Tr key={rowIndex} className="[&_td]:last:border-b-0">
               {columns.map((col, colIndex) => (
                 <Table.Td
@@ -236,7 +236,15 @@ const CommonTable: React.FC<CommonTableProps> = ({
                   ) : col.type === 'object' &&
                     typeof row[col.key] === 'object' &&
                     row[col.key] !== null ? (
-                    row[col.key][col.objectKey ?? ''] ?? ''
+                    Array.isArray(col.objectKey) ? (
+                      <>
+                        {col.objectKey.map((key, index) => (
+                          <div key={index}>{row[col.key]?.[key] ?? ''}</div>
+                        ))}
+                      </>
+                    ) : (
+                      row[col.key]?.[col.objectKey ?? ''] ?? ''
+                    )
                   ) : col.type === 'action' ? (
                     <span> action </span>
                   ) : (

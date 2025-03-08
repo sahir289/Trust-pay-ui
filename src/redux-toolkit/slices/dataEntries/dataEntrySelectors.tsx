@@ -3,7 +3,7 @@ import { RootState } from '../../store/store';
 
 // Select the entire list of bankResponses
 export const getAllBankResponseData = (state: RootState) =>
-  state.dataEntries.bankResponse;
+  state.dataEntries;
 
 // Select a specific bankResponse by ID
 export const getBankResponseById = (id: string) => (state: RootState) =>
@@ -11,7 +11,7 @@ export const getBankResponseById = (id: string) => (state: RootState) =>
 
 // Select the entire list of checkUtrHistories
 export const getAllCheckUtrHistoryData = (state: RootState) =>
-  state?.dataEntries?.checkUtrHistory;
+  state?.dataEntries;
 
 // Select a specific checkUtrHistory by ID
 export const getCheckUtrHistoryById = (id: string) => (state: RootState) => {

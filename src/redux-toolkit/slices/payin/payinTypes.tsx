@@ -59,4 +59,6 @@ export interface PayIn {
 export interface PayInState {
   payin: PayIn[];
   totalCount: number;
+  loading: boolean;
+  error: string | null;
 }

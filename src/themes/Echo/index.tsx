@@ -4,7 +4,7 @@ import "@/assets/css/vendors/simplebar.css";
 import "@/assets/css/themes/echo.css";
 import { Transition } from "react-transition-group";
 import Breadcrumb from "@/components/Base/Breadcrumb";
-import { useState, useEffect, createRef } from "react";
+import { useState, useEffect, createRef, useCallback } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { selectSideMenu } from "@/redux-toolkit/slices/common/sideMenu/sideMenuSlice";
 import {
@@ -23,8 +23,10 @@ import { Menu } from "@/components/Base/Headless";
 import SwitchAccount from "@/components/SwitchAccount";
 import NotificationsPanel from "@/components/NotificationsPanel";
 import ActivitiesPanel from "@/components/ActivitiesPanel";
-import { postApi } from "@/redux-toolkit/api";
 import { useAuth } from "@/components/context/AuthContext";
+import {logout, onload, loginFailure, clearError } from "@/redux-toolkit/slices/auth/authSlice";
+import { logOutUser } from "@/redux-toolkit/slices/auth/authAPI";
+
 
 function Main() {
   const dispatch = useAppDispatch();
@@ -82,17 +84,24 @@ function Main() {
     };
   }, [sideMenuStore, location]);
 
-  const logout = async () => {
-    const session_id = sessionStorage.getItem("userSession");
-    if (session_id) {
-      await postApi('/auth/logout', { session_id }, true);
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("userData");
-      sessionStorage.removeItem("userSession");
+
+    const HandleLogOut = useCallback(async () => {
+      dispatch(onload({ load: true }));
+      dispatch(clearError());
+      const session_id = sessionStorage.getItem("userSession");
+      if (!session_id) {
+        dispatch(loginFailure({ error: { message: "Session ID is missing", name: "Error", statusCode: 400 } }));
+        return;
+      }
+      const logOutUserInfo = await logOutUser({ session_id });
+      if (logOutUserInfo) {
+      dispatch(logout());
       setToken(null);
       navigate("/");
-    }
-  };
+      } else {
+        dispatch(loginFailure({ error: { message: "An error occurred", name: "Error", statusCode: 500 } }));
+      }
+    }, [dispatch]);
 
   window.onscroll = () => {
     // Topbar
@@ -513,7 +522,7 @@ function Main() {
                       Profile Info
                     </Menu.Item> */}
                     <Menu.Item
-                      onClick={() => {logout()}}
+                      onClick={() => {HandleLogOut()}}
                     >
                       <Lucide icon="Power" className="w-4 h-4 mr-2" />
                       Logout

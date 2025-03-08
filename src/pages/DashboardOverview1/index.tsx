@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Tab } from "@/components/Base/Headless";
-import Modal from "@/pages/Modal/modal";
+import Modal from "@/components/Modal/modal";
 import Lucide from "@/components/Base/Lucide";
 import { useRef, useState } from "react";
 import MerchantBoard from "./MerchantBoard";

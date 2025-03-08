@@ -1,12 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Reports, ReportState } from "./reportTypes";
 
-//reducer
-
+// Reducer
 const initialState: ReportState = {
   token: null,
   isAuthenticated: false,
   reports: [],
+  loading: false,
+  error: null,
 };
 
 const reportSlice = createSlice({
@@ -15,9 +16,18 @@ const reportSlice = createSlice({
   reducers: {
     getMerchantReports: (state, action: PayloadAction<Reports[]>) => {
       state.reports = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    onload: (state) => {
+      state.loading = true;
+    },
+    setError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload;
+      state.loading = false;
     },
   },
 });
 
-export const { getMerchantReports } = reportSlice.actions;
+export const { getMerchantReports, onload, setError } = reportSlice.actions;
 export default reportSlice.reducer;

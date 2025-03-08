@@ -21,7 +21,7 @@ import {
   addBankDetailsApi,
   getAllBankDetailsApi,
 } from '@/redux-toolkit/slices/bankDetails/bankDetailsAPI';
-import Modal from '../Modal/modals';
+import Modal from '@/components/Modal/modals';
 import * as yup from 'yup';
 interface Vendor {
   user_id: string;

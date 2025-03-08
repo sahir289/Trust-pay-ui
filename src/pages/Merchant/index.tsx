@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Lucide from '@/components/Base/Lucide';
@@ -9,7 +11,7 @@ import _ from 'lodash';
 import * as yup from 'yup';
 import { JSX } from 'react';
 import { useState } from 'react';
-import Modal from '../Modal/modals';
+import Modal from '../../components/Modal/modals';
 import CustomTable from '@/components/TableComponent/CommonTable';
 import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
 import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
@@ -19,20 +21,43 @@ import { selectAllMerchants } from '@/redux-toolkit/slices/merchants/merchantSel
 import { getMerchants } from '@/redux-toolkit/slices/merchants/merchantSlice';
 import { getAllMerchants } from '@/redux-toolkit/slices/merchants/merchantAPI';
 import { createMerchant } from '@/redux-toolkit/slices/merchants/merchantAPI';
-import { updateMerchant } from '@/redux-toolkit/slices/merchants/merchantAPI';
-// import { deleteMerchant } from '@/redux-toolkit/slices/merchants/merchantAPI';
+import { updateMerchantData } from '@/redux-toolkit/slices/merchants/merchantAPI';
+import { deleteMerchant } from '@/redux-toolkit/slices/merchants/merchantAPI';
 import { Columns } from '@/constants';
 import { addMerchant } from '@/redux-toolkit/slices/merchants/merchantSlice';
-// import { deleteMercHant } from "@/redux-toolkit/slices/merchants/merchantSlice";
-import { updateMercHant } from '@/redux-toolkit/slices/merchants/merchantSlice';
+import { deleteMercHantData } from '@/redux-toolkit/slices/merchants/merchantSlice';
+import { updateMerchant } from '@/redux-toolkit/slices/merchants/merchantSlice';
+import DynamicForm from '@/components/CommonForm';
+import DeleteModalContent from '@/components/Modal/ModalContent/DeleteModalContent';
+
+export interface Merchant {
+  name: string;
+  // photo: string;
+  code: string;
+  site: string;
+  apikey: string;
+  public_api_key: string;
+  balance: number;
+  payin_range: string;
+  payin_commission: string;
+  payout_range: string;
+  payout_commission: string;
+  test_mode: boolean;
+  allow_intent: boolean;
+  created_at: string;
+  actions: string;
+}
 
 function Main(): JSX.Element {
   const [newMerchantModal, setNewMerchantModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [selectedMerchantId, setSelectedMerchantId] = useState<string | null>(
+    null,
+  );
   const [expandedRow, setExpandedRow] = useState<number | null>(null);
   // const [editModal, setEditModal] = useState<boolean>(false)
   // const sendButtonRef = useRef(null);
-  const [title] = useState<string>('Merchant');
-  const [formData, setFormData] = useState(null);
+
   const merchantModal = () => {
     setNewMerchantModal((prev) => !prev);
   };
@@ -50,7 +75,7 @@ function Main(): JSX.Element {
   const handleRowClick = (fakerKey: number): void => {
     setExpandedRow((prevRow) => (prevRow === fakerKey ? null : fakerKey));
   };
-
+  const [formData, setFormData] = useState(null);
   const dispatch = useAppDispatch();
   const allMerchants = useAppSelector(selectAllMerchants);
   const fetchMerchants = useCallback(async () => {
@@ -61,16 +86,23 @@ function Main(): JSX.Element {
     dispatch(getMerchants(merchantList));
   }, [dispatch]);
   const handleEditModal = (data: any) => {
-    setFormData(data);
+    const { config, ...cleanedData } = data;
+    setFormData({
+      ...cleanedData,
+      site: data.config.url.site || '',
+      payout_notify: data.config.url.payout_notify || '',
+      payin_notify: data.config.url.payin_notify || '',
+      return_url: data.config.url.return_url || '',
+    });
     merchantModal();
   };
   const handleSubmitData = async (data: any, isEditMode?: boolean) => {
     if (isEditMode) {
       let prevData = formData;
       const newData = getUpdatedFields(prevData, data);
-      const updatedMerchant = await updateMerchant(data.id, newData);
+      const updatedMerchant = await updateMerchantData(data.id, newData);
       // console.log(updateMercHant,"hiii from updated merchant")
-      dispatch(updateMercHant(updatedMerchant));
+      dispatch(updateMerchant(updatedMerchant));
       setFormData(null);
     } else {
       const addedMerchant = await createMerchant(data);
@@ -78,11 +110,26 @@ function Main(): JSX.Element {
     }
   };
 
+  // Confirm Delete Action
+  const handleConfirmDelete = async () => {
+    if (selectedMerchantId) {
+      await deleteMerchant(selectedMerchantId);
+      dispatch(deleteMercHantData(selectedMerchantId));
+    }
+    setDeleteModal(false);
+    setSelectedMerchantId(null);
+  };
+
+  // Cancel Delete Action
+  const handleCancelDelete = () => {
+    setDeleteModal(false);
+    setSelectedMerchantId(null);
+  };
+
   const handledeleteData = async (id: string) => {
+    setSelectedMerchantId(id);
+    setDeleteModal(true);
     console.log(id, 'id  delete');
-    //temp not deleting data
-    //    await deleteMerchant(id);
-    // dispatch(deleteMercHant(deletedMerchant));
   };
   ///for update data from edit modal where we update merchant details return only updated data
   function getUpdatedFields(
@@ -272,22 +319,25 @@ function Main(): JSX.Element {
             Merchant
           </div>
           <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
-            {/* <Modal
-                handleModal={merchantModal}
-                sendButtonRef={sendButtonRef}
-                title="Add Merchant"
-                forOpen={newMerchantModal}
-            /> */}
             <Modal
               handleModal={merchantModal}
               forOpen={newMerchantModal}
-              title={title}
-              formFields={formFields}
-              existingData={formData}
-              setEditData={setFormData}
-              handleSubmitData={handleSubmitData}
-              // dummyfunction={sdadasa}
-            />
+              title={`${formData ? 'Edit ' : 'Add '} Merchant`}
+            >
+              <DynamicForm
+                sections={formFields}
+                onSubmit={handleSubmitData}
+                defaultValues={formData || {}}
+                isEditMode={formData ? true : false}
+                handleCancel={merchantModal}
+              />
+            </Modal>
+            <Modal handleModal={handleCancelDelete} forOpen={deleteModal}>
+              <DeleteModalContent
+                handleCancelDelete={handleCancelDelete}
+                handleConfirmDelete={handleConfirmDelete}
+              />
+            </Modal>
           </div>
         </div>
         <div className="flex flex-col gap-8 mt-3.5">
