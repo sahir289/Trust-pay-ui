@@ -49,13 +49,7 @@ const DroppedPayIn: React.FC<PayInProps> = () => {
     dispatch(onload());
     const payins = await getAllPayIns(queryString);
     if (payins?.data) {
-      const payload = {
-        payin: payins?.data?.rows,
-        totalCount: payins?.data?.totalCount,
-        loading: false,
-        error: null,
-      };
-      dispatch(getPayIns(payload));
+      dispatch(getPayIns(payins?.data));
     } else {
       setNotificationStatus(Status.ERROR);
       setNotificationMessage('No PayIns Found!');

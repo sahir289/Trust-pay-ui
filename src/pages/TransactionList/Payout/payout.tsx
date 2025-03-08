@@ -12,13 +12,7 @@ import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 import { setActiveTab } from '@/redux-toolkit/slices/common/tabs/tabSlice';
 import { getTabs } from '@/redux-toolkit/slices/common/tabs/tabSelectors';
 
-interface PayOutProps {
-  // setModalData: React.Dispatch<
-  //   React.SetStateAction<{ open: boolean; type: string }>
-  // >;
-}
-
-const PayOut: React.FC<PayOutProps> = () => {
+const PayOut: React.FC = () => {
   const dispatch = useAppDispatch();
   const activeTab = useAppSelector(getTabs); // Get active tab from state
 
