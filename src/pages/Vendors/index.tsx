@@ -4,15 +4,16 @@ import { FormInput, } from "@/components/Base/Form";
 // import users from "@/fakers/users";
 import CustomTable from "@/components/TableComponent/CommonTable";
 import { useCallback, useEffect, useState } from "react";
-import { columns, vendorColumns } from "@/utils/columns";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-import { addVendor, getVendorsSlice } from "@/redux-toolkit/slices/vendor/vendorSlice";
+import { addVendor, deleteVendorSlice, getVendorsSlice, updateVendorSlice } from "@/redux-toolkit/slices/vendor/vendorSlice";
 import { selectVendors } from "@/redux-toolkit/slices/vendor/vendorSelectors";
-import { createVendor, getAllVendor } from "@/redux-toolkit/slices/vendor/vendorAPI";
+import { createVendor, deleteVendor, getAllVendor, updateVendor } from "@/redux-toolkit/slices/vendor/vendorAPI";
 import Modal from "@/components/Modal/modals";
 import * as yup from 'yup';
 import DynamicForm from "@/components/CommonForm";
+import DeleteModalContent from "@/components/Modal/ModalContent/DeleteModalContent";
+import { Columns } from "@/constants";
 
 export interface Vendor {
   sno: number;
@@ -29,8 +30,10 @@ export interface Vendor {
 function Main() {
   const [formData, setFormData] = useState(null);
   const [newVendorModal, setNewVendorModal] = useState(false);
-  const [title, setTitle] = useState('Add Vendor');
+  const [deleteModal, setDeleteModal] = useState(false);
   const roleIs = localStorage.getItem("userData")
+  const [selectedVendorId, setSelectedVendorId] = useState<string | null>(null);
+
   const role = roleIs ? JSON.parse(roleIs).role : null;
   const dispatch = useAppDispatch();
   const allvendor = useAppSelector(selectVendors);
@@ -46,24 +49,33 @@ function Main() {
     fetchVendor();
   }, [fetchVendor]);
 
+  const handleConfirmDelete = async () => {
+    if (selectedVendorId) {
+      await deleteVendor(selectedVendorId);
+      dispatch(deleteVendorSlice(selectedVendorId));
+    }
+    setDeleteModal(false);
+    setSelectedVendorId(null);
+  };
+
   const handleEditModal = ( data: any) => {
     setFormData(data);
     // setTitle(title);
     vendorModal();
   };
-  const handleSubmitData = async (data: any, isEditMode?: boolean) => {
-    console.log(data, "datadatadata")
+  const handleSubmitData = (async (data: any, isEditMode?: boolean) => {
     if (isEditMode) {
-      console.log(data, 'Edit data');
+      let prevData = formData;
+      const newData = getUpdatedFields(prevData, data)
+      const updatedMerchant = await updateVendor(data.id, newData);
+      // console.log(updateMercHant,"hiii from updated merchant")
+      dispatch(updateVendorSlice(updatedMerchant));
+      setFormData(null);
     } else {
-      try {
-        const newVendor = await createVendor(data);
-        dispatch(addVendor(newVendor));
-      } catch (error) {
-        console.error("Error creating vendor:", error);
-      }
+      const addedVendor = await createVendor(data);
+      dispatch(addVendor(addedVendor));
     }
-  };
+  })
 const formFields = {
   Personal: [
     {
@@ -71,26 +83,30 @@ const formFields = {
       label: "Name",
       type: "text",
       placeholder: "Enter your last name",
-      // validation: yup.string().required('Name is required'),      
+      validation: yup.string().required('Name is required'),      
     },
     {
       name: "last_name",
       label: "Name",
       type: "text",
       placeholder: "Enter your last name",
-      // validation: yup.string().required('Name is required'),      
+      validation: yup.string().required('Name is required'),      
     },
     {
       name: "code",
       label: "Code",
       type: "text",
       placeholder: "Enter Code",
+      validation: yup.string().required('Name is required'),      
+
     },
     {
       name: "balance",
       label: "Balance",
       type: "number",
       placeholder: "Enter your Balance",
+      validation: yup.string().required('Name is required'),      
+
     },
   ],
   Commissions: [
@@ -99,15 +115,54 @@ const formFields = {
       label: "Pay in Commission",
       type: "text",
       placeholder: "Pay in Commission",
+      validation: yup.string().required('Name is required'),      
+
     },
     {
       name: "payout_commission",
       label: "Pay out Commission",
       type: "text",
       placeholder: "Pay out Commission",
-    },]
-    };
+      validation: yup.string().required('Name is required'),      
 
+    },],
+    };
+    const handleCancelDelete = () => {
+      setDeleteModal(false);
+      setSelectedVendorId(null);
+    };
+    const handledeleteData = async (id: string) => {
+      setSelectedVendorId(id);
+      setDeleteModal(true);
+    }
+    function getUpdatedFields(
+      originalData: any,
+      updatedData: any,
+    ): { [key: string]: any } {
+      const updatedFields: { [key: string]: any } = {};
+  
+      Object.keys(updatedData).forEach((key) => {
+        if (typeof updatedData[key] === 'object' && updatedData[key] !== null) {
+          // Handle nested objects like `config`
+          const nestedUpdates = getUpdatedFields(
+            originalData[key] || {},
+            updatedData[key],
+          );
+  
+          // If there are nested updates, add them to updatedFields
+          if (Object.keys(nestedUpdates).length > 0) {
+            updatedFields[key] = nestedUpdates;
+          }
+        } else {
+          // Check if the value is different from the original
+          if (updatedData[key] !== originalData[key]) {
+            updatedFields[key] = updatedData[key];
+          }
+        }
+      });
+  
+      return updatedFields;
+    }
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -119,7 +174,7 @@ const formFields = {
           <Modal
               handleModal={vendorModal}
               forOpen={newVendorModal}
-              title={`${formData ? 'Edit ' : 'Add '} Merchant`}
+              title={`${formData ? 'Edit ' : 'Add '} Vendor`}
             >
             <DynamicForm
             sections={formFields}
@@ -213,10 +268,11 @@ const formFields = {
               </div>
             </div>
             <CustomTable
-              columns={(role === 'ADMIN' ? columns : vendorColumns).VENDOR}
+              columns={Columns.VENDOR}
               data={{ rows: allvendor, totalCount: 100 }}
-              handleEditModal={handleEditModal}
-            />
+              handleEditModal={handleEditModal} 
+              handleDeleteData={handledeleteData}
+                         />
           </div>
         </div>
       </div>

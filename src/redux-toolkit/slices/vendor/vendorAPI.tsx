@@ -45,3 +45,14 @@ export const updateVendor = async (
     throw error;
   }
 };
+
+export const deleteVendor = async (id:string): Promise<Vendor>=>{
+    try {
+      const response = await api.put<Vendor>(`/vendors/delete-vendor/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Failed to create vendor:", error);
+      throw error;
+    }
+  }
+

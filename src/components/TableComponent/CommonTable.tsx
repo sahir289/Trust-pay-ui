@@ -186,7 +186,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
                  ( <div className="flex items-center justify-center">
                       <Lucide
                         icon="Check"
-                        onClick={() => handleEditModal(row)}
+                        onClick={() => handleEditModal && handleEditModal(row)}
                         className="w-4 h-4 mr-2 cursor-pointer"
                       />{' '}
                       <Lucide

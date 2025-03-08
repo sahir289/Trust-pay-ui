@@ -4,8 +4,6 @@ import { Vendor, VendorState } from "./vendorTypes";
 
 // Reducer
 const initialState: VendorState = {
-  token: null,
-  isAuthenticated: false,
   vendors: [],
   loading: false,
   error: null,
@@ -31,14 +29,17 @@ const vendorSlice = createSlice({
           state.vendors.push(action.payload);
         },
         updateVendorSlice: (state, action: PayloadAction<Vendor>) => {
-              const updatedUser = action.payload;
-              const index = state.vendors.findIndex((vendor) => vendor.id === updatedUser.id);
+              const updatedVendor = action.payload;
+              const index = state.vendors.findIndex((vendor) => vendor.id === updatedVendor.id);
               if (index !== -1) {
-                state.vendors[index] = updatedUser;
+                state.vendors[index] = updatedVendor;
               }
+            },deleteVendorSlice: (state, action: PayloadAction<string>) => {
+              const vendorId = action.payload;
+              state.vendors = state.vendors.filter((vendor) => vendor.id !== vendorId);
             },
   },
 });
 
-export const { getVendorsSlice, addVendor, updateVendorSlice } = vendorSlice.actions;
+export const { getVendorsSlice, addVendor, updateVendorSlice, deleteVendorSlice } = vendorSlice.actions;
 export default vendorSlice.reducer;
