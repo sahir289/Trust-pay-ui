@@ -6,29 +6,48 @@ import {FormInput, FormSelect } from "@/components/Base/Form";
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
-import CustomTable from "@/components/TableComponent";
-export interface Transaction {
-  // category: string;
-  orderId: string;
-  // user:string;
-  // products:string[];
-  // orderStatus: string;
-  orderDate: string;
-  amount: string;
-}
-function AddData() {
+import CustomTable from "@/components/TableComponent/CommonTable";
+import React, { useEffect, useRef, useState } from "react";
+import { Columns, Status } from "@/constants";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { getPaginationData } from "@/redux-toolkit/slices/common/params/paramsSelector";
+import Notification, { NotificationElement } from "@/components/Base/Notification";
+import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
+import { getBankResponses } from "@/redux-toolkit/slices/dataEntries/dataEntrySlice";
+import { getAllBankResponseData } from "@/redux-toolkit/slices/dataEntries/dataEntrySelectors";
+import { getAllBankResponses } from "@/redux-toolkit/slices/dataEntries/dataEntryAPI";
 
-  const transactionTableHeaders: string[] = [
-    "SNO.",
-    "Customer Name",
-    "Transaction ID",
-    "Status",
-    "Amount",
-    "Date",
-    "Action"
-  ];
+const AddData: React.FC = () => {
+  const params = useAppSelector(getPaginationData);
+  const [notificationMessage, setNotificationMessage] = useState('');
+  const [notificationStatus, setNotificationStatus] = useState('');
+  // Basic non sticky notification
+  const basicNonStickyNotification = useRef<NotificationElement>();
+  const basicNonStickyNotificationToggle = () => {
+    // Show notification
+    basicNonStickyNotification.current?.showToast();
+  };
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    getBankResponseData();
+  }, [JSON.stringify(params)]);
+
+  const getBankResponseData = async () => {
+    const queryString = new URLSearchParams(params as Record<string, string>).toString();
+    const bankResponses = await getAllBankResponses(queryString);
+    if (bankResponses?.data) {
+      dispatch(getBankResponses(bankResponses?.data));
+    } else {
+      setNotificationStatus(Status.ERROR);
+      setNotificationMessage('No PayIns Found!');
+      basicNonStickyNotificationToggle();
+    }
+  };
+  const bankResponses = useAppSelector(getAllBankResponseData);
   
   return (
+    <>
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
         <div className="mt-3.5">
@@ -140,21 +159,36 @@ function AddData() {
               </div>
             </div>
               <CustomTable
-                columns={transactionTableHeaders}
-                // data={rows: transactions.fakeTransactions().map((t) => ({ orderId: t.orderId, orderDate: t.orderDate, amount: t.amount })), totalCount: 3}
-                title={"Add Data"}
-                status={[""]}
-                setParams={() => {}}
-                setStatus={() => {}}
-                approve={false}
-                setApprove={() => {}}
-                reject={false}
-                setReject={() => {}}
+                columns={Columns.BANK_RESPONSE}
+                data={{rows: bankResponses?.bankResponse, totalCount: bankResponses.totalCount}}
               />
           </div>
         </div>
       </div>
     </div>
+      {notificationMessage && (
+        <div className="text-center">
+          <Notification
+            getRef={(el) => {
+              basicNonStickyNotification.current = el;
+            }}
+            options={{
+              duration: 3000,
+            }}
+            className="flex flex-col sm:flex-row"
+          >
+            {notificationStatus === Status.SUCCESS ? (
+              <Lucide icon="BadgeCheck" className="text-primary" />
+            ) : (
+              <Lucide icon="X" className="text-danger" />
+            )}
+            <div className="font-medium ml-4 mr-4">
+              <div className="font-medium">{notificationMessage}</div>
+            </div>
+          </Notification>
+        </div>
+      )}
+    </>
   );
 }
 

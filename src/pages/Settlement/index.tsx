@@ -3,7 +3,7 @@ import { Tab } from "@/components/Base/Headless";
 import Lucide from "@/components/Base/Lucide";
 import MerchantSettlement from "./MerchantSettlement";
 import VendorSettlement from "./VendorSettlement";
-import Modal from "../Modal/modal";
+import Modal from "../../components/Modal/modal";
 import { useRef, useState } from "react";
 
 function Main() {

@@ -1,37 +1,37 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PayOutState } from "./payoutTypes";
+import { PayOut, PayOutState } from "./payoutTypes";
 
 const initialState: PayOutState = {
   payout: [],
   totalCount: 0,
+  loading: false,
+  error: null,
 };
 
 const payoutSlice = createSlice({
   name: "payout",
   initialState,
   reducers: {
-    // Replace entire payout list
     getPayOuts: (state, action: PayloadAction<PayOutState>) => {
       state.payout = action.payload.payout;
       state.totalCount = action.payload.totalCount;
+      state.loading = false;
+      state.error = null;
     },
-
-    // Update amount for a specific payout
-    updateAmount: (
-      state,
-      action: PayloadAction<{ id: string; amount: number }>
-    ) => {
+    onload: (state) => {
+      state.loading = true;
+    },
+    addPayOut: (state, action: PayloadAction<PayOut>) => {
+      state.payout.push(action.payload);
+      state.totalCount++;
+    },
+    updateAmount: (state, action: PayloadAction<{ id: string; amount: number }>) => {
       const payout = state.payout.find((p) => p.id === action.payload.id);
       if (payout) {
         payout.amount = action.payload.amount;
       }
     },
-
-    // Update status for a specific payout
-    updateStatus: (
-      state,
-      action: PayloadAction<{ id: string; status: string }>
-    ) => {
+    updateStatus: (state, action: PayloadAction<{ id: string; status: string }>) => {
       const payout = state.payout.find((p) => p.id === action.payload.id);
       if (payout) {
         payout.status = action.payload.status;
@@ -40,9 +40,5 @@ const payoutSlice = createSlice({
   },
 });
 
-// Export actions to use in components
-export const { getPayOuts, updateAmount, updateStatus } =
-  payoutSlice.actions;
-
-// Export reducer to use in store
+export const { getPayOuts, onload, addPayOut, updateAmount, updateStatus } = payoutSlice.actions;
 export default payoutSlice.reducer;

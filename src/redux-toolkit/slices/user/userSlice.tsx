@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User, UserState } from "./userTypes";
 
@@ -6,6 +5,8 @@ const initialState: UserState = {
   token: null,
   isAuthenticated: false,
   users: [],
+  loading: false,
+  error: null,
 };
 
 const userSlice = createSlice({
@@ -14,6 +15,11 @@ const userSlice = createSlice({
   reducers: {
     getUsers: (state, action: PayloadAction<User[]>) => {
       state.users = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    onload: (state) => {
+      state.loading = true;
     },
     addUser: (state, action: PayloadAction<User>) => {
       state.users.push(action.payload);
@@ -28,5 +34,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { getUsers, addUser, updateUser } = userSlice.actions;
+export const { getUsers, addUser, updateUser, onload} = userSlice.actions;
 export default userSlice.reducer;

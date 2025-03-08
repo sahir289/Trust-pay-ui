@@ -26,4 +26,6 @@ export interface Settlement {
 export interface SettlementState {
   settlement: Settlement[];
   totalCount: number;
+  loading: boolean;
+  error: string | null;
 }

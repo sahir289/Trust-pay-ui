@@ -24,6 +24,8 @@ export interface ReportState {
   token: string | null;
   isAuthenticated: boolean;
   reports: Reports[];
+  loading: boolean;
+  error: string | null;
 }
 export interface ApiReportsResponse<T> {
   data: T;

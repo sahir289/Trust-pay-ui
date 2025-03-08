@@ -4,39 +4,40 @@ import { Merchant, MerchantState } from "./merchantTypes";
 const initialState: MerchantState = {
   token: null,
   isAuthenticated: false,
-  users: [],
+  merchants: [],
+  loading: false,
+  error: null,
 };
 
 const merchantSlice = createSlice({
-  name: 'merchants',
+  name: "merchants",
   initialState,
   reducers: {
     getMerchants: (state, action: PayloadAction<Merchant[]>) => {
-      state.users = action.payload;
+      state.merchants = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    onload: (state) => {
+      state.loading = true;
     },
     addMerchant: (state, action: PayloadAction<Merchant>) => {
-      state.users.push(action.payload);
+      state.merchants.push(action.payload);
     },
     updateMerchant: (state, action: PayloadAction<Merchant>) => {
       const updatedMerchant = action.payload;
-      const index = state.users.findIndex(
-        (user) => user.id === updatedMerchant.id,
-      );
+      const index = state.merchants.findIndex((merchant) => merchant.id === updatedMerchant.id);
       if (index !== -1) {
-        state.users[index] = updatedMerchant;
+        state.merchants[index] = updatedMerchant;
       }
     },
-    deleteMerchant: (state, action: PayloadAction<Merchant>) => {
-      const updatedMerchant = action.payload;
-      const index = state.users.findIndex(
-        (user) => user.id === updatedMerchant.id,
-      );
-      if (index !== -1) {
-        state.users[index] = updatedMerchant;
-      }
+    deleteMercHantData: (state, action: PayloadAction<string>) => {
+      console.log(action.payload, "action.payload");
+      const merchantId = action.payload;
+      state.merchants = state.merchants.filter((merchant) => merchant.id !== merchantId);
     },
   },
 });
 
-export const { getMerchants, addMerchant, updateMerchant,deleteMerchant } = merchantSlice.actions;
+export const { getMerchants, addMerchant, updateMerchant, deleteMercHantData, onload } = merchantSlice.actions;
 export default merchantSlice.reducer;

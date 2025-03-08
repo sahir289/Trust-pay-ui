@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import React from 'react';
 import { Tab } from '@/components/Base/Headless';
 import AllPayOut from './allPayout';
 import CompletedPayOut from './completedPayout';
@@ -6,6 +7,10 @@ import InProgressPayOut from './inProgressPayout';
 import RejectedPayOut from './rejectedPayout';
 import Lucide from '@/components/Base/Lucide';
 import LoadingIcon from '@/components/Base/LoadingIcon';
+import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
+import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
+import { setActiveTab } from '@/redux-toolkit/slices/common/tabs/tabSlice';
+import { getTabs } from '@/redux-toolkit/slices/common/tabs/tabSelectors';
 
 interface PayOutProps {
   // setModalData: React.Dispatch<
@@ -14,12 +19,16 @@ interface PayOutProps {
 }
 
 const PayOut: React.FC<PayOutProps> = () => {
-  const [reject, setReject] = useState(false);
-  const [approve, setApprove] = useState(false);
+  const dispatch = useAppDispatch();
+  const activeTab = useAppSelector(getTabs); // Get active tab from state
+
+  const handleTabChange = (index: number) => {
+    dispatch(setActiveTab(index)); // Dispatch action to set the active tab
+  };
 
   return (
     <div className="flex flex-col p-5">
-      <Tab.Group>
+      <Tab.Group selectedIndex={activeTab} onChange={handleTabChange}>
         <Tab.List variant="tabs">
           <Tab>
             <Tab.Button
@@ -63,28 +72,13 @@ const PayOut: React.FC<PayOutProps> = () => {
         </Tab.List>
         <Tab.Panels className="border-b border-l border-r">
           <Tab.Panel className="py-5 leading-relaxed">
-            <AllPayOut
-              reject={reject}
-              setReject={setReject}
-              approve={approve}
-              setApprove={setApprove}
-            />
+            <AllPayOut />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
-            <CompletedPayOut
-              reject={reject}
-              setReject={setReject}
-              approve={approve}
-              setApprove={setApprove}
-            />
+            <CompletedPayOut />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
-            <InProgressPayOut
-              reject={reject}
-              setReject={setReject}
-              approve={approve}
-              setApprove={setApprove}
-            />
+            <InProgressPayOut />
           </Tab.Panel>
           <Tab.Panel className="py-5 leading-relaxed">
             <RejectedPayOut />

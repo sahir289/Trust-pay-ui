@@ -12,7 +12,7 @@ import { FormInput } from "@/components/Base/Form";
 //   action: string;
 //   id: string;
 // }
-import Modal from "../Modal/modal";
+import Modal from "../../components/Modal/modal";
 import { useState,useRef } from "react";
 import CustomTable from "@/components/TableComponent";
 function Main(): JSX.Element {

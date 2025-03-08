@@ -32,7 +32,7 @@ export const createMerchant = async (userData: {
   }
 };
 
-export const updateMerchant = async (
+export const updateMerchantData = async (
   id: string,
   userData: Partial<Merchant>,
 ): Promise<Merchant> => {

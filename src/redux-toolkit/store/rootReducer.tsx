@@ -5,8 +5,12 @@ import themeReducer from "../slices/theme/themeSlice";
 import payInReducer from "../slices/payin/payinSlice";
 import payOutReducer from "../slices/payout/payoutSlice";
 import settlementReducer from "../slices/settlement/settlementSlice";
-import calcualtionsReducer from "../slices/calculations/calculationsSlice";
+import calculationsReducer from "../slices/calculations/calculationsSlice";
 import dataEntriesReducer from "../slices/dataEntries/dataEntrySlice";
+import roleReducer from "../slices/roles/roleSlice";
+import designationReducer from '../slices/designations/designationSlice';
+import paramsReducer from "../slices/common/params/paramsSlice";
+import tabReducer from "../slices/common/tabs/tabSlice";
 import darkModeReducer from "../slices/common/darkMode/darkModeSlice";
 import colorSchemeReducer from "../slices/common/colorScheme/colorSchemeSlice";
 import sideMenuReducer from "../slices/common/sideMenu/sideMenuSlice";
@@ -27,8 +31,12 @@ const rootReducer = combineReducers({
   chargeback : chargebackReducer,
   payout: payOutReducer,
   settlement: settlementReducer,
-  calculations: calcualtionsReducer,
+  calculations: calculationsReducer,
   dataEntries: dataEntriesReducer,
+  role: roleReducer,
+  designation: designationReducer,
+  params: paramsReducer,
+  tab: tabReducer,
   theme: themeReducer,
   merchant: merchantReducer,
   darkMode: darkModeReducer,
