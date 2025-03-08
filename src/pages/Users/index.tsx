@@ -11,7 +11,7 @@ import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
 import LoadingIcon from '@/components/Base/LoadingIcon';
 import DynamicForm from "../../components/CommonForm"; 
-import { Columns, formFields } from "@/constants";
+import { Columns, getUserFormFields } from "@/constants";
 
 const Users: React.FC = () => {
   const [newUserModal, setNewUserModal] = useState(false);
@@ -24,6 +24,14 @@ const Users: React.FC = () => {
     user_name: "upi",
     email: true,
   };
+ const designation = [
+    { value: "1", label: "Admin" },
+    { value: "2", label: "User" },
+  ];
+  const roles = [
+    { value: "1", label: "Admin" },
+    { value: "2", label: "User" },
+  ];
 
   // const userRef = useRef(null);
   const userModal = () => {
@@ -76,7 +84,7 @@ const Users: React.FC = () => {
               title="Add User"
             >
             <DynamicForm
-            sections={formFields.USER}
+            sections={getUserFormFields(designation, roles)}
             onSubmit={handleSubmit}
             defaultValues={existingMerchant || {}}
             isEditMode={false}
