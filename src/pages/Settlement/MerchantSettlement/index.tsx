@@ -15,15 +15,7 @@ import { Columns } from "@/constants";
 import CustomTable from "@/components/TableComponent/CommonTable";
 import { getAllSettlementData } from "@/redux-toolkit/slices/settlement/settlementSelectors";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-export interface Transaction {
-  // category: string;
-  orderId: string;
-  // user: string;
-  // products: string[];
-  // orderStatus: string;
-  orderDate: string;
-  amount: string;
-}
+
 function MerchantSettlement() {
   const dispatch = useAppDispatch();
   const allSettlement = useAppSelector(getAllSettlementData) || [];
@@ -40,6 +32,8 @@ function MerchantSettlement() {
   useEffect(() => {
     fetchSettlements();
   }, [fetchSettlements]);
+
+
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -153,8 +147,9 @@ function MerchantSettlement() {
             </div>
             <CustomTable
               columns={Columns.SETTLEMENT}
-              data={{ rows: allSettlement, totalCount: allSettlement.length }}
-              // handleEditModal={handleEditModal}
+              data={{ rows: allSettlement, totalCount: allSettlement.length }} handleDeleteData={function (id: string): void {
+                throw new Error("Function not implemented.");
+              } }              // handleEditModal={handleEditModal}
               // handleDeleteData={handledeleteData}
             />
           </div>

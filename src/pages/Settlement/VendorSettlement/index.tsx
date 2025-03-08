@@ -18,18 +18,33 @@ export interface Transaction {
 import users from "@/fakers/users";
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
-import CustomTable from "@/components/TableComponent";
+import CustomTable from "@/components/TableComponent/CommonTable";
+import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
+import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { useCallback, useEffect } from "react";
+import { getAllSettlements } from "@/redux-toolkit/slices/settlement/settlementAPI";
+import { getSettlements } from "@/redux-toolkit/slices/settlement/settlementSlice";
+import { getAllSettlementData } from "@/redux-toolkit/slices/settlement/settlementSelectors";
+import { Columns } from "@/constants";
 
 
 function VendorSettlement() {
-  const tableHeaders: string[] = [
-    "SNO.",
-    "Amount",
-    "Status",
-    "Vendor",
-    "Bank Details",
-    "Action",
-  ];
+ const dispatch = useAppDispatch();
+  const allSettlement = useAppSelector(getAllSettlementData) || [];
+  const fetchSettlements = useCallback(async () => {
+    const response = await getAllSettlements("role_name=ADMIN");
+  
+    if (response?.data) {
+      dispatch(getSettlements(response.data));
+    } else {
+      console.error("Error fetching settlements:", response.error);
+    }
+  }, [dispatch]);
+  
+  useEffect(() => {
+    fetchSettlements();
+  }, [fetchSettlements]);
+
 
   return (
     <>
@@ -144,17 +159,11 @@ function VendorSettlement() {
                 </div>
               </div>
               <CustomTable
-                columns={tableHeaders}
-                // data={transactions.fakeTransactions() as Transaction[]}
-                title={"Vendors Settlements"}
-                status={[]}
-                setStatus={() => {}}
-                setParams={() => {}}
-                approve={false}
-                setApprove={() => {}}
-                reject={false}
-                setReject={() => {}}
-              />
+              columns={Columns.SETTLEMENT}
+              data={{ rows: allSettlement, totalCount: allSettlement.length }}
+              // handleEditModal={handleEditModal}
+              // handleDeleteData={handledeleteData}
+            />
             </div>
           </div>
         </div>

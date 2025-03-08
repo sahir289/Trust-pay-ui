@@ -128,7 +128,7 @@ export const Columns = {
     { label: 'Status', key: 'status', type: 'text' as const },
     { label: 'Amount', key: 'amount', type: 'text' as const },
     { label: 'Bank Details', key: 'config', type: 'object' as const },
-    { label: 'Action', key: 'approved_at', type: 'actions' as const },
+    { label: 'Options', key: 'reset', type: 'reset' as const },
   ]
 };
 
