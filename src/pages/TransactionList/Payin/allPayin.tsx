@@ -9,7 +9,10 @@ import Button from '@/components/Base/Button';
 import CustomTable from '../../../components/TableComponent/CommonTable';
 import { FormInput, FormSelect } from '@/components/Base/Form';
 import { Columns, Status } from '@/constants';
-import { getAllPayInData } from '@/redux-toolkit/slices/payin/payinSelectors';
+import {
+  getAllPayInData,
+  getRefreshPayIn,
+} from '@/redux-toolkit/slices/payin/payinSelectors';
 import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 import { getPaginationData } from '@/redux-toolkit/slices/common/params/paramsSelector';
 import Notification, {
@@ -17,7 +20,11 @@ import Notification, {
 } from '@/components/Base/Notification';
 import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
 import { getAllPayIns } from '@/redux-toolkit/slices/payin/payinAPI';
-import { getPayIns, onload } from '@/redux-toolkit/slices/payin/payinSlice';
+import {
+  getPayIns,
+  onload,
+  setRefreshPayIn,
+} from '@/redux-toolkit/slices/payin/payinSlice';
 
 interface PayInProps {
   setStatus?: React.Dispatch<React.SetStateAction<string>>;
@@ -37,10 +44,18 @@ const AllPayIn: React.FC<PayInProps> = () => {
     basicNonStickyNotification.current?.showToast();
   };
   const dispatch = useAppDispatch();
+  const refreshPayIn = useAppSelector(getRefreshPayIn);
 
   useEffect(() => {
     getPayInData();
   }, [JSON.stringify(params)]);
+
+  useEffect(() => {
+    if (refreshPayIn) {
+      getPayInData();
+      dispatch(setRefreshPayIn(false));
+    }
+  }, [refreshPayIn, dispatch]);
 
   const getPayInData = useCallback(async () => {
     const queryString = new URLSearchParams(
@@ -55,7 +70,8 @@ const AllPayIn: React.FC<PayInProps> = () => {
       setNotificationMessage('No PayIns Found!');
       basicNonStickyNotificationToggle();
     }
-  }, [dispatch]);
+  }, [dispatch, params]);
+
   const payins = useAppSelector(getAllPayInData);
 
   return (

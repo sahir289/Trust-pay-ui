@@ -6,6 +6,7 @@ const initialState: PayOutState = {
   totalCount: 0,
   loading: false,
   error: null,
+  refreshPayOut: false,
 };
 
 const payoutSlice = createSlice({
@@ -37,8 +38,11 @@ const payoutSlice = createSlice({
         payout.status = action.payload.status;
       }
     },
+    setRefreshPayOut: (state, action) => {
+      state.refreshPayOut = action.payload;
+    },
   },
 });
 
-export const { getPayOuts, onload, addPayOut, updateAmount, updateStatus } = payoutSlice.actions;
+export const { getPayOuts, onload, addPayOut, updateAmount, updateStatus, setRefreshPayOut } = payoutSlice.actions;
 export default payoutSlice.reducer;

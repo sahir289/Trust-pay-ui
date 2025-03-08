@@ -16,8 +16,8 @@ import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 import { getParentTabs } from '@/redux-toolkit/slices/common/tabs/tabSelectors';
 import { setParentTab } from '@/redux-toolkit/slices/common/tabs/tabSlice';
 import DynamicForm from '@/components/CommonForm';
-import { onload as payInLoader } from '@/redux-toolkit/slices/payin/payinSlice';
-import { onload as payOutLoader } from '@/redux-toolkit/slices/payout/payoutSlice';
+import { onload as payInLoader, setRefreshPayIn } from '@/redux-toolkit/slices/payin/payinSlice';
+import { onload as payOutLoader, setRefreshPayOut } from '@/redux-toolkit/slices/payout/payoutSlice';
 import { createPayOut } from '@/redux-toolkit/slices/payout/payoutAPI';
 
 function Main() {
@@ -29,7 +29,7 @@ function Main() {
   const [notificationStatus, setNotificationStatus] = useState('');
   const merchants = [
     { value: '', label: 'Select Merchant' },
-    { value: '1', label: 'Merchant One' },
+    { value: 'ljjuyr', label: 'ljjuyr' },
     { value: '2', label: 'Merchant Two' },
     { value: '3', label: 'Merchant Three' },
   ];
@@ -52,15 +52,21 @@ function Main() {
       ).toString();
       dispatch(payInLoader());
       res = await createPayIn(queryString);
-    }
-    else {
+    } else {
+      const api_key = '23e3223e32we'
       dispatch(payOutLoader());
-      res = await createPayOut(data);
+      res = await createPayOut(data, api_key);
     }
 
-    if (res?.data?.data?.message) {
-      setNotificationMessage(res.data.data.message);
+    if (res.meta.message) {
+      setNotificationMessage(res.meta.message);
       setNotificationStatus(Status.SUCCESS);
+      transactionModal();
+      if (title === 'PayIns') {
+        dispatch(setRefreshPayIn(true));
+      } else {
+        dispatch(setRefreshPayOut(true));
+      }
     } else {
       setNotificationMessage(res?.data?.error?.message || 'An error occurred');
       setNotificationStatus(Status.ERROR);

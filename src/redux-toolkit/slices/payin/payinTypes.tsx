@@ -61,4 +61,5 @@ export interface PayInState {
   totalCount: number;
   loading: boolean;
   error: string | null;
+  refreshPayIn: boolean;
 }

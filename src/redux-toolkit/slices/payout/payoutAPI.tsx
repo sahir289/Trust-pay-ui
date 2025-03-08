@@ -12,9 +12,13 @@ export const getAllPayOuts = async (queryString: string) => {
   }
 };
 
-export const createPayOut = async (data: any = {}) => {
+export const createPayOut = async (data: any = {}, api_key: string) => {
   try {
-    const response = await api.put(`/payout/create-payout`, data);
+    const response = await api.post(`/payout/create-payout`, data, {
+      headers: {
+        'x-api-key': api_key,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error('Failed to create PayOut:', error);

@@ -15,3 +15,5 @@ export const selectAmount = (id: string) => (state: RootState) =>
 // Select status for a specific payout
 export const selectStatus = (id: string) => (state: RootState) =>
   state.payout.payout.find((p) => p.id === id)?.status;
+
+export const getRefreshPayOut = (state: RootState) => state.payout.refreshPayOut;

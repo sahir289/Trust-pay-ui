@@ -37,4 +37,5 @@ export interface PayOutState {
   totalCount: number;
   loading: boolean;
   error: string | null;
+  refreshPayOut: boolean;
 }

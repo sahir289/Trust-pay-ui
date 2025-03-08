@@ -6,6 +6,7 @@ const initialState: PayInState = {
   totalCount: 0,
   loading: false,
   error: null,
+  refreshPayIn: false
 };
 
 const payinSlice = createSlice({
@@ -43,8 +44,11 @@ const payinSlice = createSlice({
         payin.is_notified = action.payload.is_notified;
       }
     },
+    setRefreshPayIn: (state, action) => {
+      state.refreshPayIn = action.payload;
+    },
   },
 });
 
-export const { getPayIns, onload, addPayIn, updateAmount, updateStatus, updateIsNotified } = payinSlice.actions;
+export const { getPayIns, onload, addPayIn, updateAmount, updateStatus, updateIsNotified, setRefreshPayIn } = payinSlice.actions;
 export default payinSlice.reducer;

@@ -137,7 +137,7 @@ export const getTransactionFormFields = (
   PAYIN: {
     Payin_Request: [
       {
-        name: 'merchant_code',
+        name: 'code',
         label: 'Merchant',
         type: 'select',
         options: merchantOptions,
@@ -168,7 +168,7 @@ export const getTransactionFormFields = (
   PAYOUT: {
     Payout_Request: [
       {
-        name: 'merchant_code',
+        name: 'code',
         label: 'Merchant',
         type: 'select',
         options: merchantOptions,
@@ -198,9 +198,9 @@ export const getTransactionFormFields = (
       {
         name: 'acc_no',
         label: 'Account Number',
-        type: 'number',
+        type: 'text',
         placeholder: 'Enter Account Number',
-        validation: yup.number().required('Account Number is required'),
+        validation: yup.string().required('Account Number is required'),
       },
       {
         name: 'acc_holder_name',
