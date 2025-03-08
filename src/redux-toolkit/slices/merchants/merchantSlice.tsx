@@ -2,8 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Merchant, MerchantState } from "./merchantTypes";
 
 const initialState: MerchantState = {
-  token: null,
-  isAuthenticated: false,
   users: [],
 };
 

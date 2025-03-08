@@ -20,7 +20,8 @@ interface Column {
     | 'expand'
     | 'range'
     | 'object'
-    | 'action'
+  | 'action'
+  | 'limits'
     | string;
   objectKey?: string;
 }
@@ -178,7 +179,9 @@ const CommonTable: React.FC<CommonTableProps> = ({
                       />{' '}
                       <Lucide
                         icon="Trash2"
-                        onClick={() => handleDeleteData && handleDeleteData(row.id)}
+                        onClick={() =>
+                          handleDeleteData && handleDeleteData(row.id)
+                        }
                         className="w-4 h-4 mr-2 cursor-pointer"
                       />
                     </div>
@@ -199,6 +202,11 @@ const CommonTable: React.FC<CommonTableProps> = ({
                         />
                       </FormSwitch.Label>
                     </FormSwitch>
+                  ) : col.type === 'limits' ? (
+                    <div>
+                                <span>{row.min_payin}</span>-
+                                <span>{row.max_payin}</span>
+                    </div>
                   ) : col.type === 'range' ? (
                     <div className="flex items-center gap-2 w-full">
                       <input

@@ -43,7 +43,5 @@ export interface ApiResponse<T> {
   status?: string;
 }
 export interface MerchantState {
-  token: string | null;
-  isAuthenticated: boolean;
   users: Merchant[];
 }

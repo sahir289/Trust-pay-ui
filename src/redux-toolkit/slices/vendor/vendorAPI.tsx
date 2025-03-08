@@ -11,7 +11,15 @@ export const getAllVendor = async (_p0?: string): Promise<Vendor[]> => {
     throw error;
   }
 };
-
+export const getVendorCode = async (_p0?: string): Promise<Vendor[]> => {
+  try {
+    const response = await api.get<ApiVendorResponse<Vendor[]>>(`/vendors/codes`);
+    return response.data.data;
+  } catch (error) {
+    console.error('Failed to fetch users:', error);
+    throw error;
+  }
+};
 // export const createUser = async (userData: {
 //   email: string;
 //   password: string;
