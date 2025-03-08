@@ -15,6 +15,9 @@ import React from "react";
 import { getApi } from "@/redux-toolkit/api";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
+import { getVendorReports } from "@/redux-toolkit/slices/reports/reportAPI";
+import { getVendorReportsSlice } from "@/redux-toolkit/slices/reports/reportSlice";
+import { selectReports } from "@/redux-toolkit/slices/reports/reportSelectors";
 
 // import { getApi } from "@/stores/api";
 export interface VendorReports {
