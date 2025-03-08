@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Reports, ReportState } from "./reportTypes";
+import { Reports, ReportState, VendorReports } from "./reportTypes";
 
 // Reducer
 const initialState: ReportState = {
@@ -28,6 +28,18 @@ const reportSlice = createSlice({
     },
   },
 });
+const vendorReportSlice = createSlice({
+  name: "reports",
+  initialState,
+  reducers: {
+    getVendorReportsSlice: (state, action: PayloadAction<VendorReports[]>) => {
+      state.reports = action.payload;
+    },
+  },
+});
+
 
 export const { getMerchantReports, onload, setError } = reportSlice.actions;
+export const {  getVendorReportsSlice } = vendorReportSlice.actions;
+
 export default reportSlice.reducer;
