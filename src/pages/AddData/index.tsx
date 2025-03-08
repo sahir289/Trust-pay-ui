@@ -3,7 +3,7 @@ import { Tab } from "@/components/Base/Headless";
 import AddData from "./AddDataHistory";
 import CheckUtrHistory from "./CheckUtrHistory";
 import ResetHistory from "./ResetHistory";
-import Modal from "../Modal/modal";
+import Modal from "../../components/Modal/modal";
 import { useRef, useState } from "react";
 
 function PayIn() {

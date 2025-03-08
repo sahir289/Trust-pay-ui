@@ -31,11 +31,13 @@ const merchantSlice = createSlice({
         state.merchants[index] = updatedMerchant;
       }
     },
-    deleteMerchant: (state, action: PayloadAction<string>) => {
-      state.merchants = state.merchants.filter((merchant) => merchant.id !== action.payload);
+    deleteMercHantData: (state, action: PayloadAction<string>) => {
+      console.log(action.payload, "action.payload");
+      const merchantId = action.payload;
+      state.merchants = state.merchants.filter((merchant) => merchant.id !== merchantId);
     },
   },
 });
 
-export const { getMerchants, addMerchant, updateMerchant, deleteMerchant, onload } = merchantSlice.actions;
+export const { getMerchants, addMerchant, updateMerchant, deleteMercHantData, onload } = merchantSlice.actions;
 export default merchantSlice.reducer;

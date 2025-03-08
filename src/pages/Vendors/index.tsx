@@ -2,7 +2,7 @@
 import Lucide from "@/components/Base/Lucide";
 import { FormInput, } from "@/components/Base/Form";
 // import users from "@/fakers/users";
-import Modal from "../Modal/modal";
+import Modal from "../../components/Modal/modal";
 import CustomTable from "@/components/TableComponent/CommonTable";
 import { useState, useRef, useCallback, useEffect } from "react";
 import { columns, vendorColumns } from "@/utils/columns";
