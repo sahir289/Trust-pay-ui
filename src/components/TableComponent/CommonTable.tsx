@@ -20,8 +20,8 @@ interface Column {
     | 'expand'
     | 'range'
     | 'object'
-  | 'action'
-  | 'limits'
+    | 'action'
+    | 'limits'
     | string;
   objectKey?: string | string[];
 }

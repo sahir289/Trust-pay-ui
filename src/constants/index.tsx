@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import * as yup from 'yup';
+import { debouncedValidateIfscCode } from '@/redux-toolkit/hooks/ifscValidation';
 
 export const Role = {
   ADMIN: 'ADMIN',
@@ -319,6 +321,128 @@ interface Option {
   value: string;
   label: string;
 }
+
+export const BankDetailsFormFields = (userOptions: Option[]) => ({
+  Details: [
+    {
+      name: 'nick_name',
+      label: 'Nick Name',
+      type: 'text',
+      placeholder: 'Enter Bank Nickname',
+      validation: yup.string().required('Nickname is required'),
+    },
+    {
+      name: 'bank_name',
+      label: 'Name',
+      type: 'text',
+      placeholder: 'Enter Bank Name',
+      validation: yup.string().required('Bank Name is required'),
+    },
+    {
+      name: 'acc_holder_name',
+      label: 'Holder Name',
+      type: 'text',
+      placeholder: 'Acc Holder Name',
+      validation: yup.string().required('Account Holder Name is required'),
+    },
+    {
+      name: 'upi_id',
+      label: 'UPI ID',
+      type: 'text',
+      placeholder: 'Enter UPI ID',
+      validation: yup.string(),
+    },
+    {
+      name: 'acc_no',
+      label: 'Number',
+      type: 'number',
+      placeholder: 'Enter Account Number',
+      validation: yup
+        .number()
+        .typeError('Must be a number')
+        .required('Account Number is required'),
+    },
+    {
+      name: 'ifsc',
+      label: 'IFSC',
+      type: 'text',
+      placeholder: 'Enter IFSC Code',
+      validation: yup
+        .string()
+        .required('IFSC Code is required')
+        .test('valid-ifsc', 'Invalid IFSC Code', async (value) => {
+          if (!value) return false; // IFSC Code is empty, return false immediately
+          try {
+            // Await the async validation function
+            await debouncedValidateIfscCode(value);
+            return true; // IFSC is valid
+          } catch  {
+            return false; // If validation fails, triggers "Invalid IFSC Code"
+          }
+        }),
+    },
+    {
+      name: 'bank_used_for',
+      label: 'PayIn/PayOut',
+      type: 'select',
+      options: [
+        { value: '', label: 'Select' },
+        { value: 'PayIn', label: 'PayIn' },
+        { value: 'PayOut', label: 'PayOut' },
+      ],
+      validation: yup.string().required('Transaction Type is required'),
+    },
+    {
+      name: 'user_id',
+      label: 'User',
+      type: 'select',
+      options: userOptions,
+      validation: yup.string().required('User selection is required'),
+    },
+  ],
+  Limits: [
+    {
+      name: 'min_payin',
+      label: 'Min',
+      type: 'number',
+      placeholder: 'Enter Min limit',
+      validation: yup.number().min(0).required('Min PayIn is required'),
+    },
+    {
+      name: 'max_payin',
+      label: 'Max',
+      type: 'number',
+      placeholder: 'Enter Max limit',
+      validation: yup.number().min(0).required('Max PayIn is required'),
+    },
+  ],
+  Options: [
+    {
+      name: 'enabled',
+      label: 'Enabled',
+      type: 'switch',
+      validation: yup.boolean(),
+    },
+    {
+      name: 'qr',
+      label: 'QR?',
+      type: 'switch',
+      validation: yup.boolean(),
+    },
+    {
+      name: 'bank',
+      label: 'Bank?',
+      type: 'switch',
+      validation: yup.boolean(),
+    },
+    {
+      name: 'phonepay',
+      label: 'PhonePay?',
+      type: 'switch',
+      validation: yup.boolean(),
+    },
+  ],
+});
 export const getUserFormFields = (designationOptions: Option[], roleOptions: Option[]) => ({   
     User_Details: [
       {
@@ -405,3 +529,137 @@ export const getUserFormFields = (designationOptions: Option[], roleOptions: Opt
       },
     ],
 });
+export const MerchantformFields = {
+    Code: [
+      {
+        name: 'code',
+        label: '',
+        type: 'text',
+        placeholder: 'Enter Merchant Code',
+        validation: yup.string().required('Code is required'),
+        width: '12',
+      },
+    ],
+    URLs: [
+      {
+        name: 'site',
+        label: 'Site',
+        type: 'text',
+        placeholder: 'Enter Site URL',
+        validation: yup
+          .string()
+          .url('Invalid URL')
+          .required('Site URL is required'),
+      },
+      {
+        name: 'return_url',
+        label: 'Return',
+        type: 'text',
+        placeholder: 'Enter Return URL',
+        validation: yup
+          .string()
+          .url('Invalid URL')
+          .required('Return URL is required'),
+      },
+      {
+        name: 'payin_notify',
+        label: 'Callback',
+        type: 'text',
+        placeholder: 'Enter Callback URL',
+        validation: yup
+          .string()
+          .url('Invalid URL')
+          .required('Callback URL is required'),
+      },
+      {
+        name: 'payout_notify',
+        label: 'PayOut Callback',
+        type: 'text',
+        placeholder: 'Enter PayOut Callback URL',
+        validation: yup
+          .string()
+          .url('Invalid URL')
+          .required('PayOut Callback URL is required'),
+      },
+    ],
+    PayIn: [
+      {
+        name: 'min_payin',
+        label: 'Min',
+        type: 'number',
+        placeholder: 'Enter Min PayIn',
+        validation: yup
+          .number()
+          .min(0, 'Must be a positive number')
+          .required('Min PayIn is required'),
+      },
+      {
+        name: 'max_payin',
+        label: 'Max',
+        type: 'number',
+        placeholder: 'Enter Max PayIn',
+        validation: yup
+          .number()
+          .min(0, 'Must be a positive number')
+          .required('Max PayIn is required'),
+      },
+      {
+        name: 'payin_commission',
+        label: 'Commission',
+        type: 'number',
+        placeholder: 'Enter PayIn Commission',
+        validation: yup
+          .number()
+          .min(0, 'Must be a positive number')
+          .required('PayIn Commission is required'),
+        width: '12',
+      },
+    ],
+    PayOut: [
+      {
+        name: 'min_payout',
+        label: 'Min',
+        type: 'number',
+        placeholder: 'Enter Min PayOut',
+        validation: yup
+          .number()
+          .min(0, 'Must be a positive number')
+          .required('Min PayOut is required'),
+      },
+      {
+        name: 'max_payout',
+        label: 'Max',
+        type: 'number',
+        placeholder: 'Enter Max PayOut',
+        validation: yup
+          .number()
+          .min(0, 'Must be a positive number')
+          .required('Max PayOut is required'),
+      },
+      {
+        name: 'payout_commission',
+        label: 'Commission',
+        type: 'number',
+        placeholder: 'Enter PayOut Commission',
+        validation: yup
+          .number()
+          .min(0, 'Must be a positive number')
+          .required('PayOut Commission is required'),
+        width: '12',
+      },
+    ],
+    '': [
+      {
+        name: 'is_test_mode',
+        label: 'Test Mode',
+        type: 'switch',
+        validation: yup.boolean(),
+      },
+      {
+        name: 'allow_intent',
+        label: 'Allow Intent',
+        type: 'switch',
+        validation: yup.boolean(),
+      },
+    ],
+  };

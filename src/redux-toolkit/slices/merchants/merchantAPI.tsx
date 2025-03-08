@@ -10,7 +10,7 @@ export const getAllMerchants = async (
     );
     return response.data.data;
   } catch (error) {
-    console.error('Failed to fetch users:', error);
+    console.error('Failed to fetch merchants', error);
     throw error;
   }
 };

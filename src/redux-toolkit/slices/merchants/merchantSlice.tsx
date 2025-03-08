@@ -2,8 +2,6 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Merchant, MerchantState } from "./merchantTypes";
 
 const initialState: MerchantState = {
-  token: null,
-  isAuthenticated: false,
   merchants: [],
   loading: false,
   error: null,
@@ -32,7 +30,6 @@ const merchantSlice = createSlice({
       }
     },
     deleteMercHantData: (state, action: PayloadAction<string>) => {
-      console.log(action.payload, "action.payload");
       const merchantId = action.payload;
       state.merchants = state.merchants.filter((merchant) => merchant.id !== merchantId);
     },

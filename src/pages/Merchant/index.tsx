@@ -8,7 +8,6 @@ import { FormInput, FormSelect } from '@/components/Base/Form';
 import merchants from '@/fakers/merchants';
 import Button from '@/components/Base/Button';
 import _ from 'lodash';
-import * as yup from 'yup';
 import { JSX } from 'react';
 import { useState } from 'react';
 import Modal from '../../components/Modal/modals';
@@ -29,34 +28,18 @@ import { deleteMercHantData } from '@/redux-toolkit/slices/merchants/merchantSli
 import { updateMerchant } from '@/redux-toolkit/slices/merchants/merchantSlice';
 import DynamicForm from '@/components/CommonForm';
 import DeleteModalContent from '@/components/Modal/ModalContent/DeleteModalContent';
+import { MerchantformFields } from '@/constants';
 
-export interface Merchant {
-  name: string;
-  // photo: string;
-  code: string;
-  site: string;
-  apikey: string;
-  public_api_key: string;
-  balance: number;
-  payin_range: string;
-  payin_commission: string;
-  payout_range: string;
-  payout_commission: string;
-  test_mode: boolean;
-  allow_intent: boolean;
-  created_at: string;
-  actions: string;
-}
 
 function Main(): JSX.Element {
   const [newMerchantModal, setNewMerchantModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+    const [formData, setFormData] = useState(null);
   const [selectedMerchantId, setSelectedMerchantId] = useState<string | null>(
     null,
   );
   const [expandedRow, setExpandedRow] = useState<number | null>(null);
   // const [editModal, setEditModal] = useState<boolean>(false)
-  // const sendButtonRef = useRef(null);
 
   const merchantModal = () => {
     setNewMerchantModal((prev) => !prev);
@@ -71,18 +54,17 @@ function Main(): JSX.Element {
   //  const [params, setParams] = useState<{ [key: string]: string }>({
   //     page: '1',
   //     limit: '10',
-  //   });
+  //   });//
   const handleRowClick = (fakerKey: number): void => {
     setExpandedRow((prevRow) => (prevRow === fakerKey ? null : fakerKey));
   };
-  const [formData, setFormData] = useState(null);
   const dispatch = useAppDispatch();
   const allMerchants = useAppSelector(selectAllMerchants);
   const fetchMerchants = useCallback(async () => {
     // tempory disabled this functionality
     // const queryString = new URLSearchParams(params).toString();
     const merchantList = await getAllMerchants('');
-    //   console.log(merchantList,"merchant data");
+      console.log(merchantList,"merchant data");
     dispatch(getMerchants(merchantList));
   }, [dispatch]);
   const handleEditModal = (data: any) => {
@@ -164,153 +146,8 @@ function Main(): JSX.Element {
   useEffect(() => {
     fetchMerchants();
   }, [fetchMerchants]);
-  // const tableHeaders: string[] = [
-  //     "Sub Merchants",
-  //     "Code",
-  //     "Balance",
-  //     "PayIn Range",
-  //     "PayIn Commission",
-  //     "PayOut Range",
-  //     "PayOut Commission",
-  //     "Test Mode",
-  //     "Allow Intent",
-  //     "Actions",
-  // ];
-  const formFields = {
-    Code: [
-      {
-        name: 'code',
-        label: '',
-        type: 'text',
-        placeholder: 'Enter Merchant Code',
-        validation: yup.string().required('Code is required'),
-        width: '12',
-      },
-    ],
-    URLs: [
-      {
-        name: 'site',
-        label: 'Site',
-        type: 'text',
-        placeholder: 'Enter Site URL',
-        validation: yup
-          .string()
-          .url('Invalid URL')
-          .required('Site URL is required'),
-      },
-      {
-        name: 'return_url',
-        label: 'Return',
-        type: 'text',
-        placeholder: 'Enter Return URL',
-        validation: yup
-          .string()
-          .url('Invalid URL')
-          .required('Return URL is required'),
-      },
-      {
-        name: 'payin_notify',
-        label: 'Callback',
-        type: 'text',
-        placeholder: 'Enter Callback URL',
-        validation: yup
-          .string()
-          .url('Invalid URL')
-          .required('Callback URL is required'),
-      },
-      {
-        name: 'payout_notify',
-        label: 'PayOut Callback',
-        type: 'text',
-        placeholder: 'Enter PayOut Callback URL',
-        validation: yup
-          .string()
-          .url('Invalid URL')
-          .required('PayOut Callback URL is required'),
-      },
-    ],
-    PayIn: [
-      {
-        name: 'min_payin',
-        label: 'Min',
-        type: 'number',
-        placeholder: 'Enter Min PayIn',
-        validation: yup
-          .number()
-          .min(0, 'Must be a positive number')
-          .required('Min PayIn is required'),
-      },
-      {
-        name: 'max_payin',
-        label: 'Max',
-        type: 'number',
-        placeholder: 'Enter Max PayIn',
-        validation: yup
-          .number()
-          .min(0, 'Must be a positive number')
-          .required('Max PayIn is required'),
-      },
-      {
-        name: 'payin_commission',
-        label: 'Commission',
-        type: 'number',
-        placeholder: 'Enter PayIn Commission',
-        validation: yup
-          .number()
-          .min(0, 'Must be a positive number')
-          .required('PayIn Commission is required'),
-        width: '12',
-      },
-    ],
-    PayOut: [
-      {
-        name: 'min_payout',
-        label: 'Min',
-        type: 'number',
-        placeholder: 'Enter Min PayOut',
-        validation: yup
-          .number()
-          .min(0, 'Must be a positive number')
-          .required('Min PayOut is required'),
-      },
-      {
-        name: 'max_payout',
-        label: 'Max',
-        type: 'number',
-        placeholder: 'Enter Max PayOut',
-        validation: yup
-          .number()
-          .min(0, 'Must be a positive number')
-          .required('Max PayOut is required'),
-      },
-      {
-        name: 'payout_commission',
-        label: 'Commission',
-        type: 'number',
-        placeholder: 'Enter PayOut Commission',
-        validation: yup
-          .number()
-          .min(0, 'Must be a positive number')
-          .required('PayOut Commission is required'),
-        width: '12',
-      },
-    ],
-    '': [
-      {
-        name: 'is_test_mode',
-        label: 'Test Mode',
-        type: 'switch',
-        validation: yup.boolean(),
-      },
-      {
-        name: 'allow_intent',
-        label: 'Allow Intent',
-        type: 'switch',
-        validation: yup.boolean(),
-      },
-    ],
-  };
-
+ 
+  
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -325,7 +162,7 @@ function Main(): JSX.Element {
               title={`${formData ? 'Edit ' : 'Add '} Merchant`}
             >
               <DynamicForm
-                sections={formFields}
+                sections={MerchantformFields}
                 onSubmit={handleSubmitData}
                 defaultValues={formData || {}}
                 isEditMode={formData ? true : false}
@@ -341,66 +178,6 @@ function Main(): JSX.Element {
           </div>
         </div>
         <div className="flex flex-col gap-8 mt-3.5">
-          {/* <div className="flex flex-col p-5 box box--stacked">
-              {/* <div className="grid grid-cols-4 gap-5">
-                <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                  <div className="text-base text-slate-500">
-                    Registered Merchants
-                  </div>
-                  <div className="mt-1.5 text-2xl font-medium">457,204</div>
-                  <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
-                    <div className="flex items-center border border-danger/10 bg-danger/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-danger">
-                      3%
-                      <Lucide
-                        icon="ChevronDown"
-                        className="w-4 h-4 ml-px stroke-[1.5]"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                  <div className="text-base text-slate-500">
-                    Active Merchants
-                  </div>
-                  <div className="mt-1.5 text-2xl font-medium">122,721</div>
-                  <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
-                    <div className="flex items-center border border-success/10 bg-success/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-success">
-                      2%
-                      <Lucide
-                        icon="ChevronUp"
-                        className="w-4 h-4 ml-px stroke-[1.5]"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                  <div className="text-base text-slate-500">New Merchants</div>
-                  <div className="mt-1.5 text-2xl font-medium">489,223</div>
-                  <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
-                    <div className="flex items-center border border-danger/10 bg-danger/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-danger">
-                      3%
-                      <Lucide
-                        icon="ChevronDown"
-                        className="w-4 h-4 ml-px stroke-[1.5]"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="col-span-4 md:col-span-2 xl:col-span-1 p-5 border border-dashed rounded-[0.6rem] border-slate-300/80 box shadow-sm">
-                  <div className="text-base text-slate-500">Login Activity</div>
-                  <div className="mt-1.5 text-2xl font-medium">411,259</div>
-                  <div className="absolute inset-y-0 right-0 flex flex-col justify-center mr-5">
-                    <div className="flex items-center border border-success/10 bg-success/10 rounded-full pl-[7px] pr-1 py-[2px] text-xs font-medium text-success">
-                      8%
-                      <Lucide
-                        icon="ChevronUp"
-                        className="w-4 h-4 ml-px stroke-[1.5]"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div> */}
-          {/* </div> } */}
           <div className="flex flex-col box box--stacked">
             <div className="flex flex-col p-5 sm:items-center sm:flex-row gap-y-2">
               <div>
@@ -523,22 +300,6 @@ function Main(): JSX.Element {
               // params={params}
               // setParams={setParams}
             />
-            {/* <CustomTable 
-             columns={tableHeaders}
-            // data={merchants.fakeMerchants() as Merchant[]} 
-            approve={false} 
-            setApprove={() => { }} 
-            reject={false} 
-            setReject={() => { }} 
-            title={"Merchants"} 
-            status={[]} 
-            editModal={editModal.toString()} 
-            setEditModal={() => setEditModal(!editModal)} 
-            setStatus={() => { }} 
-            setParams={() => {}}
-            expandedRow={expandedRow ?? 20} 
-            handleRowClick={(index: number) => handleRowClick(index)}
-            /> */}
           </div>
         </div>
       </div>

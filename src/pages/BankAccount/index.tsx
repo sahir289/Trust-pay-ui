@@ -22,7 +22,8 @@ import {
   getAllBankDetailsApi,
 } from '@/redux-toolkit/slices/bankDetails/bankDetailsAPI';
 import Modal from '@/components/Modal/modals';
-import * as yup from 'yup';
+import DynamicForm from '@/components/CommonForm';
+import { BankDetailsFormFields } from '@/constants';
 interface Vendor {
   user_id: string;
   code: string;
@@ -30,13 +31,9 @@ interface Vendor {
 function Main(): JSX.Element {
   const [newUserModal, setNewUserModal] = useState<boolean>(false);
   // const [editModal, setEditModal] = useState<string>("");
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState(null);
   const [vendor, setVendor] = useState<Vendor[]>([]); // Ensure state is an array of Vendor objects
 
-  const [title] = useState<string>('Bank Account');
-  // const userModal = (): void => {
-  //   setNewUserModal((prev) => !prev);
-  // };
   const bankModal = (): void => {
     setNewUserModal((prev) => !prev);
   };
@@ -55,8 +52,8 @@ function Main(): JSX.Element {
     setFormData(data);
     bankModal();
   };
-  const handleSubmitData = async (data: any, isEditMode?: boolean) => {
-    if (isEditMode) {
+  const handleSubmitData = async (data: any) => {
+    if (formData) {
       let prevData = formData;
       const newData = getUpdatedFields(prevData, data);
       const updatedMerchant = await updateBankDetailsApi(data.id, newData);
@@ -65,7 +62,6 @@ function Main(): JSX.Element {
       setFormData(null);
     } else {
       const addedMerchant = await addBankDetailsApi(data);
-      console.log(addedMerchant,"hii from the added how to get")
       dispatch(addBankDetailSlice(addedMerchant));
     }
   };
@@ -75,13 +71,16 @@ function Main(): JSX.Element {
     const vendorData: Vendor[] = await getVendorCode(); // Assuming getVendorCode() returns Vendor[]
     setVendor(vendorData);
   };
-
-
-
-  const userOptions = vendor.map((user) => ({
+const userOptions = [
+  { value: '', label: 'Select' }, // Default "Select" option
+  ...vendor.map((user) => ({
     value: user.user_id, // Corrected user_id reference
     label: user.code, // Corrected code reference
-  }));
+  })),
+];
+
+
+
   useEffect(() => {
     if (!newUserModal) {
       setFormData(null);
@@ -120,131 +119,8 @@ function Main(): JSX.Element {
 
     return updatedFields;
   }
-  const formFields = {
-    Details: [
-      {
-        name: 'nick_name',
-        label: 'Nick Name',
-        type: 'text',
-        placeholder: 'Enter Bank Nickname',
-        validation: yup.string().required('Nickname is required'),
-      },
-      {
-        name: 'bank_name',
-        label: 'Name',
-        type: 'text',
-        placeholder: 'Enter Bank Name',
-        validation: yup.string().required('Bank Name is required'),
-      },
-      {
-        name: 'acc_holder_name',
-        label: 'Holder Name',
-        type: 'text',
-        placeholder: 'Acc Holder Name',
-        validation: yup.string().required('Account Holder Name is required'),
-      },
-      {
-        name: 'upi_id',
-        label: 'UPI ID',
-        type: 'text',
-        placeholder: 'Enter UPI ID',
-        validation: yup.string(),
-      },
-      {
-        name: 'acc_no',
-        label: 'Number',
-        type: 'number',
-        placeholder: 'Enter Account Number',
-        validation: yup
-          .number()
-          .typeError('Must be a number')
-          .required('Account Number is required'),
-      },
-      {
-        name: 'ifsc',
-        label: 'IFSC',
-        type: 'text',
-        placeholder: 'Enter IFSC Code',
-        validation: yup.string().required('IFSC Code is required'),
-      },
+ 
 
-      {
-        name: 'bank_used_for',
-        label: 'PayIn/PayOut',
-        type: 'select',
-        options: [
-          { value: 'PayIn', label: 'PayIn' },
-          { value: 'PayOut', label: 'PayOut' },
-        ],
-        validation: yup.string().required('Transaction Type is required'),
-      },
-      {
-        name: 'user_id',
-        label: 'User',
-        type: 'select',
-        options: userOptions, // Dynamically generated options
-        validation: yup.string().required('User selection is required'),
-      },
-    ],
-    Limits: [
-      {
-        name: 'min_payin',
-        label: 'Min',
-        type: 'number',
-        placeholder: 'Enter Min limit',
-        validation: yup.number().min(0).required('Min PayIn is required'),
-      },
-      {
-        name: 'max_payin',
-        label: 'Max',
-        type: 'number',
-        placeholder: 'Enter Max limit',
-        validation: yup.number().min(0).required('Max PayIn is required'),
-      },
-    ],
-    Options: [
-      {
-        name: 'enabled',
-        label: 'Enabled',
-        type: 'switch',
-        validation: yup.boolean(),
-      },
-      {
-        name: 'qr',
-        label: 'QR?',
-        type: 'switch',
-        validation: yup.boolean(),
-      },
-      {
-        name: 'bank',
-        label: 'Bank?',
-        type: 'switch',
-        validation: yup.boolean(),
-      },
-      {
-        name: 'phonepay',
-        label: 'PhonePay?',
-        type: 'switch',
-        validation: yup.boolean(),
-      },
-    ],
-  };
-//  PayOut: [
-//    {
-//      name: 'min_payout',
-//      label: 'Min',
-//      type: 'number',
-//      placeholder: 'Enter Min PayOut',
-//      validation: yup.number().min(0).required('Min PayOut is required'),
-//    },
-//    {
-//      name: 'max_payout',
-//      label: 'Max',
-//      type: 'number',
-//      placeholder: 'Enter Max PayOut',
-//      validation: yup.number().min(0).required('Max PayOut is required'),
-//    },
-//  ];
   return (
     <div className="grid grid-cols-12 gap-y-10 gap-x-6">
       <div className="col-span-12">
@@ -262,13 +138,17 @@ function Main(): JSX.Element {
             <Modal
               handleModal={bankModal}
               forOpen={newUserModal}
-              title={title}
-              formFields={formFields}
-              existingData={formData}
-              setEditData={setFormData}
-              handleSubmitData={handleSubmitData}
+              title={`${formData ? 'Edit ' : 'Add '} Bank Details`}
               // dummyfunction={sdadasa}
-            />
+            >
+              <DynamicForm
+                sections={BankDetailsFormFields(userOptions)}
+                onSubmit={handleSubmitData}
+                defaultValues={formData || {}}
+                isEditMode={formData ? true : false}
+                handleCancel={bankModal}
+              />
+            </Modal>
           </div>
         </div>
 

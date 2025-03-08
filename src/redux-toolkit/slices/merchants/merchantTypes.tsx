@@ -43,8 +43,6 @@ export interface ApiResponse<T> {
   status?: string;
 }
 export interface MerchantState {
-  token: string | null;
-  isAuthenticated: boolean;
   merchants: Merchant[];
   loading: boolean;
   error: string | null;

@@ -3,6 +3,8 @@ import { bankDetails, bankDetailsState } from './bankDetailsTypes';
 
 const initialState: bankDetailsState = {
   users: [],
+  loading: false,
+  error: null,
 };
 
 const bankDetailSlice = createSlice({
@@ -11,6 +13,11 @@ const bankDetailSlice = createSlice({
   reducers: {
     getBankDetailsSlice: (state, action: PayloadAction<bankDetails[]>) => {
       state.users = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    onload: (state) => {
+      state.loading = true;
     },
     addBankDetailSlice: (state, action: PayloadAction<bankDetails>) => {
       state.users.push(action.payload);

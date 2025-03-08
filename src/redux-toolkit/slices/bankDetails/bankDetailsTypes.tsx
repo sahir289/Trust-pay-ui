@@ -19,6 +19,8 @@ export interface bankDetails {
 
 export interface bankDetailsState {
   users: bankDetails[];
+  loading: boolean;
+  error: string | null;
 }
 
 export interface ApiResponse<T> {
