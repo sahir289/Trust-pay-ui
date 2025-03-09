@@ -5,8 +5,8 @@ import Modal from "../../components/Modal/modals";
 import React, { useCallback, useEffect, useState } from "react";
 import CustomTable from "@/components/TableComponent/CommonTable";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
-import { createUser, getAllUsers } from "@/redux-toolkit/slices/user/userAPI";
-import { addUser, getUsers, onload } from "@/redux-toolkit/slices/user/userSlice";
+import { createUser, getAllUsers, updateUser } from "@/redux-toolkit/slices/user/userAPI";
+import { addUser, getUsers, onload, updateUser as updateUserDispatch } from "@/redux-toolkit/slices/user/userSlice";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
 import { selectAllUsers } from "@/redux-toolkit/slices/user/userSelectors";
 import LoadingIcon from '@/components/Base/LoadingIcon';
@@ -18,12 +18,6 @@ const Users: React.FC = () => {
   const dispatch = useAppDispatch();
   const allUsers = useAppSelector(selectAllUsers);  
 
-  const existingMerchant = {
-    first_name: "John's Store",
-    last_name: 500,
-    user_name: "upi",
-    email: true,
-  };
  const designation = [
     { value: "1", label: "Admin" },
     { value: "2", label: "User" },
@@ -51,13 +45,24 @@ const Users: React.FC = () => {
   }, [fetchUsers]);
 
   const handleSubmit = (data: Record<string, unknown>) => {
-    if (existingMerchant) {
       // Call API to update existing record
-    } else {
       console.log('New Data:', data);
       // Call API to create new record
-    }
     userModal();
+  };
+
+  const handleToggleClick = async (id: string, status: boolean, type: string ) => {
+
+    dispatch(onload());
+    const userUpdate = await updateUser(id, {[type]: status});
+    if(userUpdate){
+      const user = allUsers.users.find((user) => user.id === id);     
+      if (user) {
+        const data = JSON.parse(JSON.stringify(user));
+        data.is_enabled = status;
+        dispatch(updateUserDispatch(data));
+      }
+    }
   };
 
   const handleCreateUser = async () => {
@@ -86,7 +91,7 @@ const Users: React.FC = () => {
             <DynamicForm
             sections={getUserFormFields(designation, roles)}
             onSubmit={handleSubmit}
-            defaultValues={existingMerchant || {}}
+            defaultValues={{}}
             isEditMode={false}
             handleCancel={userModal}
           />
@@ -175,6 +180,7 @@ const Users: React.FC = () => {
               <CustomTable
                 columns={Columns.USERS} 
                 data={{rows: allUsers.users, totalCount: 100}}
+                handleToggleClick={handleToggleClick}
               />
             }
             </div>

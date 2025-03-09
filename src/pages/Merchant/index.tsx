@@ -86,10 +86,10 @@ function Main(): JSX.Element {
   const handleEditModal = (data: any) => {
     const { config, ...cleanedData } = data;
       setFormData({...cleanedData, 
-        site: data.config.url.site || '',
-        payout_notify: data.config.url.payout_notify || '',
-        payin_notify: data.config.url.payin_notify || '',
-        return_url: data.config.url.return_url || '',
+        site: data?.config?.url?.site || '',
+        payout_notify: data?.config?.url?.payout_notify || '',
+        payin_notify: data?.config?.url?.payin_notify || '',
+        return_url: data?.config?.url?.return_url || '',
       });
     merchantModal();
   };
@@ -104,7 +104,8 @@ const handleSubmitData =(async (data: any, isEditMode?: boolean) => {
         } else {
       const addedMerchant=    await createMerchant(data);
         dispatch(addMerchant(addedMerchant));
-    }
+      }
+      merchantModal(); 
 })
 
 
@@ -517,6 +518,18 @@ const formFields = {
                 handleRowClick={(index: number) => handleRowClick(index)}
                 handleEditModal={handleEditModal}
                 handleDeleteData={handledeleteData}
+                actionMenuItems={(row: any) => [
+                  {
+                    label: 'Edit',
+                    icon: 'CheckSquare', // Change to an allowed icon type
+                    onClick: () => handleEditModal(row),
+                  },
+                  {
+                    label: 'Delete',
+                    icon: 'Trash2', // Change to an allowed icon type
+                    onClick: async () => handledeleteData(row.id),
+                  },
+                ]}
                 // params={params}
                 // setParams={setParams}
               />

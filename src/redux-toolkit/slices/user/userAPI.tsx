@@ -33,7 +33,7 @@ export const updateUser = async (
   userData: Partial<User>
 ): Promise<User> => {
   try {
-    const response = await api.put<User>(`/users/${id}`, userData);
+    const response = await api.put<User>(`/users/update-user/${id}`, userData);
     return response.data;
   } catch (error) {
     console.error("Failed to update user:", error);
