@@ -28,7 +28,7 @@ import { addMerchant } from "@/redux-toolkit/slices/merchants/merchantSlice";
 import { deleteMercHantData } from "@/redux-toolkit/slices/merchants/merchantSlice";
 import { updateMerchant } from "@/redux-toolkit/slices/merchants/merchantSlice";
 import DynamicForm from "@/components/CommonForm";
-import DeleteModalContent from "@/components/Modal/ModalContent/DeleteModalContent";
+import ModalContent from "@/components/Modal/ModalContent/ModalContent";
 
 export interface Merchant {
     name: string;
@@ -53,6 +53,9 @@ function Main(): JSX.Element {
     const [deleteModal, setDeleteModal] = useState(false);
     const [selectedMerchantId, setSelectedMerchantId] = useState<string | null>(null);
     const [expandedRow, setExpandedRow] = useState<number | null>(null);
+    const [showAllDataModal, setShowAllDataModal] = useState<boolean>(false);
+    const [showAllData, setShowAllData] = useState<{ [key: string]: any }>({});
+
     // const [editModal, setEditModal] = useState<boolean>(false)
     // const sendButtonRef = useRef(null);
 
@@ -73,7 +76,7 @@ function Main(): JSX.Element {
   const handleRowClick = (fakerKey: number): void => {
         setExpandedRow((prevRow) => (prevRow === fakerKey ? null : fakerKey));
   };
-    const [formData, setFormData] = useState(null);
+  const [formData, setFormData] = useState(null);
   const dispatch = useAppDispatch();
   const allMerchants = useAppSelector(selectAllMerchants);
   const fetchMerchants = useCallback(async () => {
@@ -123,6 +126,16 @@ const handleSubmitData =(async (data: any, isEditMode?: boolean) => {
   const handleCancelDelete = () => {
     setDeleteModal(false);
     setSelectedMerchantId(null);
+  };
+
+  const handleCancelRowData = () => {
+    setShowAllDataModal(!showAllDataModal);
+  };
+
+  const handleShowAllData = (row: any) => {
+    console.log(row, "row data");
+    setShowAllDataModal(!showAllDataModal);
+    setShowAllData(row);
   };
 
 const handledeleteData = async (id: string) => {
@@ -311,6 +324,28 @@ const formFields = {
         },
       ],
     };
+
+    const renderObjectData = (data: any, parentKey = '') => {
+      return Object.keys(data).map((key) => {
+        const value = data[key];
+        const displayKey = parentKey ? `${parentKey}.${key}` : key;
+    
+        return typeof value === 'object' && value !== null ? (
+          <div key={displayKey} className="ml-4 border-l-2 border-gray-300 pl-4 mt-2">
+            <div className="text-sm font-semibold text-gray-700 mb-1">{key}:</div>
+            {renderObjectData(value, displayKey)}
+          </div>
+        ) : (
+          <div 
+            key={displayKey} 
+            className="flex justify-between bg-gray-100 p-3 rounded-lg shadow-sm my-1"
+          >
+            <span className="text-gray-600 font-medium">{key}</span>
+            <span className="text-gray-800">{String(value)}</span>
+          </div>
+        );
+      });
+    };
    
     return (
       <div className="grid grid-cols-12 gap-y-10 gap-x-6">
@@ -334,9 +369,23 @@ const formFields = {
           />
             </Modal>
             <Modal handleModal={handleCancelDelete} forOpen={deleteModal}>
-              <DeleteModalContent handleCancelDelete={handleCancelDelete} handleConfirmDelete={handleConfirmDelete}>
+              <ModalContent handleCancelDelete={handleCancelDelete} handleConfirmDelete={handleConfirmDelete}>
                  Are you sure you want to delete this merchant?
-              </DeleteModalContent>
+              </ModalContent>
+            </Modal>
+            <Modal handleModal={handleCancelRowData} forOpen={showAllDataModal}>
+              <>
+              <ModalContent handleCancelDelete={handleCancelRowData}>
+              {showAllData && (
+                <>
+   {/* <div className="p-6 bg-white shadow-lg rounded-xl border border-gray-200 max-w-2xl mx-auto"> */}
+    <h2 className="text-lg font-semibold text-gray-800 mb-4">Details</h2>
+    {renderObjectData(showAllData)}
+   {/* </div> */}
+  </>
+)}
+              </ModalContent>
+              </>
             </Modal>
             </div>
           </div>
@@ -517,9 +566,9 @@ const formFields = {
                 data={{ rows: allMerchants, totalCount: allMerchants.length }}
                 expandedRow={expandedRow ?? 20}
                 expandable={true}
+                // showAllData={true}
+                handleShowAllData={handleShowAllData}
                 handleRowClick={(index: number) => handleRowClick(index)}
-                handleEditModal={handleEditModal}
-                handleDeleteData={handledeleteData}
                 actionMenuItems={(row: any) => [
                   {
                     label: 'Edit',

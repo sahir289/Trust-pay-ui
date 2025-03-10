@@ -35,6 +35,7 @@ interface CommonTableProps {
   handleRowClick?: (index: number) => void;
   handleEditModal?: (data: any) => void;
   handleDeleteData?:(id: string) => void;
+  handleShowAllData?: (data: any) => void;
   handleToggleClick?: (id: string, status: boolean, type: string) => void;
   actionMenuItems?: (row: any) => { label: string; icon: keyof typeof icons; onClick: (row: any) => void }[];
   expandedRow?: number;
@@ -47,6 +48,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
   handleRowClick,
   handleToggleClick,
   actionMenuItems,
+  handleShowAllData,
   expandedRow,
 }) => {
   const getStatusStyles = (status: string) => {
@@ -132,6 +134,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
   };
 
   return (
+    <>
     <div className="overflow-x-auto">
       <Table className="border-b border-slate-200/60">
         <Table.Thead>
@@ -175,26 +178,49 @@ const CommonTable: React.FC<CommonTableProps> = ({
                       {row[col.key]}
                     </div>
                   ) : col.type === 'actions' ? (
-                    <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                    <div className="flex items-center justify-center">
-                      <Menu className="h-5">
-                        <Menu.Button className="w-5 h-5 text-slate-500" >
-                          <Lucide
-                            icon="MoreVertical"
-                            className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
-                          />
-                        </Menu.Button>
-                        <Menu.Items className="w-40">
-          {(col.actions ?? actionMenuItems?.(row) ?? []).map((action, index) => (
-            <Menu.Item key={index} onClick={() => action.onClick(row)} className={action.label === 'Delete' ? 'text-danger' : ''}>
+<Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
+  <div className="flex items-center justify-center">
+    {(actionMenuItems?.(row)?.length ?? 0) > 2 ? (
+      // if more than 2 actions show this dropdown
+      <Menu className="h-5">
+        <Menu.Button className="w-5 h-5 text-slate-500">
+          <Lucide
+            icon="MoreVertical"
+            className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
+          />
+        </Menu.Button>
+        <Menu.Items className="w-40">
+          {actionMenuItems && actionMenuItems(row).map((action, index) => (
+            <Menu.Item
+              key={index}
+              onClick={() => action.onClick(row)}
+              className={action.label === 'Delete' ? 'text-danger' : ''}
+            >
               <Lucide icon={action.icon} className="w-4 h-4 mr-2" />
               {action.label}
             </Menu.Item>
           ))}
         </Menu.Items>
-                      </Menu>
-                    </div>
-                  </Table.Td>
+      </Menu>
+    ) : (
+      // Directly show actions in the table if 2 or less
+      <div className="flex space-x-3">
+        {actionMenuItems && actionMenuItems(row).map((action, index) => (
+          <button
+            key={index}
+            onClick={() => action.onClick(row)}
+            className={`flex items-center py-1 rounded-md text-sm font-medium ${
+              action.label === 'Delete' ? 'text-danger' : 'text-gray-700'
+            }`}
+          >
+            <Lucide icon={action.icon} className="w-4 h-4 mr-1" />
+          </button>
+        ))}
+      </div>
+    )}
+  </div>
+</Table.Td>
+
                   ) : col.type === 'checkbox' ? (
                     <FormCheck.Input type="checkbox" />
                   ) : col.type === 'toggle' ? (
@@ -254,7 +280,9 @@ const CommonTable: React.FC<CommonTableProps> = ({
                   ) : col.type === 'action' ? (
                     <span> action </span>
                   ) : (
-                    row[col.key]
+                    <div onClick={() => handleShowAllData && handleShowAllData(row)}>
+                      {row[col.key]}
+                    </div>
                   )}
                 </Table.Td>
               ))}
@@ -263,6 +291,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
         </Table.Tbody>
       </Table>
 
+    </div>
       {/* Pagination UI */}
       <div className="flex flex-col-reverse flex-wrap items-center p-5 flex-reverse gap-y-2 sm:flex-row">
         <Pagination className="flex-1 w-full sm:w-auto">
@@ -317,7 +346,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
           <option value="100">100</option>
         </FormSelect>
       </div>
-    </div>
+    </>
   );
 };
 

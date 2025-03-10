@@ -2,7 +2,7 @@ import React from 'react';
 
 interface DeleteModalContentProps {
   handleCancelDelete: () => void;
-  handleConfirmDelete: () => void;
+  handleConfirmDelete?: () => void;
   children?: React.ReactNode;
 }
 
@@ -24,12 +24,12 @@ const DeleteModalContent: React.FC<DeleteModalContentProps> = ({
         >
           Cancel
         </button>
-        <button
+       {' '} {handleConfirmDelete &&  <button
           className="bg-red-500 text-white px-4 py-2 rounded"
           onClick={handleConfirmDelete}
         >
           Confirm
-        </button>
+          </button>}
       </div>
     </div>
   );
