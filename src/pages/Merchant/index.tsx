@@ -378,10 +378,8 @@ const formFields = {
               <ModalContent handleCancelDelete={handleCancelRowData}>
               {showAllData && (
                 <>
-   {/* <div className="p-6 bg-white shadow-lg rounded-xl border border-gray-200 max-w-2xl mx-auto"> */}
     <h2 className="text-lg font-semibold text-gray-800 mb-4">Details</h2>
     {renderObjectData(showAllData)}
-   {/* </div> */}
   </>
 )}
               </ModalContent>
