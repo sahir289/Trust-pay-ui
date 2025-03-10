@@ -7,6 +7,7 @@ import Pagination from '@/components/Base/Pagination';
 import Lucide, { icons } from '@/components/Base/Lucide';
 import { FormCheck, FormSwitch, FormSelect } from '@/components/Base/Form';
 import Tippy from '@/components/Base/Tippy';
+import { Menu } from '@/components/Base/Headless';
 
 interface Column {
   label: string;
@@ -23,6 +24,8 @@ interface Column {
     | 'action'
     | string;
   objectKey?: string | string[];
+  disabled?: boolean;
+  actions?: { label: string; icon: keyof typeof icons; onClick: (row: any) => void }[];
 }
 
 interface CommonTableProps {
@@ -32,6 +35,8 @@ interface CommonTableProps {
   handleRowClick?: (index: number) => void;
   handleEditModal?: (data: any) => void;
   handleDeleteData?:(id: string) => void;
+  handleToggleClick?: (id: string, status: boolean, type: string) => void;
+  actionMenuItems?: (row: any) => { label: string; icon: keyof typeof icons; onClick: (row: any) => void }[];
   expandedRow?: number;
 }
 
@@ -40,8 +45,8 @@ const CommonTable: React.FC<CommonTableProps> = ({
   data,
   expandable,
   handleRowClick,
-  handleEditModal,
-  handleDeleteData,
+  handleToggleClick,
+  actionMenuItems,
   expandedRow,
 }) => {
   const getStatusStyles = (status: string) => {
@@ -170,32 +175,41 @@ const CommonTable: React.FC<CommonTableProps> = ({
                       {row[col.key]}
                     </div>
                   ) : col.type === 'actions' ? (
+                    <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
                     <div className="flex items-center justify-center">
-                      <Lucide
-                        icon="CheckSquare"
-                        onClick={() => handleEditModal && handleEditModal(row)}
-                        className="w-4 h-4 mr-2 cursor-pointer"
-                      />{' '}
-                      <Lucide
-                        icon="Trash2"
-                        onClick={() => handleDeleteData && handleDeleteData(row.id)}
-                        className="w-4 h-4 mr-2 cursor-pointer"
-                      />
+                      <Menu className="h-5">
+                        <Menu.Button className="w-5 h-5 text-slate-500" >
+                          <Lucide
+                            icon="MoreVertical"
+                            className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
+                          />
+                        </Menu.Button>
+                        <Menu.Items className="w-40">
+          {(col.actions ?? actionMenuItems?.(row) ?? []).map((action, index) => (
+            <Menu.Item key={index} onClick={() => action.onClick(row)} className={action.label === 'Delete' ? 'text-danger' : ''}>
+              <Lucide icon={action.icon} className="w-4 h-4 mr-2" />
+              {action.label}
+            </Menu.Item>
+          ))}
+        </Menu.Items>
+                      </Menu>
                     </div>
+                  </Table.Td>
                   ) : col.type === 'checkbox' ? (
                     <FormCheck.Input type="checkbox" />
                   ) : col.type === 'toggle' ? (
                     <FormSwitch className=" dark:border-red-500 rounded-lg">
                       <FormSwitch.Label
-                        htmlFor="show-example-1 "
+                        htmlFor={`toggle-${rowIndex}-${colIndex}`}
                         className="ml-0 "
                       >
                         <FormSwitch.Input
-                          id="show-example-1"
+                          id={`toggle-${rowIndex}-${colIndex}`}
                           className="ml-0 mr-0 border-2 border-slate-300"
                           type="checkbox"
-                          value={row[col.key] ? 'true' : 'false'}
-                          // disabled={ true}
+                          checked={Boolean(row[col.key])}
+                          onClick={() => handleToggleClick && handleToggleClick(row.id, !row[col.key], col.key)}
+                          disabled={ col.disabled }
                         />
                       </FormSwitch.Label>
                     </FormSwitch>

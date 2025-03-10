@@ -23,6 +23,9 @@ const userSlice = createSlice({
     },
     addUser: (state, action: PayloadAction<User>) => {
       state.users.push(action.payload);
+      state.loading = false;
+      state.error = null;
+
     },
     updateUser: (state, action: PayloadAction<User>) => {
       const updatedUser = action.payload;
@@ -30,6 +33,8 @@ const userSlice = createSlice({
       if (index !== -1) {
         state.users[index] = updatedUser;
       }
+      state.loading = false;
+      state.error = null;
     },
   },
 });

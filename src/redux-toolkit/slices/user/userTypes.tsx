@@ -8,6 +8,11 @@ export interface User {
   status: string;
   action: string;
   updated_at: string;
+  is_enabled: boolean;
+  email: string;
+  first_name: string;
+  last_name: string;
+  contact_no: string;
 }
 
 export interface ApiResponse<T> {
