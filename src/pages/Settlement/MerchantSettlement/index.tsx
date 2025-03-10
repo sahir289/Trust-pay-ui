@@ -105,7 +105,7 @@ function MerchantSettlement() {
       dispatch(addSettlement(addedVendor));
     }
   };
-  const handleDeleteSettlement = async (data: any, isEditMode?: boolean) => {
+  const handleDeleteSettlement = async (data: any) => {
       let prevData = formData;
       const newData = getUpdatedFields(prevData, data);
       const settlementData = { ...newData, ...data }
