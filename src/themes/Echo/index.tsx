@@ -220,6 +220,7 @@ function Main() {
                         event.preventDefault();
                         linkTo(menu, navigate);
                         setFormattedMenu([...formattedMenu]);
+                        setActiveMobileMenu(false);
                       }}
                     >
                       <Lucide
