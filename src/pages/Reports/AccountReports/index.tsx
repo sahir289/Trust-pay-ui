@@ -266,8 +266,9 @@ function AccountReports() {
               </div>
               <CustomTable
                 columns={tableHeaders}
-                data={{ rows: allMerchantReports, totalCount: 100 }}
-              />
+                data={{ rows: allMerchantReports, totalCount: 100 }} handleDeleteData={function (): void {
+                  throw new Error("Function not implemented.");
+                } }              />
             </div>
           </div>
         </div>

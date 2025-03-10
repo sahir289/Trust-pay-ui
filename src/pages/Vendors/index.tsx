@@ -31,10 +31,10 @@ function Main() {
   const [formData, setFormData] = useState(null);
   const [newVendorModal, setNewVendorModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-  const roleIs = localStorage.getItem("userData")
+  // const roleIs = localStorage.getItem("userData")
   const [selectedVendorId, setSelectedVendorId] = useState<string | null>(null);
 
-  const role = roleIs ? JSON.parse(roleIs).role : null;
+  // const role = roleIs ? JSON.parse(roleIs).role : null;
   const dispatch = useAppDispatch();
   const allvendor = useAppSelector(selectVendors);
   const fetchVendor = useCallback(async () => {
@@ -63,41 +63,40 @@ function Main() {
     // setTitle(title);
     vendorModal();
   };
-  const handleSubmitData = (async (data: any, isEditMode?: boolean) => {
+  const handleSubmitData = async (data: any, isEditMode?: boolean) => {
+    console.log("Form data submitted:", data);  // Debug log
     if (isEditMode) {
       let prevData = formData;
-      const newData = getUpdatedFields(prevData, data)
-      const updatedMerchant = await updateVendor(data.id, newData);
-      // console.log(updateMercHant,"hiii from updated merchant")
-      dispatch(updateVendorSlice(updatedMerchant));
+      const newData = getUpdatedFields(prevData, data);
+      const updatedVendor = await updateVendor(data.id, newData);
+      dispatch(updateVendorSlice(updatedVendor));
       setFormData(null);
     } else {
-      const addedVendor = await createVendor(data);
-      dispatch(addVendor(addedVendor));
+      try {
+        const addedVendor = await createVendor(data);
+        console.log("Added Vendor:", addedVendor);  // Debug log
+        dispatch(addVendor(addedVendor));
+      } catch (error) {
+        console.error("Error adding vendor:", error);  // Debugging error in API call
+      }
     }
-  })
+  };
+  
 const formFields = {
   Personal: [
     {
-      name: "first_name",
-      label: "Name",
+      name: "full_name",
+      label: "Full Name",
       type: "text",
       placeholder: "Enter your last name",
-      validation: yup.string().required('Name is required'),      
-    },
-    {
-      name: "last_name",
-      label: "Name",
-      type: "text",
-      placeholder: "Enter your last name",
-      validation: yup.string().required('Name is required'),      
+      validation: yup.string().required('Last Name is required'),      
     },
     {
       name: "code",
       label: "Code",
       type: "text",
       placeholder: "Enter Code",
-      validation: yup.string().required('Name is required'),      
+      validation: yup.string().required('Code is required'),      
 
     },
     {
@@ -105,7 +104,7 @@ const formFields = {
       label: "Balance",
       type: "number",
       placeholder: "Enter your Balance",
-      validation: yup.string().required('Name is required'),      
+      validation: yup.string().required('Balance is required'),      
 
     },
   ],
@@ -115,7 +114,7 @@ const formFields = {
       label: "Pay in Commission",
       type: "text",
       placeholder: "Pay in Commission",
-      validation: yup.string().required('Name is required'),      
+      validation: yup.string().required('Payin is required'),      
 
     },
     {
@@ -123,7 +122,7 @@ const formFields = {
       label: "Pay out Commission",
       type: "text",
       placeholder: "Pay out Commission",
-      validation: yup.string().required('Name is required'),      
+      validation: yup.string().required('Payout is required'),      
 
     },],
     };

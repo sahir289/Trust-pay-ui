@@ -220,8 +220,9 @@ function VendorAccountReports() {
               </div>
               <CustomTable
                 columns={tableHeaders}
-                data={{ rows: allvendorReports, totalCount: 100 }}
-              />
+                data={{ rows: allvendorReports, totalCount: 100 }} handleDeleteData={function (): void {
+                  throw new Error("Function not implemented.");
+                } }              />
             </div>
           </div>
         </div>

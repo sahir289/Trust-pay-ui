@@ -13,8 +13,8 @@ export const getAllVendor = async (_p0?: string): Promise<Vendor[]> => {
 };
 
 export const createVendor = async (vendorData: {
-  first_name?: string;
-  last_name?: string;
+  code?: string;
+  full_name?: string;
   balance?: number;
   payin_commission?: string;
   payout_commission?: string;
@@ -48,7 +48,7 @@ export const updateVendor = async (
 
 export const deleteVendor = async (id:string): Promise<Vendor>=>{
     try {
-      const response = await api.put<Vendor>(`/vendors/delete-vendor/${id}`);
+      const response = await api.delete<Vendor>(`/vendors/delete-vendor/${id}`);
       return response.data;
     } catch (error) {
       console.error("Failed to create vendor:", error);

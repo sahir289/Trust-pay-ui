@@ -92,6 +92,19 @@ export const Columns = {
     { label: 'Enabled', key: 'is_enabled', type: 'toggle' as const },
     { label: 'Actions', key: 'actions', type: 'actions' as const },
   ],
+
+  VENDOR: [
+    { label: "Code", key: "code", type: "text" as const },
+    { label: "Name", key: "full_name", type: "text" as const },
+    { label: "Payin Commission", key: "payin_commission", type: "text" as const },
+    { label: "Payout Commission", key: "payout_commission", type: "text" as const },
+    { label: "Net Balance", key: "balance", type: "text" as const },
+    { label: "Designation", key: "designation_name", type: "text" as const },
+    { label: "Action", key: "actions", type: "actions" as const },
+  ],
+
+
+
   PAYOUT: [
     { label: 'SNO.', key: 'sno', type: 'text' as const },
     { label: 'Amount', key: 'amount', type: 'text' as const },
@@ -123,12 +136,19 @@ export const Columns = {
     { label: 'Updated By', key: 'updated_by', type: 'text' as const },
     { label: 'Action', key: 'action', type: 'action' as const },
   ],
-  SETTLEMENT:[
-    { label: 'Sno.', key: 'sno', type: 'text' as const },
-    { label: 'Status', key: 'status', type: 'text' as const },
-    { label: 'Amount', key: 'amount', type: 'text' as const },
-    { label: 'Bank Details', key: 'config', type: 'object' as const },
-    { label: 'Options', key: 'reset', type: 'reset' as const },
+  SETTLEMENT: [
+    { label: 'Sno.', key: 'sno', type: 'text' },
+    { label: 'Status', key: 'status', type: 'text' },
+    { label: 'Amount', key: 'amount', type: 'text' },
+    { label: 'Method', key: 'method', type: 'text' },
+    {
+      label: 'Bank Details',
+      key: 'config',
+      type: 'object',
+      objectKey: ['rejected_reason', 'reference_id'] , 
+    }
+    ,
+    { label: 'Options', key: 'reset', type: 'reset' },
   ]
 };
 
@@ -310,89 +330,89 @@ interface Option {
   value: string;
   label: string;
 }
-export const getUserFormFields = (designationOptions: Option[], roleOptions: Option[]) => ({   
-    User_Details: [
-      {
-        name: 'first_name',
-        label: 'First Name',
-        type: 'text',
-        placeholder: 'Enter First Name',
-        validation: yup.string().required('First Name is required'),
-      },
-      {
-        name: 'last_name',
-        label: 'Last Name',
-        type: 'text',
-        placeholder: 'Enter Last Name',
-        validation: yup.string().required('Last Name is required'),
-      },
-      {
-        name: 'user_name',
-        label: 'Username',
-        type: 'text',
-        placeholder: 'Enter Username',
-        validation: yup.string().required('Username is required'),
-      },
-      {
-        name: 'email',
-        label: 'Email',
-        type: 'text',
-        placeholder: 'Enter Email',
-        validation: yup
-          .string()
-          .email('Invalid Email')
-          .required('Email is required'),
-      },
-      {
-        name: 'contact_no',
-        label: 'Contact Number',
-        type: 'text',
-        placeholder: 'Enter Contact Number',
-        validation: yup
-          .string()
-          .matches(/^\d+$/, 'Must be a valid number')
-          .required('Contact number is required'),
-      },
-    ],
-    User_Info: [
-      {
-        name: 'designation',
-        label: 'Designation',
-        type: 'select',
-        options: designationOptions,
-        placeholder: 'Enter Designation',
-        validation: yup.string().required('Designation is required'),
-      },
-      {
-        name: 'role',
-        label: 'Role',
-        type: 'select',
-        options: roleOptions,
-        placeholder: 'Enter Role',
-        validation: yup.string().required('Role is required'),
-      },
-      {
-        name: 'password',
-        label: 'Password',
-        type: 'password',
-        placeholder: 'Enter Password',
-        validation: yup
-          .string()
-          .min(5, 'Password must be at least 5 characters')
-          .required('Password is required'),
-      },
-      {
-        name: 'code',
-        label: 'Code',
-        type: 'text',
-        placeholder: 'Enter Code',
-        validation: yup.string().required('Code is required'),
-      },
-      {
-        name: 'is_enabled',
-        label: 'Is Enabled?',
-        type: 'switch',
-        validation: yup.boolean(),
-      },
-    ],
+export const getUserFormFields = (designationOptions: Option[], roleOptions: Option[]) => ({
+  User_Details: [
+    {
+      name: 'first_name',
+      label: 'First Name',
+      type: 'text',
+      placeholder: 'Enter First Name',
+      validation: yup.string().required('First Name is required'),
+    },
+    {
+      name: 'last_name',
+      label: 'Last Name',
+      type: 'text',
+      placeholder: 'Enter Last Name',
+      validation: yup.string().required('Last Name is required'),
+    },
+    {
+      name: 'user_name',
+      label: 'Username',
+      type: 'text',
+      placeholder: 'Enter Username',
+      validation: yup.string().required('Username is required'),
+    },
+    {
+      name: 'email',
+      label: 'Email',
+      type: 'text',
+      placeholder: 'Enter Email',
+      validation: yup
+        .string()
+        .email('Invalid Email')
+        .required('Email is required'),
+    },
+    {
+      name: 'contact_no',
+      label: 'Contact Number',
+      type: 'text',
+      placeholder: 'Enter Contact Number',
+      validation: yup
+        .string()
+        .matches(/^\d+$/, 'Must be a valid number')
+        .required('Contact number is required'),
+    },
+  ],
+  User_Info: [
+    {
+      name: 'designation',
+      label: 'Designation',
+      type: 'select',
+      options: designationOptions,
+      placeholder: 'Enter Designation',
+      validation: yup.string().required('Designation is required'),
+    },
+    {
+      name: 'role',
+      label: 'Role',
+      type: 'select',
+      options: roleOptions,
+      placeholder: 'Enter Role',
+      validation: yup.string().required('Role is required'),
+    },
+    {
+      name: 'password',
+      label: 'Password',
+      type: 'password',
+      placeholder: 'Enter Password',
+      validation: yup
+        .string()
+        .min(5, 'Password must be at least 5 characters')
+        .required('Password is required'),
+    },
+    {
+      name: 'code',
+      label: 'Code',
+      type: 'text',
+      placeholder: 'Enter Code',
+      validation: yup.string().required('Code is required'),
+    },
+    {
+      name: 'is_enabled',
+      label: 'Is Enabled?',
+      type: 'switch',
+      validation: yup.boolean(),
+    },
+  ],
 });

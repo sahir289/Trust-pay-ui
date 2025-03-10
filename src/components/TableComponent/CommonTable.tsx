@@ -191,7 +191,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
                       />{' '}
                       <Lucide
                         icon="X"
-                        onClick={() => handleDeleteData(row.id)}
+                        onClick={() => handleDeleteData && handleDeleteData(row)}
                         className="w-4 h-4 mr-2 cursor-pointer"
                       />
                     </div>)

@@ -1,13 +1,16 @@
-
-
 export interface Settlement {
+  success: any;
+  reference_id: string;
   id: string | null;
   sno: number | null;
   user_id: string | null;
   amount: number | null;
   status: string;
-  // settlement_details: SettlementDetails;
-  config: string | null;
+  config: {
+    reference_id: string;
+    rejected_reason?: string;
+    [key: string]: any; 
+  } | null; 
   approved_at: string | null;
   rejected_at?: string | null;
   rejected_reason?: string | null;

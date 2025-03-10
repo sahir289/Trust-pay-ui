@@ -16,34 +16,126 @@ export interface Transaction {
   amount: string;
 }
 import users from "@/fakers/users";
+import * as yup from 'yup';
 import transactionStatus from "@/fakers/transaction-status";
 import Button from "@/components/Base/Button";
 import CustomTable from "@/components/TableComponent/CommonTable";
 import { useAppDispatch } from "@/redux-toolkit/hooks/useAppDispatch";
 import { useAppSelector } from "@/redux-toolkit/hooks/useAppSelector";
-import { useCallback, useEffect } from "react";
-import { getAllSettlements } from "@/redux-toolkit/slices/settlement/settlementAPI";
-import { getSettlements } from "@/redux-toolkit/slices/settlement/settlementSlice";
+import { useCallback, useEffect, useState } from "react";
+import { createSettlement, deleteSettlement, getAllSettlements, updateSettlement } from "@/redux-toolkit/slices/settlement/settlementAPI";
+import { addSettlement, deleteSettlementSlice, getSettlements, updateAmount } from "@/redux-toolkit/slices/settlement/settlementSlice";
 import { getAllSettlementData } from "@/redux-toolkit/slices/settlement/settlementSelectors";
 import { Columns } from "@/constants";
+import Modal from "@/components/Modal/modals";
+import DynamicForm from "@/components/CommonForm";
+import DeleteModalContent from "@/components/Modal/ModalContent/DeleteModalContent";
 
 
 function VendorSettlement() {
- const dispatch = useAppDispatch();
+ const [newSettlementModal, setNewSettlementModal] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [selectedSettlementId, setSelectedSettlementId] = useState<string | null>(null);
+  const [deleteModal, setDeleteModal] = useState(false);
+
+  const dispatch = useAppDispatch();
   const allSettlement = useAppSelector(getAllSettlementData) || [];
   const fetchSettlements = useCallback(async () => {
     const response = await getAllSettlements("role_name=ADMIN");
-  
     if (response?.data) {
       dispatch(getSettlements(response.data));
     } else {
       console.error("Error fetching settlements:", response.error);
     }
   }, [dispatch]);
-  
+  const handleConfirmDelete = async () => {
+    if (selectedSettlementId) {
+      await deleteSettlement(selectedSettlementId);
+      dispatch(deleteSettlementSlice(selectedSettlementId));
+    }
+    setDeleteModal(false);
+    setSelectedSettlementId(null);
+  };
+  const handleCancelDelete = () => {
+    setDeleteModal(false);
+    setSelectedSettlementId(null);
+  };
+  const handledeleteData = async (id: string) => {
+    setSelectedSettlementId(id);
+    setDeleteModal(true);
+  }
+  const handleEditModal = (data: any) => {
+    setFormData(data);
+    // setTitle(title);
+    settlementModal();
+  };
   useEffect(() => {
     fetchSettlements();
   }, [fetchSettlements]);
+  function getUpdatedFields(
+    originalData: any,
+    updatedData: any,
+  ): { [key: string]: any } {
+    const updatedFields: { [key: string]: any } = {};
+
+    Object.keys(updatedData).forEach((key) => {
+      if (typeof updatedData[key] === 'object' && updatedData[key] !== null) {
+        // Handle nested objects like `config`
+        const nestedUpdates = getUpdatedFields(
+          originalData[key] || {},
+          updatedData[key],
+        );
+
+        // If there are nested updates, add them to updatedFields
+        if (Object.keys(nestedUpdates).length > 0) {
+          updatedFields[key] = nestedUpdates;
+        }
+      } else {
+        // Check if the value is different from the original
+        if (updatedData[key] !== originalData[key]) {
+          updatedFields[key] = updatedData[key];
+        }
+      }
+    });
+
+    return updatedFields;
+  }
+  const settlementModal = () => {
+    setNewSettlementModal((prev: any) => !prev)
+  }
+  const handleSubmitData = async (data: any, isEditMode?: boolean) => {
+    if (isEditMode) {
+      let prevData = formData;
+      const newData = getUpdatedFields(prevData, data);
+      const updatedSettlement = await updateSettlement(data.id, newData);
+  
+      // Check if updatedSettlement.id and updatedSettlement.amount are valid
+      if (updatedSettlement.id && updatedSettlement.amount !== null) {
+        dispatch(updateAmount({ id: updatedSettlement.id, amount: updatedSettlement.amount }));
+      } else {
+        console.error("Invalid updated settlement data:", updatedSettlement);
+        // Handle error gracefully or notify the user
+      }
+  
+      setFormData(null);
+    } else {
+      const addedSettlement = await createSettlement(data);
+      dispatch(addSettlement(addedSettlement));
+    }
+  };
+  
+  const formFields = {
+    "Update Settlement": [
+      {
+        name: "UTR Number",
+        label: "UTR Number",
+        type: "text",
+        placeholder: "Enter your UTR",
+        validation: yup.string().required('UTR is required'),
+      },
+    ],
+
+  };
 
 
   return (
@@ -53,6 +145,25 @@ function VendorSettlement() {
           <div className="mt-3.5">
             <div className="flex flex-col ">
               <div className="flex flex-col p-5 sm:items-center sm:flex-row gap-y-2">
+              <div className="flex flex-col sm:flex-row gap-x-3 gap-y-2 md:ml-auto">
+                <Modal
+                  handleModal={settlementModal}
+                  forOpen={newSettlementModal}
+                  title={`${formData ? 'Edit ' : 'Add '} Vendor`}
+                >
+                  <DynamicForm
+                    sections={formFields}
+                    onSubmit={handleSubmitData}
+                    defaultValues={formData || {}}
+                    isEditMode={formData ? true : false}
+                    handleCancel={settlementModal}
+                  />
+                </Modal>
+                <Modal handleModal={handleCancelDelete} forOpen={deleteModal}>
+                  <DeleteModalContent handleCancelDelete={handleCancelDelete} handleConfirmDelete={handleConfirmDelete} />
+                </Modal>
+
+              </div>
                 <div>
                   <div className="relative">
                     <Lucide
@@ -159,10 +270,10 @@ function VendorSettlement() {
                 </div>
               </div>
               <CustomTable
-              columns={Columns.SETTLEMENT}
-              data={{ rows: allSettlement, totalCount: allSettlement.length }}
-              // handleEditModal={handleEditModal}
-              // handleDeleteData={handledeleteData}
+                 columns={Columns.VENDOR}
+                 data={{ rows: allSettlement, totalCount: allSettlement.length }}
+                 handleEditModal={handleEditModal}
+                 handleDeleteData={handledeleteData}
             />
             </div>
           </div>
