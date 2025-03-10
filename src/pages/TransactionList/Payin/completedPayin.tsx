@@ -9,15 +9,22 @@ import Button from '@/components/Base/Button';
 import CustomTable from '../../../components/TableComponent/CommonTable';
 import { FormInput, FormSelect } from '@/components/Base/Form';
 import { Columns, Status } from '@/constants';
-import { getAllPayInData, getRefreshPayIn } from '@/redux-toolkit/slices/payin/payinSelectors';
+import {
+  getAllPayInData,
+  getRefreshPayIn,
+} from '@/redux-toolkit/slices/payin/payinSelectors';
 import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 import { getPaginationData } from '@/redux-toolkit/slices/common/params/paramsSelector';
 import Notification, {
   NotificationElement,
 } from '@/components/Base/Notification';
 import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
-import { getAllPayIns } from '@/redux-toolkit/slices/payin/payinAPI';
-import { getPayIns, onload, setRefreshPayIn } from '@/redux-toolkit/slices/payin/payinSlice';
+import { getAllPayIns, updatePayIns } from '@/redux-toolkit/slices/payin/payinAPI';
+import {
+  getPayIns,
+  onload,
+  setRefreshPayIn,
+} from '@/redux-toolkit/slices/payin/payinSlice';
 
 interface PayInProps {
   setStatus?: React.Dispatch<React.SetStateAction<string>>;
@@ -76,6 +83,23 @@ const CompletedPayIn: React.FC<PayInProps> = () => {
   };
 
   theadData.splice(indexToInsert, 0, newElement);
+
+  const handleNotifyData = async (id: string) => {
+    const url = `/update-payment-notified-status/${id}`;
+    const apiData = { type: 'PAYIN' };
+    dispatch(onload());
+    const res = await updatePayIns(`${url}`, apiData);
+    if (res.meta.message) {
+      setNotificationMessage(res.meta.message);
+      setNotificationStatus(Status.SUCCESS);
+      basicNonStickyNotificationToggle();
+      dispatch(setRefreshPayIn(true));
+    } else {
+      setNotificationStatus(Status.ERROR);
+      setNotificationMessage(res.error.message);
+      basicNonStickyNotificationToggle();
+    }
+  };
 
   return (
     <>
@@ -191,13 +215,15 @@ const CompletedPayIn: React.FC<PayInProps> = () => {
                   </Popover>
                 </div>
               </div>
-
               <CustomTable
                 columns={Columns.PAYIN}
-                data={{
-                  rows: payins.payin,
-                  totalCount: payins.totalCount,
-                }}
+                data={{ rows: payins.payin, totalCount: payins.totalCount }}
+                actionMenuItems={(row: any) => [
+                  {
+                    icon: 'Bell', // Change to an allowed icon type
+                    onClick: () => handleNotifyData(row.id),
+                  }
+                ]}
               />
             </div>
           </div>

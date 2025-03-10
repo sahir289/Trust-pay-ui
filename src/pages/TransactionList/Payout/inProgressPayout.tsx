@@ -18,6 +18,7 @@ import { getPayOuts, onload, setRefreshPayOut } from '@/redux-toolkit/slices/pay
 import { getAllPayOuts } from '@/redux-toolkit/slices/payout/payoutAPI';
 import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
 import { getPaginationData } from '@/redux-toolkit/slices/common/params/paramsSelector';
+import { updatePayIns } from '@/redux-toolkit/slices/payin/payinAPI';
 
 interface PayOutProps {
   reject?: boolean; // Expecting a boolean prop to control modal reset
@@ -69,6 +70,23 @@ const InProgressPayOut: React.FC<PayOutProps> = () => {
     }
   }, [dispatch, params]);
   const payOuts = useAppSelector(getAllPayOutData);
+
+  const handleNotifyData = async (id: string) => {
+    const url = `/update-payment-notified-status/${id}`;
+    const apiData = { type: 'PAYOUT' };
+    dispatch(onload());
+    const res = await updatePayIns(`${url}`, apiData);
+    if (res.meta.message) {
+      setNotificationMessage(res.meta.message);
+      setNotificationStatus(Status.SUCCESS);
+      basicNonStickyNotificationToggle();
+      dispatch(setRefreshPayOut(true));
+    } else {
+      setNotificationStatus(Status.ERROR);
+      setNotificationMessage(res.error.message);
+      basicNonStickyNotificationToggle();
+    }
+  };
 
   return (
     <>
@@ -187,11 +205,21 @@ const InProgressPayOut: React.FC<PayOutProps> = () => {
               <CustomTable
                 columns={Columns.PAYOUT}
                 data={{
-                  rows: payOuts.payout.filter(
-                    (payout) => payout.status === Status.INITIATED,
-                  ),
+                  rows: payOuts.payout,
                   totalCount: payOuts.totalCount,
                 }}
+                actionMenuItems={(row: any) => [
+                  {
+                    label: 'Approve',
+                    icon: 'CheckSquare',
+                    onClick: () => handleNotifyData(row.id),
+                  },
+                  {
+                    label: 'Reject',
+                    icon: 'XSquare',
+                    onClick: () => handleNotifyData(row.id),
+                  },
+                ]}
               />
             </div>
           </div>

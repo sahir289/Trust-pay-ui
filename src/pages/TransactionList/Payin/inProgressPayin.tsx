@@ -16,7 +16,7 @@ import Notification, {
   NotificationElement,
 } from '@/components/Base/Notification';
 import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
-import { getAllPayIns } from '@/redux-toolkit/slices/payin/payinAPI';
+import { getAllPayIns, updatePayIns } from '@/redux-toolkit/slices/payin/payinAPI';
 import { getPayIns, onload, setRefreshPayIn } from '@/redux-toolkit/slices/payin/payinSlice';
 
 interface PayInProps {
@@ -67,6 +67,23 @@ const InProgressPayIn: React.FC<PayInProps> = () => {
     }
   }, [dispatch, params]);
   const payins = useAppSelector(getAllPayInData);
+
+  const handleNotifyData = async (id: string) => {
+    const url = `/update-payment-notified-status/${id}`;
+    const apiData = { type: 'PAYIN' };
+    dispatch(onload());
+    const res = await updatePayIns(`${url}`, apiData);
+    if (res.meta.message) {
+      setNotificationMessage(res.meta.message);
+      setNotificationStatus(Status.SUCCESS);
+      basicNonStickyNotificationToggle();
+      dispatch(setRefreshPayIn(true));
+    } else {
+      setNotificationStatus(Status.ERROR);
+      setNotificationMessage(res.error.message);
+      basicNonStickyNotificationToggle();
+    }
+  };
 
   return (
     <>
@@ -182,13 +199,15 @@ const InProgressPayIn: React.FC<PayInProps> = () => {
                   </Popover>
                 </div>
               </div>
-
               <CustomTable
                 columns={Columns.PAYIN}
-                data={{
-                  rows: payins.payin,
-                  totalCount: payins.totalCount,
-                }}
+                data={{ rows: payins.payin, totalCount: payins.totalCount }}
+                actionMenuItems={(row: any) => [
+                  {
+                    icon: 'Bell', // Change to an allowed icon type
+                    onClick: () => handleNotifyData(row.id),
+                  }
+                ]}
               />
             </div>
           </div>

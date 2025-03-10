@@ -35,6 +35,7 @@ export interface DataEntryState {
   totalCount: number;
   loading: boolean;
   error: string | null;
+  refreshDataEntries?: boolean;
 }
 
 // export interface ResetHistory {

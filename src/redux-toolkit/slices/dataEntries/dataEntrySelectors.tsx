@@ -20,3 +20,5 @@ export const getCheckUtrHistoryById = (id: string) => (state: RootState) => {
   }
   return undefined;
 };
+
+export const getRefreshDataEntries = (state: RootState) => state.dataEntries.refreshDataEntries;

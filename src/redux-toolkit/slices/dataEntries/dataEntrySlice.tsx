@@ -7,6 +7,7 @@ const initialState: DataEntryState = {
   totalCount: 0,
   loading: false,
   error: null,
+  refreshDataEntries: false,
 };
 
 const dataEntrySlice = createSlice({
@@ -28,6 +29,9 @@ const dataEntrySlice = createSlice({
     onload: (state) => {
       state.loading = true;
     },
+    setRefreshDataEntries: (state, action) => {
+      state.refreshDataEntries = action.payload;
+    },
   },
 });
 
@@ -35,6 +39,7 @@ export const {
   getBankResponses,
   getCheckUtrHistories,
   onload,
+  setRefreshDataEntries
 } = dataEntrySlice.actions;
 
 export default dataEntrySlice.reducer;

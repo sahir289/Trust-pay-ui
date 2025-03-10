@@ -68,7 +68,7 @@ function Main() {
         dispatch(setRefreshPayOut(true));
       }
     } else {
-      setNotificationMessage(res?.data?.error?.message || 'An error occurred');
+      setNotificationMessage(res.error.message || 'An error occurred');
       setNotificationStatus(Status.ERROR);
     }
     notificationRef.current?.showToast();
@@ -147,73 +147,6 @@ function Main() {
           </div>
         </div>
       </div>
-
-      {/* {modalData.open && (
-        <ModalPopUp
-          open={true}
-          onClose={closeModal}
-          title="Update Transaction"
-          fields={
-            modalData.type === 'approve'
-              ? [
-                  {
-                    id: 'method',
-                    label: 'Method',
-                    type: 'text',
-                    placeholder: 'Method',
-                  },
-                ]
-              : modalData.type === 'reject'
-              ? []
-              : [
-                  {
-                    id: 'amount',
-                    label: 'Amount',
-                    type: 'text',
-                    placeholder: 'Amount',
-                  },
-                ]
-          }
-          singleField={
-            modalData.type === 'approve'
-              ? [
-                  {
-                    id: 'utrNumber',
-                    label: 'UTR Number',
-                    type: 'text',
-                    placeholder: 'UTR Number',
-                  },
-                ]
-              : modalData.type === 'reject'
-              ? [
-                  {
-                    id: 'rejectReason',
-                    label: 'Reject Reason',
-                    type: 'text',
-                    placeholder: 'Reject Reason',
-                  },
-                ]
-              : [
-                  {
-                    id: 'merchantOrderId',
-                    label: 'Merchant Order ID',
-                    type: 'text',
-                    placeholder: 'Merchant Order ID',
-                  },
-                ]
-          }
-          buttonText={
-            modalData.type === 'approve'
-              ? 'Approve'
-              : modalData.type === 'reject'
-              ? 'Reject'
-              : 'Success'
-          }
-          onSubmit={handleSubmit}
-          onReset={closeModal}
-          resetRef={resetRef}
-        />
-      )} */}
 
       {notificationMessage && (
         <div className="text-center">

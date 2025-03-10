@@ -72,7 +72,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
             key={sectionName}
             className="border-2 rounded-lg border-gray-200 p-4 mb-4"
           >
-            <legend className="text-lg font-semibold px-2">
+            <legend className="text-sm font-semibold px-2">
               {sectionName.replace(/_/g, ' ')}
             </legend>
             <div className="grid grid-cols-12 gap-4">
@@ -151,7 +151,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
           {isEditMode ? 'Reset' : 'Cancel'}
         </Button>
         <Button type="submit" variant="primary">
-          {isEditMode ? 'Update' : 'Save'}
+          {isEditMode ? 'Update' : 'Add'}
         </Button>
       </div>
     </form>

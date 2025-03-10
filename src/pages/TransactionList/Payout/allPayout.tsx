@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -10,14 +11,22 @@ import Button from '@/components/Base/Button';
 import CustomTable from '../../../components/TableComponent/CommonTable';
 import { Columns, Status } from '@/constants';
 import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
-import { getAllPayOutData, getRefreshPayOut } from '@/redux-toolkit/slices/payout/payoutSelectors';
+import {
+  getAllPayOutData,
+  getRefreshPayOut,
+} from '@/redux-toolkit/slices/payout/payoutSelectors';
 import Notification, {
   NotificationElement,
 } from '@/components/Base/Notification';
-import { getPayOuts, onload, setRefreshPayOut } from '@/redux-toolkit/slices/payout/payoutSlice';
+import {
+  getPayOuts,
+  onload,
+  setRefreshPayOut,
+} from '@/redux-toolkit/slices/payout/payoutSlice';
 import { getAllPayOuts } from '@/redux-toolkit/slices/payout/payoutAPI';
 import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
 import { getPaginationData } from '@/redux-toolkit/slices/common/params/paramsSelector';
+import { updatePayIns } from '@/redux-toolkit/slices/payin/payinAPI';
 
 interface PayOutProps {
   reject?: boolean; // Expecting a boolean prop to control modal reset
@@ -67,6 +76,23 @@ const AllPayOut: React.FC<PayOutProps> = () => {
     }
   }, [dispatch, params]);
   const payOuts = useAppSelector(getAllPayOutData);
+
+  const handleNotifyData = async (id: string) => {
+    const url = `/update-payment-notified-status/${id}`;
+    const apiData = { type: 'PAYOUT' };
+    dispatch(onload());
+    const res = await updatePayIns(`${url}`, apiData);
+    if (res.meta.message) {
+      setNotificationMessage(res.meta.message);
+      setNotificationStatus(Status.SUCCESS);
+      basicNonStickyNotificationToggle();
+      dispatch(setRefreshPayOut(true));
+    } else {
+      setNotificationStatus(Status.ERROR);
+      setNotificationMessage(res.error.message);
+      basicNonStickyNotificationToggle();
+    }
+  };
 
   return (
     <>
@@ -185,6 +211,42 @@ const AllPayOut: React.FC<PayOutProps> = () => {
               <CustomTable
                 columns={Columns.PAYOUT}
                 data={{ rows: payOuts.payout, totalCount: payOuts.totalCount }}
+                actionMenuItems={(row: any) => {
+                  const items: {
+                    label?: string;
+                    icon: 'Bell' | 'RotateCcw' | 'CheckSquare' | 'XSquare';
+                    onClick: (row: any) => void;
+                  }[] = [];
+                  if (row?.status === Status.INITIATED) {
+                    items.push({
+                      label: 'Approve',
+                      icon: 'CheckSquare',
+                      onClick: () => handleNotifyData(row.id),
+                    });
+                    items.push({
+                      label: 'Reject',
+                      icon: 'XSquare',
+                      onClick: () => handleNotifyData(row.id),
+                    });
+                  } else if (row?.status === Status.APPROVED) {
+                    items.push({
+                      label: 'Reset',
+                      icon: 'RotateCcw',
+                      onClick: () => handleNotifyData(row.id),
+                    });
+                    items.push({
+                      label: 'Notify',
+                      icon: 'Bell',
+                      onClick: () => handleNotifyData(row.id),
+                    });
+                  } else {
+                    items.push({
+                      icon: 'Bell',
+                      onClick: () => handleNotifyData(row.id),
+                    });
+                  }
+                  return items;
+                }}
               />
             </div>
           </div>

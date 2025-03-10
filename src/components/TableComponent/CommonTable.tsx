@@ -25,7 +25,11 @@ interface Column {
     | string;
   objectKey?: string | string[];
   disabled?: boolean;
-  actions?: { label: string; icon: keyof typeof icons; onClick: (row: any) => void }[];
+  actions?: {
+    label: string;
+    icon: keyof typeof icons;
+    onClick: (row: any) => void;
+  }[];
 }
 
 interface CommonTableProps {
@@ -34,9 +38,13 @@ interface CommonTableProps {
   expandable?: boolean;
   handleRowClick?: (index: number) => void;
   handleEditModal?: (data: any) => void;
-  handleDeleteData?:(id: string) => void;
+  handleDeleteData?: (id: string) => void;
   handleToggleClick?: (id: string, status: boolean, type: string) => void;
-  actionMenuItems?: (row: any) => { label: string; icon: keyof typeof icons; onClick: (row: any) => void }[];
+  actionMenuItems?: (row: any) => {
+    icon: keyof typeof icons;
+    onClick: (row: any) => void;
+    label?: string;
+  }[];
   expandedRow?: number;
 }
 
@@ -64,6 +72,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
       DISPUTE: { color: 'text-orange-500', icon: 'FileWarning' },
       ASSIGNED: { color: 'text-blue-500', icon: 'ListChecks' },
       SUCCESS: { color: 'text-green-500', icon: 'CheckCircle' },
+      APPROVED: { color: 'text-green-500', icon: 'CheckCircle' },
     };
     return statusStyles[status] || { color: 'text-gray-500', icon: 'Info' };
   };
@@ -176,25 +185,57 @@ const CommonTable: React.FC<CommonTableProps> = ({
                     </div>
                   ) : col.type === 'actions' ? (
                     <Table.Td className="relative py-4 border-dashed dark:bg-darkmode-600">
-                    <div className="flex items-center justify-center">
-                      <Menu className="h-5">
-                        <Menu.Button className="w-5 h-5 text-slate-500" >
-                          <Lucide
-                            icon="MoreVertical"
-                            className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
-                          />
-                        </Menu.Button>
-                        <Menu.Items className="w-40">
-          {(col.actions ?? actionMenuItems?.(row) ?? []).map((action, index) => (
-            <Menu.Item key={index} onClick={() => action.onClick(row)} className={action.label === 'Delete' ? 'text-danger' : ''}>
-              <Lucide icon={action.icon} className="w-4 h-4 mr-2" />
-              {action.label}
-            </Menu.Item>
-          ))}
-        </Menu.Items>
-                      </Menu>
-                    </div>
-                  </Table.Td>
+                      <div className="flex items-center justify-center">
+                        {((col.actions ?? actionMenuItems?.(row) ?? []).length > 1) ? (
+                          <Menu className="h-5">
+                            <Menu.Button className="w-5 h-5 text-slate-500">
+                              <Lucide
+                                icon="MoreVertical"
+                                className="w-5 h-5 stroke-slate-400/70 fill-slate-400/70"
+                              />
+                            </Menu.Button>
+                            <Menu.Items className="w-40">
+                              {(
+                                col.actions ??
+                                actionMenuItems?.(row) ??
+                                []
+                              ).map((action, index) => (
+                                <Menu.Item
+                                  key={index}
+                                  onClick={() => action.onClick(row)}
+                                  className={
+                                    action.label === 'Delete'
+                                      ? 'text-danger'
+                                      : ''
+                                  }
+                                >
+                                  <Lucide
+                                    icon={action.icon}
+                                    className="w-4 h-4 mr-2"
+                                  />
+                                  {action.label}
+                                </Menu.Item>
+                              ))}
+                            </Menu.Items>
+                          </Menu>
+                        ) : (
+                          (col.actions ?? actionMenuItems?.(row) ?? []).map(
+                            (action, index) => (
+                              <button
+                                key={index}
+                                onClick={() => action.onClick(row)}
+                              >
+                                <Lucide
+                                  icon={action.icon}
+                                  className="w-4 h-4 mr-2"
+                                />
+                                {action.label}
+                              </button>
+                            ),
+                          )
+                        )}
+                      </div>
+                    </Table.Td>
                   ) : col.type === 'checkbox' ? (
                     <FormCheck.Input type="checkbox" />
                   ) : col.type === 'toggle' ? (
@@ -208,8 +249,11 @@ const CommonTable: React.FC<CommonTableProps> = ({
                           className="ml-0 mr-0 border-2 border-slate-300"
                           type="checkbox"
                           checked={Boolean(row[col.key])}
-                          onClick={() => handleToggleClick && handleToggleClick(row.id, !row[col.key], col.key)}
-                          disabled={ col.disabled }
+                          onClick={() =>
+                            handleToggleClick &&
+                            handleToggleClick(row.id, !row[col.key], col.key)
+                          }
+                          disabled={col.disabled}
                         />
                       </FormSwitch.Label>
                     </FormSwitch>
@@ -251,8 +295,6 @@ const CommonTable: React.FC<CommonTableProps> = ({
                     ) : (
                       row[col.key]?.[col.objectKey ?? ''] ?? ''
                     )
-                  ) : col.type === 'action' ? (
-                    <span> action </span>
                   ) : (
                     row[col.key]
                   )}

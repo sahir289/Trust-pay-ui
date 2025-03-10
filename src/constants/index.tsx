@@ -59,7 +59,7 @@ export const Columns = {
       objectKey: 'utr' as const,
     },
     { label: 'Image', key: 'user_submitted_image', type: 'image' as const },
-    { label: 'Action', key: 'action', type: 'action' as const },
+    { label: 'Actions', key: 'actions', type: 'actions' as const },
   ],
   USERS: [
     { label: 'Name', key: 'first_name', type: 'text' as const },
@@ -108,9 +108,9 @@ export const Columns = {
       label: 'Bank Details',
       key: 'user_bank_details',
       type: 'object',
-      objectKey: ['acc_no', 'acc_holder_name', 'ifsc_code', 'bank_name'],
+      objectKey: ['account_no', 'account_holder_name', 'ifsc_code', 'bank_name'],
     },
-    { label: 'Action', key: 'action', type: 'action' as const },
+    { label: 'Actions', key: 'actions', type: 'actions' as const },
   ],
   BANK_RESPONSE: [
     { label: 'SNO.', key: 'sno', type: 'text' as const },
@@ -122,7 +122,7 @@ export const Columns = {
     { label: 'Is Used', key: 'is_used', type: 'toggle' as const },
     { label: 'Updated Date', key: 'updated_at', type: 'text' as const },
     { label: 'Updated By', key: 'updated_by', type: 'text' as const },
-    { label: 'Action', key: 'action', type: 'action' as const },
+    { label: 'Actions', key: 'actions', type: 'actions' as const },
   ],
 };
 
@@ -155,7 +155,7 @@ export const getTransactionFormFields = (
         label: 'Amount',
         type: 'number',
         placeholder: 'Enter Amount',
-        validation: yup.number().required('Amount is required'),
+        validation: yup.number(),
       },
       {
         name: 'ot',
@@ -215,6 +215,52 @@ export const getTransactionFormFields = (
         type: 'text',
         placeholder: 'Enter IFSC Code',
         validation: yup.string().required('IFSC Code is required'),
+      },
+    ],
+  },
+});
+
+export const getDataEntriesFormFields = (
+  bankOptions: Option[]
+) => ({
+  BANK_RESPONSE: {
+    Bank_Response: [
+      {
+        name: 'status',
+        label: 'Status',
+        type: 'select',
+        options: [
+          { value: '/success', label: 'Success' },
+        ],
+        validation: yup.string().required('Status is required'),
+      },
+      {
+        name: 'bank_id',
+        label: 'Bank',
+        type: 'select',
+        options: bankOptions,
+        validation: yup.string().required('Status is required'),
+      },
+      {
+        name: 'amount',
+        label: 'Amount',
+        type: 'number',
+        placeholder: 'Enter Amount',
+        validation: yup.number().required('Amount is required'),
+      },
+      {
+        name: 'upi_short_code',
+        label: 'Amount Code',
+        type: 'text',
+        placeholder: 'Enter Amount Code',
+        validation: yup.string(),
+      },
+      {
+        name: 'utr',
+        label: 'UTR',
+        type: 'text',
+        placeholder: 'Enter UTR',
+        validation: yup.string().required('UTR is required'),
       },
     ],
   },

@@ -295,7 +295,7 @@ const CustomTable: React.FC<ICustomTableProps> = ({
       basicNonStickyNotificationToggle();
     } else {
       setNotificationStatus(Status.ERROR);
-      setNotificationMessage(res?.data?.error?.message);
+      setNotificationMessage(res.error.message);
       basicNonStickyNotificationToggle();
     }
   };

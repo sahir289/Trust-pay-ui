@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -19,7 +20,10 @@ import Notification, {
   NotificationElement,
 } from '@/components/Base/Notification';
 import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
-import { getAllPayIns } from '@/redux-toolkit/slices/payin/payinAPI';
+import {
+  getAllPayIns,
+  updatePayIns,
+} from '@/redux-toolkit/slices/payin/payinAPI';
 import {
   getPayIns,
   onload,
@@ -37,6 +41,7 @@ const AllPayIn: React.FC<PayInProps> = () => {
   const params = useAppSelector(getPaginationData);
   const [notificationMessage, setNotificationMessage] = useState('');
   const [notificationStatus, setNotificationStatus] = useState('');
+
   // Basic non sticky notification
   const basicNonStickyNotification = useRef<NotificationElement>();
   const basicNonStickyNotificationToggle = () => {
@@ -73,6 +78,23 @@ const AllPayIn: React.FC<PayInProps> = () => {
   }, [dispatch, params]);
 
   const payins = useAppSelector(getAllPayInData);
+
+  const handleNotifyData = async (id: string) => {
+    const url = `/update-payment-notified-status/${id}`;
+    const apiData = { type: 'PAYIN' };
+    dispatch(onload());
+    const res = await updatePayIns(`${url}`, apiData);
+    if (res.meta.message) {
+      setNotificationMessage(res.meta.message);
+      setNotificationStatus(Status.SUCCESS);
+      basicNonStickyNotificationToggle();
+      dispatch(setRefreshPayIn(true));
+    } else {
+      setNotificationStatus(Status.ERROR);
+      setNotificationMessage(res.error.message);
+      basicNonStickyNotificationToggle();
+    }
+  };
 
   return (
     <>
@@ -191,6 +213,27 @@ const AllPayIn: React.FC<PayInProps> = () => {
               <CustomTable
                 columns={Columns.PAYIN}
                 data={{ rows: payins.payin, totalCount: payins.totalCount }}
+                actionMenuItems={(row: any) => {
+                  const items: { label?: string; icon: "Bell" | "RotateCcw"; onClick: (row: any) => void }[] = [];
+                  if (row?.status === Status.BANK_MISMATCH || row?.status === Status.DISPUTE) {
+                    items.push({
+                      label: 'Notify',
+                      icon: 'Bell',
+                      onClick: () => handleNotifyData(row.id),
+                    });
+                    items.push({
+                      label: 'Reset',
+                      icon: 'RotateCcw',
+                      onClick: () => handleNotifyData(row.id),
+                    });
+                  } else {
+                    items.push({
+                      icon: 'Bell',
+                      onClick: () => handleNotifyData(row.id),
+                    });
+                  }
+                  return items;
+                }}
               />
             </div>
           </div>
