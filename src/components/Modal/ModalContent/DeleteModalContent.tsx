@@ -3,17 +3,19 @@ import React from 'react';
 interface DeleteModalContentProps {
   handleCancelDelete: () => void;
   handleConfirmDelete: () => void;
+  children?: React.ReactNode;
 }
 
 const DeleteModalContent: React.FC<DeleteModalContentProps> = ({
   handleCancelDelete,
   handleConfirmDelete,
+  children,
 }) => {
   return (
     <div>
       {' '}
       <div className="text-sm font-medium text-slate-500 p-8 ">
-        Are you sure you want to delete this merchant?
+        {children}
       </div>
       <div className="flex justify-end mt-4">
         <button

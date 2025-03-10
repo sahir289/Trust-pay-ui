@@ -334,7 +334,9 @@ const formFields = {
           />
             </Modal>
             <Modal handleModal={handleCancelDelete} forOpen={deleteModal}>
-              <DeleteModalContent handleCancelDelete={handleCancelDelete} handleConfirmDelete={handleConfirmDelete} />
+              <DeleteModalContent handleCancelDelete={handleCancelDelete} handleConfirmDelete={handleConfirmDelete}>
+                 Are you sure you want to delete this merchant?
+              </DeleteModalContent>
             </Modal>
             </div>
           </div>
