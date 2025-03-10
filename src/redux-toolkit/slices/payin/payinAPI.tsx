@@ -22,9 +22,9 @@ export const updatePayIns = async (url: string, data: any = {}) => {
   }
 };
 
-export const createPayIns = async (url: string, data: any = {}) => {
+export const createPayIn = async (queryString: string) => {
   try {
-    const response = await api.post(`/payIn/${url}`, data);
+    const response = await api.get(`/payIn/generate-payin?${queryString}`,);
     return response.data;
   } catch (error) {
     console.error('Failed to create payIn:', error);

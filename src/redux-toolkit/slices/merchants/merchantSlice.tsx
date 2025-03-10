@@ -5,6 +5,7 @@ const initialState: MerchantState = {
   token: null,
   isAuthenticated: false,
   merchants: [],
+  merchantCodes: [],
   loading: false,
   error: null,
 };
@@ -15,6 +16,11 @@ const merchantSlice = createSlice({
   reducers: {
     getMerchants: (state, action: PayloadAction<Merchant[]>) => {
       state.merchants = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    getMerchantCodes: (state, action: PayloadAction<MerchantState>) => {
+      state.merchantCodes = action.payload.merchantCodes;
       state.loading = false;
       state.error = null;
     },
@@ -32,12 +38,11 @@ const merchantSlice = createSlice({
       }
     },
     deleteMercHantData: (state, action: PayloadAction<string>) => {
-      console.log(action.payload, "action.payload");
       const merchantId = action.payload;
       state.merchants = state.merchants.filter((merchant) => merchant.id !== merchantId);
     },
   },
 });
 
-export const { getMerchants, addMerchant, updateMerchant, deleteMercHantData, onload } = merchantSlice.actions;
+export const { getMerchants, getMerchantCodes, addMerchant, updateMerchant, deleteMercHantData, onload } = merchantSlice.actions;
 export default merchantSlice.reducer;

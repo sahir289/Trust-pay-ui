@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import api from '../../services/api'; // Assuming this is your axios instance
 import { ApiResponse, Merchant } from './merchantTypes';
 
@@ -11,6 +12,16 @@ export const getAllMerchants = async (
     return response.data.data;
   } catch (error) {
     console.error('Failed to fetch users:', error);
+    throw error;
+  }
+};
+
+export const getAllMerchantCodes = async () => {
+  try {
+    const response = await api.get(`/merchants/codes`);
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch payIns:', error);
     throw error;
   }
 };

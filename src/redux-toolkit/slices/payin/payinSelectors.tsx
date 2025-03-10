@@ -19,3 +19,5 @@ export const selectStatus = (id: string) => (state: RootState) =>
 // Select is_notified for a specific payin
 export const selectIsNotified = (id: string) => (state: RootState) =>
   state.payin.payin.find((p) => p.id === id)?.is_notified;
+
+export const getRefreshPayIn = (state: RootState) => state.payin.refreshPayIn;

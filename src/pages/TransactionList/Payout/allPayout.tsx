@@ -10,11 +10,11 @@ import Button from '@/components/Base/Button';
 import CustomTable from '../../../components/TableComponent/CommonTable';
 import { Columns, Status } from '@/constants';
 import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
-import { getAllPayOutData } from '@/redux-toolkit/slices/payout/payoutSelectors';
+import { getAllPayOutData, getRefreshPayOut } from '@/redux-toolkit/slices/payout/payoutSelectors';
 import Notification, {
   NotificationElement,
 } from '@/components/Base/Notification';
-import { getPayOuts, onload } from '@/redux-toolkit/slices/payout/payoutSlice';
+import { getPayOuts, onload, setRefreshPayOut } from '@/redux-toolkit/slices/payout/payoutSlice';
 import { getAllPayOuts } from '@/redux-toolkit/slices/payout/payoutAPI';
 import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
 import { getPaginationData } from '@/redux-toolkit/slices/common/params/paramsSelector';
@@ -39,10 +39,18 @@ const AllPayOut: React.FC<PayOutProps> = () => {
     basicNonStickyNotification.current?.showToast();
   };
   const dispatch = useAppDispatch();
+  const refreshPayOut = useAppSelector(getRefreshPayOut);
 
   useEffect(() => {
     getPayOutData();
   }, [JSON.stringify(params)]);
+
+  useEffect(() => {
+    if (refreshPayOut) {
+      getPayOutData();
+      dispatch(setRefreshPayOut(false));
+    }
+  }, [refreshPayOut, dispatch]);
 
   const getPayOutData = useCallback(async () => {
     const queryString = new URLSearchParams(
@@ -51,19 +59,13 @@ const AllPayOut: React.FC<PayOutProps> = () => {
     dispatch(onload());
     const payOuts = await getAllPayOuts(queryString);
     if (payOuts?.data) {
-      const payload = {
-        payout: payOuts?.data?.rows,
-        totalCount: payOuts?.data?.totalCount,
-        loading: false,
-        error: null,
-      };
-      dispatch(getPayOuts(payload));
+      dispatch(getPayOuts(payOuts?.data));
     } else {
       setNotificationStatus(Status.ERROR);
       setNotificationMessage('No PayIns Found!');
       basicNonStickyNotificationToggle();
     }
-  }, [dispatch]);
+  }, [dispatch, params]);
   const payOuts = useAppSelector(getAllPayOutData);
 
   return (

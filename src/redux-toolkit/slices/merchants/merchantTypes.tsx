@@ -42,10 +42,16 @@ export interface ApiResponse<T> {
   message?: string;
   status?: string;
 }
+
+export interface MerchantCodes {
+  value: string;
+  label: string;
+}
 export interface MerchantState {
   token: string | null;
   isAuthenticated: boolean;
   merchants: Merchant[];
+  merchantCodes: MerchantCodes[];
   loading: boolean;
   error: string | null;
 }

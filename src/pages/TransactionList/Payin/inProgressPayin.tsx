@@ -9,7 +9,7 @@ import Button from '@/components/Base/Button';
 import CustomTable from '../../../components/TableComponent/CommonTable';
 import { FormInput, FormSelect } from '@/components/Base/Form';
 import { Columns, Status } from '@/constants';
-import { getAllPayInData } from '@/redux-toolkit/slices/payin/payinSelectors';
+import { getAllPayInData, getRefreshPayIn } from '@/redux-toolkit/slices/payin/payinSelectors';
 import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 import { getPaginationData } from '@/redux-toolkit/slices/common/params/paramsSelector';
 import Notification, {
@@ -17,7 +17,7 @@ import Notification, {
 } from '@/components/Base/Notification';
 import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
 import { getAllPayIns } from '@/redux-toolkit/slices/payin/payinAPI';
-import { getPayIns, onload } from '@/redux-toolkit/slices/payin/payinSlice';
+import { getPayIns, onload, setRefreshPayIn } from '@/redux-toolkit/slices/payin/payinSlice';
 
 interface PayInProps {
   setStatus?: React.Dispatch<React.SetStateAction<string>>;
@@ -37,31 +37,35 @@ const InProgressPayIn: React.FC<PayInProps> = () => {
     basicNonStickyNotification.current?.showToast();
   };
   const dispatch = useAppDispatch();
+  const refreshPayIn = useAppSelector(getRefreshPayIn);
 
   useEffect(() => {
     getPayInData();
   }, [JSON.stringify(params)]);
 
+  useEffect(() => {
+    if (refreshPayIn) {
+      getPayInData();
+      dispatch(setRefreshPayIn(false));
+    }
+  }, [refreshPayIn, dispatch]);
+
   const getPayInData = useCallback(async () => {
+    const newParams = { ...params };
+    newParams.status = Status.ASSIGNED;
     const queryString = new URLSearchParams(
-      params as Record<string, string>,
+      newParams as Record<string, string>,
     ).toString();
     dispatch(onload());
     const payins = await getAllPayIns(queryString);
     if (payins?.data) {
-      const payload = {
-        payin: payins?.data?.rows,
-        totalCount: payins?.data?.totalCount,
-        loading: false,
-        error: null,
-      };
-      dispatch(getPayIns(payload));
+      dispatch(getPayIns(payins?.data));
     } else {
       setNotificationStatus(Status.ERROR);
       setNotificationMessage('No PayIns Found!');
       basicNonStickyNotificationToggle();
     }
-  }, [dispatch]);
+  }, [dispatch, params]);
   const payins = useAppSelector(getAllPayInData);
 
   return (

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { Tab } from '@/components/Base/Headless';
 import PayInComponent from './Payin/payin';
@@ -5,53 +6,67 @@ import PayOut from './Payout/payout';
 import Modal from '@/components/Modal/modals';
 import Lucide from '@/components/Base/Lucide';
 import { useState, useRef } from 'react';
-import ModalPopUp from '../ModalPopUp';
 import Notification, {
   NotificationElement,
 } from '@/components/Base/Notification';
-import { updatePayIns } from '@/redux-toolkit/slices/payin/payinAPI';
-import { formFields, Status } from '@/constants';
+import { createPayIn } from '@/redux-toolkit/slices/payin/payinAPI';
+import { getTransactionFormFields, Status } from '@/constants';
 import { useAppDispatch } from '@/redux-toolkit/hooks/useAppDispatch';
 import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 import { getParentTabs } from '@/redux-toolkit/slices/common/tabs/tabSelectors';
 import { setParentTab } from '@/redux-toolkit/slices/common/tabs/tabSlice';
 import DynamicForm from '@/components/CommonForm';
+import { onload as payInLoader, setRefreshPayIn } from '@/redux-toolkit/slices/payin/payinSlice';
+import { onload as payOutLoader, setRefreshPayOut } from '@/redux-toolkit/slices/payout/payoutSlice';
+import { createPayOut } from '@/redux-toolkit/slices/payout/payoutAPI';
 
 function Main() {
   const dispatch = useAppDispatch();
   const parentTab = useAppSelector(getParentTabs); // Get parent tab from Redux
   const [newTransactionModal, setNewTransactionModal] = useState(false);
   const [title, setTitle] = useState(parentTab === 0 ? 'PayIns' : 'PayOuts');
-  const [status, setStatus] = useState<string>('');
-  const [id, setId] = useState<string>('');
   const [notificationMessage, setNotificationMessage] = useState('');
   const [notificationStatus, setNotificationStatus] = useState('');
-  const [modalData, setModalData] = useState<{ open: boolean; type: string }>({
-    open: false,
-    type: '',
-  });
+  const merchants = [
+    { value: '', label: 'Select Merchant' },
+    { value: 'ljjuyr', label: 'ljjuyr' },
+    { value: '2', label: 'Merchant Two' },
+    { value: '3', label: 'Merchant Three' },
+  ];
 
   const notificationRef = useRef<NotificationElement>();
-  const resetRef = useRef<null>(null);
-  // const transactionRef = useRef(null);
 
-  // const toggleModal = () => setNewTransactionModal((prev) => !prev);
-  const closeModal = () => setModalData({ open: false, type: '' });
+  const handleCreate = async (data: any) => {
+    let res;
+    // const apiData = data
+    //   data.status === Status.BANK_MISMATCH
+    //     ? { type: 'PAYIN', ...data }
+    //     : { ...data };
+    // const url =
+    //   data.status === Status.BANK_MISMATCH
+    //     ? `/update-deposit-status/${data.id}`
+    //     : `/dispute-duplicate/${data.id}`;
+    if (title === 'PayIns') {
+      const queryString = new URLSearchParams(
+        data as Record<string, string>,
+      ).toString();
+      dispatch(payInLoader());
+      res = await createPayIn(queryString);
+    } else {
+      const api_key = '23e3223e32we'
+      dispatch(payOutLoader());
+      res = await createPayOut(data, api_key);
+    }
 
-  const handleSubmit = async (data: Record<string, string>) => {
-    const apiData =
-      status === Status.BANK_MISMATCH
-        ? { type: 'PAYIN', ...data }
-        : { ...data };
-    const url =
-      status === Status.BANK_MISMATCH
-        ? `/update-deposit-status/${id}`
-        : `/dispute-duplicate/${id}`;
-    const res = await updatePayIns(url, apiData);
-
-    if (res?.data?.data?.message) {
-      setNotificationMessage(res.data.data.message);
+    if (res.meta.message) {
+      setNotificationMessage(res.meta.message);
       setNotificationStatus(Status.SUCCESS);
+      transactionModal();
+      if (title === 'PayIns') {
+        dispatch(setRefreshPayIn(true));
+      } else {
+        dispatch(setRefreshPayOut(true));
+      }
     } else {
       setNotificationMessage(res?.data?.error?.message || 'An error occurred');
       setNotificationStatus(Status.ERROR);
@@ -73,20 +88,24 @@ function Main() {
     <>
       <div className="flex flex-col h-10 w-full px-2">
         <div className="flex justify-between items-center">
-          <div className="text-xl font-medium">Transactions</div>
-            <Modal
-              handleModal={transactionModal}
-              forOpen={newTransactionModal}
-              title={title}
-            >
+          <div className="text-xl font-medium">{title}</div>
+          <Modal
+            handleModal={transactionModal}
+            forOpen={newTransactionModal}
+            title={`Add ${title}`}
+          >
             <DynamicForm
-            sections={title === 'PayIns' ? formFields.PAYIN : formFields.PAYOUT}
-            onSubmit={handleSubmit}
-            defaultValues={{}}
-            isEditMode={false}
-            handleCancel={transactionModal}
-          />
-            </Modal>
+              sections={
+                title === 'PayIns'
+                  ? getTransactionFormFields(merchants).PAYIN
+                  : getTransactionFormFields(merchants).PAYOUT
+              }
+              onSubmit={handleCreate}
+              defaultValues={{}}
+              isEditMode={false}
+              handleCancel={transactionModal}
+            />
+          </Modal>
         </div>
       </div>
       <div className="grid grid-cols-12 gap-6 mt-2">
@@ -118,7 +137,7 @@ function Main() {
               </Tab.List>
               <Tab.Panels className="border-b border-l border-r">
                 <Tab.Panel className="p-5">
-                  <PayInComponent setStatus={setStatus} setId={setId} />
+                  <PayInComponent />
                 </Tab.Panel>
                 <Tab.Panel className="p-5">
                   <PayOut />
@@ -129,7 +148,7 @@ function Main() {
         </div>
       </div>
 
-      {modalData.open && (
+      {/* {modalData.open && (
         <ModalPopUp
           open={true}
           onClose={closeModal}
@@ -194,7 +213,7 @@ function Main() {
           onReset={closeModal}
           resetRef={resetRef}
         />
-      )}
+      )} */}
 
       {notificationMessage && (
         <div className="text-center">

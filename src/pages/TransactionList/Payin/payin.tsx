@@ -12,12 +12,7 @@ import { useAppSelector } from '@/redux-toolkit/hooks/useAppSelector';
 import { setActiveTab } from '@/redux-toolkit/slices/common/tabs/tabSlice';
 import { getTabs } from '@/redux-toolkit/slices/common/tabs/tabSelectors';
 
-interface PayInProps {
-  setStatus: React.Dispatch<React.SetStateAction<string>>;
-  setId: React.Dispatch<React.SetStateAction<string>>;
-}
-
-const PayInComponent: React.FC<PayInProps> = () => {
+const PayInComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const activeTab = useAppSelector(getTabs);
 
